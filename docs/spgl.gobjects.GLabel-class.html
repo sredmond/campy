@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spgl.gobjects.GLabel</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spgl-module.html">Package&nbsp;spgl</a> ::
+        <a href="spgl.gobjects-module.html">Module&nbsp;gobjects</a> ::
+        Class&nbsp;GLabel
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spgl.gobjects.GLabel-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class GLabel</h1><p class="nomargin-top"><span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+<a href="spgl.gobjects.GObject-class.html">GObject</a> --+
+          |
+         <strong class="uidshort">GLabel</strong>
+</pre>
+
+<hr />
+<p>This graphical object subclass represents a text string.  For example,
+  the following code adds a GLabel containing the string &quot;hello, 
+  world&quot; to the center of the window:</p>
+<pre class="literalblock">
+       gw = gwindow.GWindow()
+       print &quot;This program draws the 'hello, world' message.&quot;
+       label = gobjects.GLabel(&quot;hello, world&quot;)
+       label.setFont(&quot;SansSerif-18&quot;)
+       x = (gw.getWidth() - label.getWidth()) / 2
+       y = (gw.getHeight() + label.getFontAscent()) / 2
+       gw.add(label, x, y)
+</pre>
+  <p>Controlling the appearance and positioning of a GLabel depends on 
+  understanding the following terms:</p>
+  <ul>
+    <li>
+      The baseline is the horizontal line on which the characters rest.
+    </li>
+    <li>
+      The origin is the point on the baseline at which the label begins.
+    </li>
+    <li>
+      The height is the distance that separate two successive lines.
+    </li>
+    <li>
+      The ascent is the maximum distance a character in this font extends 
+      above the baseline.
+    </li>
+    <li>
+      The descent is the maximum distance a character in this font extends 
+      below the baseline.
+    </li>
+  </ul>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GLabel-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">str</span>,
+        <span class="summary-sig-arg">x</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">y</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Initializes a GLabel object containing the specified string.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GLabel-class.html#setFont" class="summary-sig-name">setFont</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">font</span>)</span><br />
+      Changes the font used to display the GLabel as specified by the 
+      string font, which has the following format:</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.setFont">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getFont"></a><span class="summary-sig-name">getFont</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the current font for the GLabel.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getFont">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GLabel-class.html#setLabel" class="summary-sig-name">setLabel</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">str</span>)</span><br />
+      Changes the string stored within the GLabel object, so that a new 
+      text string appears on the display.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.setLabel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getLabel"></a><span class="summary-sig-name">getLabel</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the string displayed by this object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getLabel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getFontAscent"></a><span class="summary-sig-name">getFontAscent</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the maximum distance strings in this font extend above the 
+      baseline.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getFontAscent">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getFontDescent"></a><span class="summary-sig-name">getFontDescent</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the maximum distance strings in this font descend below the 
+      baseline.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getFontDescent">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">GRectangle</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GLabel-class.html#getBounds" class="summary-sig-name">getBounds</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the bounding rectangle for this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getBounds">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GLabel-class.html#getType" class="summary-sig-name">getType</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the type of this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getType">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GLabel-class.html#toString" class="summary-sig-name">toString</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the string form of this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.toString">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="spgl.gobjects.GObject-class.html">GObject</a></code></b>:
+      <code><a href="spgl.gobjects.GObject-class.html#contains">contains</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getColor">getColor</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getHeight">getHeight</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getLineWidth">getLineWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getLocation">getLocation</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getParent">getParent</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getSize">getSize</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getWidth">getWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getX">getX</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getY">getY</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#isVisible">isVisible</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#move">move</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#rotate">rotate</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#scale">scale</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendBackward">sendBackward</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendForward">sendForward</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendToBack">sendToBack</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendToFront">sendToFront</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setColor">setColor</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setLineWidth">setLineWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setLocation">setLocation</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setVisible">setVisible</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">str</span>,
+        <span class="sig-arg">x</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">y</span>=<span class="sig-default">0</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initializes a GLabel object containing the specified string. By 
+  default, the baseline of the first character appears at the origin; the 
+  second form automatically resets the location of the GLabel to the point 
+  (x, y).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>y</code></strong> (float)</li>
+        <li><strong class="pname"><code>x</code></strong> (float)</li>
+        <li><strong class="pname"><code>str</code></strong> (string)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#__init__">GObject.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setFont"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setFont</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">font</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.setFont">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Changes the font used to display the GLabel as specified by the string
+  font, which has the following format:</p>
+  <p>family-style-size</p>
+  <p>where both style and size are optional. If any of these elements are 
+  missing or specified as an asterisk, the existing value is retained.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>font</code></strong> (string)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setLabel"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setLabel</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">str</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.setLabel">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Changes the string stored within the GLabel object, so that a new text
+  string appears on the display.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>str</code></strong> (string)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getBounds"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getBounds</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getBounds">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the bounding rectangle for this object</p>
+  <dl class="fields">
+    <dt>Returns: GRectangle</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#getBounds">GObject.getBounds</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getType"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getType</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.getType">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the type of this object</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#getType">GObject.getType</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="toString"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">toString</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GLabel.toString">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the string form of this object</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#toString">GObject.toString</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri May 10 02:58:16 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

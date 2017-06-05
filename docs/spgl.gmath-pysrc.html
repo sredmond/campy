@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spgl.gmath</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spgl-module.html">Package&nbsp;spgl</a> ::
+        Module&nbsp;gmath
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spgl.gmath-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="spgl.gmath-module.html">Module spgl.gmath</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">This file exports several functions for working with graphical gemoetry along with</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">the mathematical constants PI and E</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">math</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module spgl.gtypes=spgl.gtypes-module.html"><a title="spgl.gtypes" class="py-name" href="#" onclick="return doclink('link-0', 'gtypes', 'link-0');">gtypes</a></tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt id="link-1" class="py-name" targets="Variable spgl.gmath.PI=spgl.gmath-module.html#PI"><a title="spgl.gmath.PI" class="py-name" href="#" onclick="return doclink('link-1', 'PI', 'link-1');">PI</a></tt> <tt class="py-op">=</tt> <tt class="py-number">3.14159265358979323846</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-string">The mathematical constant pi, which is the ratio of the circumference of a circle to </tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-string">its diameter</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt id="link-2" class="py-name" targets="Variable spgl.gmath.E=spgl.gmath-module.html#E"><a title="spgl.gmath.E" class="py-name" href="#" onclick="return doclink('link-2', 'E', 'link-2');">E</a></tt> <tt class="py-op">=</tt> <tt class="py-number">2.71828182845904523536</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-string">The mathematical constant e, which is the base of the natural logarithm</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-string">'''</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"> </tt>
+<a name="toDegrees"></a><div id="toDegrees-def"><a name="L19"></a><tt class="py-lineno"> 19</tt> <a class="py-toggle" href="#" id="toDegrees-toggle" onclick="return toggle('toDegrees');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.gmath-module.html#toDegrees">toDegrees</a><tt class="py-op">(</tt><tt class="py-param">radians</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="toDegrees-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="toDegrees-expanded"><a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">        Converts an angle from radians to degrees.</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-docstring">        @type radians: float</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-docstring">        @param radians: radians</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: float</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"><tt class="py-docstring">        @return: degrees</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">radians</tt> <tt class="py-op">*</tt> <tt class="py-number">180</tt> <tt class="py-op">/</tt> <tt id="link-3" class="py-name"><a title="spgl.gmath.PI" class="py-name" href="#" onclick="return doclink('link-3', 'PI', 'link-1');">PI</a></tt> </tt>
+</div><a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="toRadians"></a><div id="toRadians-def"><a name="L30"></a><tt class="py-lineno"> 30</tt> <a class="py-toggle" href="#" id="toRadians-toggle" onclick="return toggle('toRadians');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.gmath-module.html#toRadians">toRadians</a><tt class="py-op">(</tt><tt class="py-param">degrees</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+</div><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-docstring">        Converts an angle from degrees to radians.</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-docstring">        @type degrees: float</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-docstring">        @param degrees: degrees</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: float</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-docstring">        @return: radians</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">degrees</tt> <tt class="py-op">*</tt> <tt id="link-4" class="py-name"><a title="spgl.gmath.PI" class="py-name" href="#" onclick="return doclink('link-4', 'PI', 'link-1');">PI</a></tt> <tt class="py-op">/</tt> <tt class="py-number">180</tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="sinDegrees"></a><div id="sinDegrees-def"><a name="L41"></a><tt class="py-lineno"> 41</tt> <a class="py-toggle" href="#" id="sinDegrees-toggle" onclick="return toggle('sinDegrees');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.gmath-module.html#sinDegrees">sinDegrees</a><tt class="py-op">(</tt><tt class="py-param">angle</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+</div><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the trigonometric sine of angle, which is expressed in degrees</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-docstring">        @type angle: float</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-docstring">        @param angle: degrees</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: float</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">sin</tt><tt class="py-op">(</tt><tt id="link-5" class="py-name" targets="Function spgl.gmath.toRadians()=spgl.gmath-module.html#toRadians"><a title="spgl.gmath.toRadians" class="py-name" href="#" onclick="return doclink('link-5', 'toRadians', 'link-5');">toRadians</a></tt><tt class="py-op">(</tt><tt class="py-name">angle</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"> </tt>
+<a name="cosDegrees"></a><div id="cosDegrees-def"><a name="L51"></a><tt class="py-lineno"> 51</tt> <a class="py-toggle" href="#" id="cosDegrees-toggle" onclick="return toggle('cosDegrees');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.gmath-module.html#cosDegrees">cosDegrees</a><tt class="py-op">(</tt><tt class="py-param">angle</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+</div><a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the trigonometric cosine of angle, which is expressed in degrees</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line"><tt class="py-docstring">        @type angle: float</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">        @param angle: degrees</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: float</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">cos</tt><tt class="py-op">(</tt><tt id="link-6" class="py-name"><a title="spgl.gmath.toRadians" class="py-name" href="#" onclick="return doclink('link-6', 'toRadians', 'link-5');">toRadians</a></tt><tt class="py-op">(</tt><tt class="py-name">angle</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="tanDegrees"></a><div id="tanDegrees-def"><a name="L61"></a><tt class="py-lineno"> 61</tt> <a class="py-toggle" href="#" id="tanDegrees-toggle" onclick="return toggle('tanDegrees');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.gmath-module.html#tanDegrees">tanDegrees</a><tt class="py-op">(</tt><tt class="py-param">angle</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="tanDegrees-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="tanDegrees-expanded"><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the trigonometric tangent of angle, which is expressed in degrees</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">        @type angle: float</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">        @param angle: degrees</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: float</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">tan</tt><tt class="py-op">(</tt><tt id="link-7" class="py-name"><a title="spgl.gmath.toRadians" class="py-name" href="#" onclick="return doclink('link-7', 'toRadians', 'link-5');">toRadians</a></tt><tt class="py-op">(</tt><tt class="py-name">angle</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="vectorDistance"></a><div id="vectorDistance-def"><a name="L71"></a><tt class="py-lineno"> 71</tt> <a class="py-toggle" href="#" id="vectorDistance-toggle" onclick="return toggle('vectorDistance');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.gmath-module.html#vectorDistance">vectorDistance</a><tt class="py-op">(</tt><tt class="py-param">pt</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">x</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">y</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+</div><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"><tt class="py-docstring">        Computes the distance between the origin and the specified point.</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"><tt class="py-docstring">        @type pt: GPoint</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line"><tt class="py-docstring">        @param pt: GPoint to compute distance to, will override x and y parameters</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"><tt class="py-docstring">        @type x: float</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line"><tt class="py-docstring">        @param x: x value of point</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"><tt class="py-docstring">        @type y: float</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"><tt class="py-docstring">        @param y: y value of point</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: float</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">pt</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                <tt class="py-name">x</tt> <tt class="py-op">=</tt> <tt class="py-name">pt</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method spgl.gevents.GMouseEvent.getX()=spgl.gevents.GMouseEvent-class.html#getX,Method spgl.gobjects.GObject.getX()=spgl.gobjects.GObject-class.html#getX,Method spgl.gtypes.GPoint.getX()=spgl.gtypes.GPoint-class.html#getX,Method spgl.gtypes.GRectangle.getX()=spgl.gtypes.GRectangle-class.html#getX"><a title="spgl.gevents.GMouseEvent.getX
+spgl.gobjects.GObject.getX
+spgl.gtypes.GPoint.getX
+spgl.gtypes.GRectangle.getX" class="py-name" href="#" onclick="return doclink('link-8', 'getX', 'link-8');">getX</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                <tt class="py-name">y</tt> <tt class="py-op">=</tt> <tt class="py-name">pt</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name" targets="Method spgl.gevents.GMouseEvent.getY()=spgl.gevents.GMouseEvent-class.html#getY,Method spgl.gobjects.GObject.getY()=spgl.gobjects.GObject-class.html#getY,Method spgl.gtypes.GPoint.getY()=spgl.gtypes.GPoint-class.html#getY,Method spgl.gtypes.GRectangle.getY()=spgl.gtypes.GRectangle-class.html#getY"><a title="spgl.gevents.GMouseEvent.getY
+spgl.gobjects.GObject.getY
+spgl.gtypes.GPoint.getY
+spgl.gtypes.GRectangle.getY" class="py-name" href="#" onclick="return doclink('link-9', 'getY', 'link-9');">getY</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">sqrt</tt><tt class="py-op">(</tt><tt class="py-name">x</tt> <tt class="py-op">*</tt> <tt class="py-name">x</tt> <tt class="py-op">+</tt> <tt class="py-name">y</tt> <tt class="py-op">*</tt> <tt class="py-name">y</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"> </tt>
+<a name="vectorAngle"></a><div id="vectorAngle-def"><a name="L88"></a><tt class="py-lineno"> 88</tt> <a class="py-toggle" href="#" id="vectorAngle-toggle" onclick="return toggle('vectorAngle');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.gmath-module.html#vectorAngle">vectorAngle</a><tt class="py-op">(</tt><tt class="py-param">pt</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">x</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-param">y</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+</div><a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the angle in degrees from the origin to the specified point. This </tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring">        functoin takes account of the fact that the graphics coordinate system is flipped</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-docstring">        in the y direction from the traditional Cartesian plane.</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-docstring">        @type pt: GPoint</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring">        @param pt: GPoint to angle to, will override x and y parameters</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring">        @type x: float</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">        @param x: x value of point</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-docstring">        @type y: float</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">        @param y: y value of point</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: float</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"><tt class="py-docstring">        @return: degrees</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">pt</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                <tt class="py-name">x</tt> <tt class="py-op">=</tt> <tt class="py-name">pt</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="spgl.gevents.GMouseEvent.getX
+spgl.gobjects.GObject.getX
+spgl.gtypes.GPoint.getX
+spgl.gtypes.GRectangle.getX" class="py-name" href="#" onclick="return doclink('link-10', 'getX', 'link-8');">getX</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                <tt class="py-name">y</tt> <tt class="py-op">=</tt> <tt class="py-name">pt</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="spgl.gevents.GMouseEvent.getY
+spgl.gobjects.GObject.getY
+spgl.gtypes.GPoint.getY
+spgl.gtypes.GRectangle.getY" class="py-name" href="#" onclick="return doclink('link-11', 'getY', 'link-9');">getY</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">x</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt> <tt class="py-keyword">and</tt> <tt class="py-name">y</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-number">0</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-12" class="py-name" targets="Function spgl.gmath.toDegrees()=spgl.gmath-module.html#toDegrees"><a title="spgl.gmath.toDegrees" class="py-name" href="#" onclick="return doclink('link-12', 'toDegrees', 'link-12');">toDegrees</a></tt><tt class="py-op">(</tt><tt class="py-name">math</tt><tt class="py-op">.</tt><tt class="py-name">atan2</tt><tt class="py-op">(</tt><tt class="py-op">-</tt><tt class="py-name">y</tt><tt class="py-op">,</tt> <tt class="py-name">x</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri May 10 02:58:17 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spgl.gobjects.GArc</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spgl-module.html">Package&nbsp;spgl</a> ::
+        <a href="spgl.gobjects-module.html">Module&nbsp;gobjects</a> ::
+        Class&nbsp;GArc
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spgl.gobjects.GArc-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class GArc</h1><p class="nomargin-top"><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+<a href="spgl.gobjects.GObject-class.html">GObject</a> --+
+          |
+         <strong class="uidshort">GArc</strong>
+</pre>
+
+<hr />
+<p>This graphical object subclass represents an elliptical arc.  The arc 
+  is specified by the following parameters:</p>
+<pre class="literalblock">
+       - The coordinates of the bounding rectangle (x, y, width, height)
+       - The angle at which the arc starts (start)
+       - The number of degrees that the arc covers (sweep)
+</pre>
+  <p>All angles in a GArc description are measured in degrees moving 
+  counterclockwise from the +x axis.  Negative values for either start or 
+  sweep indicate motion in a clockwise direction.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">width</span>,
+        <span class="summary-sig-arg">height</span>,
+        <span class="summary-sig-arg">start</span>,
+        <span class="summary-sig-arg">sweep</span>,
+        <span class="summary-sig-arg">x</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">y</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Initializes a new GArc object consisting of an elliptical arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#setStartAngle" class="summary-sig-name">setStartAngle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">start</span>)</span><br />
+      Sets the starting angle for this GArc object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setStartAngle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#getStartAngle" class="summary-sig-name">getStartAngle</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the starting angle for this GArc object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getStartAngle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#setSweepAngle" class="summary-sig-name">setSweepAngle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">sweep</span>)</span><br />
+      Sets the sweep angle for this GArc object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setSweepAngle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">float</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#getSweepAngle" class="summary-sig-name">getSweepAngle</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the sweep angle for this GArc object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getSweepAngle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">GPoint</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getStartPoint"></a><span class="summary-sig-name">getStartPoint</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the point at which the arc starts.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getStartPoint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">GPoint</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getEndPoint"></a><span class="summary-sig-name">getEndPoint</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the point at which the arc ends.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getEndPoint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#setFrameRectangle" class="summary-sig-name">setFrameRectangle</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">x</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">y</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">width</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">height</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rect</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Changes the boundaries of the rectangle used to frame the arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setFrameRectangle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">GRectangle</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getFrameRectangle"></a><span class="summary-sig-name">getFrameRectangle</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the boundaries of the rectangle used to frame the arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getFrameRectangle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#setFilled" class="summary-sig-name">setFilled</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">flag</span>)</span><br />
+      Sets the fill status for the arc, where false is outlined and true is
+      filled.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setFilled">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">boolean</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getFilled"></a><span class="summary-sig-name">getFilled</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns true if the arc is filled.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getFilled">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#setFillColor" class="summary-sig-name">setFillColor</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">color</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">rgb</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Sets the color used to display the filled region of this arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setFillColor">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#getFillColor" class="summary-sig-name">getFillColor</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the color used to display the filled region of this arc.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getFillColor">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">GRectangle</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#getBounds" class="summary-sig-name">getBounds</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Gets the bounding rectangle for this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getBounds">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">boolean</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#contains" class="summary-sig-name">contains</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">x</span>,
+        <span class="summary-sig-arg">y</span>)</span><br />
+      Returns whether or not this object contains the point x, y</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.contains">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#getType" class="summary-sig-name">getType</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the type of this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getType">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GArc-class.html#toString" class="summary-sig-name">toString</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the string form of this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.toString">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getArcPoint"></a><span class="summary-sig-name">getArcPoint</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">theta</span>)</span><br />
+      Internal method</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getArcPoint">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="containsAngle"></a><span class="summary-sig-name">containsAngle</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">theta</span>)</span><br />
+      Internal method</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.containsAngle">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="spgl.gobjects.GObject-class.html">GObject</a></code></b>:
+      <code><a href="spgl.gobjects.GObject-class.html#getColor">getColor</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getHeight">getHeight</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getLineWidth">getLineWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getLocation">getLocation</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getParent">getParent</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getSize">getSize</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getWidth">getWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getX">getX</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getY">getY</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#isVisible">isVisible</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#move">move</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#rotate">rotate</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#scale">scale</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendBackward">sendBackward</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendForward">sendForward</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendToBack">sendToBack</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendToFront">sendToFront</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setColor">setColor</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setLineWidth">setLineWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setLocation">setLocation</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setVisible">setVisible</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">width</span>,
+        <span class="sig-arg">height</span>,
+        <span class="sig-arg">start</span>,
+        <span class="sig-arg">sweep</span>,
+        <span class="sig-arg">x</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">y</span>=<span class="sig-default">0</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initializes a new GArc object consisting of an elliptical arc. The 
+  first form creates a GArc whose origin is the point (0, 0); the second 
+  form positions the GArc at the point (x, y).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>start</code></strong> (float) - degrees</li>
+        <li><strong class="pname"><code>sweep</code></strong> (float) - degrees</li>
+        <li><strong class="pname"><code>height</code></strong> (float)</li>
+        <li><strong class="pname"><code>width</code></strong> (float)</li>
+        <li><strong class="pname"><code>y</code></strong> (float)</li>
+        <li><strong class="pname"><code>x</code></strong> (float)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#__init__">GObject.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setStartAngle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setStartAngle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">start</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setStartAngle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Sets the starting angle for this GArc object.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>start</code></strong> (float) - degrees</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getStartAngle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getStartAngle</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getStartAngle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the starting angle for this GArc object.</p>
+  <dl class="fields">
+    <dt>Returns: float</dt>
+        <dd>degrees</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setSweepAngle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setSweepAngle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">sweep</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setSweepAngle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Sets the sweep angle for this GArc object.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>sweep</code></strong> (float) - degrees</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getSweepAngle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getSweepAngle</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getSweepAngle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the sweep angle for this GArc object.</p>
+  <dl class="fields">
+    <dt>Returns: float</dt>
+        <dd>degrees</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setFrameRectangle"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setFrameRectangle</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">x</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">y</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">width</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">height</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rect</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setFrameRectangle">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Changes the boundaries of the rectangle used to frame the arc.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>rect</code></strong> (GRectangle) - bounding frame, will override other parameters</li>
+        <li><strong class="pname"><code>y</code></strong> (float)</li>
+        <li><strong class="pname"><code>x</code></strong> (float)</li>
+        <li><strong class="pname"><code>height</code></strong> (float)</li>
+        <li><strong class="pname"><code>width</code></strong> (float)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setFilled"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setFilled</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">flag</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setFilled">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Sets the fill status for the arc, where false is outlined and true is 
+  filled.  If a GArc is unfilled, the figure consists only of the arc 
+  itself.  If a GArc is filled, the figure consists of the pie-shaped wedge
+  formed by connecting the endpoints of the arc to the center.  As an 
+  example, the following program draws a 270-degree arc starting at 45 
+  degrees, filled in yellow, much like the character in the PacMan video 
+  game:</p>
+<pre class="literalblock">
+       gw = gwindow.GWindow()
+       print &quot;This program draws the PacMan character.&quot;
+       cx = gw.getWidth() / 2
+       cy = gw.getHeight() / 2
+       r = 25
+       pacman = gobjects.GArc(cx - r, cy - r, 2*r, 2*r, 45, 270)
+       pacman.setFilled(True)
+       pacman.setFillColor(&quot;YELLOW&quot;)
+       gw.add(pacman)
+</pre>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>flag</code></strong> (boolean)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="setFillColor"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setFillColor</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">color</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">rgb</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.setFillColor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Sets the color used to display the filled region of this arc. Colors 
+  are specified as strings as described in the notes for the setColor 
+  method.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>color</code></strong> (string) - will override rgb</li>
+        <li><strong class="pname"><code>rgb</code></strong> (int)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getFillColor"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getFillColor</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getFillColor">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the color used to display the filled region of this arc.  If 
+  none has been set, getFillColor returns the empty string.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getBounds"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getBounds</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getBounds">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Gets the bounding rectangle for this object</p>
+  <dl class="fields">
+    <dt>Returns: GRectangle</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#getBounds">GObject.getBounds</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="contains"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">contains</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">x</span>,
+        <span class="sig-arg">y</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.contains">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns whether or not this object contains the point x, y</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>pt</code></strong> - point to check, will override x and y</li>
+        <li><strong class="pname"><code>y</code></strong> (float)</li>
+        <li><strong class="pname"><code>x</code></strong> (float)</li>
+    </ul></dd>
+    <dt>Returns: boolean</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#contains">GObject.contains</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getType"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getType</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.getType">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the type of this object</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#getType">GObject.getType</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="toString"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">toString</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GArc.toString">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the string form of this object</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#toString">GObject.toString</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri May 10 02:58:16 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+NOTES:
+
+in CPP version gwindow.getScreenHeight uses the width of screen not height
+
+in CPP version platform.setValue the string command is getValue not setValue

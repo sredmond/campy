@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spgl.gevents.GKeyEvent</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spgl-module.html">Package&nbsp;spgl</a> ::
+        <a href="spgl.gevents-module.html">Module&nbsp;gevents</a> ::
+        Class&nbsp;GKeyEvent
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spgl.gevents.GKeyEvent-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class GKeyEvent</h1><p class="nomargin-top"><span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+<a href="spgl.gevents.GEvent-class.html">GEvent</a> --+
+         |
+        <strong class="uidshort">GKeyEvent</strong>
+</pre>
+
+<hr />
+<p>This event subclass represents a key event.  Each key event records 
+  the event type along with two representations of the key.  The getKeyChar
+  function is more generally useful and returns the character after taking 
+  into account modifier keys. The getKeyCode function returns an integer 
+  identifying the key, which can be a function key as well as a standard 
+  key. The codes return by getKeyCode are listed in the KeyCodes 
+  enumeration.</p>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gevents.GKeyEvent-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">type</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">gw</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">keyChar</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">keyCode</span>=<span class="summary-sig-default">None</span>)</span><br />
+      Creates a GKeyEvent using the specified parameters.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">GWindow</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getGWindow"></a><span class="summary-sig-name">getGWindow</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the graphics window in which this event occurred.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.getGWindow">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">int</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gevents.GKeyEvent-class.html#getKeyChar" class="summary-sig-name">getKeyChar</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the character represented by the keystroke, taking the 
+      modifier keys into account.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.getKeyChar">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">KeyCodes</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getKeyCode"></a><span class="summary-sig-name">getKeyCode</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the integer code associated with the key in the event.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.getKeyCode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gevents.GKeyEvent-class.html#toString" class="summary-sig-name">toString</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Converts the event to a human-readable representation of the event.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.toString">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="spgl.gevents.GEvent-class.html">GEvent</a></code></b>:
+      <code><a href="spgl.gevents.GEvent-class.html#getEventClass">getEventClass</a></code>,
+      <code><a href="spgl.gevents.GEvent-class.html#getEventTime">getEventTime</a></code>,
+      <code><a href="spgl.gevents.GEvent-class.html#getEventType">getEventType</a></code>,
+      <code><a href="spgl.gevents.GEvent-class.html#getModifiers">getModifiers</a></code>,
+      <code><a href="spgl.gevents.GEvent-class.html#isValid">isValid</a></code>,
+      <code><a href="spgl.gevents.GEvent-class.html#setEventTime">setEventTime</a></code>,
+      <code><a href="spgl.gevents.GEvent-class.html#setModifiers">setModifiers</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">type</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">gw</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">keyChar</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">keyCode</span>=<span class="sig-default">None</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Creates a GKeyEvent using the specified parameters.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>type</code></strong> (EventType) - type of event</li>
+        <li><strong class="pname"><code>gw</code></strong> (GWindow) - window event takes place in</li>
+        <li><strong class="pname"><code>keyChar</code></strong> (int) - value of key</li>
+        <li><strong class="pname"><code>keyCode</code></strong> (KeyCodes) - code of key</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+    <dt>Overrides:
+        <a href="spgl.gevents.GEvent-class.html#__init__">GEvent.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getKeyChar"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getKeyChar</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.getKeyChar">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the character represented by the keystroke, taking the 
+  modifier keys into account.  For example, if the user types the 'a' key 
+  with the shift key down, getKeyChar will return 'A'.  If the key code in 
+  the event does not correspond to a character, getKeyChar returns the null
+  character.</p>
+  <dl class="fields">
+    <dt>Returns: int</dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="toString"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">toString</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gevents-pysrc.html#GKeyEvent.toString">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Converts the event to a human-readable representation of the 
+  event.</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+    <dt>Overrides:
+        <a href="spgl.gevents.GEvent-class.html#toString">GEvent.toString</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri May 10 02:58:16 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

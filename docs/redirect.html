@@ -1,0 +1,38 @@
+<html><head><title>Epydoc Redirect Page</title>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="pragma" content="no-cache" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+<!--
+var pages = ["spgl.ginteractors.GInteractor-c", "spgl.ginteractors.GTextField-c", "spgl.ginteractors.GCheckBox-c", "spgl.ginteractors.GChooser-c", "spgl.gevents.GActionEvent-c", "spgl.gevents.GWindowEvent-c", "spgl.ginteractors.GButton-c", "spgl.ginteractors.GSlider-c", "spgl.gevents.GMouseEvent-c", "spgl.gevents.GTimerEvent-c", "spgl.gobjects.GRoundRect-c", "spgl.gwindow.GWindowData-c", "spgl.gobjects.GCompound-c", "spgl.gevents.GKeyEvent-c", "spgl.gobjects.GPolygon-c", "spgl.gtimer.GTimerData-c", "spgl.gtypes.GDimension-c", "spgl.gtypes.GRectangle-c", "spgl.platform.Platform-c", "spgl.gobjects.G3DRect-c", "spgl.gobjects.GObject-c", "spgl.gobjects.GImage-c", "spgl.gobjects.GLabel-c", "spgl.gwindow.GWindow-c", "spgl.gevents.GEvent-c", "spgl.gobjects.GLine-c", "spgl.gobjects.GOval-c", "spgl.gobjects.GRect-c", "spgl.gobjects.GArc-c", "spgl.gsounds.Sound-c", "spgl.gtimer.GTimer-c", "spgl.gtypes.GPoint-c", "spgl.ginteractors-m", "spgl.direction-m", "spgl.gobjects-m", "spgl.platform-m", "spgl.console-m", "spgl.filelib-m", "spgl.gevents-m", "spgl.grandom-m", "spgl.gsounds-m", "spgl.gwindow-m", "spgl.gtimer-m", "spgl.gtypes-m", "spgl.strlib-m", "spgl.gmath-m", "spgl.enum-m", "spgl-m"];
+var dottedName = get_anchor();
+if (dottedName) {
+    var target = redirect_url(dottedName);
+    if (target) window.location.replace(target);
+}
+// -->
+</script>
+
+<h3>Epydoc Auto-redirect page</h3>
+
+<p>When javascript is enabled, this page will redirect URLs of
+the form <tt>redirect.html#<i>dotted.name</i></tt> to the
+documentation for the object with the given fully-qualified
+dotted name.</p>
+<p><a id="message"> &nbsp; </a></p>
+
+<script type="text/javascript">
+<!--
+if (dottedName) {
+    var msg = document.getElementById("message");
+    msg.innerHTML = "No documentation found for <tt>"+
+                    dottedName+"</tt>";
+}
+// -->
+</script>
+
+</body>
+</html>

@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spgl.filelib</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spgl-module.html">Package&nbsp;spgl</a> ::
+        Module&nbsp;filelib
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spgl.filelib-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="spgl.filelib-module.html">Module spgl.filelib</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-docstring">This file exports a standardized set of tools for working with</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-docstring">files.  The library offers at least some portability across the</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">file systems used in the three supported platforms: Mac OSX,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">Windows, and Linux.  Directory and search paths are allowed to</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring">contain separators in any of the supported styles, which usually</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">makes it possible to use the same code on different platforms.</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring">'''</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module spgl.platform=spgl.platform-module.html"><a title="spgl.platform" class="py-name" href="#" onclick="return doclink('link-0', 'platform', 'link-0');">platform</a></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">exceptions</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> <tt class="py-op">==</tt> <tt class="py-string">"posix"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">import</tt> <tt class="py-name">pwd</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"> </tt>
+<a name="expandPathname"></a><div id="expandPathname-def"><a name="L15"></a><tt class="py-lineno"> 15</tt> <a class="py-toggle" href="#" id="expandPathname-toggle" onclick="return toggle('expandPathname');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#expandPathname">expandPathname</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="expandPathname-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="expandPathname-expanded"><a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">        Expands a filename into a canonical name for the platform.</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: filename to expand</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt> <tt class="py-op">==</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-name">length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> <tt class="py-op">==</tt> <tt class="py-string">"posix"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">                <tt class="py-name">strPos</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">                <tt class="py-keyword">while</tt><tt class="py-op">(</tt><tt class="py-name">strPos</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">length</tt> \ </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">                        <tt class="py-keyword">and</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">strPos</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">"\\"</tt> \ </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line">                        <tt class="py-keyword">and</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">strPos</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">"/"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">                        <tt class="py-name">strPos</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">                         </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">                <tt class="py-name">homedir</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">strPos</tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">                        <tt class="py-name">homedir</tt> <tt class="py-op">=</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">getenv</tt><tt class="py-op">(</tt><tt class="py-string">"HOME"</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">homedir</tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">homedir</tt> <tt class="py-op">=</tt> <tt class="py-name">pwd</tt><tt class="py-op">.</tt><tt class="py-name">getpwuid</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">getuid</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">pw_dir</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">                        <tt class="py-name">pw</tt> <tt class="py-op">=</tt> <tt class="py-name">pwd</tt><tt class="py-op">.</tt><tt class="py-name">getpwnam</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-name">strPos</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">pw</tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">                                <tt class="py-keyword">raise</tt> <tt class="py-name">exception</tt><tt class="py-op">.</tt><tt class="py-name">StandardError</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line">                        <tt class="py-name">homedir</tt> <tt class="py-op">=</tt> <tt class="py-name">pw</tt><tt class="py-op">.</tt><tt class="py-name">pw_dir</tt> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">                 </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">                <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">homedir</tt> <tt class="py-op">+</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">strPos</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">                <tt class="py-name">length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">                 </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">length</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"\\"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">                                <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-string">"/"</tt> <tt class="py-op">+</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">                 </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">length</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"/"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">                                <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-string">"\\"</tt> <tt class="py-op">+</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">         </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">         </tt>
+<a name="openFile"></a><div id="openFile-def"><a name="L56"></a><tt class="py-lineno"> 56</tt> <a class="py-toggle" href="#" id="openFile-toggle" onclick="return toggle('openFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#openFile">openFile</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">,</tt> <tt class="py-param">binary</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="openFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="openFile-expanded"><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">        Opens the filestream stream using the specified</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">        filename.  This function is similar to the open</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"><tt class="py-docstring">        method of the stream classes, but uses a C++ string</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-docstring">        object instead of the older C-style string.  If the operation</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"><tt class="py-docstring">        succeeds, openFile returns true;</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">        if it fails, openFile sets the failure flag in the</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring">        stream and returns false.</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to open</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">        @type binary: boolean</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">        @param binary: open file in binary mode on Windows</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: file</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">mode</tt> <tt class="py-op">=</tt> <tt class="py-string">"r+"</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">binary</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">                <tt class="py-name">mode</tt> <tt class="py-op">=</tt> <tt class="py-string">"r+b"</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">         </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">         </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">                <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">open</tt><tt class="py-op">(</tt><tt id="link-1" class="py-name" targets="Function spgl.filelib.expandPathname()=spgl.filelib-module.html#expandPathname"><a title="spgl.filelib.expandPathname" class="py-name" href="#" onclick="return doclink('link-1', 'expandPathname', 'link-1');">expandPathname</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">mode</tt><tt class="py-op">)</tt>      </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">IOError</tt><tt class="py-op">:</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">                <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">                 </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">file</tt> </tt>
+</div><a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">         </tt>
+<a name="promptUserForFile"></a><div id="promptUserForFile-def"><a name="L85"></a><tt class="py-lineno"> 85</tt> <a class="py-toggle" href="#" id="promptUserForFile-toggle" onclick="return toggle('promptUserForFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#promptUserForFile">promptUserForFile</a><tt class="py-op">(</tt><tt class="py-param">prompt</tt><tt class="py-op">,</tt> <tt class="py-param">binary</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="promptUserForFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="promptUserForFile-expanded"><a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line"><tt class="py-docstring">        Asks the user for the name of a file.  The file is opened using</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line"><tt class="py-docstring">        the reference parameter stream, and the function</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line"><tt class="py-docstring">        returns the name of the file.  If the requested file cannot be</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line"><tt class="py-docstring">        opened, the user is given additional chances to enter a valid file.</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"><tt class="py-docstring">        The optional prompt argument provides an input prompt</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line"><tt class="py-docstring">        for the user.</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-docstring">        @type prompt: string</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring">        @param prompt: file prompt text</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring">        @type binary: boolean</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">        @param binary: open file in binary mode on Windows</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: file</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">                <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-name">raw_input</tt><tt class="py-op">(</tt><tt class="py-name">prompt</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">                <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-2" class="py-name" targets="Function spgl.filelib.openFile()=spgl.filelib-module.html#openFile"><a title="spgl.filelib.openFile" class="py-name" href="#" onclick="return doclink('link-2', 'openFile', 'link-2');">openFile</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">,</tt> <tt class="py-name">binary</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">file</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"Unable to open that file. Try again."</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">prompt</tt> <tt class="py-op">==</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">prompt</tt> <tt class="py-op">=</tt> <tt class="py-string">"Filename: "</tt> </tt>
+</div><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">                 </tt>
+<a name="openFileDialog"></a><div id="openFileDialog-def"><a name="L107"></a><tt class="py-lineno">107</tt> <a class="py-toggle" href="#" id="openFileDialog-toggle" onclick="return toggle('openFileDialog');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#openFileDialog">openFileDialog</a><tt class="py-op">(</tt><tt class="py-param">title</tt> <tt class="py-op">=</tt> <tt class="py-string">"Open File"</tt><tt class="py-op">,</tt> <tt class="py-param">mode</tt><tt class="py-op">=</tt><tt class="py-string">"load"</tt><tt class="py-op">,</tt> <tt class="py-param">path</tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-param">binary</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="openFileDialog-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="openFileDialog-expanded"><a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">        Opens a dialog that allows the user to choose the file.  The</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-docstring">        title parameter is displayed in the dialog title.</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring">        The path parameter is used to set the working directory;</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">        if path does not appear, openFileDialog</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-docstring">        uses the current directory.</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-docstring">        @type title: string</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-docstring">        @param title: title of dialog box</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"><tt class="py-docstring">        @type mode: string</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line"><tt class="py-docstring">        @param mode: mode of dialog box</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line"><tt class="py-docstring">        @type binary: boolean</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"><tt class="py-docstring">        @param binary: open file in binary mode on windows</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: file</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt id="link-3" class="py-name"><a title="spgl.platform" class="py-name" href="#" onclick="return doclink('link-3', 'platform', 'link-0');">platform</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Class spgl.platform.Platform=spgl.platform.Platform-class.html"><a title="spgl.platform.Platform" class="py-name" href="#" onclick="return doclink('link-4', 'Platform', 'link-4');">Platform</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Function spgl.filelib.openFileDialog()=spgl.filelib-module.html#openFileDialog,Method spgl.platform.Platform.openFileDialog()=spgl.platform.Platform-class.html#openFileDialog"><a title="spgl.filelib.openFileDialog
+spgl.platform.Platform.openFileDialog" class="py-name" href="#" onclick="return doclink('link-5', 'openFileDialog', 'link-5');">openFileDialog</a></tt><tt class="py-op">(</tt><tt class="py-name">title</tt><tt class="py-op">,</tt> <tt class="py-name">mode</tt><tt class="py-op">,</tt> <tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt> <tt class="py-op">==</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="spgl.filelib.openFile" class="py-name" href="#" onclick="return doclink('link-6', 'openFile', 'link-2');">openFile</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">,</tt> <tt class="py-name">binary</tt><tt class="py-op">)</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">file</tt> </tt>
+<a name="L128"></a><tt class="py-lineno">128</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">         </tt>
+<a name="readEntireFile"></a><div id="readEntireFile-def"><a name="L130"></a><tt class="py-lineno">130</tt> <a class="py-toggle" href="#" id="readEntireFile-toggle" onclick="return toggle('readEntireFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#readEntireFile">readEntireFile</a><tt class="py-op">(</tt><tt class="py-param">file</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="readEntireFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="readEntireFile-expanded"><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">        Reads the entire contents of the specified input stream into the</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-docstring">        string vector lines.  The client is responsible for</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring">        opening and closing the stream.  The vector can be either an STL</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">        vector or a Vector as defined in the</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-docstring">        Stanford C++ libraries.</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-docstring">        @type file: file</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-docstring">        @param file: file to read</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: [string]</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">        @return: list of strings representing all lines in the file</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">readlines</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">                 </tt>
+<a name="getRoot"></a><div id="getRoot-def"><a name="L145"></a><tt class="py-lineno">145</tt> <a class="py-toggle" href="#" id="getRoot-toggle" onclick="return toggle('getRoot');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#getRoot">getRoot</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getRoot-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getRoot-expanded"><a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the root of filename.  The root consists</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line"><tt class="py-docstring">        of everything in filename up to the last dot and</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line"><tt class="py-docstring">        the subsequent extension.  If no dot appears in the final component</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"><tt class="py-docstring">        of the filename, getRoot returns the entire name.</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: filename to get root from</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">        <tt class="py-name">length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">length</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"."</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-name">i</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"/"</tt> <tt class="py-keyword">or</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"\\"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">         </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">dot</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">dot</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">                 </tt>
+<a name="getExtension"></a><div id="getExtension-def"><a name="L167"></a><tt class="py-lineno">167</tt> <a class="py-toggle" href="#" id="getExtension-toggle" onclick="return toggle('getExtension');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#getExtension">getExtension</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getExtension-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getExtension-expanded"><a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the extension of filename.  The extension</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-docstring">        consists of the separating dot and all subsequent characters.</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-docstring">        If no dot exists in the final component, getExtension</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line"><tt class="py-docstring">        returns the empty string.  These semantics ensure that concatenating</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line"><tt class="py-docstring">        the root and the extension always returns the original filename.</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: filename to get extension from</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">        <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">        <tt class="py-name">length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">length</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"."</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-name">i</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"/"</tt> <tt class="py-keyword">or</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"\\"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">         </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">dot</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">dot</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">         </tt>
+<a name="getHead"></a><div id="getHead-def"><a name="L190"></a><tt class="py-lineno">190</tt> <a class="py-toggle" href="#" id="getHead-toggle" onclick="return toggle('getHead');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#getHead">getHead</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getHead-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getHead-expanded"><a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line"><tt class="py-docstring">        Returns all but the last component of a path name.  The components</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line"><tt class="py-docstring">        of the path name can be separated by any of the directory path</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line"><tt class="py-docstring">        separators (forward or reverse slashes).  The special cases are</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line"><tt class="py-docstring">        illustrated by the following examples:</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line"><tt class="py-docstring">                - getHead("a/b")  = "a"     getTail("a/b")   = "b"</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line"><tt class="py-docstring">                - getHead("a")    = ""      getTail("a")     = "a"</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line"><tt class="py-docstring">                - getHead("/a")   = "/"     getTail("/a")    = "a"</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line"><tt class="py-docstring">                - getHead("/")    = "/"     getTail("/")     = ""</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: filename to get head from</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-name">slash</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-name">length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">length</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"/"</tt> <tt class="py-keyword">or</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"\\"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line">                        <tt class="py-name">slash</tt> <tt class="py-op">=</tt> <tt class="py-name">i</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">         </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">slash</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">""</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt><tt class="py-op">(</tt><tt class="py-name">slash</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-string">"/"</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">:</tt><tt class="py-name">slash</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line"> </tt>
+<a name="getTail"></a><div id="getTail-def"><a name="L219"></a><tt class="py-lineno">219</tt> <a class="py-toggle" href="#" id="getTail-toggle" onclick="return toggle('getTail');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#getTail">getTail</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getTail-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getTail-expanded"><a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the last component of a path name.  The components of the</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line"><tt class="py-docstring">        path name can be separated by any of the directory path separators</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line"><tt class="py-docstring">        (forward or reverse slashes).  For details on the interpretation of</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line"><tt class="py-docstring">        special cases, see the comments for the getHead function.</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: filename to get tail from</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">        <tt class="py-name">slash</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">        <tt class="py-name">length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">length</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"/"</tt> <tt class="py-keyword">or</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"\\"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">                        <tt class="py-name">slash</tt> <tt class="py-op">=</tt> <tt class="py-name">i</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">         </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">slash</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L237"></a><tt class="py-lineno">237</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt> </tt>
+<a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">slash</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"> </tt>
+<a name="defaultExtension"></a><div id="defaultExtension-def"><a name="L241"></a><tt class="py-lineno">241</tt> <a class="py-toggle" href="#" id="defaultExtension-toggle" onclick="return toggle('defaultExtension');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#defaultExtension">defaultExtension</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">,</tt> <tt class="py-param">ext</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="defaultExtension-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="defaultExtension-expanded"><a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line"><tt class="py-docstring">        Adds an extension to a file name if none already exists.  If the</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line"><tt class="py-docstring">        extension argument begins with a leading *,</tt> </tt>
+<a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line"><tt class="py-docstring">        any existing extension in filename is replaced by</tt> </tt>
+<a name="L246"></a><tt class="py-lineno">246</tt>  <tt class="py-line"><tt class="py-docstring">        ext.</tt> </tt>
+<a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: filename to change extension on</tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line"><tt class="py-docstring">        @type ext: string</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"><tt class="py-docstring">        @param ext: new extension</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">        <tt class="py-name">force</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">ext</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"*"</tt><tt class="py-op">)</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">force</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">ext</tt> <tt class="py-op">=</tt> <tt class="py-name">ext</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">:</tt><tt class="py-op">]</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">        <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line">        <tt class="py-name">length</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">length</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L259"></a><tt class="py-lineno">259</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"."</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-name">i</tt> </tt>
+<a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"/"</tt> <tt class="py-keyword">or</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-name">i</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"\\"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line">         </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">dot</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line">                <tt class="py-name">force</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line">                <tt class="py-name">dot</tt> <tt class="py-op">=</tt> <tt class="py-name">length</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line">         </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">force</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">:</tt><tt class="py-name">dot</tt><tt class="py-op">]</tt> <tt class="py-op">+</tt> <tt class="py-name">ext</tt> </tt>
+<a name="L268"></a><tt class="py-lineno">268</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">filename</tt> </tt>
+</div><a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line">         </tt>
+<a name="openOnPath"></a><div id="openOnPath-def"><a name="L271"></a><tt class="py-lineno">271</tt> <a class="py-toggle" href="#" id="openOnPath-toggle" onclick="return toggle('openOnPath');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#openOnPath">openOnPath</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt><tt class="py-op">,</tt> <tt class="py-param">binary</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="openOnPath-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="openOnPath-expanded"><a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line"><tt class="py-docstring">        Opens a file using a search path.  If openOnPath</tt> </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line"><tt class="py-docstring">        is successful, it returns the first path name on the search path</tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line"><tt class="py-docstring">        for which stream.open succeeds.  The path</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line"><tt class="py-docstring">        argument consists of a list of directories that are prepended to the</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"><tt class="py-docstring">        filename, unless filename begins with an absolute</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line"><tt class="py-docstring">        directory marker, such as / or ~.</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line"><tt class="py-docstring">        The directories in the search path may be separated either</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line"><tt class="py-docstring">        by colons (Unix or Mac OS) or semicolons (Windows).  If the file</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line"><tt class="py-docstring">        cannot be opened, the failure bit is set in the stream</tt> </tt>
+<a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line"><tt class="py-docstring">        parameter, and the openOnPath function returns the</tt> </tt>
+<a name="L283"></a><tt class="py-lineno">283</tt>  <tt class="py-line"><tt class="py-docstring">        empty string.</tt> </tt>
+<a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line"><tt class="py-docstring">        @type path: string</tt> </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line"><tt class="py-docstring">        @param path: search paths to use when finding filename</tt> </tt>
+<a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to search for</tt> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line"><tt class="py-docstring">        @type binary: boolean</tt> </tt>
+<a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line"><tt class="py-docstring">        @param binary: open in binary mode on windows</tt> </tt>
+<a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: file</tt> </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line">        <tt class="py-name">paths</tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name" targets="Function spgl.filelib.splitPath()=spgl.filelib-module.html#splitPath"><a title="spgl.filelib.splitPath" class="py-name" href="#" onclick="return doclink('link-7', 'splitPath', 'link-7');">splitPath</a></tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">dir</tt> <tt class="py-keyword">in</tt> <tt class="py-name">paths</tt><tt class="py-op">:</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line">                <tt class="py-name">pathname</tt> <tt class="py-op">=</tt> <tt class="py-name">dir</tt> <tt class="py-op">+</tt> <tt class="py-string">"/"</tt> <tt class="py-op">+</tt> <tt class="py-name">filename</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line">                <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-8" class="py-name"><a title="spgl.filelib.openFile" class="py-name" href="#" onclick="return doclink('link-8', 'openFile', 'link-2');">openFile</a></tt><tt class="py-op">(</tt><tt class="py-name">pathname</tt><tt class="py-op">,</tt> <tt class="py-name">binary</tt><tt class="py-op">)</tt> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">file</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line">         </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line"> </tt>
+<a name="findOnPath"></a><div id="findOnPath-def"><a name="L301"></a><tt class="py-lineno">301</tt> <a class="py-toggle" href="#" id="findOnPath-toggle" onclick="return toggle('findOnPath');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#findOnPath">findOnPath</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">,</tt> <tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="findOnPath-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="findOnPath-expanded"><a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the canonical name of a file found using a search path.</tt> </tt>
+<a name="L304"></a><tt class="py-lineno">304</tt>  <tt class="py-line"><tt class="py-docstring">        The findOnPath function is similar to</tt> </tt>
+<a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line"><tt class="py-docstring">        openOnPath, except that it doesn't actually</tt> </tt>
+<a name="L306"></a><tt class="py-lineno">306</tt>  <tt class="py-line"><tt class="py-docstring">        return an open stream.  If no matching file is found,</tt> </tt>
+<a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line"><tt class="py-docstring">        findOnPath returns the empty string.</tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line"><tt class="py-docstring">        @type path: string</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line"><tt class="py-docstring">        @param path: search paths to use when finding filename</tt> </tt>
+<a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to search for</tt> </tt>
+<a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L314"></a><tt class="py-lineno">314</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name" targets="Function spgl.filelib.openOnPath()=spgl.filelib-module.html#openOnPath"><a title="spgl.filelib.openOnPath" class="py-name" href="#" onclick="return doclink('link-9', 'openOnPath', 'link-9');">openOnPath</a></tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">,</tt> <tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+<a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+<a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line">                 </tt>
+<a name="L319"></a><tt class="py-lineno">319</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Method spgl.gwindow.GWindow.close()=spgl.gwindow.GWindow-class.html#close,Method spgl.platform.Platform.close()=spgl.platform.Platform-class.html#close"><a title="spgl.gwindow.GWindow.close
+spgl.platform.Platform.close" class="py-name" href="#" onclick="return doclink('link-10', 'close', 'link-10');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">name</tt> </tt>
+</div><a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line">         </tt>
+<a name="deleteFile"></a><div id="deleteFile-def"><a name="L322"></a><tt class="py-lineno">322</tt> <a class="py-toggle" href="#" id="deleteFile-toggle" onclick="return toggle('deleteFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#deleteFile">deleteFile</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="deleteFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="deleteFile-expanded"><a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L324"></a><tt class="py-lineno">324</tt>  <tt class="py-line"><tt class="py-docstring">        Deletes the specified file.  Errors are reported by calling</tt> </tt>
+<a name="L325"></a><tt class="py-lineno">325</tt>  <tt class="py-line"><tt class="py-docstring">        error.</tt> </tt>
+<a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L328"></a><tt class="py-lineno">328</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to delete</tt> </tt>
+<a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: void</tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name" targets="Method spgl.gobjects.GCompound.remove()=spgl.gobjects.GCompound-class.html#remove,Method spgl.gwindow.GWindow.remove()=spgl.gwindow.GWindow-class.html#remove,Method spgl.platform.Platform.remove()=spgl.platform.Platform-class.html#remove"><a title="spgl.gobjects.GCompound.remove
+spgl.gwindow.GWindow.remove
+spgl.platform.Platform.remove" class="py-name" href="#" onclick="return doclink('link-11', 'remove', 'link-11');">remove</a></tt><tt class="py-op">(</tt><tt id="link-12" class="py-name"><a title="spgl.filelib.expandPathname" class="py-name" href="#" onclick="return doclink('link-12', 'expandPathname', 'link-1');">expandPathname</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line">         </tt>
+<a name="renameFile"></a><div id="renameFile-def"><a name="L333"></a><tt class="py-lineno">333</tt> <a class="py-toggle" href="#" id="renameFile-toggle" onclick="return toggle('renameFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#renameFile">renameFile</a><tt class="py-op">(</tt><tt class="py-param">oldname</tt><tt class="py-op">,</tt> <tt class="py-param">newname</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="renameFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="renameFile-expanded"><a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line"><tt class="py-docstring">        Renames a file.  Errors are reported by calling</tt> </tt>
+<a name="L336"></a><tt class="py-lineno">336</tt>  <tt class="py-line"><tt class="py-docstring">        error in the implementation.</tt> </tt>
+<a name="L337"></a><tt class="py-lineno">337</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L338"></a><tt class="py-lineno">338</tt>  <tt class="py-line"><tt class="py-docstring">        @type oldname: string</tt> </tt>
+<a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line"><tt class="py-docstring">        @param oldname: file to rename</tt> </tt>
+<a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line"><tt class="py-docstring">        @type newname: string</tt> </tt>
+<a name="L341"></a><tt class="py-lineno">341</tt>  <tt class="py-line"><tt class="py-docstring">        @param newname: new name for file</tt> </tt>
+<a name="L342"></a><tt class="py-lineno">342</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: void</tt> </tt>
+<a name="L343"></a><tt class="py-lineno">343</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L344"></a><tt class="py-lineno">344</tt>  <tt class="py-line">        <tt class="py-name">oldname</tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="spgl.filelib.expandPathname" class="py-name" href="#" onclick="return doclink('link-13', 'expandPathname', 'link-1');">expandPathname</a></tt><tt class="py-op">(</tt><tt class="py-name">oldname</tt><tt class="py-op">)</tt> </tt>
+<a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line">        <tt class="py-name">newname</tt> <tt class="py-op">=</tt> <tt id="link-14" class="py-name"><a title="spgl.filelib.expandPathname" class="py-name" href="#" onclick="return doclink('link-14', 'expandPathname', 'link-1');">expandPathname</a></tt><tt class="py-op">(</tt><tt class="py-name">newname</tt><tt class="py-op">)</tt> </tt>
+<a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">rename</tt><tt class="py-op">(</tt><tt class="py-name">oldname</tt><tt class="py-op">,</tt> <tt class="py-name">newname</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L347"></a><tt class="py-lineno">347</tt>  <tt class="py-line">         </tt>
+<a name="createDirectory"></a><div id="createDirectory-def"><a name="L348"></a><tt class="py-lineno">348</tt> <a class="py-toggle" href="#" id="createDirectory-toggle" onclick="return toggle('createDirectory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#createDirectory">createDirectory</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="createDirectory-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="createDirectory-expanded"><a name="L349"></a><tt class="py-lineno">349</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line"><tt class="py-docstring">        Creates a new directory for the specified path.  The</tt> </tt>
+<a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line"><tt class="py-docstring">        createDirectory function does not report an error if</tt> </tt>
+<a name="L352"></a><tt class="py-lineno">352</tt>  <tt class="py-line"><tt class="py-docstring">        the directory already exists.  Unlike createDirectoryPath,</tt> </tt>
+<a name="L353"></a><tt class="py-lineno">353</tt>  <tt class="py-line"><tt class="py-docstring">        createDirectory does not create missing directories</tt> </tt>
+<a name="L354"></a><tt class="py-lineno">354</tt>  <tt class="py-line"><tt class="py-docstring">        along the path.  If some component of path does</tt> </tt>
+<a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line"><tt class="py-docstring">        not exist, this function signals an error.</tt> </tt>
+<a name="L356"></a><tt class="py-lineno">356</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line"><tt class="py-docstring">        @type path: string</tt> </tt>
+<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line"><tt class="py-docstring">        @param path: path to create new directory on</tt> </tt>
+<a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: void</tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">mkdir</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line">         </tt>
+<a name="createDirectoryPath"></a><div id="createDirectoryPath-def"><a name="L363"></a><tt class="py-lineno">363</tt> <a class="py-toggle" href="#" id="createDirectoryPath-toggle" onclick="return toggle('createDirectoryPath');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#createDirectoryPath">createDirectoryPath</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="createDirectoryPath-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="createDirectoryPath-expanded"><a name="L364"></a><tt class="py-lineno">364</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L365"></a><tt class="py-lineno">365</tt>  <tt class="py-line"><tt class="py-docstring">        Creates a new directory for the specified path.   If intermediate</tt> </tt>
+<a name="L366"></a><tt class="py-lineno">366</tt>  <tt class="py-line"><tt class="py-docstring">        components of path do not exist, this function creates</tt> </tt>
+<a name="L367"></a><tt class="py-lineno">367</tt>  <tt class="py-line"><tt class="py-docstring">        them as needed.</tt> </tt>
+<a name="L368"></a><tt class="py-lineno">368</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L369"></a><tt class="py-lineno">369</tt>  <tt class="py-line"><tt class="py-docstring">        @type path: string</tt> </tt>
+<a name="L370"></a><tt class="py-lineno">370</tt>  <tt class="py-line"><tt class="py-docstring">        @param path: path to created new directory on</tt> </tt>
+<a name="L371"></a><tt class="py-lineno">371</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: void</tt> </tt>
+<a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L373"></a><tt class="py-lineno">373</tt>  <tt class="py-line">        <tt class="py-name">cp</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L374"></a><tt class="py-lineno">374</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">path</tt> <tt class="py-op">==</tt> <tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> </tt>
+<a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt><tt class="py-op">(</tt><tt class="py-name">true</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line">                <tt class="py-name">cp</tt> <tt class="py-op">=</tt> <tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">find</tt><tt class="py-op">(</tt><tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">pardir</tt><tt class="py-op">,</tt> <tt class="py-name">cp</tt><tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+<a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">cp</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">break</tt> </tt>
+<a name="L378"></a><tt class="py-lineno">378</tt>  <tt class="py-line">                <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">makedirs</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">[</tt><tt class="py-op">:</tt><tt class="py-name">cp</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L379"></a><tt class="py-lineno">379</tt>  <tt class="py-line">        <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">makedirs</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L380"></a><tt class="py-lineno">380</tt>  <tt class="py-line"> </tt>
+<a name="fileExists"></a><div id="fileExists-def"><a name="L381"></a><tt class="py-lineno">381</tt> <a class="py-toggle" href="#" id="fileExists-toggle" onclick="return toggle('fileExists');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#fileExists">fileExists</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="fileExists-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="fileExists-expanded"><a name="L382"></a><tt class="py-lineno">382</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L383"></a><tt class="py-lineno">383</tt>  <tt class="py-line"><tt class="py-docstring">        Returns true if the specified file exists.</tt> </tt>
+<a name="L384"></a><tt class="py-lineno">384</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to check existence of</tt> </tt>
+<a name="L387"></a><tt class="py-lineno">387</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: boolean</tt> </tt>
+<a name="L388"></a><tt class="py-lineno">388</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L389"></a><tt class="py-lineno">389</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">exists</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L390"></a><tt class="py-lineno">390</tt>  <tt class="py-line">         </tt>
+<a name="isFile"></a><div id="isFile-def"><a name="L391"></a><tt class="py-lineno">391</tt> <a class="py-toggle" href="#" id="isFile-toggle" onclick="return toggle('isFile');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#isFile">isFile</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="isFile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="isFile-expanded"><a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line"><tt class="py-docstring">        Returns true if the specified file is a regular file.</tt> </tt>
+<a name="L394"></a><tt class="py-lineno">394</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to check status of</tt> </tt>
+<a name="L397"></a><tt class="py-lineno">397</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: boolean</tt> </tt>
+<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isfile</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L400"></a><tt class="py-lineno">400</tt>  <tt class="py-line">         </tt>
+<a name="isSymbolicLink"></a><div id="isSymbolicLink-def"><a name="L401"></a><tt class="py-lineno">401</tt> <a class="py-toggle" href="#" id="isSymbolicLink-toggle" onclick="return toggle('isSymbolicLink');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#isSymbolicLink">isSymbolicLink</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="isSymbolicLink-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="isSymbolicLink-expanded"><a name="L402"></a><tt class="py-lineno">402</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L403"></a><tt class="py-lineno">403</tt>  <tt class="py-line"><tt class="py-docstring">        Returns true if the specified file is a symbolic link.</tt> </tt>
+<a name="L404"></a><tt class="py-lineno">404</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L405"></a><tt class="py-lineno">405</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L406"></a><tt class="py-lineno">406</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to check status of</tt> </tt>
+<a name="L407"></a><tt class="py-lineno">407</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: boolean</tt> </tt>
+<a name="L408"></a><tt class="py-lineno">408</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L409"></a><tt class="py-lineno">409</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">islink</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L410"></a><tt class="py-lineno">410</tt>  <tt class="py-line"> </tt>
+<a name="isDirectory"></a><div id="isDirectory-def"><a name="L411"></a><tt class="py-lineno">411</tt> <a class="py-toggle" href="#" id="isDirectory-toggle" onclick="return toggle('isDirectory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#isDirectory">isDirectory</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="isDirectory-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="isDirectory-expanded"><a name="L412"></a><tt class="py-lineno">412</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L413"></a><tt class="py-lineno">413</tt>  <tt class="py-line"><tt class="py-docstring">        Returns true if the specified file is a directory.</tt> </tt>
+<a name="L414"></a><tt class="py-lineno">414</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L415"></a><tt class="py-lineno">415</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L416"></a><tt class="py-lineno">416</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: file to check status of</tt> </tt>
+<a name="L417"></a><tt class="py-lineno">417</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: boolean</tt> </tt>
+<a name="L418"></a><tt class="py-lineno">418</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L419"></a><tt class="py-lineno">419</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">isdir</tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L420"></a><tt class="py-lineno">420</tt>  <tt class="py-line">         </tt>
+<a name="setCurrentDirectory"></a><div id="setCurrentDirectory-def"><a name="L421"></a><tt class="py-lineno">421</tt> <a class="py-toggle" href="#" id="setCurrentDirectory-toggle" onclick="return toggle('setCurrentDirectory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#setCurrentDirectory">setCurrentDirectory</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="setCurrentDirectory-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="setCurrentDirectory-expanded"><a name="L422"></a><tt class="py-lineno">422</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L423"></a><tt class="py-lineno">423</tt>  <tt class="py-line"><tt class="py-docstring">        Changes the current directory to the specified path.</tt> </tt>
+<a name="L424"></a><tt class="py-lineno">424</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L425"></a><tt class="py-lineno">425</tt>  <tt class="py-line"><tt class="py-docstring">        @type path: string</tt> </tt>
+<a name="L426"></a><tt class="py-lineno">426</tt>  <tt class="py-line"><tt class="py-docstring">        @param path: directory to change current working directory to</tt> </tt>
+<a name="L427"></a><tt class="py-lineno">427</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: boolean</tt> </tt>
+<a name="L428"></a><tt class="py-lineno">428</tt>  <tt class="py-line"><tt class="py-docstring">        @return: directory change succeeded</tt> </tt>
+<a name="L429"></a><tt class="py-lineno">429</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L430"></a><tt class="py-lineno">430</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">chdir</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L431"></a><tt class="py-lineno">431</tt>  <tt class="py-line">         </tt>
+<a name="getCurrentDirectory"></a><div id="getCurrentDirectory-def"><a name="L432"></a><tt class="py-lineno">432</tt> <a class="py-toggle" href="#" id="getCurrentDirectory-toggle" onclick="return toggle('getCurrentDirectory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#getCurrentDirectory">getCurrentDirectory</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getCurrentDirectory-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getCurrentDirectory-expanded"><a name="L433"></a><tt class="py-lineno">433</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L434"></a><tt class="py-lineno">434</tt>  <tt class="py-line"><tt class="py-docstring">        Returns an absolute filename for the current directory.</tt> </tt>
+<a name="L435"></a><tt class="py-lineno">435</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L436"></a><tt class="py-lineno">436</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L437"></a><tt class="py-lineno">437</tt>  <tt class="py-line"><tt class="py-docstring">        @return: path of current working directory</tt> </tt>
+<a name="L438"></a><tt class="py-lineno">438</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L439"></a><tt class="py-lineno">439</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">getcwd</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L440"></a><tt class="py-lineno">440</tt>  <tt class="py-line">         </tt>
+<a name="listDirectory"></a><div id="listDirectory-def"><a name="L441"></a><tt class="py-lineno">441</tt> <a class="py-toggle" href="#" id="listDirectory-toggle" onclick="return toggle('listDirectory');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#listDirectory">listDirectory</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="listDirectory-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="listDirectory-expanded"><a name="L442"></a><tt class="py-lineno">442</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L443"></a><tt class="py-lineno">443</tt>  <tt class="py-line"><tt class="py-docstring">        Adds an alphabetized list of the files in the specified directory</tt> </tt>
+<a name="L444"></a><tt class="py-lineno">444</tt>  <tt class="py-line"><tt class="py-docstring">        to the string vector list.  This list excludes the</tt> </tt>
+<a name="L445"></a><tt class="py-lineno">445</tt>  <tt class="py-line"><tt class="py-docstring">        names . and .. entries.</tt> </tt>
+<a name="L446"></a><tt class="py-lineno">446</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L447"></a><tt class="py-lineno">447</tt>  <tt class="py-line"><tt class="py-docstring">        @type path: string</tt> </tt>
+<a name="L448"></a><tt class="py-lineno">448</tt>  <tt class="py-line"><tt class="py-docstring">        @param path: directory to list files in</tt> </tt>
+<a name="L449"></a><tt class="py-lineno">449</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: [string]</tt> </tt>
+<a name="L450"></a><tt class="py-lineno">450</tt>  <tt class="py-line"><tt class="py-docstring">        @return: alphabetized list of files in directory</tt> </tt>
+<a name="L451"></a><tt class="py-lineno">451</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L452"></a><tt class="py-lineno">452</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">listdir</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">sort</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L453"></a><tt class="py-lineno">453</tt>  <tt class="py-line">         </tt>
+<a name="getDirectoryPathSeparator"></a><div id="getDirectoryPathSeparator-def"><a name="L454"></a><tt class="py-lineno">454</tt> <a class="py-toggle" href="#" id="getDirectoryPathSeparator-toggle" onclick="return toggle('getDirectoryPathSeparator');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#getDirectoryPathSeparator">getDirectoryPathSeparator</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getDirectoryPathSeparator-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getDirectoryPathSeparator-expanded"><a name="L455"></a><tt class="py-lineno">455</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L456"></a><tt class="py-lineno">456</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the standard directory path separator used on this platform.</tt> </tt>
+<a name="L457"></a><tt class="py-lineno">457</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L458"></a><tt class="py-lineno">458</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L459"></a><tt class="py-lineno">459</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L460"></a><tt class="py-lineno">460</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">sep</tt> </tt>
+</div><a name="L461"></a><tt class="py-lineno">461</tt>  <tt class="py-line"> </tt>
+<a name="getSearchPathSeparator"></a><div id="getSearchPathSeparator-def"><a name="L462"></a><tt class="py-lineno">462</tt> <a class="py-toggle" href="#" id="getSearchPathSeparator-toggle" onclick="return toggle('getSearchPathSeparator');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#getSearchPathSeparator">getSearchPathSeparator</a><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="getSearchPathSeparator-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="getSearchPathSeparator-expanded"><a name="L463"></a><tt class="py-lineno">463</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L464"></a><tt class="py-lineno">464</tt>  <tt class="py-line"><tt class="py-docstring">        Returns the standard search path separator used on this platform.</tt> </tt>
+<a name="L465"></a><tt class="py-lineno">465</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L466"></a><tt class="py-lineno">466</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: string</tt> </tt>
+<a name="L467"></a><tt class="py-lineno">467</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L468"></a><tt class="py-lineno">468</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">pathsep</tt> </tt>
+</div><a name="L469"></a><tt class="py-lineno">469</tt>  <tt class="py-line">         </tt>
+<a name="matchFilenamePattern"></a><div id="matchFilenamePattern-def"><a name="L470"></a><tt class="py-lineno">470</tt> <a class="py-toggle" href="#" id="matchFilenamePattern-toggle" onclick="return toggle('matchFilenamePattern');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#matchFilenamePattern">matchFilenamePattern</a><tt class="py-op">(</tt><tt class="py-param">filename</tt><tt class="py-op">,</tt> <tt class="py-param">pattern</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="matchFilenamePattern-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="matchFilenamePattern-expanded"><a name="L471"></a><tt class="py-lineno">471</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L472"></a><tt class="py-lineno">472</tt>  <tt class="py-line"><tt class="py-docstring">        Determines whether the filename matches the specified pattern.  The</tt> </tt>
+<a name="L473"></a><tt class="py-lineno">473</tt>  <tt class="py-line"><tt class="py-docstring">        pattern string is interpreted in much the same way that a Unix shell</tt> </tt>
+<a name="L474"></a><tt class="py-lineno">474</tt>  <tt class="py-line"><tt class="py-docstring">        expands filenames and supports the following wildcard options:</tt> </tt>
+<a name="L475"></a><tt class="py-lineno">475</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L476"></a><tt class="py-lineno">476</tt>  <tt class="py-line"><tt class="py-docstring">                - ? Matches any single character</tt> </tt>
+<a name="L477"></a><tt class="py-lineno">477</tt>  <tt class="py-line"><tt class="py-docstring">                - * Matches any sequence of characters</tt> </tt>
+<a name="L478"></a><tt class="py-lineno">478</tt>  <tt class="py-line"><tt class="py-docstring">                - [...]  Matches any of the specified characters</tt> </tt>
+<a name="L479"></a><tt class="py-lineno">479</tt>  <tt class="py-line"><tt class="py-docstring">                - [^...] Matches any character except the specified ones</tt> </tt>
+<a name="L480"></a><tt class="py-lineno">480</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L481"></a><tt class="py-lineno">481</tt>  <tt class="py-line"><tt class="py-docstring">        The last two options allow a range of characters to be specified in the</tt> </tt>
+<a name="L482"></a><tt class="py-lineno">482</tt>  <tt class="py-line"><tt class="py-docstring">        form a-z.</tt> </tt>
+<a name="L483"></a><tt class="py-lineno">483</tt>  <tt class="py-line"><tt class="py-docstring">        </tt> </tt>
+<a name="L484"></a><tt class="py-lineno">484</tt>  <tt class="py-line"><tt class="py-docstring">        @type filename: string</tt> </tt>
+<a name="L485"></a><tt class="py-lineno">485</tt>  <tt class="py-line"><tt class="py-docstring">        @param filename: filename to check against pattern</tt> </tt>
+<a name="L486"></a><tt class="py-lineno">486</tt>  <tt class="py-line"><tt class="py-docstring">        @type pattern: string</tt> </tt>
+<a name="L487"></a><tt class="py-lineno">487</tt>  <tt class="py-line"><tt class="py-docstring">        @param pattern: pattern to verify</tt> </tt>
+<a name="L488"></a><tt class="py-lineno">488</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype: boolean</tt> </tt>
+<a name="L489"></a><tt class="py-lineno">489</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L490"></a><tt class="py-lineno">490</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-15" class="py-name" targets="Function spgl.filelib.recursiveMatch()=spgl.filelib-module.html#recursiveMatch"><a title="spgl.filelib.recursiveMatch" class="py-name" href="#" onclick="return doclink('link-15', 'recursiveMatch', 'link-15');">recursiveMatch</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">pattern</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L491"></a><tt class="py-lineno">491</tt>  <tt class="py-line"> </tt>
+<a name="splitPath"></a><div id="splitPath-def"><a name="L492"></a><tt class="py-lineno">492</tt> <a class="py-toggle" href="#" id="splitPath-toggle" onclick="return toggle('splitPath');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#splitPath">splitPath</a><tt class="py-op">(</tt><tt class="py-param">path</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="splitPath-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="splitPath-expanded"><a name="L493"></a><tt class="py-lineno">493</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L494"></a><tt class="py-lineno">494</tt>  <tt class="py-line"><tt class="py-docstring">        private method</tt> </tt>
+<a name="L495"></a><tt class="py-lineno">495</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L496"></a><tt class="py-lineno">496</tt>  <tt class="py-line">        <tt class="py-name">list</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L497"></a><tt class="py-lineno">497</tt>  <tt class="py-line">        <tt class="py-name">sep</tt> <tt class="py-op">=</tt> <tt class="py-string">":"</tt> <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">find</tt><tt class="py-op">(</tt><tt class="py-string">";"</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> <tt class="py-keyword">else</tt> <tt class="py-string">";"</tt> </tt>
+<a name="L498"></a><tt class="py-lineno">498</tt>  <tt class="py-line">        <tt class="py-name">path</tt> <tt class="py-op">+=</tt> <tt class="py-name">sep</tt> </tt>
+<a name="L499"></a><tt class="py-lineno">499</tt>  <tt class="py-line">        <tt id="link-16" class="py-name" targets="Method spgl.gtimer.GTimer.start()=spgl.gtimer.GTimer-class.html#start"><a title="spgl.gtimer.GTimer.start" class="py-name" href="#" onclick="return doclink('link-16', 'start', 'link-16');">start</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L500"></a><tt class="py-lineno">500</tt>  <tt class="py-line">        <tt class="py-keyword">while</tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L501"></a><tt class="py-lineno">501</tt>  <tt class="py-line">                <tt class="py-name">finish</tt> <tt class="py-op">=</tt> <tt class="py-name">path</tt><tt class="py-op">.</tt><tt class="py-name">find</tt><tt class="py-op">(</tt><tt class="py-name">sep</tt><tt class="py-op">,</tt> <tt id="link-17" class="py-name"><a title="spgl.gtimer.GTimer.start" class="py-name" href="#" onclick="return doclink('link-17', 'start', 'link-16');">start</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L502"></a><tt class="py-lineno">502</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">finish</tt> <tt class="py-op">==</tt> <tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">break</tt> </tt>
+<a name="L503"></a><tt class="py-lineno">503</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">finish</tt> <tt class="py-op">&gt;</tt> <tt id="link-18" class="py-name"><a title="spgl.gtimer.GTimer.start" class="py-name" href="#" onclick="return doclink('link-18', 'start', 'link-16');">start</a></tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L504"></a><tt class="py-lineno">504</tt>  <tt class="py-line">                        <tt class="py-name">list</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">[</tt><tt id="link-19" class="py-name"><a title="spgl.gtimer.GTimer.start" class="py-name" href="#" onclick="return doclink('link-19', 'start', 'link-16');">start</a></tt><tt class="py-op">:</tt><tt class="py-name">finish</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L505"></a><tt class="py-lineno">505</tt>  <tt class="py-line">                <tt id="link-20" class="py-name"><a title="spgl.gtimer.GTimer.start" class="py-name" href="#" onclick="return doclink('link-20', 'start', 'link-16');">start</a></tt> <tt class="py-op">=</tt> <tt class="py-name">finish</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> </tt>
+<a name="L506"></a><tt class="py-lineno">506</tt>  <tt class="py-line">                 </tt>
+<a name="L507"></a><tt class="py-lineno">507</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">list</tt> </tt>
+</div><a name="L508"></a><tt class="py-lineno">508</tt>  <tt class="py-line"> </tt>
+<a name="recursiveMatch"></a><div id="recursiveMatch-def"><a name="L509"></a><tt class="py-lineno">509</tt> <a class="py-toggle" href="#" id="recursiveMatch-toggle" onclick="return toggle('recursiveMatch');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="spgl.filelib-module.html#recursiveMatch">recursiveMatch</a><tt class="py-op">(</tt><tt class="py-param">str</tt><tt class="py-op">,</tt> <tt class="py-param">sx</tt><tt class="py-op">,</tt> <tt class="py-param">pattern</tt><tt class="py-op">,</tt> <tt class="py-param">px</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="recursiveMatch-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="recursiveMatch-expanded"><a name="L510"></a><tt class="py-lineno">510</tt>  <tt class="py-line">        <tt class="py-docstring">'''</tt> </tt>
+<a name="L511"></a><tt class="py-lineno">511</tt>  <tt class="py-line"><tt class="py-docstring">        private method</tt> </tt>
+<a name="L512"></a><tt class="py-lineno">512</tt>  <tt class="py-line"><tt class="py-docstring">        '''</tt> </tt>
+<a name="L513"></a><tt class="py-lineno">513</tt>  <tt class="py-line">        <tt class="py-name">slen</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">)</tt> </tt>
+<a name="L514"></a><tt class="py-lineno">514</tt>  <tt class="py-line">        <tt class="py-name">plen</tt> <tt class="py-op">=</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">pattern</tt><tt class="py-op">)</tt> </tt>
+<a name="L515"></a><tt class="py-lineno">515</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">px</tt> <tt class="py-op">==</tt> <tt class="py-name">plen</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">sx</tt> <tt class="py-op">==</tt> <tt class="py-name">slen</tt><tt class="py-op">)</tt> </tt>
+<a name="L516"></a><tt class="py-lineno">516</tt>  <tt class="py-line">        <tt class="py-name">pch</tt> <tt class="py-op">=</tt> <tt class="py-name">pattern</tt><tt class="py-op">[</tt><tt class="py-name">px</tt><tt class="py-op">]</tt> </tt>
+<a name="L517"></a><tt class="py-lineno">517</tt>  <tt class="py-line">         </tt>
+<a name="L518"></a><tt class="py-lineno">518</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">pch</tt> <tt class="py-op">==</tt> <tt class="py-string">"*"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L519"></a><tt class="py-lineno">519</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">sx</tt><tt class="py-op">,</tt> <tt class="py-name">slen</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L520"></a><tt class="py-lineno">520</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt id="link-21" class="py-name"><a title="spgl.filelib.recursiveMatch" class="py-name" href="#" onclick="return doclink('link-21', 'recursiveMatch', 'link-15');">recursiveMatch</a></tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">i</tt><tt class="py-op">,</tt> <tt class="py-name">pattern</tt><tt class="py-op">,</tt> <tt class="py-name">px</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+<a name="L521"></a><tt class="py-lineno">521</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L522"></a><tt class="py-lineno">522</tt>  <tt class="py-line">         </tt>
+<a name="L523"></a><tt class="py-lineno">523</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">sx</tt> <tt class="py-op">==</tt> <tt class="py-name">slen</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L524"></a><tt class="py-lineno">524</tt>  <tt class="py-line">         </tt>
+<a name="L525"></a><tt class="py-lineno">525</tt>  <tt class="py-line">        <tt class="py-name">sch</tt> <tt class="py-op">=</tt> <tt class="py-name">str</tt><tt class="py-op">[</tt><tt class="py-name">sx</tt><tt class="py-op">]</tt> </tt>
+<a name="L526"></a><tt class="py-lineno">526</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">pch</tt> <tt class="py-op">==</tt> <tt class="py-string">"["</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L527"></a><tt class="py-lineno">527</tt>  <tt class="py-line">                <tt class="py-name">match</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L528"></a><tt class="py-lineno">528</tt>  <tt class="py-line">                <tt class="py-name">invert</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L529"></a><tt class="py-lineno">529</tt>  <tt class="py-line">                <tt class="py-name">px</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L530"></a><tt class="py-lineno">530</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">px</tt> <tt class="py-op">==</tt> <tt class="py-name">plen</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L531"></a><tt class="py-lineno">531</tt>  <tt class="py-line">                        <tt class="py-keyword">raise</tt> <tt class="py-name">exception</tt><tt class="py-op">.</tt><tt class="py-name">StandardError</tt> <tt class="py-comment"># Throw error: missing ]</tt> </tt>
+<a name="L532"></a><tt class="py-lineno">532</tt>  <tt class="py-line">                        <tt class="py-name">dummy</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L533"></a><tt class="py-lineno">533</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">pattern</tt><tt class="py-op">[</tt><tt class="py-name">px</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"^"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L534"></a><tt class="py-lineno">534</tt>  <tt class="py-line">                        <tt class="py-name">px</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L535"></a><tt class="py-lineno">535</tt>  <tt class="py-line">                        <tt class="py-name">invert</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L536"></a><tt class="py-lineno">536</tt>  <tt class="py-line">                <tt class="py-keyword">while</tt><tt class="py-op">(</tt><tt class="py-name">px</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">plen</tt> <tt class="py-keyword">and</tt> <tt class="py-name">pattern</tt><tt class="py-op">[</tt><tt class="py-name">px</tt><tt class="py-op">]</tt> <tt class="py-op">!=</tt> <tt class="py-string">"]"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L537"></a><tt class="py-lineno">537</tt>  <tt class="py-line">                        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">px</tt> <tt class="py-op">+</tt> <tt class="py-number">2</tt> <tt class="py-op">&lt;</tt> <tt class="py-name">plen</tt> <tt class="py-keyword">and</tt> <tt class="py-name">pattern</tt><tt class="py-op">[</tt><tt class="py-name">px</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">==</tt> <tt class="py-string">"-"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L538"></a><tt class="py-lineno">538</tt>  <tt class="py-line">                                <tt class="py-name">match</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">match</tt> <tt class="py-keyword">or</tt> <tt class="py-op">(</tt><tt class="py-name">sch</tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">pattern</tt><tt class="py-op">[</tt><tt class="py-name">px</tt><tt class="py-op">]</tt> <tt class="py-keyword">and</tt> <tt class="py-name">sch</tt> <tt class="py-op">&lt;=</tt> <tt class="py-name">pattern</tt><tt class="py-op">[</tt><tt class="py-name">px</tt><tt class="py-op">+</tt><tt class="py-number">2</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L539"></a><tt class="py-lineno">539</tt>  <tt class="py-line">                                <tt class="py-name">px</tt> <tt class="py-op">+=</tt> <tt class="py-number">3</tt> </tt>
+<a name="L540"></a><tt class="py-lineno">540</tt>  <tt class="py-line">                        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L541"></a><tt class="py-lineno">541</tt>  <tt class="py-line">                                <tt class="py-name">match</tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">match</tt> <tt class="py-keyword">or</tt> <tt class="py-op">(</tt><tt class="py-name">sch</tt> <tt class="py-op">==</tt> <tt class="py-name">pattern</tt><tt class="py-op">[</tt><tt class="py-name">px</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L542"></a><tt class="py-lineno">542</tt>  <tt class="py-line">                                <tt class="py-name">px</tt> <tt class="py-op">+=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L543"></a><tt class="py-lineno">543</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">px</tt> <tt class="py-op">==</tt> <tt class="py-name">plen</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L544"></a><tt class="py-lineno">544</tt>  <tt class="py-line">                        <tt class="py-keyword">raise</tt> <tt class="py-name">exception</tt><tt class="py-op">.</tt><tt class="py-name">StandardError</tt> <tt class="py-comment"># throw error: missing ]</tt> </tt>
+<a name="L545"></a><tt class="py-lineno">545</tt>  <tt class="py-line">                        <tt class="py-name">dummy</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> </tt>
+<a name="L546"></a><tt class="py-lineno">546</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">match</tt> <tt class="py-op">==</tt> <tt class="py-name">invert</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L547"></a><tt class="py-lineno">547</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt><tt class="py-op">(</tt><tt class="py-name">pch</tt> <tt class="py-op">!=</tt> <tt class="py-string">"?"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L548"></a><tt class="py-lineno">548</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">pch</tt> <tt class="py-op">!=</tt> <tt class="py-name">sch</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L549"></a><tt class="py-lineno">549</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-22" class="py-name"><a title="spgl.filelib.recursiveMatch" class="py-name" href="#" onclick="return doclink('link-22', 'recursiveMatch', 'link-15');">recursiveMatch</a></tt><tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">,</tt> <tt class="py-name">sx</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-name">pattern</tt><tt class="py-op">,</tt> <tt class="py-name">px</tt> <tt class="py-op">+</tt><tt class="py-number">1</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L550"></a><tt class="py-lineno">550</tt>  <tt class="py-line">                                 </tt>
+<a name="L551"></a><tt class="py-lineno">551</tt>  <tt class="py-line">         </tt>
+<a name="L552"></a><tt class="py-lineno">552</tt>  <tt class="py-line">         </tt>
+<a name="L553"></a><tt class="py-lineno">553</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">'__main__'</tt><tt class="py-op">:</tt> </tt>
+<a name="L554"></a><tt class="py-lineno">554</tt>  <tt class="py-line">         </tt>
+<a name="L555"></a><tt class="py-lineno">555</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"/Users/Alex/Documents/Stanford/senior_project/python_client_spgl/notes.txt"</tt> </tt>
+<a name="L556"></a><tt class="py-lineno">556</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name"><a title="spgl.filelib.expandPathname" class="py-name" href="#" onclick="return doclink('link-23', 'expandPathname', 'link-1');">expandPathname</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L557"></a><tt class="py-lineno">557</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"expandPathname1 -- should have \\ on windows / on posix"</tt> </tt>
+<a name="L558"></a><tt class="py-lineno">558</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">filename</tt> </tt>
+<a name="L559"></a><tt class="py-lineno">559</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L560"></a><tt class="py-lineno">560</tt>  <tt class="py-line">         </tt>
+<a name="L561"></a><tt class="py-lineno">561</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"\\Users\\Alex\\Documents\\Stanford\\senior_project\\python_client_spgl\\spgl\\notes.txt"</tt> </tt>
+<a name="L562"></a><tt class="py-lineno">562</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="spgl.filelib.expandPathname" class="py-name" href="#" onclick="return doclink('link-24', 'expandPathname', 'link-1');">expandPathname</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L563"></a><tt class="py-lineno">563</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"expandPathname2 -- should have \\ on windows / on posix"</tt> </tt>
+<a name="L564"></a><tt class="py-lineno">564</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">filename</tt> </tt>
+<a name="L565"></a><tt class="py-lineno">565</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L566"></a><tt class="py-lineno">566</tt>  <tt class="py-line">         </tt>
+<a name="L567"></a><tt class="py-lineno">567</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"notes.txt"</tt> </tt>
+<a name="L568"></a><tt class="py-lineno">568</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="spgl.filelib.openFile" class="py-name" href="#" onclick="return doclink('link-25', 'openFile', 'link-2');">openFile</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L569"></a><tt class="py-lineno">569</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L570"></a><tt class="py-lineno">570</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"openFile1 -- should output first line"</tt> </tt>
+<a name="L571"></a><tt class="py-lineno">571</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L572"></a><tt class="py-lineno">572</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L573"></a><tt class="py-lineno">573</tt>  <tt class="py-line">                <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="spgl.gwindow.GWindow.close
+spgl.platform.Platform.close" class="py-name" href="#" onclick="return doclink('link-26', 'close', 'link-10');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L574"></a><tt class="py-lineno">574</tt>  <tt class="py-line">         </tt>
+<a name="L575"></a><tt class="py-lineno">575</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"/Users/Alex/Documents/Stanford/senior_project/python_client_spgl/notes.txt"</tt> </tt>
+<a name="L576"></a><tt class="py-lineno">576</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-27" class="py-name"><a title="spgl.filelib.openFile" class="py-name" href="#" onclick="return doclink('link-27', 'openFile', 'link-2');">openFile</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L577"></a><tt class="py-lineno">577</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L578"></a><tt class="py-lineno">578</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"openFile2 -- should output first line"</tt> </tt>
+<a name="L579"></a><tt class="py-lineno">579</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L580"></a><tt class="py-lineno">580</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L581"></a><tt class="py-lineno">581</tt>  <tt class="py-line">                <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="spgl.gwindow.GWindow.close
+spgl.platform.Platform.close" class="py-name" href="#" onclick="return doclink('link-28', 'close', 'link-10');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L582"></a><tt class="py-lineno">582</tt>  <tt class="py-line">                 </tt>
+<a name="L583"></a><tt class="py-lineno">583</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"C:/Users/Alex/Documents/Stanford/senior_project/python_client_spgl/notes.txt"</tt> </tt>
+<a name="L584"></a><tt class="py-lineno">584</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-29" class="py-name"><a title="spgl.filelib.openFile" class="py-name" href="#" onclick="return doclink('link-29', 'openFile', 'link-2');">openFile</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L585"></a><tt class="py-lineno">585</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L586"></a><tt class="py-lineno">586</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"openFile3 -- should output first line"</tt> </tt>
+<a name="L587"></a><tt class="py-lineno">587</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L588"></a><tt class="py-lineno">588</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L589"></a><tt class="py-lineno">589</tt>  <tt class="py-line">                <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="spgl.gwindow.GWindow.close
+spgl.platform.Platform.close" class="py-name" href="#" onclick="return doclink('link-30', 'close', 'link-10');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L590"></a><tt class="py-lineno">590</tt>  <tt class="py-line">         </tt>
+<a name="L591"></a><tt class="py-lineno">591</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-31" class="py-name" targets="Function spgl.filelib.promptUserForFile()=spgl.filelib-module.html#promptUserForFile"><a title="spgl.filelib.promptUserForFile" class="py-name" href="#" onclick="return doclink('link-31', 'promptUserForFile', 'link-31');">promptUserForFile</a></tt><tt class="py-op">(</tt><tt class="py-string">"Enter file name: "</tt><tt class="py-op">)</tt> </tt>
+<a name="L592"></a><tt class="py-lineno">592</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt>  </tt>
+<a name="L593"></a><tt class="py-lineno">593</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"promptUserForFile -- should output first line"</tt> </tt>
+<a name="L594"></a><tt class="py-lineno">594</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L595"></a><tt class="py-lineno">595</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L596"></a><tt class="py-lineno">596</tt>  <tt class="py-line">                <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name"><a title="spgl.gwindow.GWindow.close
+spgl.platform.Platform.close" class="py-name" href="#" onclick="return doclink('link-32', 'close', 'link-10');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L597"></a><tt class="py-lineno">597</tt>  <tt class="py-line">                 </tt>
+<a name="L598"></a><tt class="py-lineno">598</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-33" class="py-name"><a title="spgl.filelib.openFile" class="py-name" href="#" onclick="return doclink('link-33', 'openFile', 'link-2');">openFile</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L599"></a><tt class="py-lineno">599</tt>  <tt class="py-line">        <tt class="py-name">lines</tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name" targets="Function spgl.filelib.readEntireFile()=spgl.filelib-module.html#readEntireFile"><a title="spgl.filelib.readEntireFile" class="py-name" href="#" onclick="return doclink('link-34', 'readEntireFile', 'link-34');">readEntireFile</a></tt><tt class="py-op">(</tt><tt class="py-name">file</tt><tt class="py-op">)</tt> </tt>
+<a name="L600"></a><tt class="py-lineno">600</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">lines</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt> <tt class="py-keyword">and</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">lines</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L601"></a><tt class="py-lineno">601</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"readEntireFile -- should output first line"</tt> </tt>
+<a name="L602"></a><tt class="py-lineno">602</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">lines</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L603"></a><tt class="py-lineno">603</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L604"></a><tt class="py-lineno">604</tt>  <tt class="py-line">        <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="spgl.gwindow.GWindow.close
+spgl.platform.Platform.close" class="py-name" href="#" onclick="return doclink('link-35', 'close', 'link-10');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L605"></a><tt class="py-lineno">605</tt>  <tt class="py-line">                 </tt>
+<a name="L606"></a><tt class="py-lineno">606</tt>  <tt class="py-line">        <tt class="py-name">file</tt> <tt class="py-op">=</tt> <tt id="link-36" class="py-name"><a title="spgl.filelib.openFileDialog
+spgl.platform.Platform.openFileDialog" class="py-name" href="#" onclick="return doclink('link-36', 'openFileDialog', 'link-5');">openFileDialog</a></tt><tt class="py-op">(</tt><tt class="py-name">title</tt> <tt class="py-op">=</tt> <tt class="py-string">"Open"</tt><tt class="py-op">,</tt> <tt class="py-name">mode</tt> <tt class="py-op">=</tt> <tt class="py-string">"load"</tt><tt class="py-op">,</tt> <tt class="py-name">path</tt><tt class="py-op">=</tt><tt class="py-string">"/Users/Alex/Documents/Stanford/senior_project/python_client_spgl/"</tt><tt class="py-op">)</tt> </tt>
+<a name="L607"></a><tt class="py-lineno">607</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt><tt class="py-op">(</tt><tt class="py-name">file</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L608"></a><tt class="py-lineno">608</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"openFileDialog -- should output first line"</tt> </tt>
+<a name="L609"></a><tt class="py-lineno">609</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">"\t"</tt> <tt class="py-op">+</tt> <tt class="py-name">file</tt><tt class="py-op">.</tt><tt class="py-name">readline</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L610"></a><tt class="py-lineno">610</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L611"></a><tt class="py-lineno">611</tt>  <tt class="py-line">                <tt class="py-name">file</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name"><a title="spgl.gwindow.GWindow.close
+spgl.platform.Platform.close" class="py-name" href="#" onclick="return doclink('link-37', 'close', 'link-10');">close</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L612"></a><tt class="py-lineno">612</tt>  <tt class="py-line">                 </tt>
+<a name="L613"></a><tt class="py-lineno">613</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"/this/is/a/path.txt"</tt> </tt>
+<a name="L614"></a><tt class="py-lineno">614</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"getRoot -- should print everything before ."</tt> </tt>
+<a name="L615"></a><tt class="py-lineno">615</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt id="link-38" class="py-name" targets="Function spgl.filelib.getRoot()=spgl.filelib-module.html#getRoot"><a title="spgl.filelib.getRoot" class="py-name" href="#" onclick="return doclink('link-38', 'getRoot', 'link-38');">getRoot</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L616"></a><tt class="py-lineno">616</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L617"></a><tt class="py-lineno">617</tt>  <tt class="py-line">         </tt>
+<a name="L618"></a><tt class="py-lineno">618</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"/this/is/a/path.txt"</tt> </tt>
+<a name="L619"></a><tt class="py-lineno">619</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"getExtension -- should print everything after ."</tt> </tt>
+<a name="L620"></a><tt class="py-lineno">620</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt id="link-39" class="py-name" targets="Function spgl.filelib.getExtension()=spgl.filelib-module.html#getExtension"><a title="spgl.filelib.getExtension" class="py-name" href="#" onclick="return doclink('link-39', 'getExtension', 'link-39');">getExtension</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L621"></a><tt class="py-lineno">621</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L622"></a><tt class="py-lineno">622</tt>  <tt class="py-line">                 </tt>
+<a name="L623"></a><tt class="py-lineno">623</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"/this/is/a/path.txt"</tt> </tt>
+<a name="L624"></a><tt class="py-lineno">624</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"getHead -- should print everything before final / or \\"</tt> </tt>
+<a name="L625"></a><tt class="py-lineno">625</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt id="link-40" class="py-name" targets="Function spgl.filelib.getHead()=spgl.filelib-module.html#getHead"><a title="spgl.filelib.getHead" class="py-name" href="#" onclick="return doclink('link-40', 'getHead', 'link-40');">getHead</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L626"></a><tt class="py-lineno">626</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L627"></a><tt class="py-lineno">627</tt>  <tt class="py-line">         </tt>
+<a name="L628"></a><tt class="py-lineno">628</tt>  <tt class="py-line">        <tt class="py-name">filename</tt> <tt class="py-op">=</tt> <tt class="py-string">"/this/is/a/path.txt"</tt> </tt>
+<a name="L629"></a><tt class="py-lineno">629</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"getTail -- should print everything after final / or \\"</tt> </tt>
+<a name="L630"></a><tt class="py-lineno">630</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt id="link-41" class="py-name" targets="Function spgl.filelib.getTail()=spgl.filelib-module.html#getTail"><a title="spgl.filelib.getTail" class="py-name" href="#" onclick="return doclink('link-41', 'getTail', 'link-41');">getTail</a></tt><tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+<a name="L631"></a><tt class="py-lineno">631</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L632"></a><tt class="py-lineno">632</tt>  <tt class="py-line">                 </tt>
+<a name="L633"></a><tt class="py-lineno">633</tt>  <tt class="py-line">        <tt class="py-name">path</tt> <tt class="py-op">=</tt> <tt class="py-name">raw_input</tt><tt class="py-op">(</tt><tt class="py-string">"New path name: "</tt><tt class="py-op">)</tt> </tt>
+<a name="L634"></a><tt class="py-lineno">634</tt>  <tt class="py-line">        <tt id="link-42" class="py-name" targets="Function spgl.filelib.createDirectoryPath()=spgl.filelib-module.html#createDirectoryPath"><a title="spgl.filelib.createDirectoryPath" class="py-name" href="#" onclick="return doclink('link-42', 'createDirectoryPath', 'link-42');">createDirectoryPath</a></tt><tt class="py-op">(</tt><tt class="py-name">path</tt><tt class="py-op">)</tt> </tt>
+<a name="L635"></a><tt class="py-lineno">635</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"createDirectoryPath: PASS"</tt> </tt>
+<a name="L636"></a><tt class="py-lineno">636</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">""</tt> </tt>
+<a name="L637"></a><tt class="py-lineno">637</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri May 10 02:58:16 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

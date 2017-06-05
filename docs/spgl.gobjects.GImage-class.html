@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>spgl.gobjects.GImage</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="spgl-module.html">Package&nbsp;spgl</a> ::
+        <a href="spgl.gobjects-module.html">Module&nbsp;gobjects</a> ::
+        Class&nbsp;GImage
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="spgl.gobjects.GImage-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class GImage</h1><p class="nomargin-top"><span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage">source&nbsp;code</a></span></p>
+<pre class="base-tree">
+<a href="spgl.gobjects.GObject-class.html">GObject</a> --+
+          |
+         <strong class="uidshort">GImage</strong>
+</pre>
+
+<hr />
+<p>This graphical object subclass represents an image from a file. For 
+  example, the following code displays a GImage containing the Stanford 
+  tree at the center of the window, assuming that the image file 
+  StanfordTree.png exists, either in the current directory or an images 
+  subdirectory:</p>
+<pre class="literalblock">
+       gw = gwindow.GWindow()
+       print &quot;This program draws the Stanford tree.&quot;
+       tree = gobjects.GImage(&quot;StanfordTree.png&quot;)
+       x = (gw.getWidth() - tree.getWidth()) / 2
+       y = (gw.getHeight() - tree.getHeight()) / 2
+       gw.add(tree, x, y)
+</pre>
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">void</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GImage-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">filename</span>,
+        <span class="summary-sig-arg">x</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">y</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Initializes a new image by loading the image from the specified file,
+      which is either in the current directory or a subdirectory named 
+      images.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">GRectangle</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GImage-class.html#getBounds" class="summary-sig-name">getBounds</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the bounding rectangle for this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.getBounds">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GImage-class.html#getType" class="summary-sig-name">getType</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the type of this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.getType">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="spgl.gobjects.GImage-class.html#toString" class="summary-sig-name">toString</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Returns the string form of this object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.toString">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="spgl.gobjects.GObject-class.html">GObject</a></code></b>:
+      <code><a href="spgl.gobjects.GObject-class.html#contains">contains</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getColor">getColor</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getHeight">getHeight</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getLineWidth">getLineWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getLocation">getLocation</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getParent">getParent</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getSize">getSize</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getWidth">getWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getX">getX</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#getY">getY</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#isVisible">isVisible</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#move">move</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#rotate">rotate</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#scale">scale</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendBackward">sendBackward</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendForward">sendForward</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendToBack">sendToBack</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#sendToFront">sendToFront</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setColor">setColor</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setLineWidth">setLineWidth</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setLocation">setLocation</a></code>,
+      <code><a href="spgl.gobjects.GObject-class.html#setVisible">setVisible</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="__init__"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">filename</span>,
+        <span class="sig-arg">x</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">y</span>=<span class="sig-default">0</span>)</span>
+    <br /><em class="fname">(Constructor)</em>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.__init__">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Initializes a new image by loading the image from the specified file, 
+  which is either in the current directory or a subdirectory named images.
+  By default, the upper left corner of the image appears at the origin; the
+  second form automatically sets the location to the point (x, y).</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>y</code></strong> (float)</li>
+        <li><strong class="pname"><code>x</code></strong> (float)</li>
+        <li><strong class="pname"><code>filename</code></strong> (string)</li>
+    </ul></dd>
+    <dt>Returns: void</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#__init__">GObject.__init__</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getBounds"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getBounds</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.getBounds">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the bounding rectangle for this object</p>
+  <dl class="fields">
+    <dt>Returns: GRectangle</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#getBounds">GObject.getBounds</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="getType"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getType</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.getType">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the type of this object</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#getType">GObject.getType</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="toString"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">toString</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="spgl.gobjects-pysrc.html#GImage.toString">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Returns the string form of this object</p>
+  <dl class="fields">
+    <dt>Returns: string</dt>
+    <dt>Overrides:
+        <a href="spgl.gobjects.GObject-class.html#toString">GObject.toString</a>
+    </dt>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="spgl-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Fri May 10 02:58:16 2013
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
