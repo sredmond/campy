@@ -83,16 +83,14 @@ def string_is_integer(string, radix=10):
         out = int(string, radix)
     except Exception:
         return False
-    else:
-        return True
+    return True
 
 def string_is_real(string):
     try:
         out = float(string)
     except Exception:
         return False
-    else:
-        return True
+    return True
 
 string_is_double = string_is_real
 string_is_long = string_is_real
