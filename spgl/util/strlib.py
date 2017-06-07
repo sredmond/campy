@@ -81,14 +81,14 @@ def string_is_bool(string):
 def string_is_integer(string, radix=10):
     try:
         out = int(string, radix)
-    except Exception:
+    except ValueError:
         return False
     return True
 
 def string_is_real(string):
     try:
         out = float(string)
-    except Exception:
+    except ValueError:
         return False
     return True
 
