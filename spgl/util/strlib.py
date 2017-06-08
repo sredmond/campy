@@ -67,7 +67,7 @@ def html_encode(plain_html):
 
 def url_encode(string):
     # TODO make sure this is consistent with CPP lib
-    return _parse.quote_plus(string)
+    return _parse.quote_plus(string, safe='~*')
 
 def url_decode(string):
     # TODO make sure this is consistent with CPP lib
