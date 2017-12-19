@@ -139,7 +139,7 @@ class GWindow:
 		self.gwd = GWindowData(width, height, visible)
 		self.gwd.top = _gobjects.GCompound()
 
-		_platform.Platform().createGWindow(self, width, height, self.gwd.top)
+		_platform.Platform().gwindow_constructor(self, width, height, self.gwd.top)
 
 		self.setColor("BLACK")
 		self.setVisible(visible)
@@ -169,8 +169,8 @@ class GWindow:
 
 		@rtype: void
 		'''
-		_platform.Platform().close(self)
-		_platform.Platform().deleteGWindow(self)
+		_platform.Platform().gwindow_close(self)
+		_platform.Platform().gwindow_delete(self)
 
 	def requestFocus(self):
 		'''
@@ -180,7 +180,7 @@ class GWindow:
 
 		@rtype: void
 		'''
-		_platform.Platform().requestFocus(self)
+		_platform.Platform().gwindow_request_focus(self)
 
 	def clear(self):
 		'''
@@ -189,7 +189,7 @@ class GWindow:
 		@rtype: void
 		'''
 		self.gwd.top.removeAll()
-		_platform.Platform().clear(self)
+		_platform.Platform().gwindow_clear(self)
 
 	def setVisible(self, flag):
 		'''
@@ -198,7 +198,7 @@ class GWindow:
 		@rtype: void
 		'''
 		self.gwd.visible = flag
-		_platform.Platform().setVisible(flag, gw = self)
+		_platform.Platform().gwindow_set_visible(flag, gw=self)
 
 	def isVisible(self):
 		'''
@@ -416,6 +416,13 @@ class GWindow:
 		'''
 		return self.gwd.color
 
+	@property
+	def width(self):
+		"""Return the width of the GWindow.
+
+		:return int: the width of the GWindow in pixels."""
+		return self.gwd.windowWidth
+
 	def getWidth(self):
 		'''
 		Returns the width of the graphics window in pixels.
@@ -423,6 +430,10 @@ class GWindow:
 		@rtype: float
 		'''
 		return self.gwd.windowWidth
+
+	@property
+	def height(self):
+		return self.gwd.windowHeight
 
 	def getHeight(self):
 		'''
@@ -438,7 +449,16 @@ class GWindow:
 
 		@rtype: void
 		'''
-		_platform.Platform().repaint(self)
+		_platform.Platform().gwindow_repaint(self)
+
+	@property
+	def title(self):
+		return self.gwd.windowTitle
+
+	@title.setter
+	def title(self, title):
+		self.gwd.windowTitle = title
+		_platform.Platform().gwindow_set_window_title(self, title)
 
 	def setWindowTitle(self, title):
 		'''
@@ -448,7 +468,7 @@ class GWindow:
 		@rtype: void
 		'''
 		self.gwd.windowTitle = title
-		_platform.Platform().setWindowTitle(self, title)
+		_platform.Platform().gwindow_set_window_title(self, title)
 
 	def getWindowTitle(self):
 		'''
@@ -473,7 +493,7 @@ class GWindow:
 		'''
 		if(x != None and y != None):
 			gobj.setLocation(x=x, y=y)
-		_platform.Platform().draw(self, gobj)
+		_platform.Platform().gwindow_draw(self, gobj)
 
 	def add(self, gobj, x=None, y=None):
 		'''
@@ -517,7 +537,7 @@ class GWindow:
 		@type region: string
 		@rtype: void
 		'''
-		_platform.Platform().addToRegion(self, gobj, region)
+		_platform.Platform().gwindow_add_to_region(self, gobj, region)
 
 	def removeFromRegion(self, gobj, region):
 		'''
@@ -531,7 +551,7 @@ class GWindow:
 		@type region: string
 		@rtype: void
  		'''
-		_platform.Platform().removeFromRegion(self, gobj, region)
+		_platform.Platform().gwindow_remove_from_region(self, gobj, region)
 
 	def getObjectAt(self, x, y):
 		'''
@@ -563,7 +583,7 @@ class GWindow:
 		@type region: string
 		@type align: string
 		'''
-		_platform.Platform().setRegionAlignment(self, region, align)
+		_platform.Platform().gwindow_set_region_alignment(self, region, align)
 
 def pause(milliseconds):
 	'''
@@ -573,7 +593,8 @@ def pause(milliseconds):
 	@type milliseconds: int
 	@rtype: void
 	'''
-	_platform.Platform().pause(milliseconds)
+	# TODO(sredmond): What to replace this with?
+	_platform.Platform().gtimer_pause(milliseconds)
 
 def getScreenWidth():
 	'''
@@ -581,7 +602,7 @@ def getScreenWidth():
 
 	@rtype: float
 	'''
-	return _platform.Platform().getScreenWidth()
+	return _platform.Platform().gwindow_get_screen_width()
 
 def getScreenHeight():
 	'''
@@ -589,7 +610,7 @@ def getScreenHeight():
 
 	@rtype: float
 	'''
-	return _platform.Platform().getScreenHeight();
+	return _platform.Platform().gwindow_get_screen_height();
 
 def exitGraphics():
     '''
@@ -598,4 +619,4 @@ def exitGraphics():
 
     @rtype: void
     '''
-    _platform.Platform().exitGraphics()
+    _platform.Platform().gwindow_exit_graphics()
