@@ -67,7 +67,7 @@ def html_encode(plain_html):
 
 def url_encode(string):
     # TODO make sure this is consistent with CPP lib
-    return _parse.quote_plus(string)
+    return _parse.quote_plus(string, safe='~*')
 
 def url_decode(string):
     # TODO make sure this is consistent with CPP lib
@@ -81,18 +81,16 @@ def string_is_bool(string):
 def string_is_integer(string, radix=10):
     try:
         out = int(string, radix)
-    except Exception:
+    except ValueError:
         return False
-    else:
-        return True
+    return True
 
 def string_is_real(string):
     try:
         out = float(string)
-    except Exception:
+    except ValueError:
         return False
-    else:
-        return True
+    return True
 
 string_is_double = string_is_real
 string_is_long = string_is_real
