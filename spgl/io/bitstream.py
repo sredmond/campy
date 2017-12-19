@@ -31,27 +31,27 @@ and for consistency with the standard library str in obitstream has been renamed
 
 Usage:
 
-To use an ifbitstream:
+To use an ifbitstream::
 
     with ifbitstream(filename) as stream:
         bit = stream.readbit()
         stream.rewind()
         bit = stream.readbit()
 
-To use an ofbitstream:
+To use an ofbitstream::
 
     with ofbitstream(filename) as stream:
         stream.writebit(0)
         ...
 
-To use an ostringbitstream:
+To use an ostringbitstream::
 
     with ostringbitstream() as stream:
         stream.writebit(0)
         ...
         stream.getvalue()  # => b'hello world'
 
-To use an istringbitstream:
+To use an istringbitstream::
 
     with istringstream(b'hello world') as stream:
         bit = stream.readbit()
