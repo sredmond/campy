@@ -20,6 +20,49 @@ def dsq(x0, y0, x1, y1):
 	'''
 	return (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)
 
+# SECTION: Graphical Mixins
+class Fillable:
+	"""Represents a graphical object that can be filled.
+
+	Adds a _filled attribute to the subclass instance as
+	well as a _fill_color.
+	"""
+	def __init__(self, filled=False, fill_color=''):
+		self._filled = False
+		self._fill_color = fill_color
+
+	@property
+	def filled(self):
+		"""Return whether this object is filled.
+
+		@rtype: boolean
+		"""
+		return self._filled
+
+	@filled.setter
+	def filled(self, is_filled):
+		"""Set whether the object is filled.
+
+		True means filled and False means outlined."""
+		self._filled = is_filled
+		_platform.Platform().gobject_set_filled(self, is_filled)
+
+	@property
+	def fill_color(self):
+		"""Return the color used to fill this object.
+
+		If none has been set, return the empty string."""
+		return self._fill_color
+
+	@fill_color.setter
+	def fill_color(self, color):
+		color = _gcolor.GColor.normalize(color)
+		# color = _gcolor.canonicalize(color)
+		# hex_color = color.to_hex()
+		self._fill_color = color
+		_platform.Platform().gobject_set_fill_color(self, self._fill_color.as_hex)
+
+# END SECTION: Graphical Mixins
 
 class GObject:
 	'''
@@ -61,6 +104,18 @@ class GObject:
 		'''
 		return self.y
 
+	@property
+	def location(self):
+		"""Get or set the location of this object as a GPoint."""
+		return _gtypes.GPoint(self.x, self.y)
+
+	@location.setter
+	def location(self, location):
+		x, y = location
+		self.x = x
+		self.y = y
+		_platform.Platform().gobject_set_location(self, x, y)
+
 	def getLocation(self):
 		'''
 		Returns the location of this object as a GPoint.
@@ -87,7 +142,7 @@ class GObject:
 
 		self.x = x
 		self.y = y
-		_platform.Platform().setLocation(self, x, y)
+		_platform.Platform().gobject_set_location(self, x, y)
 
 	def move(self, dx, dy):
 		'''
@@ -108,18 +163,18 @@ class GObject:
 		@rtype: float
 		'''
 		bounds = self.getBounds()
-		if (bounds != None): return bounds.getWidth()
+		if (bounds != None): return bounds.width
 		return None
 
 	def getHeight(self):
-		'''
+		'''`
 		Returns the height of this object, which is defined to be the height
 		of the bounding box.
 
 		@rtype: float
 		'''
 		bounds = self.getBounds()
-		if (bounds != None): return bounds.getHeight()
+		if (bounds != None): return bounds.height
 		return None
 
 	def getSize(self):
@@ -129,7 +184,7 @@ class GObject:
 		@rtype: GDimension
 		'''
 		bounds = self.getBounds()
-		if(bounds != None): return GDimension(bounds.getWidth(), bounds.getHeight())
+		if(bounds != None): return _gtypes.GDimension(bounds.width, bounds.height)
 		return None
 
 	def getBounds(self):
@@ -155,7 +210,7 @@ class GObject:
 		@rtype: void
 		'''
 		self.lineWidth = lineWidth
-		_platform.Platform().setLineWidth(self, lineWidth)
+		_platform.Platform().gobject_set_line_width(self, lineWidth)
 
 	def getLineWidth(self):
 		'''
@@ -204,7 +259,7 @@ class GObject:
 		if(rgb == None): return
 
 		self.color = _gcolor.rgb_to_hex(rgb)
-		_platform.Platform().setColor(self, self.color)
+		_platform.Platform().gobject_set_color(self, self.color)
 
 	def getColor(self):
 		'''
@@ -238,7 +293,7 @@ class GObject:
 		if(sx == None or sy == None): return
 
 		self.transformed = True
-		_platform.Platform().scale(self, sx, sy)
+		_platform.Platform().gobject_scale(self, sx, sy)
 
 	def rotate(self, theta):
 		'''
@@ -250,7 +305,7 @@ class GObject:
 		@rtype: void
 		'''
 		self.transformed = True
-		_platform.Platform().rotate(self, sx, sy)
+		_platform.Platform().gobject_rotate(self, sx, sy)
 
 	def setVisible(self, flag):
 		'''
@@ -260,7 +315,7 @@ class GObject:
 		@rtype: void
 		'''
 		self.visible = flag
-		_platform.Platform().setVisible(flag, gobj = self)
+		_platform.Platform().gwindow_set_visible(flag, gobj = self)
 
 	def isVisible(self):
 		'''
@@ -331,11 +386,11 @@ class GObject:
 		if(x == None or y == None): return False
 
 		if(self.transformed):
-			return _platform.Platform().contains(self, x, y)
+			return _platform.Platform().gobject_contains(self, x, y)
 
 		bounds = self.getBounds()
 		if(bounds == None): return False
-		return bounds.contains(x=x, y=y)
+		return (x, y) in bounds
 
 	def getType(self):
 		'''
@@ -410,7 +465,7 @@ class GRect(GObject):
 		self.height = height
 		self.fillFlag = False
 		self.fillColor = ""
-		_platform.Platform().createGRect(self, width, height)
+		_platform.Platform().grect_constructor(self, width, height)
 
 	def setSize(self, size=None, width=None, height=None):
 		'''
@@ -433,7 +488,7 @@ class GRect(GObject):
 
 		self.width = width
 		self.height = height
-		_platform.Platform().setSize(self, width, height)
+		_platform.Platform().gobject_set_size(self, width, height)
 
 	def setBounds(self, bounds=None, x=None, y=None, width=None, height=None):
 		'''
@@ -464,7 +519,7 @@ class GRect(GObject):
 
 		@rtype: GRectangle
 		'''
-		if(self.transformed): return _platform.Platform().getBounds(self)
+		if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
 		return _gtypes.GRectangle(self.x, self.y, self.width, self.height)
 
 	def setFilled(self, flag):
@@ -476,7 +531,7 @@ class GRect(GObject):
 		@rtype: void
 		'''
 		self.fillFlag = flag
-		_platform.Platform().setFilled(self, flag)
+		_platform.Platform().gobject_set_filled(self, flag)
 
 	def isFilled(self):
 		'''
@@ -502,7 +557,7 @@ class GRect(GObject):
 		if(rgb == None): return
 
 		color = _gcolor.rgb_to_hex(rgb)
-		_platform.Platform().setFillColor(self, color)
+		_platform.Platform().gobject_set_fill_color(self, color)
 
 	def getFillColor(self):
 		'''
@@ -547,7 +602,7 @@ class GCompound(GObject):
 		'''
 		GObject.__init__(self)
 		self.contents = []
-		_platform.Platform().createGCompound(self)
+		_platform.Platform().gcompound_constructor(self)
 
 	def add(self, gobj, x=None, y=None):
 		'''
@@ -562,7 +617,7 @@ class GCompound(GObject):
 		if(x != None and y != None):
 			gobj.setLocation(x=x, y=y)
 
-		_platform.Platform().add(self, gobj)
+		_platform.Platform().gcompound_add(self, gobj)
 		self.contents.append(gobj)
 		gobj.parent = self
 
@@ -609,7 +664,8 @@ class GCompound(GObject):
 
 		@rtype: GRectangle
 		'''
-		if(self.transformed): return _platform.Platform().getBounds(self)
+		if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
+		import sys
 		xMin = sys.float_info.max
 		yMin = sys.float_info.max
 		xMax = sys.float_info.min
@@ -631,7 +687,7 @@ class GCompound(GObject):
 		@type y: float
 		@rtype: boolean
 		'''
-		if(self.transformed): return _platform.Platform().contains(self, x, y)
+		if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
 		for i in range(len(self.contents)):
 			if(self.contents[i].contains(x, y)): return True
 		return False
@@ -661,7 +717,7 @@ class GCompound(GObject):
 		if(index != len(self.contents)-1):
 			self.contents.pop(index)
 			self.contents.insert(index + 1, gobj)
-			_platform.Platform().sendForward(gobj)
+			_platform.Platform().gobject_send_forward(gobj)
 
 	def sendToFront(self, gobj):
 		'''
@@ -672,7 +728,7 @@ class GCompound(GObject):
 		if(index != len(self.contents)-1):
 			self.contents.pop(index)
 			self.contents.append(gobj)
-			_platform.Platform().sendToFront(gobj)
+			_platform.Platform().gobject_send_to_front(gobj)
 
 	def sendBackward(self, gobj):
 		'''
@@ -683,7 +739,7 @@ class GCompound(GObject):
 		if(index != 0):
 			self.contents.pop(index)
 			self.contents.insert(index - 1, gobj)
-			_platform.Platform().sendBackward(gobj)
+			_platform.Platform().gobject_send_backward(gobj)
 
 	def sendToBack(self, gobj):
 		'''
@@ -694,7 +750,7 @@ class GCompound(GObject):
 		if(index != 0):
 			self.contents.pop(index)
 			self.contents.insert(0, gobj)
-			_platform.Platform().sendToBack(gobj)
+			_platform.Platform().gobject_send_to_back(gobj)
 
 	def findGObject(self, gobj):
 		'''
@@ -711,7 +767,7 @@ class GCompound(GObject):
 		'''
 		gobj = self.contents[index]
 		self.contents.pop(index)
-		_platform.Platform().remove(gobj)
+		_platform.Platform().gobject_remove(gobj)
 		gobj.parent = None
 
 class GRoundRect(GRect):
@@ -742,7 +798,7 @@ class GRoundRect(GRect):
 		self.corner = corner
 		self.fillFlag = False
 		self.fillColor = ""
-		_platform.Platform().createGRoundRect(self, width, height, corner)
+		_platform.Platform().groundrect_constructor(self, width, height, corner)
 		self.setLocation(x=x, y=y)
 
 	def getType(self):
@@ -792,7 +848,7 @@ class G3DRect(GRect):
 		self.raised = raised
 		self.fillFlag = False
 		self.fillColor = ""
-		_platform.Platform().createG3DRect(self, width, height, str(raised).lower())
+		_platform.Platform().g3drect_constructor(self, width, height, str(raised).lower())
 		self.setLocation(x=x, y=y)
 
 	def setRaised(self, raised):
@@ -803,7 +859,7 @@ class G3DRect(GRect):
 		@rtype: void
 		'''
 		self.raised = raised
-		_platform.Platform().setRaised(self, str(raised).lower())
+		_platform.Platform().g3drect_set_raised(self, str(raised).lower())
 
 	def isRaised(self):
 		'''
@@ -831,7 +887,7 @@ class G3DRect(GRect):
 				str(self.width) + ", " + str(self.height) + ", " + \
 				str(self.raised).lower() + ")"
 
-class GOval(GObject):
+class GOval(GObject, Fillable):
 	'''
 	This graphical object subclass represents an oval inscribed in
 	a rectangular box.  For example, the following code displays a
@@ -864,7 +920,7 @@ class GOval(GObject):
 		self.height = height
 		self.fillFlag = False
 		self.fillColor = ""
-		_platform.Platform().createGOval(self, width, height)
+		_platform.Platform().goval_constructor(self, width, height)
 		self.setLocation(x=x, y=y)
 
 	def setSize(self, width=None, height=None, size=None):
@@ -880,12 +936,12 @@ class GOval(GObject):
 		'''
 		if(self.transformed): raise Exception("setSize: Object has been transformed")
 		if(size != None):
-			width = size.getWidth()
-			height = size.getHeight()
+			width = size.width
+			height = size.height
 
 		self.width = width
 		self.height = height
-		_platform.Platform().setSize(self, width, height)
+		_platform.Platform().gobject_set_size(self, width, height)
 
 	def setBounds(self, x=None, y=None, width=None, height=None, bounds=None):
 		'''
@@ -900,10 +956,7 @@ class GOval(GObject):
 		@rtype: void
 		'''
 		if(bounds != None):
-			x = bounds.getX()
-			y = bounds.getY()
-			width = bounds.getWidth()
-			height = bounds.getHeight()
+			x, y, width, height = bounds
 
 		self.setLocation(x=x, y=y)
 		self.setSize(width, height)
@@ -914,7 +967,7 @@ class GOval(GObject):
 
 		@rtype: GRectangle
 		'''
-		if(self.transformed): return _platform.Platform().getBounds(self)
+		if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
 		return _gtypes.GRectangle(self.x, self.y, self.width, self.height)
 
 	def contains(self, x, y):
@@ -923,7 +976,7 @@ class GOval(GObject):
 
 		@rtype: boolean
 		'''
-		if(self.transformed): return _platform.Platform().contains(self, x, y)
+		if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
 		rx = self.width / 2
 		ry = self.height / 2
 		if(rx == 0 or ry == 0): return False
@@ -940,7 +993,7 @@ class GOval(GObject):
 		@rtype: void
 		'''
 		self.fillFlag = flag
-		_platform.Platform().setFilled(self, flag)
+		_platform.Platform().gobject_set_filled(self, flag)
 
 	def isFilled(self):
 		'''
@@ -964,7 +1017,7 @@ class GOval(GObject):
 			rgb = _gcolor.color_to_rgb(color)
 		if(rgb != None):
 			self.fillColor = _gcolor.rgb_to_hex(rgb)
-		_platform.Platform().setFillColor(self, self.fillColor)
+		_platform.Platform().gobject_set_fill_color(self, self.fillColor)
 
 	def getFillColor(self):
 		'''
@@ -1033,7 +1086,7 @@ class GArc(GObject):
 		self.sweep = sweep
 		self.fillFlag = False
 		self.fillColor = ""
-		_platform.Platform().createGArc(self, width, height, start, sweep)
+		_platform.Platform().garc_constructor(self, width, height, start, sweep)
 		self.setLocation(x=x, y=y)
 
 	def setStartAngle(self, start):
@@ -1045,7 +1098,7 @@ class GArc(GObject):
 		@rtype: void
 		'''
 		self.start = start
-		_platform.Platform().setStartAngle(self, start)
+		_platform.Platform().garc_set_start_angle(self, start)
 
 	def getStartAngle(self):
 		'''
@@ -1065,7 +1118,7 @@ class GArc(GObject):
 		@rtype: void
 		'''
 		self.sweep = sweep
-		_platform.Platform().setSweepAngle(self, sweep)
+		_platform.Platform().garc_set_sweep_angle(self, sweep)
 
 	def getSweepAngle(self):
 		'''
@@ -1114,7 +1167,7 @@ class GArc(GObject):
 		self.y = y
 		self.frameWidth = width
 		self.frameHeight = height
-		_platform.Platform().setFrameRectangle(self, x, y, width, height)
+		_platform.Platform().garc_set_frame_rectangle(self, x, y, width, height)
 
 	def getFrameRectangle(self):
 		'''
@@ -1149,7 +1202,7 @@ class GArc(GObject):
 		@rtype: void
 		'''
 		self.fillFlag = flag
-		_platform.Platform().setFilled(self, flag)
+		_platform.Platform().gobject_set_filled(self, flag)
 
 	def getFilled(self):
 		'''
@@ -1174,7 +1227,7 @@ class GArc(GObject):
 			rgb = _gcolor.color_to_rgb(color)
 		if(rgb != None):
 			self.fillColor = _gcolor.rgb_to_hex(rgb)
-		_platform.Platform().setFillColor(self, self.fillColor)
+		_platform.Platform().gobject_set_fill_color(self, self.fillColor)
 
 	def getFillColor(self):
 		'''
@@ -1191,7 +1244,7 @@ class GArc(GObject):
 
 		@rtype: GRectangle
 		'''
-		if(self.transformed): return _platform.Platform().getBounds(self)
+		if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
 		rx = self.frameWidth / 2
 		ry = self.frameHeight / 2
 		cx = self.x + rx
@@ -1225,7 +1278,7 @@ class GArc(GObject):
 		@type y: float
 		@rtype: boolean
 		'''
-		if(self.transformed): return _platform.Platform().contains(self, x, y)
+		if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
 		rx = frameWidth / 2
 		ry = frameHeight / 2
 		if (rx == 0 or ry == 0): return False
@@ -1315,7 +1368,7 @@ class GLine(GObject):
 		self.y0 = y0
 		self.dx = x1 - x0
 		self.dy = y1 - y0
-		_platform.Platform().createGLine(self, x0, y0, x1, y1)
+		_platform.Platform().gline_constructor(self, x0, y0, x1, y1)
 
 	def setStartPoint(self, x, y):
 		'''
@@ -1331,7 +1384,7 @@ class GLine(GObject):
 		self.dy += self.y - y
 		self.x = x
 		self.y = y
-		_platform.Platform().setStartPoint(self, x, y)
+		_platform.Platform().gline_set_start_point(self, x, y)
 
 	def getStartPoint(self):
 		'''
@@ -1353,7 +1406,7 @@ class GLine(GObject):
 		'''
 		self.dx = x - self.x
 		self.dy = y - self.y
-		_platform.Platform().setEndPoint(self, x, y)
+		_platform.Platform().gline_set_end_point(self, x, y)
 
 	def getEndPoint(self):
 		'''
@@ -1371,7 +1424,7 @@ class GLine(GObject):
 		@type y: float
 		@rtype: boolean
 		'''
-		if(self.transformed): return _platform.Platform().contains(self, x, y)
+		if(self.transformed): return _platform.Platform().gline_contains(self, x, y)
 		x0 = self.getX()
 		y0 = self.getY()
 		x1 = x0 + self.dx
@@ -1435,7 +1488,7 @@ class GImage(GObject):
 		'''
 		GObject.__init__(self)
 		self.filename = filename
-		size = _platform.Platform().createGImage(self, filename)
+		size = _platform.Platform().gimage_constructor(self, filename)
 		self.width = size.getWidth()
 		self.height = size.getHeight()
 		self.setLocation(x=x, y=y)
@@ -1446,24 +1499,11 @@ class GImage(GObject):
 
 		@rtype: GRectangle
 		'''
-		if(self.transformed): return _platform.Platform().getBounds(self)
+		if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
 		return _gtypes.GRectangle(self.x, self.y, self.width, self.height)
 
-	def getType(self):
-		'''
-		Returns the type of this object
-
-		@rtype: string
-		'''
-		return "GImage"
-
-	def toString(self):
-		'''
-		Returns the string form of this object
-
-		@rtype: string
-		'''
-		return "GImage(\"" + self.filename + "\")"
+	def __str__(self):
+		return 'GImage("{}")'.format(self.filename)
 
 class GLabel(GObject):
 	'''
@@ -1503,13 +1543,13 @@ class GLabel(GObject):
 		'''
 		GObject.__init__(self)
 		self.str = str
-		_platform.Platform().createGLabel(self, str)
+		_platform.Platform().glabel_constructor(self, str)
 		self.setFont(__DEFAULT_GLABEL_FONT__)
-		size = _platform.Platform().getGLabelSize(self)
-		self.width = size.getWidth()
-		self.height = size.getHeight()
-		self.ascent = _platform.Platform().getFontAscent(self)
-		self.descent = _platform.Platform().getFontDescent(self)
+		size = _platform.Platform().glabel_get_size(self)
+		self.width = size.width
+		self.height = size.height
+		self._ascent = _platform.Platform().glabel_get_font_ascent(self)
+		self._descent = _platform.Platform().glabel_get_font_descent(self)
 		self.setLocation(x=x, y=y)
 
 	def setFont(self, font):
@@ -1527,12 +1567,12 @@ class GLabel(GObject):
 		@rtype: void
 		'''
 		self.font = font
-		_platform.Platform().setFont(self, font)
-		size = _platform.Platform().getGLabelSize(self)
-		self.width = size.getWidth()
-		self.height = size.getHeight()
-		self.ascent = _platform.Platform().getFontAscent(self)
-		self.descent = _platform.Platform().getFontDescent(self)
+		_platform.Platform().glabel_set_font(self, font)
+		size = _platform.Platform().glabel_get_size(self)
+		self.width = size.width
+		self.height = size.height
+		self._ascent = _platform.Platform().glabel_get_font_ascent(self)
+		self._descent = _platform.Platform().glabel_get_font_descent(self)
 
 	def getFont(self):
 		'''
@@ -1552,9 +1592,9 @@ class GLabel(GObject):
 		'''
 		self.str = str
 		_platform.Platform().setLabel(self, str)
-		size = _platform.Platform().getGLabelSize(self)
-		self.width = size.getWidth()
-		self.height = size.getHeight()
+		size = _platform.Platform().glabel_get_size(self)
+		self.width = size.width
+		self.height = size.height
 
 	def getLabel(self):
 		'''
@@ -1563,6 +1603,16 @@ class GLabel(GObject):
 		@rtype: string
 		'''
 		return self.str
+
+	@property
+	def ascent(self):
+		"""Return the maximum distance strings in this font ascend above the baseline."""
+		return self._ascent
+
+	@property
+	def descent(self):
+		"""Return the maximum distance strings in this font descend below the baseline."""
+		return self._descent
 
 	def getFontAscent(self):
 		'''
@@ -1580,7 +1630,7 @@ class GLabel(GObject):
 
 		@rtype: float
 		'''
-		return self.descent
+		return self._descent
 
 	def getBounds(self):
 		'''
@@ -1588,8 +1638,8 @@ class GLabel(GObject):
 
 		@rtype: GRectangle
 		'''
-		if(self.transformed): return _platform.Platform().getBounds(self)
-		return _gtypes.GRectangle(self.x, self.y - self.ascent, self.width, self.height)
+		if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
+		return _gtypes.GRectangle(self.x, self.y - self._ascent, self.width, self.height)
 
 	def getType(self):
 		'''
@@ -1640,7 +1690,7 @@ class GPolygon(GObject):
 		self.cx = None
 		self.cy = None
 		self.vertices = []
-		_platform.Platform().createGPolygon(self)
+		_platform.Platform().gpolygon_constructor(self)
 
 	def addVertex(self, x, y):
 		'''
@@ -1654,7 +1704,7 @@ class GPolygon(GObject):
 		self.cx = x
 		self.cy = y
 		self.vertices.append(_gtypes.GPoint(x, y))
-		_platform.Platform().addVertex(self, x, y)
+		_platform.Platform().gpolygon_add_vertex(self, x, y)
 
 	def addEdge(self, dx, dy):
 		'''
@@ -1700,7 +1750,7 @@ class GPolygon(GObject):
 		@rtype: void
 		'''
 		self.fillFlag = flag
-		_platform.Platform().setFilled(self, flag)
+		_platform.Platform().gobject_set_filled(self, flag)
 
 	def isFilled(self):
 		'''
@@ -1724,7 +1774,7 @@ class GPolygon(GObject):
 			rgb = _gcolor.color_to_rgb(color)
 		if(rgb != None):
 			self.fillColor = _gcolor.rgb_to_hex(rgb)
-		_platform.Platform().setFillColor(self, self.fillColor)
+		_platform.Platform().gobject_set_fill_color(self, self.fillColor)
 
 	def getFillColor(self):
 		'''
@@ -1741,7 +1791,7 @@ class GPolygon(GObject):
 
 		@rtype: GRectangle
 		'''
-		if(self.transformed): return _platform.Platform().getBounds(self)
+		if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
 		xMin = 0
 		yMin = 0
 		xMax = 0
@@ -1763,7 +1813,7 @@ class GPolygon(GObject):
 		@type y: float
 		@rtype: boolean
 		'''
-		if(self.transformed): return _platform.Platform().contains(self, x, y)
+		if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
 		crossings = 0
 		n = len(self.vertices)
 		if(n < 2): return False
@@ -1779,19 +1829,5 @@ class GPolygon(GObject):
 			y0 = y1
 		return (crossings % 2 == 1)
 
-	def getType(self):
-		'''
-		Returns the type of this object
-
-		@rtype: string
-		'''
-		return "GPolygon"
-
-	def toString(self):
-		'''
-		Returns the string form of this object
-
-		@rtype: string
-		'''
-		return "GPolygon(" + str(len(self.vertices)) + " vertices)"
-
+	def __str__(self):
+		return "GPolygon(num_vertices={})".format(len(self.vertices))
