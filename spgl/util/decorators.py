@@ -1,4 +1,5 @@
 import inspect as _inspect
+import functools as _functools
 
 ## Decorators
 def _bind_args(function, *args, **kwargs):
@@ -38,7 +39,7 @@ def print_args(function):
     """Decorate the given function to print out it's arguments and return val if not None
 
     """
-    @functools.wraps(function)
+    @_functools.wraps(function)
     def wrapper(*args, **kwargs):
         bound_arguments = _bind_args(function, *args, **kwargs)
         print("{name}({call})".format(
@@ -74,7 +75,7 @@ def print_args(function):
 
 def cache(function):
     function._cache = {}
-    @functools.wraps(function)
+    @_functools.wraps(function)
     def wrapper(*args, **kwargs):
         key = (args, tuple(kwargs.items()))
         if key in function._cache:
@@ -92,7 +93,7 @@ def cache_challenge(max_size=None, eviction_policy='LRU'):
     assert eviction_policy in ['LRU', 'MRU', 'random']
     def decorator(function):
         function._cache = collections.OrderedDict()
-        @functools.wraps(function)
+        @_functools.wraps(function)
         def wrapper(*args, **kwargs):
             key = (args, tuple(kwargs.items()))
             if key in function._cache:
@@ -127,7 +128,7 @@ def enforce_types(function):
     if not expected:
         return function
     assert(all(map(lambda exp: type(exp) == type, expected.values())))
-    @functools.wraps(function)
+    @_functools.wraps(function)
     def wrapper(*args, **kwargs):
         bound_arguments = _bind_args(function, *args, **kwargs)
         for arg, val in bound_arguments.items():
@@ -186,7 +187,7 @@ def enforce_types_challenge(severity=1):
             return function
         assert(all(map(lambda exp: type(exp) == type, expected.values())))
 
-        @functools.wraps(function)
+        @_functools.wraps(function)
         def wrapper(*args, **kwargs):
             bound_arguments = _bind_args(function, *args, **kwargs)
             for arg, val in bound_arguments.items():
