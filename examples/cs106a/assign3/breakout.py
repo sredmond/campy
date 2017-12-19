@@ -1,23 +1,29 @@
+#!/usr/bin/env python
+"""Breakout! A graphical game of epic proportions.
+
+Partial Python implementation of a game of Breakout, a brick-breaking game
+popularized by Eric Roberts' CS106A course at Stanford.
+"""
+# TODO(sredmond): Avoid import-star.
 from spgl.graphics.gwindow import *
 from spgl.graphics.gobjects import *
 from spgl.graphics.gevents import *
-from spgl.gtimer import *
-from spgl.grandom import *
+from spgl.graphics.gtimer import *
+from spgl.util.randomgenerator import *
 
 import time
 
 window = GWindow()
-window.setWindowTitle("Breakout")
-# waitForClick()
+window.title = 'Breakout'
 
 ball = GOval(20,20, window.getWidth()/2, window.getHeight()/2)
-ball.setFilled(True)
+ball.filled = True
 window.add(ball)
 vx = 2.7
 vy = 3.0
 
 paddle = GRect(125, 15, window.getWidth()/2, window.getHeight() - 50)
-paddle.setFilled(True)
+paddle.filled = True
 window.add(paddle)
 
 spacer = 5
@@ -42,7 +48,6 @@ for i in range(10):
 timer = GTimer(milliseconds=15)
 import sys
 timer.start()
-# sys.exit(0)
 while(True):
 	e = getNextEvent()
 	if(e.getEventType() == EventType.MOUSE_MOVED):
