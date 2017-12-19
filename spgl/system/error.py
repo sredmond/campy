@@ -23,8 +23,7 @@ def error(message):
     Signals an error condition in a program by throwing an
     <code>ErrorException</code> with the specified message.
 
-    :param message: error message
-    :type message: str
-    :noreturn:
+    :param str message: error message
+    :raises: An :class:`ErrorException` with the supplied error message.
     """
     raise ErrorException(message)
