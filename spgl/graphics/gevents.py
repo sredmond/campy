@@ -82,6 +82,10 @@ This type defines the names of the key codes returned in a key event
     - DELETE_KEY
     - HELP_KEY
 
+TODO:
+    Reconsider using EventClassType. Instead use inheritance?
+    Deduplicate events that capture a GWindow.
+    Check for validity on property access.
 """
 import enum as _enum
 
@@ -158,7 +162,7 @@ class KeyCodes(_enum.Enum):
     HELP_KEY = 156
 
 class GEvent:
-    '''
+    """
     This class is the root of the hierarchy for all events.
 
     The standard paradigm for using GEvent is illustrated
@@ -175,7 +179,25 @@ class GEvent:
             elif (e.getEventType() == gevents.EventType.MOUSE_DRAGGED)
                 line.setEndPoint(e.getrX(), e.getY());
 
-    '''
+    Attributes:
+        event_class [EventClassType]: Enumerated type constant indicating the class of the event.
+        event_type [EventType]: Enumerated type constant corresponding to the specific event type.
+        time [float]: System time in milliseconds at which the event occurred.
+        valid [bool]: Whether this event represents a fully-initialized valid event.
+        modifiers [int]: Integer whose bits indicate what modifiers are in effect.
+
+    Notes:
+        To ensure portability among systems that represent time in different
+        ways, the SPGL library uses a float to
+        represent time, which is always encoded as the number of milliseconds
+        that have elapsed since 00:00:00 UTC on January 1, 1970, which is
+        the conventional zero point for computer-based time systems.
+
+        To check whether the shift key is down, for example, one could use
+        the following code::
+
+            if e.modifiers & SHIFT_DOWN: ...
+    """
 
     def __init__(self):
         '''
@@ -183,88 +205,38 @@ class GEvent:
 
         @rtype: void
         '''
-        self.eventClass = EventClassType.NULL_EVENT
-        self.eventType = None
-        self.valid = False
-        self.modifiers = 0
+        self._event_class = EventClassType.NULL_EVENT
+        self._event_type = None
+        self._valid = False
 
-    def getEventClass(self):
-        '''
-        Returns the _enumerated type constant indicating the class of the event.
+        self._time = None
+        self._modifiers = 0
 
-        @rtype: EventClassType
-        @return: this objects event class type
-        '''
-        return self.eventClass
+    # "Enforce" read-only properties.
+    # TODO(sredmond): This is somewhat gross and ill-advised.
 
-    def getEventType(self):
-        '''
-        Returns the _enumerated type constant corresponding to the specific event type.
+    @property
+    def event_class(self):
+        return self._event_class
 
-        @rtype: EventType
-        @return: this objects event type
-        '''
-        return self.eventType
+    @property
+    def event_type(self):
+        return self._event_type
 
-    def getEventTime(self):
-        '''
-        Returns the system time in milliseconds at which the event occurred.
-        To ensure portability among systems that represent time in different
-        ways, the SPGL library uses a float to
-        represent time, which is always encoded as the number of milliseconds
-        that have elapsed since 00:00:00 UTC on January 1, 1970, which is
-        the conventional zero point for computer-based time systems.
+    @property
+    def valid(self):
+        return self._valid
 
-        @rtype: float
-        @return: system time in milliseconds
-        '''
-        return self.eventTime
+    @property
+    def time(self):
+        return self._time
 
-    def getModifiers(self):
-        '''
-        Returns an integer whose bits indicate what modifiers are in effect.
-        To check whether the shift key is down, for example, one could use
-        the following code::
+    @property
+    def modifiers(self):
+        return self._modifiers
 
-            if (e.getModifiers() & SHIFT_DOWN): ...
-
-        @rtype: int
-        '''
-        return self.modifiers
-
-    def toString(self):
-        '''
-        Converts the event to a human-readable representation of the event.
-
-        @rtype: string
-        '''
+    def __str__(self):
         return "GEvent(NULL)";
-
-    def isValid(self):
-        '''
-        Returns true if the event is valid.
-
-        @rtype: boolean
-        '''
-        return self.valid
-
-    def setEventTime(self, time):
-        '''
-        Sets the event time field for this event.  The event system needs
-        access to this method, but conventional clients don't.
-
-        @rtype: void
-        '''
-        self.eventTime = time
-
-    def setModifiers(self, modifiers):
-        '''
-        Sets the modifiers field for this event.  The event system needs
-        access to this method, but conventional clients don't.
-
-        @rtype: void
-        '''
-        self.modifiers = modifiers
 
 class GWindowEvent(GEvent):
     '''
@@ -272,9 +244,12 @@ class GWindowEvent(GEvent):
     Each GWindowEvent keeps track of the event type
     (WINDOW_CLOSED, WINDOW_RESIZED) along
     with the identity of the window.
+
+    Attributes:
+        gwindow [GWindow]: Reference to the GWindow in which this event took place
     '''
 
-    def __init__(self, type = None, gw = None):
+    def __init__(self, event_type=None, gwindow=None):
         '''
         Creates a GWindowEvent using the specified parameters
 
@@ -283,34 +258,32 @@ class GWindowEvent(GEvent):
         @type gw: GWindow
         @param gw: GWindow event took place in
         '''
-        self.valid = False
-        if(type != None and gw != None):
-            self.eventClass = EventClassType.WINDOW_EVENT
-            self.eventType = type
-            self.gwd = gw.gwd
-            self.valid = True
+        super().__init__()
+        if event_type != None and gwindow != None:
+            self._event_class = EventClassType.WINDOW_EVENT
+            self._event_type = event_type
+            self._valid = True
 
-    def getGWindow(self):
-        '''
-        Returns the graphics window in which this event occurred.
+        self._gwindow = gwindow
 
-        @rtype: L{GWindow}
-        '''
-        import spgl.graphics.gwindow as _gwindow
-        return _gwindow.GWindow(gwd = self.gwd)
+    @property
+    def gwindow(self):
+        # TODO(sredmond): Do we have to recreate a new GWindow with the existing data?
+        return self._gwindow
 
-    def toString(self):
-        '''
-        Converts the event to a human-readable representation of the event.
+    # def getGWindow(self):
+    #     '''
+    #     Returns the graphics window in which this event occurred.
 
-        @rtype: string
-        '''
-        if(not self.valid): return "GWindowEvent(?)"
-        result = "GWindowEvent:"
-        if(self.eventType == EventType.WINDOW_CLOSED): result += "WINDOW_CLOSED"
-        elif(self.eventType == EventType.WINDOW_RESIZED): result += "WINDOW_RESIZED"
-        result += "()"
-        return result
+    #     @rtype: L{GWindow}
+    #     '''
+    #     import spgl.graphics.gwindow as _gwindow
+    #     return _gwindow.GWindow(gwd = self.gwd)
+
+    def __str__(self):
+        if not self.valid:
+            return "GWindowEvent(?)"
+        return  "GWindowEvent({})".format(self.event_type.name)
 
 class GActionEvent(GEvent):
     '''
@@ -331,9 +304,13 @@ class GActionEvent(GEvent):
             if(e.getEventType() == MOUSE_CLICKED):
                 break;
             print("Please do not press this button again.")
+
+    Attributes:
+        source [GObject]: GInteractor from which event originated.
+        action_command [string]: GInteractor command.
     '''
 
-    def __init__(self, type = None, source = None, actionCommand = None):
+    def __init__(self, event_type=None, source=None, action_command=None):
         '''
         Creates a GActionEvent using the specified parameters.
 
@@ -345,39 +322,27 @@ class GActionEvent(GEvent):
         @param actionCommand: interactor command
         @rtype: void
         '''
-        self.valid = False
-        if(type != None and source != None and actionCommand != None):
-            self.eventClass = EventClassType.ACTION_EVENT
-            self.eventType = type
-            self.source = source
-            self.actionCommand = actionCommand
-            valid = True
+        super().__init__()
+        if event_type != None and source != None and action_command != None:
+            self._event_class = EventClassType.ACTION_EVENT
+            self._event_type = event_type
+            self._valid = True
 
-    def getSource(self):
-        '''
-        Returns a pointer to the GObject that generated this event.
+        self._source = source
+        self._action_command = action_command
 
-        @rtype: GObkect
-        '''
-        return self.source
+    @property
+    def source(self):
+        return self._source
 
-    def getActionCommand(self):
-        '''
-        Returns the action command associated with this event.
+    @property
+    def action_command(self):
+        return self._action_command
 
-        @rtype: string
-        '''
-        return self.actionCommand
-
-    def toString(self):
-        '''
-        Converts the event to a human-readable representation of the event.
-
-        @rtype: string
-        '''
-        if(not valid): return "GActionEvent(?)"
-        result = "GActionEvent:ACTION_PERFORMED(" + self.actionCommand + ")"
-        return result
+    def __str__(self):
+        if not valid:
+            return "GActionEvent(?)"
+        return "GActionEvent({}, {})".format(self.event_type.name, self.action_command)
 
 class GMouseEvent(GEvent):
     '''
@@ -411,9 +376,18 @@ class GMouseEvent(GEvent):
                 width = abs(e.getX() - startX);
                 height = abs(e.getY() - startY);
                 rect.setBounds(x, y, width, height);
+
+    Attributes:
+        gwindow [GWindow]: GWindow in which MouseEvent occurred.
+        x [float]: The x-coordinate at which the event occurred.
+        y [float]: The y-coordinate at which the event occurred.
+
+    Notes:
+        The x- and y-coordinates are given relative to the window origin at
+        the upper left corner of the window.
     '''
 
-    def __init__(self, type = None, gw = None, x = None, y = None):
+    def __init__(self, event_type=None, gwindow=None, x=None, y=None):
         '''
         Creates a GMouseEvent using the specified parameters.
 
@@ -427,56 +401,33 @@ class GMouseEvent(GEvent):
         @param y: y location of event
         @rtype: void
         '''
-        self.valid = False
-        if(type != None and gw != None and x != None and y != None):
-            self.eventClass = EventClassType.MOUSE_EVENT
-            self.eventType = type
-            self.gwd = gw.gwd
-            self.x = x
-            self.y = y
-            self.valid = True
+        super().__init__()
+        if type != None and gwindow != None and x != None and y != None:
+            self._event_class = EventClassType.MOUSE_EVENT
+            self._event_type = event_type
+            self._valid = True
 
-    def getGWindow(self):
-        '''
-        Returns the graphics window in which this event occurred.
+        self._gwindow = gwindow
+        self._x = x
+        self._y = y
 
-        @rtype: GWindow
-        '''
-        return _gwindow.GWindow(gwd = self.gwd)
+    @property
+    def gwindow(self):
+        # TODO(sredmond): Do we have to recreate a new GWindow with the existing data?
+        return self._gwindow
 
-    def getX(self):
-        '''
-        Returns the x coordinate at which the event occurred relative
-        to the window origin at the upper left corner of the window.
+    @property
+    def x(self):
+        return self._x
 
-        @rtype: float
-        '''
-        return self.x
+    @property
+    def y(self):
+        return self._y
 
-    def getY(self):
-        '''
-        Returns the y coordinate at which the event occurred relative
-        to the window origin at the upper left corner of the window.
-
-        @rtype: float
-        '''
-        return self.y
-
-    def toString(self):
-        '''
-        Converts the event to a human-readable representation of the event.
-
-        @rtype: string
-        '''
-        if(not valid): return "GMouseEvent(?)"
-        result = "GMouseEvent:"
-        if(self.eventType == EventType.MOUSE_PRESSED): result += "MOUSE_PRESSED"
-        elif(self.eventType == EventType.MOUSE_RELEASED): result += "MOUSE_RELEASED"
-        elif(self.eventType == EventType.MOUSE_CLICKED): result += "MOUSE_CLICKED"
-        elif(self.eventType == EventType.MOUSE_MOVED): result += "MOUSE_MOVED"
-        elif(self.eventType == EventType.MOUSE_DRAGGED): result += "MOUSE_DRAGGED"
-        result += "(" + str(self.x) + ", " + str(self.y) + ")"
-        return result
+    def __str__(self):
+        if not valid:
+            return "GMouseEvent(?)"
+        return "GMouseEvent({}, x={}, y={})".format(self.event_type.name, self.x, self.y)
 
 class GKeyEvent(GEvent):
     '''
@@ -488,9 +439,21 @@ class GKeyEvent(GEvent):
     the key, which can be a function key as well as a standard key.
     The codes return by getKeyCode are listed in the
     KeyCodes _enumeration.
+
+    Attributes:
+        gwindow [GWindow]: GWindow in which MouseEvent occurred.
+        key_char [int]: Value of key.
+        key_code [int]: Code of key.
+
+    Notes:
+        Returns the character represented by the keystroke, taking the modifier
+        keys into account.  For example, if the user types the 'a'
+        key with the shift key down, getKeyChar will return
+        'A'.  If the key code in the event does not correspond
+        to a character, getKeyChar returns the null character.
     '''
 
-    def __init__(self, type = None, gw = None, keyChar = None, keyCode = None):
+    def __init__(self, event_type=None, gwindow=None, key_char=None, key_code=None):
         '''
         Creates a GKeyEvent using the specified parameters.
 
@@ -504,68 +467,35 @@ class GKeyEvent(GEvent):
         @param keyCode: code of key
         @rtype: void
         '''
-        self.valid = False
-        if(type != None and gw != None and keyChar != None and keyCode != None):
-            self.eventClass = EventClassType.KEY_EVENT
-            self.eventType = type
-            self.gwd = gw.gwd
-            self.keyChar = keyChar
-            self.keyCode = keyCode
-            self.valid = True
+        super().__init__()
+        if event_type != None and gwindow != None and key_char != None and key_code != None:
+            self._event_class = EventClassType.KEY_EVENT
+            self._event_type = event_type
+            self._valid = True
 
-    def getGWindow(self):
-        '''
-        Returns the graphics window in which this event occurred.
+        self._gwindow = gwindow
+        self._key_char = key_char
+        self._key_code = key_code
 
-        @rtype: GWindow
-        '''
-        return _gwindow.GWindow(gwd)
+    @property
+    def gwindow(self):
+        # TODO(sredmond): Do we have to recreate a new GWindow with the existing data?
+        return self._gwindow
 
-    def getKeyChar(self):
-        '''
-        Returns the character represented by the keystroke, taking the modifier
-        keys into account.  For example, if the user types the 'a'
-        key with the shift key down, getKeyChar will return
-        'A'.  If the key code in the event does not correspond
-        to a character, getKeyChar returns the null character.
+    @property
+    def key_char(self):
+        return self._key_char
 
-        @rtype: int
-        '''
-        return self.keyChar
+    @property
+    def key_code(self):
+        return self._key_code
 
-    def getKeyCode(self):
-        '''
-        Returns the integer code associated with the key in the event.
-
-        @rtype: KeyCodes
-        '''
-        return self.keyCode
-
-    def toString(self):
-        '''
-        Converts the event to a human-readable representation of the event.
-
-        @rtype: string
-        '''
-        if(not valid): return "GKeyEvent(?)"
-        result = "GKeyEvent:"
-        ch = None
-        if(self.eventType == EventType.KEY_PRESSED):
-            result += "KEY_PRESSED"
-            ch = self.keyCode
-        elif(self.eventType == EventType.KEY_RELEASED):
-            result += "KEY_RELEASED"
-            ch = self.keyCode
-        elif(self.eventType == EventType.KEY_TYPED):
-            result += "KEY_TYPED"
-            ch = self.keyChar
-
-        if(ch != None and string.printable.find(ch) != -1):
-            result += "('" + ch + "')"
-        elif(ch != None):
-            result += "('\\" + oct(ord(ch)) + "')"
-
-        return result
+    def __str__(self):
+        if not valid:
+            return "GKeyEvent(?)"
+        # TODO(sredmond): The C++ libs use key_char for KEY_TYPED for some reason.
+        # Investigate further.
+        return "GKeyEvent({}, {})".format(self.event_type.name, chr(self.key_code))
 
 class GTimerEvent(GEvent):
     '''
@@ -585,9 +515,12 @@ class GTimerEvent(GEvent):
             if (e.getEventType() == MOUSE_CLICKED):
                 break;
         print("Timer ticked")
+
+    Attributes:
+        timer [GTimer]: GTimer from which this event originated.
     '''
 
-    def __init__(self, type = None, timer = None):
+    def __init__(self, event_type=None, timer=None):
         '''
         Creates a GTimerEvent for the specified timer.
 
@@ -597,41 +530,37 @@ class GTimerEvent(GEvent):
         @param timer: timer associated with event
         @rtype: void
         '''
-        valid = False
-        if(type != None and timer != None):
-            self.eventClass = EventClassType.TIMER_EVENT
-            self.eventType = type
-            self.timer = timer
-            # self.gtd = timer.gtd
-            valid = True
+        super().__init__()
+        if event_type != None and timer != None:
+            self._event_class = EventClassType.TIMER_EVENT
+            self._event_type = event_type
+            self._valid = True
 
-    def getGTimer(self):
-        '''
-        Returns the timer that generated this event.
+        self._timer = timer
 
-        @rtype: GTimer
-        '''
-        return self.timer
-        # return gtimer.GTimer(gtd)
+    @property
+    def timer(self):
+        return self._timer
 
-    def toString():
+    def __str__():
         '''
         Converts the event to a human-readable representation of the event.
 
         @rtype: string
         '''
-        if(not valid): return "GTimerEvent(?)"
-        return "GTimerEvent:TIMER_TICKED()"
+        if not valid:
+            return "GTimerEvent(?)"
+        return "GTimerEvent({})".format(self.event_type.name)
 
-def waitForClick():
+def wait_for_click():
     '''
     Waits for a mouse click in any window, discarding any other events.
 
     @rtype: void
     '''
-    waitForEvent(EventClassType.CLICK_EVENT)
+    wait_for_event(EventClassType.CLICK_EVENT)
 
-def waitForEvent(mask = EventClassType.ANY_EVENT):
+def wait_for_event(mask=EventClassType.ANY_EVENT):
     '''
     Dismisses the process until an event occurs whose type is covered by
     the event mask.  The mask parameter is a combination of the events of
@@ -665,7 +594,7 @@ def waitForEvent(mask = EventClassType.ANY_EVENT):
     import spgl.private.platform as _platform
     return _platform.Platform().waitForEvent(mask)
 
-def getNextEvent(mask=EventClassType.ANY_EVENT):
+def get_next_event(mask=EventClassType.ANY_EVENT):
     '''
     Checks to see if there are any events of the desired type waiting on the
     event queue.  If so, this function returns the event in exactly the same
@@ -684,5 +613,10 @@ if __name__ == '__main__':
     a = EventClassType.NULL_EVENT
     print(a)
     b = GEvent()
-    print(b.eventClass)
-    print(b.getEventType())
+    print(b.event_class)
+    print(b.event_type)
+    c = GMouseEvent(EventType.MOUSE_CLICKED, x=100, y=50)
+    print(c.event_class)
+    print(c.event_type)
+    print(c.x)
+    print(c.y)
