@@ -59,9 +59,6 @@ class Console:
         if self.console_locked: return
         self.console_event_on_close = event_on_close
 
-    @console_event_on_close.
-    def console
-
 
 class ConsoleCloseOperation(_enum.IntEnum):
     CONSOLE_DO_NOTHING_ON_CLOSE = 0
