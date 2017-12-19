@@ -12,11 +12,10 @@ class LinkedList(_collections.abc.MutableSequence):
     def add(self):
         pass
 
-    def
-
 class LinkedListNode(object):
-    def __init__(self, value):
+    def __init__(self, value, next_node):
         self.value = value
+        self.next = next_node
 
     def __str__(self):
         return "LLNode(value={self.value})".format(self=self)

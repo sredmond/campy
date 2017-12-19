@@ -7,13 +7,13 @@ class Grid(list):
         self.num_rows = num_rows
         self.num_cols = num_cols
         # Elements are stored in row-major order
-        self.elems = [[value for __ in range(num_cols)] for _ in range(num_cols)]
+        self.elems = [[value for __ in range(num_cols)] for _ in range(num_rows)]
 
     def empty(self):
         return self.num_rows == 0 or self.num_cols == 0
 
     def fill(self, value):
-        self.elems = [[value for __ in range(num_cols)] for _ in range(num_cols)]
+        self.elems = [[value for __ in range(self.num_cols)] for _ in range(self.num_rows)]
 
     def get(self, row, col):
         return self.elems[row][col]
@@ -29,7 +29,7 @@ class Grid(list):
             self.__init__(num_rows, num_cols)
         else:
             old = self.elems
-            self.elems = [[None for __ in range(num_cols)] for _ in range(num_cols)]
+            self.elems = [[None for __ in range(self.num_cols)] for _ in range(self.num_rows)]
             for oldrow, newrow in zip(old, self.elems):
                 for pos, elems in enumerate(zip(oldelems, newelems)):
                     oldelem, newelem = elems
@@ -42,6 +42,14 @@ class Grid(list):
         new = cls(grid.num_rows, grid.num_cols)
         new.elems = grid.elems
         return new
+
+    @property
+    def height(self):
+        return num_rows
+
+    @property
+    def width(self):
+        return num_cols
 
     # Magic methods to make a grid look like a list of lists
 

@@ -1,4 +1,10 @@
+# TODO(sredmond): Implement hash.
+
 class Vertex():
+    """Canonical Vertex (Node) structure used by :class:`BasicGraph`.
+
+    """
+    # TODO(sredmond): Investigate whether VertexGen in the C++ library is meaningful.
     def __init__(self, name):
         self.name = name
         self.reset_data()
@@ -14,6 +20,7 @@ class Vertex():
 
     @property
     def color(self):
+        """Return the color of this vertex."""
         return self._m_color
 
     @color.setter

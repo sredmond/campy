@@ -1,11 +1,11 @@
 import collections as _collections
 import functools as _functools
 
-@functools.total_ordering
+@_functools.total_ordering
 class SparseGrid(_collections.abc.MutableMapping):
-    def __init__(self, num_rows, num_cols, value=None):
-        self.num_rows = num_rows
-        self.num_cols = num_cols
+    def __init__(self, rows=0, cols=0, value=None):
+        self.rows = rows
+        self.cols = cols
         self._elements = _collections.defaultdict(dict)
         if value is not None:  # Even if user supplies an empty string, we want to fill
             self.fill(value)
@@ -16,14 +16,6 @@ class SparseGrid(_collections.abc.MutableMapping):
 
     def resize():
         pass
-
-    @property
-    def width():
-        return self.num_cols
-
-    @property
-    def height():
-        return self.num_rows
 
     def __getitem__(self, key):
         if isinstance(key, tuple):
@@ -58,7 +50,7 @@ class SparseGrid(_collections.abc.MutableMapping):
     def __iter__(self):
         for row in range(self.num_rows):
             for col in range(self.num_cols):
-                if row, col in self:
+                if (row, col) in self:
                     yield self[row, col]
 
     def __len__(self):
@@ -72,6 +64,15 @@ class SparseGrid(_collections.abc.MutableMapping):
         return 0 <= row < self.num_rows and 0 <= col < self.num_cols
 
     def fill(self, value):
+        # Optimization: Instead of filling the whole grid
+        # (and thus populating a huge number of cells, fill by
+        # clearing the existing elements and setting a new default
+        # value!)
+        self._elements.clear()
+        # TODO(sredmond): If value is mutable, all copies will share
+        # the same reference. This might be bad for students.
+        # Consider forcing this to be filled with a 0-arg callable.
+        self._elements.default_factory = lambda: value
         for row in range(self.num_rows):
             for col in range(self.num_cols):
                 self[row, col] = value
@@ -90,13 +91,13 @@ class SparseGrid(_collections.abc.MutableMapping):
         if self.num_rows != other.num_rows or self.num_cols != other.num_cols: return False
         for row in range(self.num_rows):
             for col in range(self.num_cols):
-                if row, col in self:
+                if (row, col) in self:
                     # I have data there; she must, too, and it must be the same data
-                    if row, col not in other or self[row, col] != other[row, col]:
+                    if (row, col) not in other or self[row, col] != other[row, col]:
                         return False
                 else:
                     # I don't have data there; she must also not have it there
-                    if row, col in other:
+                    if (row, col) in other:
                         return False
         return True
 
@@ -112,4 +113,14 @@ class SparseGrid(_collections.abc.MutableMapping):
     def from_stream(self):
         pass
 
-    def randomElement
+    def randomElement(self):
+        pass
+
+    # Alternate names for cols and rows.
+    @property
+    def width():
+        return self.cols
+
+    @property
+    def height():
+        return self.rows
