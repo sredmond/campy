@@ -16,11 +16,11 @@ class ConsoleStreamBuffer:
             result = result[:-1]
         return result
 
-    def print(self, *objects, sep='', end='\n', flush=False):
+    def print(self, *objects, sep='', end='\n', flush=False, stderr=False):
         buffer = _io.StringIO()
         __builtins__.print(*objects, sep=sep, end=end, file=buffer, flush=True)
         data = buffer.getvalue()
-        _platform.Platform().put_console(data)
+        _platform.Platform().put_console(data, stderr=stderr)
 
 
 def test_consolestreambuffer():
@@ -33,7 +33,7 @@ def test_consolestreambuffer():
         if not to_say: break
         console.print(to_say)
 
-    console.print(5, 6, 7, sep='/', end=' :)')
+    console.print(5, 6, 7, sep='/', end=' :)', stderr=True)
 
 if __name__ == '__main__':
     test_consolestreambuffer()
