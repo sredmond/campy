@@ -66,6 +66,21 @@ GWindow_toFront = 'GWindow.toFront("{id}")'
 GWindow_getScreenHeight = 'GWindow.getScreenHeight()'
 GWindow_getScreenSize = 'GWindow.getScreenSize()'
 GWindow_getScreenWidth = 'GWindow.getScreenWidth()'
+GWindow_draw = 'GWindow.draw("{id}", "{gobj_id}")'
+GWindow_drawInBackground = 'GWindow.drawInBackground("{id}", "{gobj_id}")'
+GWindow_exitGraphics = 'GWindow.exitGraphics()' # TODO: special
+GWindow_setRegionAlignment = 'GWindow.setRegionAlignment("{id}", "{region}", "{align}")'
+GWindow_setResizable = 'GWindow.setResizable("{id}", {value!b})'
+GWindow_addToRegion = 'GWindow.addToRegion("{id}", "{gobj_id}", "{region}")'
+GWindow_getLocation = 'GWindow.getLocation("{id}")' # TODO special
+GWindow_getPixel = 'GWindow.getPixel("{id}", {x}, {y})' # TODO special
+GWindow_getPixels = 'GWindow.getPixels("{id}")'  # TODO special
+GWindow_getRegionSize = 'GWindow.getRegionSize("{id}", "{region}")' # TODO: special
+GWindow_removeFromRegion = 'GWindow.removeFromRegion("{id}", "{gobj_id}", "{region}")'
+GWindow_getSize = 'GWindow.getSize("{id}")' # TODO special
+GWindow_getCanvasSize = 'GWindow.getCanvasSize("{id}")'  # TODO: special
+GWindow_getContentPaneSize = 'GWindow.getContentPaneSize("{id}")' # TODO: special
+GWindow_setVisible = 'GWindow.setVisible("{id}", {flag!b})'
 
 GTimer_constructor = 'GTimer.create("{id}", {millis})'
 GTimer_delete = 'GTimer.deleteTimer("{id}")'
@@ -84,20 +99,8 @@ Sound_play = 'Sound.play("{id}")'
 
 # Platform::url_download
 
+GCompound_constructor = 'GCompound.create("{id}")'
 GCompound_add = 'GCompound.add("{compound_id}", "{gobj_id}")'
-
-GWindow_setRegionAlignment = 'GWindow.setRegionAlignment("{id}", "{region}", "{align}")'
-GWindow_setResizable = 'GWindow.setResizable("{id}", {value!b})'
-GWindow_addToRegion = 'GWindow.addToRegion("{id}", "{gobj_id}", "{region}")'
-GWindow_getLocation = 'GWindow.getLocation("{id}")' # TODO special
-GWindow_getPixel = 'GWindow.getPixel("{id}", {x}, {y})' # TODO special
-GWindow_getPixels = 'GWindow.getPixels("{id}")'  # TODO special
-GWindow_getRegionSize = 'GWindow.getRegionSize("{id}", "{region}")' # TODO: special
-GWindow_removeFromRegion = 'GWindow.removeFromRegion("{id}", "{gobj_id}", "{region}")'
-GWindow_getSize = 'GWindow.getSize("{id}")' # TODO special
-GWindow_getCanvasSize = 'GWindow.getCanvasSize("{id}")'  # TODO: special
-GWindow_getContentPaneSize = 'GWindow.getContentPaneSize("{id}")' # TODO: special
-GWindow_setVisible = 'GWindow.setVisible("{id}", {flag!b})'
 
 GObject_delete = 'GObject.delete("{id}")'
 GObject_remove = 'GObject.remove("{id}")'
@@ -120,21 +123,12 @@ GObject_setFillColor = 'GObject.setFillColor("{id}", "{color}")'
 
 GInteractor_isEnabled = 'GInteractor.isEnabled("{id}")' # TODO: special
 GInteractor_setEnabled = 'GInteractor.setEnabled("{id}", {value!b})'
-GInteractor_setFont = 'GInteractor.setFont("{id}", {font!u})'
+GInteractor_setFont = 'GInteractor.setFont("{id}", "{font!u}")'
 GInteractor_setIcon = 'GInteractor.setIcon("{id}", {filename!q})'
 GInteractor_setMnemonic = 'GInteractor.setMnemonic("{id}", {mnemonic})' # TODO: special
 GInteractor_setText = 'GInteractor.setText("{id}", {text!u})'
 GInteractor_setTextPosition = 'GInteractor.setTextPosition("{id}", {horizontal}, {vertical})'
 GInteractor_setTooltip = 'GInteractor.setTooltip("{id}", {tooltip_text!q})'
-
-GArc_setFrameRectangle = 'GArc.setFrameRectangle("{id}", {x}, {y}, {width}, {height})' # TODO: special
-GArc_constructor = 'GArc.create("{id}", {width}, {height}, {start}, {sweep})'
-GArc_setStartAngle = 'GArc.setStartAngle("{id}", {angle})'
-GArc_setSweepAngle = 'GArc.setSweepAngle("{id}", {angle})'
-
-GWindow_draw = 'GWindow.draw("{id}", "{gobj_id}")'
-GWindow_drawInBackground = 'GWindow.drawInBackground("{id}", "{gobj_id}")'
-GWindow_exitGraphics = 'GWindow.exitGraphics()' # TODO: special
 
 GRect_constructor = 'GRect.create("{id}", {width}, {height})'
 
@@ -143,31 +137,43 @@ GRoundRect_constructor = 'GRoundRect.create("{id}", {width}, {height}, {corner})
 G3DRect_constructor = 'G3DRect.create("{id}", {width}, {height}, {raised!b})'
 G3DRect_setRaised = 'G3DRect.setRaised("{id}", {raised!b})'
 
-GLabel_constructor = 'GLabel.create("{id}", {label!q})'
+GOval_constructor = 'GOval.create("{id}", {width}, {height})'
+
+GArc_constructor = 'GArc.create("{id}", {width}, {height}, {start}, {sweep})'
+GArc_setStartAngle = 'GArc.setStartAngle("{id}", {angle})'
+GArc_setSweepAngle = 'GArc.setSweepAngle("{id}", {angle})'
+GArc_setFrameRectangle = 'GArc.setFrameRectangle("{id}", {x}, {y}, {width}, {height})' # TODO: special
 
 GLine_constructor = 'GLine.create("{id}", {x1}, {y1}, {x2}, {y2})'
 GLine_setStartPoint = 'GLine.setStartPoint("{id}", {x}, {y})' # TODO special
 GLine_setEndPoint = 'GLine.setEndPoint("{id}", {x}, {y})'
+
+GImage_constructor = 'GImage.create("{id}", "{filename}")' # TODO: special
+
+GLabel_constructor = 'GLabel.create("{id}", {label!q})'
+GLabel_setFont = 'GLabel.setFont("{id}", "{font}")'
+GLabel_setLabel = 'GLabel.setLabel("{id}", {label!q})'
+GLabel_getFontAscent = 'GLabel.getFontAscent("{id}")' # TODO: special
+GLabel_getFontDescent = 'GLabel.getFontDescent("{id}")'  # TODO: special
+GLabel_getSize = 'GLabel.getGLabelSize("{id}")'  # TODO: special
+
+GPolygon_constructor = 'GPolygon.create("{id}")'
+GPolygon_addVertex = 'GPolygon.addVertex("{id}", {x}, {y})'  # TODO: special
 
 DiffImage_compareImages = 'DiffImage.compareImages({file1!q}, {file2!q}, {outfile!q})'
 DiffImage_compareWindowToImage = 'DiffImage.compareWindowToImage("{id}", {file2!q}, {ignore_winodw_size!b})'
 DiffImage_show = 'DiffImage.show({file1!q}, {file2!q})'
 
 GBufferedImage_constructor = 'GBufferedImage.create("{id}", {x}, {y}, {width}, {height}, {rgb})' # TODO special and round
-GBufferedImage_fill = 'GBufferedImage.fill("{id}", rgb)'
+GBufferedImage_fill = 'GBufferedImage.fill("{id}", {rgb})'
 GBufferedImage_fillRegion = 'GBufferedImage.fillRegion("{id}", {x}, {y}, {width}, {height}, {rgb})'  # TODO rounding
 GBufferedImage_load = 'GBufferedImage.load("{id}", {filename!q})'
-GBufferedImage_resize = 'GBufferedImage.resize("{id}", {x}, {y}, {retain!b})'  # TODO: round
+GBufferedImage_resize = 'GBufferedImage.resize("{id}", {width}, {height}, {retain!b})'  # TODO: round
 GBufferedImage_save = 'GBufferedImage.save("{id}", {filename!q})'
 GBufferedImage_setRGB = 'GBufferedImage.setRGB("{id}", {x}, {y}, {rgb})' # TODO round
 GBufferedImage_updateAllPixels = 'GBufferedImage.updateAllPixels("{id}", "{base64}")'
 
-GImage_constructor = 'GImage.create("{id}", "{filename}")' # TODO: special
-
-GPolygon_constructor = 'GPolygon.create("{id}")'
-GPolygon_addVertex = 'GPolygon.addVertex("{id}", {x}, {y})'  # TODO: special
-
-GOval_constructor = 'GOval.create("{id}", {width}, {height})'
+# SECTION: GInteractor
 
 GInteractor_setAccelerator = 'GInteractor.setAccelerator("{id}", {accelerator!u})'
 GInteractor_setActionCommand = 'GInteractor.setActionCommand("{id}", {cmd!q})'
@@ -181,9 +187,9 @@ GInteractor_getSize = 'GInteractor.getSize("{id}")'  # TODO: special
 
 GButton_constructor = 'GButton.create("{id}", {label!q})'  # TODO: special
 
-GCheckbox_constructor = 'GCheckbox.create("{id}", {label!q})'
-GCheckbox_isSelected = 'GCheckbox.isSelected("{id}")'  # TODO: special
-GCheckbox_setSelected = 'GCheckbox.setSelected("{id}", {state!b})'
+GCheckBox_constructor = 'GCheckBox.create("{id}", {label!q})'
+GCheckBox_isSelected = 'GCheckBox.isSelected("{id}")'  # TODO: special
+GCheckBox_setSelected = 'GCheckBox.setSelected("{id}", {state!b})'
 
 GRadioButton_constructor = 'GRadioButton.create("{id}", {label!q}, {group!q})'
 GRadioButton_isSelected = 'GRadioButton.isSelected("{id}")'  # TODO: special
@@ -240,7 +246,7 @@ GTextArea_setEditable = 'GTextArea.setEditable("{id}", {editable!b})'
 GTextArea_setFont = 'GTextArea.setFont("{id}", {font!q})'
 GTextArea_setText = 'GTextArea.setText("{id}", {text!q})'
 
-GTextField_constructor = 'GTextField.create("{id}")'  # TODO: special
+GTextField_constructor = 'GTextField.create("{id}", {num_chars})'  # TODO: special
 GTextField_getText = 'GTextField.getText("{id}")'  # TODO: special
 GTextField_isEditable = 'GTextField.isEditable("{id}")'  # TODO: special
 GTextField_setEditable = 'GTextField.setEditable("{id}", {editable!b})'
@@ -252,13 +258,7 @@ GChooser_addItem = 'GChooser.addItem("{id}", {item!q})'
 GChooser_getSelectedItem = 'GChooser.getSelectedItem("{id}")' # TODO: special
 GChooser_setSelectedItem = 'GChooser.setSelectedItem("{id}", {item!q})'
 
-GCompound_constructor = 'GCompound.create("{id}")'
-
-GLabel_setFont = 'GLabel.setFont("{id}", {font})'
-GLabel_setLabel = 'GLabel.setLabel("{id}", {label!q})'
-GLabel_getFontAscent = 'GLabel.getFontAscent("{id}")' # TODO: special
-GLabel_getFontDescent = 'GLabel.getFontDescent("{id}")'  # TODO: special
-GLabel_getSize = 'GLabel.getSize("{id}")'  # TODO: special
+# END SECTION: GInteractor
 
 GEvent_getNextEvent = 'GEvent.getNextEvent({mask})' # TODO: special
 GEvent_waitForEvent = 'GEvent.waitForEvent({mask})' # TODO: special
@@ -279,20 +279,22 @@ Clipboard_set = 'Clipboard.set({text!u})'
 # Platform::cpplib_getCppLibraryVersion
 SPL_getJavaBackEndVersion = 'StanfordCppLib.getJbeVersion()' # TODO: special
 
-# JBEonsole_isBlocked = 'JBEConsole.isBlocked()'
-JBEonsole_clear = 'JBEConsole.clear()'
-JBEonsole_minimize = 'JBEConsole.minimize()'
-JBEonsole_setFont = 'JBEConsole.setFont({font})'
-JBEonsole_setSize = 'JBEConsole.setSize({width}, {height})'
-JBEonsole_setTitle = 'JBEConsole.setTitle({title!q})'
-JBEonsole_setLocation = 'JBEConsole.setLocation({x}, {y})'
-JBEonsole_setCloseOperation = 'JBEConsole.setCloseOperation({value})'
-JBEonsole_setErrorColor = 'JBEConsole.setErrorColor({color!q})'
-JBEonsole_setExitProgramOnClose = 'JBEConsole.setExitProgramOnClose({value!b})'
-JBEonsole_setLocationSaved = 'JBEConsole.setLocationSaved({value!b})'
-JBEonsole_setOutputColor = 'JBEConsole.setOutputColor({color!q})'
-JBEonsole_setVisible = 'JBEConsole.setVisible({value!b})'
-JBEonsole_toFront = 'JBEConsole.toFront()'
+# JBEConsole_isBlocked = 'JBEConsole.isBlocked()'
+JBEConsole_print = 'JBEConsole.print({line!q}, {stderr!b})'  # TODO: special
+JBEConsole_getLine = 'JBEConsole.getLine()'  # TODO: special
+JBEConsole_clear = 'JBEConsole.clear()'
+JBEConsole_minimize = 'JBEConsole.minimize()'
+JBEConsole_setFont = 'JBEConsole.setFont({font})'
+JBEConsole_setSize = 'JBEConsole.setSize({width}, {height})'
+JBEConsole_setTitle = 'JBEConsole.setTitle({title!q})'
+JBEConsole_setLocation = 'JBEConsole.setLocation({x}, {y})'
+JBEConsole_setCloseOperation = 'JBEConsole.setCloseOperation({value})'
+JBEConsole_setErrorColor = 'JBEConsole.setErrorColor({color!q})'
+JBEConsole_setExitProgramOnClose = 'JBEConsole.setExitProgramOnClose({value!b})'
+JBEConsole_setLocationSaved = 'JBEConsole.setLocationSaved({value!b})'
+JBEConsole_setOutputColor = 'JBEConsole.setOutputColor({color!q})'
+JBEConsole_setVisible = 'JBEConsole.setVisible({value!b})'
+JBEConsole_toFront = 'JBEConsole.toFront()'
 
 Note_play = 'Note.play({note!u})'  # TODO: special
 
