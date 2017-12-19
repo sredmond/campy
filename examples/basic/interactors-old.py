@@ -9,7 +9,7 @@ from spgl.graphics.gobjects import *
 from spgl.gui.ginteractors import *
 from spgl.graphics.gevents import *
 
-window = GWindow(width=1000, height=600)
+window = GWindow(width=1000,height=600)
 addInteract = GButton("Add")
 removeInteract = GButton("Remove")
 filledInteract = GCheckBox("Filled: ")
@@ -22,13 +22,13 @@ sizeInteract.addItem("Small")
 sizeInteract.addItem("Medium")
 sizeInteract.addItem("Large")
 
-filledInteract.action_command = "fillChange"
-captionInteract.action_command = "captionChange"
-redInteract.action_command = "redChange"
-greenInteract.action_command = "greenChange"
-blueInteract.action_command = "blueChange"
-sizeInteract.action_command = "sizeChange"
-sizeInteract.selected_item = "Medium"
+filledInteract.setActionCommand("fillChange")
+captionInteract.setActionCommand("captionChange")
+redInteract.setActionCommand("redChange")
+greenInteract.setActionCommand("greenChange")
+blueInteract.setActionCommand("blueChange")
+sizeInteract.setActionCommand("sizeChange")
+sizeInteract.setSelectedItem("Medium")
 
 window.addToRegion(addInteract, "SOUTH")
 window.addToRegion(removeInteract, "SOUTH")
@@ -39,14 +39,14 @@ window.addToRegion(greenInteract, "SOUTH")
 window.addToRegion(blueInteract, "SOUTH")
 window.addToRegion(sizeInteract, "SOUTH")
 
-objX = window.width/2-75
-objY = window.height/2-75
+objX = window.getWidth()/2-75
+objY = window.getHeight()/2-75
 obj = GOval(150,150, objX, objY)
 window.add(obj)
 cap = GLabel("")
-capX = objX + obj.width  /2 - cap.width / 2
-capY = objY + obj.height + 15 + cap.ascent
-cap.location = (capX, capY)
+capX = objX + obj.getWidth()/2 - cap.getWidth()/2
+capY = objY + obj.getHeight() + 15 + cap.getFontAscent()
+cap.setLocation(x=capX, y=capY)
 window.add(cap)
 
 red = "00"
@@ -54,47 +54,46 @@ green = "00"
 blue = "00"
 
 while(True):
-	e = wait_for_event()
-	if(e.event_type == EventType.ACTION_PERFORMED):
-		if(e.source == addInteract):
+	e = waitForEvent()
+	if(e.getEventType() == EventType.ACTION_PERFORMED):
+		if(e.getSource() == addInteract):
 			window.add(obj)
 			window.add(cap)
-		elif(e.source == removeInteract):
+		elif(e.getSource() == removeInteract):
 			window.remove(obj)
 			window.remove(cap)
-		elif(e.source == filledInteract):
-			if(filledInteract.selected):
+		elif(e.getSource() == filledInteract):
+			if(filledInteract.isSelected()):
 				print("filling")
-				obj.filled = True
+				obj.setFilled(True)
 			else:
 				print("unfilling")
-				obj.filled = False
-		elif(e.source == captionInteract):
-			label = captionInteract.text
-			cap.label = label
-			capX = objX + obj.width / 2 - cap.width / 2
-			capY = objY + obj.height + 15 + cap.ascent
-			cap.location = (capX, capY)
-			# TODO(sredmond): Continue modifying to attribute access from here on out
-		elif(e.source == redInteract):
+				obj.setFilled(False)
+		elif(e.getSource() == captionInteract):
+			label = captionInteract.getText()
+			cap.setLabel(label)
+			capX = objX + obj.getWidth()/2 - cap.getWidth()/2
+			capY = objY + obj.getHeight() + 15 + cap.getFontAscent()
+			cap.setLocation(x=capX, y=capY)
+		elif(e.getSource() == redInteract):
 			red = str(hex(redInteract.getValue()))
 			red = red[2:]
 			if(red == "0"): red = "00"
 			color = "#" + red + green + blue
 			obj.setFillColor(color = color)
-		elif(e.source == greenInteract):
+		elif(e.getSource() == greenInteract):
 			green = str(hex(greenInteract.getValue()))
 			green = green[2:]
 			if(green == "0"): green = "00"
 			color = "#" + red + green + blue
 			obj.setFillColor(color = color)
-		elif(e.source == blueInteract):
+		elif(e.getSource() == blueInteract):
 			blue = str(hex(blueInteract.getValue()))
 			blue = blue[2:]
 			if(blue == "0"): blue = "00"
 			color = "#" + red + green + blue
 			obj.setFillColor(color = color)
-		elif(e.source == sizeInteract):
+		elif(e.getSource() == sizeInteract):
 			item = sizeInteract.getSelectedItem().strip()
 			if(item == "Small"):
 				obj.setSize(60, 60)
