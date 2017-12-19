@@ -1,7 +1,14 @@
-'''
-This file exports a hierarchy of graphical interactors similar to those
-provided in the Java Swing libraries.
-'''
+"""Graphical Interactors similar to those in the Java Swing libraries.
+
+Provides a common interface for constructing GInteractors.
+
+GButton:
+GCheckbox:
+GSlider:
+GTextField:
+GChooser:
+
+"""
 import spgl.graphics.gobjects as _gobjects
 import spgl.graphics.gtypes as _gtypes
 import spgl.private.platform as _platform
@@ -22,7 +29,22 @@ class GInteractor(_gobjects.GObject):
 		@rtype: void
 		'''
 		_gobjects.GObject.__init__(self)
-		self.actionCommand = ""
+		self._action_command = ""
+
+	@property
+	def action_command(self):
+		"""Get or set the action command to the indicated string.
+
+		If the string is nonempty, activating the interactor generates a GActionEvent.
+
+		:param str command: The action command to set or get.
+		"""
+		return self._action_command
+
+	@action_command.setter
+	def action_command(self, cmd):
+		self._action_command = cmd
+		_platform.Platform().setActionCommand(self, cmd)
 
 	def setActionCommand(self, cmd):
 		'''
@@ -54,9 +76,9 @@ class GInteractor(_gobjects.GObject):
 		@rtype: void
 		'''
 		if(size != None):
-			width = size.getWidth()
-			height = size.getHeight()
-		_platform.Platform().setSize(self, width, height)
+			width = size.width
+			height = size.height
+		_platform.Platform().gobject_set_size(self, width, height)
 
 	def setBounds(self, x=0.0, y=0.0, width=0.0, height=0.0, rect = None):
 		'''
@@ -71,10 +93,7 @@ class GInteractor(_gobjects.GObject):
 		@rtype: void
 		'''
 		if(rect != None):
-			x = rect.getX()
-			y = rect.getY()
-			width = rect.getWidth()
-			height = rect.getHeight()
+			x,y,width,height = rect
 		self.setLocation(x, y)
 		self.setSize(width, height)
 
@@ -87,165 +106,122 @@ class GInteractor(_gobjects.GObject):
 		size = _platform.Platform().getSize(self)
 		return _gtypes.GRectangle(self.x, self.y, size.getWidth(), size.getHeight())
 
-class GButton(GInteractor):
-	'''
-	This interactor subclass represents an onscreen button.  The following
-	program displays a button that, when pressed, generates the message
-	"Please do not press this button again"
-	(with thanks to Douglas Adams's Hitchhiker's
-	Guide to the Galaxy)::
 
-		gw = gwindow.GWindow()
-		button = ginteractors.GButton("RED")
-		gw.addToRegion(button, "SOUTH")
-		while(True):
-			e = gevents.waitForEvent(ACTION_EVENT | CLICK_EVENT)
-			if (e.getEventType() == MOUSE_CLICKED):
+class GButton(GInteractor):
+	"""An onscreen button.
+
+	The following program displays a button that, when pressed, generates the
+	message: "Please do not press this button again!" (credit Douglas Adams)::
+
+		gw = GWindow()
+		button = GButton("RED")
+		gw.add_to_region(button, "SOUTH")
+
+		while True:
+			e = gevents.wait_for_event(ACTION_EVENT | CLICK_EVENT)
+			if e.event_type == MOUSE_CLICKED:
 				break
-		print("Please do not press this button again.")
-	'''
+
+		print("Please do not press this button again!")
+	"""
 
 	def __init__(self, label):
-		'''
-		Creates a GButton with the specified label.  This
-		constructor also sets the action command for the button to the
-		label string.
+		"""Construct a GButton with the specified label.
 
-		@type label: string
-		@rtype: void
-		'''
-		GInteractor.__init__(self)
+		Also sets the action command for this button to the label.
+
+		:param str label: A label for this GButton.
+		"""
+		super().__init__()
 		self.label = label
-		_platform.Platform().createGButton(self, label)
+		self.action_command = label
+		_platform.Platform().gbutton_constructor(self, label)
 
-	def getType(self):
-		'''
-		Returns the type of this object
+	def __str__(self):
+		return 'GButton("{}")'.format(self.label)
 
-		@rtype: string
-		'''
-		return "GButton"
-
-	def toString(self):
-		'''
-		Converts this object into string form
-
-		@rtype: string
-		'''
-		return "GButton(\"" + self.label + "\")"
 
 class GCheckBox(GInteractor):
-	'''
-	This interactor subclass represents an onscreen check box.  Clicking
-	once on the check box selects it; clicking again removes the selection.
-	If a GCheckBox has an action command, clicking on the box
-	generates a GActionEvent.
-	'''
+	"""An onscreen check box.
+
+	Clicking once on the check box selects it; clicking again removes the
+	selection.
+
+	If a GCheckBox has an action command, clicking on the box generates a
+	GActionEvent.
+	"""
 
 	def __init__(self, label):
-		'''
-		Creates a GCheckBox with the specified label.  In contrast
-		to the GButton constructor, this constructor does not set
-		an action command.
+		"""
+		Creates a GCheckBox with the specified label.
 
-		@type label: string
-		@rtype: void
-		'''
-		GInteractor.__init__(self)
+		In contrast to the GButton constructor, this constructor does not set an
+		action command.
+
+		:param str label: A label for this GCheckBox.
+		"""
+		super().__init__()
 		self.label = label
-		_platform.Platform().createGCheckBox(self, label)
+		_platform.Platform().gcheckbox_constructor(self, label)
 
-	def isSelected(self):
-		'''
-		Returns true if the check box is selected.
+	@property
+	def selected(self):
+		"""Get or set whether the checkbox is selected.
 
-		@rtype: boolean
-		'''
-		return _platform.Platform().isSelected(self)
+		:param bool state: Whether the state is selected.
+		"""
+		return _platform.Platform().gcheckbox_is_selected(self)
 
-	def setSelected(self, state):
-		'''
-		Sets the state of the check box.
+	@selected.setter
+	def selected(self, state):
+		return _platform.Platform().gcheckbox_set_selected(self, state)
 
-		@type state: boolean
-		@rtype: void
-		'''
-		_platform.Platform().setSelected(self, state)
+	def __str__(self):
+		return 'GCheckBox("{}")'.format(self.label)
 
-	def getType(self):
-		'''
-		Returns the type of this object
-
-		@rtype: string
-		'''
-		return "GCheckBox"
-
-	def toString(self):
-		'''
-		Converts this object into string form
-
-		@rtype: string
-		'''
-		return "GCheckBox(\"" + self.label + "\")"
 
 class GSlider(GInteractor):
-	'''
-	This interactor subclass represents an onscreen slider.  Dragging
-	the slider control generates an ActionEvent if the
-	slider has a nonempty action command.
-	'''
+	"""An onscreen slider.
 
-	def __init__(self, min=0, max=100, value=50):
-		'''
-		Creates a horizontal GSlider.  The second form allows
-		the client to specify the minimum value, maximum value, and current
-		value of the slider.  The first form is equivalent to calling
-		GSlider(0, 100, 50).  Assigning an action command
-		to the slider causes the slider to generate an action event whenever
-		the slider value changes.
+	Dragging the slider handle generates a GActionEvent if the GSlider has a
+	nonempty action command.
+	"""
 
-		@type min: int
-		@type max: int
-		@type value: int
-		@rtype: none
-		'''
-		GInteractor.__init__(self)
-		self.min = min
-		self.max = max
-		_platform.Platform().createGSlider(self, min, max, value)
+	def __init__(self, min_value=0, max_value=100, starting_value=50):
+		"""Create a horizontal GSlider.
 
-	def getValue(self):
-		'''
-		Returns the current value of the slider.
+		The client can specify a minimum value, maximum value, and starting
+		value.
 
-		@rtype: int
-		'''
-		return _platform.Platform().getValue(self)
+		:param int min_value: The minimum value of this GSlider.
+		:param int max_value: The maximum value of this GSlider. Should be >=
+			min_value, but this is not currently enforced.
+		:param int starting_value: The starting value of this GSlider. Should be
+			between min_value and max_value. If not, is set to min_value.
+		"""
+		super().__init__()
+		self.min_value = min_value
+		self.max_value = max_value
+		# TODO(sredmond): Error check that max_value >= min_value.
+		if not min_value <= starting_value <= max_value:
+			starting_value = min_value
+		_platform.Platform().gslider_constructor(self, min_value, max_value, starting_value)
 
-	def setValue(self, value):
-		'''
-		Sets the current value of the slider.
+	@property
+	def value(self):
+		"""Get or set the current value of the GSlider.
 
-		@type value: int
-		@rtype: void
-		'''
-		_platform.Platform().setValue(self, value)
+		:param int value: The value of the GSlider.
+		"""
+		return _platform.Platform().gslider_get_value(self)
 
-	def getType(self):
-		'''
-		Returns the type of this object
+	@value.setter
+	def value(self, new_value):
+		_platform.Platform().gslider_set_value(self, value)
 
-		@rtype: string
-		'''
-		return "GSlider"
+	def __str__(self):
+		return "GSlider(value={}, min={}, max={})".format(self.value, self.min_value, self.max_value)
 
-	def toString(self):
-		'''
-		Converts this object into string form
-
-		@rtype: string
-		'''
-		return "GSlider()"
 
 class GTextField(GInteractor):
 	'''
@@ -266,6 +242,15 @@ class GTextField(GInteractor):
 		'''
 		GInteractor.__init__(self)
 		_platform.Platform().createGTextField(self, nChars)
+
+	@property
+	def text(self):
+		"""Get or set the contents of the text field."""
+		return _platform.Platform().getText(self)
+
+	@text.setter
+	def text(self, content):
+		_platform.Platform().setText(self, content)
 
 	def getText(self):
 		'''
@@ -338,39 +323,21 @@ class GChooser(GInteractor):
 		'''
 		_platform.Platform().addItem(self, item)
 
-	def getSelectedItem(self):
-		'''
-		Returns the current item selected in the chooser.
+	@property
+	def selected_item(self):
+		"""Return the current item selected in this GChooser.
 
-		@rtype: string
-		'''
+		@rtype: string"""
 		return _platform.Platform().getSelectedItem(self)
 
-	def setSelectedItem(self, item):
-		'''
-		Sets the chooser so that it shows the specified item.  If the item
+	@selected_item.setter
+	def selected_item(self, item):
+		"""Sets the chooser so that it shows the specified item.  If the item
 		does not exist in the chooser, no change occurs.
 
 		@type item: string
-		@rtype: void
-		'''
+		@rtype: void"""
 		_platform.Platform().setSelectedItem(self, item)
 
-	def getType(self):
-		'''
-		Returns the type of this object
-
-		@rtype: string
-		'''
-		return "GChooser"
-
-	def toString(self):
-		'''
-		Converts this object into string form
-
-		@rtype: string
-		'''
+	def __str__(self):
 		return "GChooser()"
-
-
-
