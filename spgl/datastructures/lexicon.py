@@ -1,19 +1,59 @@
-#!/usr/bin/env python3 -tt
 """
-File: lexicon.py
------------------
-A Lexicon is a word list. This Lexicon is backed by a data
-structure called a prefix tree or trie ("try").
+This file exports a :class:`Lexicon` class, a compact structure for storing a list of words.
 
-TODO
-
+This :class:`Lexicon` implementation is backed by a data structure called a prefix tree or trie ("try").
 """
 
 # from ..decorators import print_args
 import collections as _collections
+import collections.abc as _collections_abc
 
 class Lexicon(_collections.abc.MutableSet):
+    """Representation of a :class:`Lexicon`, or word list.
+
+    The main difference between a lexicon and a dictionary is that
+    a lexicon does not provide any mechanism for storing definitions;
+    the lexicon contains only words, with no associated information.
+
+    It is therefore similar to a set of strings, but with a more
+    space-efficient internal representation. The :class:`Lexicon`
+    class supports efficient lookup operations for words and prefixes.
+
+    For example, the following program lists all of the two-letter words
+    in the lexicon stored at `english.lex`::
+
+        lex = Lexicon('english.lex')
+        for word in lex:
+            if len(word) == 2:
+                print(word)
+
+    """
     def __init__(self, file=None):
+        """Initialize a new lexicon.
+
+        The default constructor creates an empty lexicon. The second form reads
+        in the contents of the lexicon from a specified data filename.
+
+        Usage::
+
+            lex = Lexicon()
+            lex_with_words = Lexicon('english.lex')
+
+     * Initializes a new lexicon.  The default constructor creates an empty
+     * lexicon.  The second form reads in the contents of the lexicon from
+     * the specified data file.  The data file must be in one of two formats:
+     * (1) a space-efficient precompiled binary format or (2) a text file
+     * containing one word per line.  The Stanford library distribution
+     * includes a binary lexicon file named <code>English.dat</code>
+     * containing a list of words in English.  The standard code pattern
+     * to initialize that lexicon looks like this:
+     *
+     *<pre>
+     *    Lexicon english("English.dat");
+     *</pre>
+     */
+        """
+
         self._root = None
         self.size = 0
         if file:
@@ -24,7 +64,7 @@ class Lexicon(_collections.abc.MutableSet):
             raw = f.read()
 
         # TODO: make this dynamically loaded?
-        for line in raw.split(delimiter)[:10]:
+        for line in raw.split(delimiter):
             self.add(line)
 
     def add(self, word):
@@ -56,6 +96,8 @@ class Lexicon(_collections.abc.MutableSet):
             return False
         word = word.lower()
         return self._remove_helper(self._root, word, is_prefix=False)
+
+    discard = remove
 
     def remove_prefix(self, word):
         if not word or not word.isalpha():
@@ -153,21 +195,14 @@ class _TrieNode(object):
         return self.num_children == 0
 
 
-def scrub(string):
+def _scrub(string):
     return ''.join(filter(str.islower, string))
 
-
-
-
-
-def test_lexicon():
+if __name__ == '__main__':
     lex = Lexicon(file='/usr/share/dict/words')
     print(lex)
     print('aaron' in lex)
     for word in lex:
         print(word)
-
-
-if __name__ == '__main__':
-    test_lexicon()
+        break
 
