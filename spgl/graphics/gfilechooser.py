@@ -12,9 +12,9 @@ class GFileChooser():
     OPEN_DIALOG = 1
 
     @staticmethod
-    def show_open_dialog(current_dir=""):
-        return _platform.Platform().gfilechooser_show_open_dialog(current_dir)
+    def show_open_dialog(current_dir="", file_filter=""):
+        return _platform.Platform().gfilechooser_show_open_dialog(current_dir, file_filter)
 
     @staticmethod
-    def show_save_dialog(current_dir=""):
-        return _platform.Platform().gfilechooser_show_save_dialog(current_dir)
+    def show_save_dialog(current_dir="", file_filter=""):
+        return _platform.Platform().gfilechooser_show_save_dialog(current_dir, file_filter)
