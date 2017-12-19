@@ -3,6 +3,20 @@
 File: gcolor.py
 ---------------
 This file exports a GColor class that allows students to easily deal with colors.
+
+We deal in a few abstractions:
+
+A GColor should be thought of as an opaque data type that can be initialized from
+any number of possible representations and serialized to many other types of
+representations.
+
+# TODO(sredmond): Should a GColor be mutable or immutable?
+# Decision: immutable!
+
+A representation of a color comes in many forms:
+    human-readable: a string like "blue" or "seagreen"
+    hex: a string like "#83E" or "#F390D2"
+    int: an argb 32-bit value
 """
 import string as _string
 from collections import namedtuple as _nt
@@ -11,10 +25,12 @@ from spgl.system.error import ErrorException
 
 class Pixel(int):
     def __init__(self, red=0x00, green=0x00, blue=0x00, alpha=0xFF):
+        # TODO(sredmond): Bounds checking
         self = (alpha << 24) | (red << 16) | (green << 8) | blue
 
     @property
     def alpha(self):
+        # TODO(sredmond): Docs for CPP say "have to & a second time because of sign-extension on >> shift", double check
         return (self >> 24) & 0xFF
 
     @property
@@ -45,7 +61,44 @@ class Pixel(int):
     def blue(self, new_blue):
         self |= new_blue
 
+    def argb(self):
+        return self.alpha, self.red, self.green, self.blue
+
+    def rgb(self):
+        return self.red, self.green, self.blue
+
+def normalize(cls, color):
+    """Normalize a color description provided by an end user."""
+    if isinstance(color, int):
+        return Pixel(color)
+
+def to_hex(pixel):
+    pass
+
+
 class GColor(object):
+    @classmethod
+    def normalize(cls, color):
+        """Normalize a color description provided by an end user.
+
+        """
+        if isinstance(color, int):
+            return cls(color)
+        if isinstance(color, str):
+            if color.startswith('#'):
+                return cls(int(color.lstrip('#'), 16))
+            else:
+                if color.lower() in _colortable:
+                    return cls(_colortable[color.lower()])
+        return
+
+    @property
+    def as_hex(self):
+        # TODO(sredmond): This is SO dumb
+        r = hex(self.pixel.red).replace('0x', '').zfill(2)
+        g = hex(self.pixel.green).replace('0x', '').zfill(2)
+        b = hex(self.pixel.blue).replace('0x', '').zfill(2)
+        return '#{}{}{}'.format(r,g,b).upper()
 
     @classmethod
     def from_name(cls, color_name):
@@ -56,6 +109,12 @@ class GColor(object):
 
     def get_approximate_name(self):
         pass
+
+    def __init__(self, argb):
+         # TODO(sredmond): Be more careful about implicit int constructor.
+        self.pixel = Pixel(argb)
+        self.hex = hex(self.pixel).replace('0x', '').zfill(8)
+
 
 
 
