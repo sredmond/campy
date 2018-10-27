@@ -4,14 +4,9 @@ campy.gui package
 Submodules
 ----------
 
-campy.gui.ginteractors module
------------------------------
+.. toctree::
 
-.. automodule:: campy.gui.ginteractors
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   campy.gui.ginteractors
 
 Module contents
 ---------------

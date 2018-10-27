@@ -4,14 +4,9 @@ campy.system package
 Submodules
 ----------
 
-campy.system.error module
--------------------------
+.. toctree::
 
-.. automodule:: campy.system.error
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   campy.system.error
 
 Module contents
 ---------------

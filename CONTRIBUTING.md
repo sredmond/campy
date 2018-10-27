@@ -19,7 +19,7 @@ pip install -e path/to/campy
 If you want a reasonable development environment, also run
 
 ```
-pip install sphinx "ipython[all]"
+pip install sphinx sphinx_rtd_theme "ipython[all]"
 ```
 
 ## What We Need Help With

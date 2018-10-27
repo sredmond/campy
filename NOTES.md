@@ -20,5 +20,5 @@ When adding a note, please append your username and the date.
 ## Building Documentation
 
 - `sphinx-quickstart` and enable all extensions
-- `sphinx-apidoc`
+- `sphinx-apidoc -o docs/ . --separate`
 - `make html`

@@ -4,22 +4,10 @@ campy.misc package
 Submodules
 ----------
 
-campy.misc.easter module
-------------------------
+.. toctree::
 
-.. automodule:: campy.misc.easter
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-campy.misc.positivity module
-----------------------------
-
-.. automodule:: campy.misc.positivity
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   campy.misc.easter
+   campy.misc.positivity
 
 Module contents
 ---------------

@@ -4,14 +4,9 @@ campy.private.backend package
 Submodules
 ----------
 
-campy.private.backend.jbepipe module
-------------------------------------
+.. toctree::
 
-.. automodule:: campy.private.backend.jbepipe
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   campy.private.backend.jbepipe
 
 Module contents
 ---------------
