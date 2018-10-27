@@ -14,7 +14,7 @@ Thank you to all of our contributors!
 | This | `could` |
 | Be | `you`  |
 
-All contributors throughout the project's lifetime can be found [here.](https://github.com/sredmond/acmpy/graphs/contributors).
+All contributors throughout the project's lifetime can be found [here.](https://github.com/sredmond/campy/graphs/contributors).
 
 ## Inactive Contributors
 

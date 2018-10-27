@@ -7,13 +7,13 @@ We love pull requests! By participating in this project, you agree to abide by t
 Fork this repository, then clone it to your local machine:
 
 ```
-git clone git@github.com:your-username/acmpy.git
+git clone git@github.com:your-username/campy.git
 ```
 
 Ideally, activate a virtual environment. Install the project source as a dependency with:
 
 ```
-pip install -e path/to/acmpy
+pip install -e path/to/campy
 ```
 
 If you want a reasonable development environment, also run
