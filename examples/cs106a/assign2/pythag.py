@@ -8,5 +8,5 @@ def compute_hypotenuse(a, b):
 if __name__ == '__main__':
     print("Enter values to compute the Pythagorean theorem.")
     a = get_positive_real('a:')
-    b = get_positive_real('a:')
+    b = get_positive_real('b:')
     print('c = {}'.format(compute_hypotenuse(a, b)))
