@@ -249,6 +249,9 @@ A non-exhaustive list of tasks and modules to do.
 - `BasicQueue/BasicStack`: list-backed opaque queue/stack
 - `timer` to execute a function every n seconds
 - `multiprocessing.Queue` for events to backend.
+- `linter`: autolint code
+- `submission-tools`: aggregate submission tools for stanford teachers
+- `autograder-tools`: aggregate autograding tools for stanford teachers
 
 ## Come Back To
 - All objects already have an ID and type, so no need to track that data.
