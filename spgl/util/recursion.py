@@ -1,6 +1,11 @@
+"""File:
+"""
 import traceback as _traceback
 
-def get_indent(indenter='    '):
+# Default indentation is four spaces.
+_INDENT = '    '
+
+def get_indent(indenter=_INDENT):
     return count_depth() * indenter
 
 def count_depth():
@@ -8,9 +13,11 @@ def count_depth():
     # stack_frames = stack_frames[:-1-parent]  # Pop myself off the stack
     depth_fn = None # stack_frames[-1][2]
     count = 0
+
     for filename, lineno, fn_name, text in reversed(stack_frames):
-        # print(fn_name)
-        if fn_name in ('get_indent', 'count_depth'):
+        # 'wrapper' is the default wrapped name for lru_cache, but it doesn't
+        # whitelist student functions named wrapper either.
+        if fn_name in ('get_indent', 'count_depth', 'wrapper'):
             continue
         if not depth_fn:
             depth_fn = fn_name
