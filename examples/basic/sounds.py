@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -tt
-from spgl.gsounds import *
-from spgl.main import entrypoint
+from campy.gsounds import *
+from campy.main import entrypoint
 
 @entrypoint
 def main():

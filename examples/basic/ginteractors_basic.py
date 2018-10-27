@@ -3,9 +3,9 @@
 Illustrates basic use of GInteractors.
 """
 
-from spgl.graphics.gwindow import *
-from spgl.graphics.gtypes import *
-from spgl.gui.ginteractors import *
+from campy.graphics.gwindow import *
+from campy.graphics.gtypes import *
+from campy.gui.ginteractors import *
 
 INTRO = """Welcome to a basic test of GInteractors.
 

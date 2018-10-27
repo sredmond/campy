@@ -3,7 +3,7 @@
 Tests the most basic function of the platform module, namely `putPipe`.
 """
 if __name__ == '__main__':
-    import spgl.private.platform as _platform
+    import campy.private.platform as _platform
 
     while True:
         choice = input('(P)ut or (G)et? ')

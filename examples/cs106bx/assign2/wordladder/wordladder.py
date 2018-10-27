@@ -2,8 +2,8 @@
 """Example implementatino of CS106B Assignment 2: WordLadder.
 
 """
-from spgl.datastructures.lexion import Lexicon
-from spgl.util.simpio import get_line
+from campy.datastructures.lexion import Lexicon
+from campy.util.simpio import get_line
 
 
 def greet():

@@ -5,7 +5,7 @@ Reads commands from stdin, pipes them straight to the backend
 Usage for file: cat foo.txt | python run_commands_from_file.py
 """
 if __name__ == '__main__':
-    import spgl.private.platform as _platform
+    import campy.private.platform as _platform
     import sys
 
     while True:

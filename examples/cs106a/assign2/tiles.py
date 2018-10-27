@@ -1,5 +1,5 @@
-from spgl.graphics.gobjects import GLabel, GRect
-from spgl.graphics.gwindow import GWindow
+from campy.graphics.gobjects import GLabel, GRect
+from campy.graphics.gwindow import GWindow
 
 TILE_WIDTH = 100
 TILE_HEIGHT = 50

@@ -1,8 +1,7 @@
-python_client_spgl
-==================
+campy
+=====
 
 .. toctree::
    :maxdepth: 4
 
-   setup
-   spgl
+   campy

@@ -17,7 +17,7 @@ Stanford publishes a JAR file that listens on stdin for text commands, such as `
 ├── debug  # Tools and scripts for debugging this implementation
 ├── docs  # Documentation.
 ├── examples  # Example CS106 programs written using this library.
-├── spgl  # The library itself.
+├── campy  # The library itself.
 │   ├── datastructures  # Collections, such as `Lexicon` and `SparseGrid`
 │   ├── graphics  # `GWindow`, `GOval`, `GBufferedImage`, etc.
 │   ├── gui  # `GInteractor`

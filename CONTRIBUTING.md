@@ -16,6 +16,12 @@ Ideally, activate a virtual environment. Install the project source as a depende
 pip install -e path/to/acmpy
 ```
 
+If you want a reasonable development environment, also run
+
+```
+pip install sphinx "ipython[all]"
+```
+
 ## What We Need Help With
 
 We've compiled a list of tasks we need help with at `TODO.md`. Anything you can take off that list will be much appreciated.

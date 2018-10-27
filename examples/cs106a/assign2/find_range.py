@@ -1,4 +1,4 @@
-from spgl.util.simpio import get_integer
+from campy.util.simpio import get_integer
 
 POSITIVE_INFINITY = float('inf')
 NEGATIVE_INFINITY = float('-inf')

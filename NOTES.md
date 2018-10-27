@@ -16,3 +16,9 @@ When adding a note, please append your username and the date.
 - `GLabel` doesn't recompute ascent/descent in C++ after changing text (sredmond 2017-12-07)
 - `GLabel` C++ platform doesn't urlencode the font, where GInteractor `setFont` does (sredmond 2017-12-07)
 - `GCompound_Add` in C++ version for some reason gets status with a very cryptic comment (all it says is `  // JL`)
+
+## Building Documentation
+
+- `sphinx-quickstart` and enable all extensions
+- `sphinx-apidoc`
+- `make html`

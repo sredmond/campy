@@ -1,8 +1,8 @@
-from spgl.graphics.gobjects import GLabel, GRect, GLine
-from spgl.graphics.gwindow import GWindow
-from spgl.graphics.gevents import *
+from campy.graphics.gobjects import GLabel, GRect, GLine
+from campy.graphics.gwindow import GWindow
+from campy.graphics.gevents import *
 
-from spgl.gui.ginteractors import GButton, GTextField
+from campy.gui.ginteractors import GButton, GTextField
 
 from namesurferdatabase import NameSurferDatabase
 from namesurfergraph import NameSurferGraph

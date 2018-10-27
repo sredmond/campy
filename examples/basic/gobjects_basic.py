@@ -5,11 +5,11 @@ File: gobjects.py
 This example program illustrates the use of the Python graphics library.
 """
 
-from spgl.graphics.gwindow import *
-from spgl.graphics.gtypes import *
-from spgl.graphics.gobjects import *
-# from spgl.graphics.gsounds import *
-# from spgl.graphics.filelib import *
+from campy.graphics.gwindow import *
+from campy.graphics.gtypes import *
+from campy.graphics.gobjects import *
+# from campy.graphics.gsounds import *
+# from campy.graphics.filelib import *
 
 INTRO = """Welcome to a basic test of GObjects.
 

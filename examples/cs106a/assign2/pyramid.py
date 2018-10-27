@@ -7,11 +7,11 @@ Demonstrates use of
 """
 # TODO(sredmond): Rethink star-imports - they pollute the global namespace and
 # are generally a bad style point (awkward imports of _underscore identifiers).
-from spgl.graphics.gwindow import *
-from spgl.graphics.gobjects import *
-from spgl.graphics.gevents import *
-from spgl.graphics.gtimer import *
-from spgl.util.randomgenerator import *
+from campy.graphics.gwindow import *
+from campy.graphics.gobjects import *
+from campy.graphics.gevents import *
+from campy.graphics.gtimer import *
+from campy.util.randomgenerator import *
 
 window = GWindow(width=1280, height=800)
 window.title = 'Pyramid'

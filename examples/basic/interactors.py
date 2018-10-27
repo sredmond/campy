@@ -4,10 +4,10 @@ File: examples/basic/interactors.py
 -----------------------------------
 Sample program demonstrating the use of interactors
 """
-from spgl.graphics.gwindow import *
-from spgl.graphics.gobjects import *
-from spgl.gui.ginteractors import *
-from spgl.graphics.gevents import *
+from campy.graphics.gwindow import *
+from campy.graphics.gobjects import *
+from campy.gui.ginteractors import *
+from campy.graphics.gevents import *
 
 window = GWindow(width=1000, height=600)
 addInteract = GButton("Add")

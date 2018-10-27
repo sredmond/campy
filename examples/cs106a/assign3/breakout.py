@@ -5,11 +5,11 @@ Partial Python implementation of a game of Breakout, a brick-breaking game
 popularized by Eric Roberts' CS106A course at Stanford.
 """
 # TODO(sredmond): Avoid import-star.
-from spgl.graphics.gwindow import *
-from spgl.graphics.gobjects import *
-from spgl.graphics.gevents import *
-from spgl.graphics.gtimer import *
-from spgl.util.randomgenerator import *
+from campy.graphics.gwindow import *
+from campy.graphics.gobjects import *
+from campy.graphics.gevents import *
+from campy.graphics.gtimer import *
+from campy.util.randomgenerator import *
 
 import time
 

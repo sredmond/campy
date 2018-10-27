@@ -1,8 +1,8 @@
 """Draw a red-and-white target.
 
 """
-from spgl.graphics.gwindow import GWindow, pause
-from spgl.graphics.gobjects import GOval
+from campy.graphics.gwindow import GWindow, pause
+from campy.graphics.gobjects import GOval
 
 DEFAULT_OUTER_RADIUS = 72  # pixels == 1 inch
 DEFAULT_NUM_CIRCLES = 3

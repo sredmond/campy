@@ -1,4 +1,4 @@
-from spgl.util.simpio import get_integer
+from campy.util.simpio import get_integer
 
 def hailstone(n):
     steps = 0

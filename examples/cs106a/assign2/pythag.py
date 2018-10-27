@@ -1,6 +1,6 @@
 import math
 
-from spgl.util.simpio import get_positive_real
+from campy.util.simpio import get_positive_real
 
 def compute_hypotenuse(a, b):
     return math.hypot(a, b)

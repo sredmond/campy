@@ -3,7 +3,6 @@
 A non-exhaustive list of tasks and modules to do.
 
 ## Administrative
-- Choose and standardize a project name (ACMPY, SPGL, SPL)
 - Choose and standardize a logging framework.
 - Choose and standardize a testing framework.
 - Rewrite CONTIBUTING/CONTRIBUTORS.

@@ -1,4 +1,4 @@
-from spgl.graphics.gobjects import GCompound, GLine, GLabel
+from campy.graphics.gobjects import GCompound, GLine, GLabel
 
 from namesurferconstants import *
 

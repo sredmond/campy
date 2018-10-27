@@ -1,7 +1,7 @@
 import math
 
-from spgl.graphics.gwindow import GWindow
-from spgl.graphics.gobjects import *
+from campy.graphics.gwindow import GWindow
+from campy.graphics.gobjects import *
 
 def draw_sierpinski_triangle(window, x, y, size, order):
     height = size * math.sqrt(3) / 2
