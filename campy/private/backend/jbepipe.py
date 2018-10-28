@@ -15,9 +15,9 @@ from campy.system import error
 
 DEBUG_PIPE = True
 
-
-SPL_JAR_LOCATION = pathlib.Path(__file__).parent.parent / 'spl.jar'
+SPL_JAR_LOCATION = pathlib.Path(__file__).parent / 'spl.jar'
 LAUNCH_SPL_ARGS = shlex.split('java -jar {}'.format(SPL_JAR_LOCATION))
+
 
 def debug_print(*values, **options):
     if DEBUG_PIPE:
@@ -57,6 +57,8 @@ class JavaBackendPipe:
         # initialized.
         if not self._pipe:
             # TODO(sredmond): Double check that these are the correct kwargs.
+            # TODO(sredmond): Crash if the SPL can't be found or if this process exits
+            # early.
             self._pipe = subprocess.Popen(LAUNCH_SPL_ARGS,
                                            shell=False,
                                            stdin=subprocess.PIPE, \
@@ -148,6 +150,7 @@ class JavaBackendPipe:
                     debug_print(line)
 
     def __del__(self):
+        self._pipe.terminate()
         # TODO(sredmond): Do we want to join threads now or at program exit?
-        pass
+        # pass
 

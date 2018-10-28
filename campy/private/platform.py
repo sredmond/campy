@@ -32,15 +32,6 @@ from campy.private.platformatter import pformat
 # Whether to print all pipe communications to stdout
 DEBUG_PIPE = True
 
-"""
-Section: Java Backend Format Strings
-------------------------------------
-The following section lists format strings for the Java backend, and can/
-should be updated as the text API to the Stanford Portable Library changes.
-The strings are marked using keyword format syntax, which can be expanded by
-keyword in Python
-"""
-
 def boolalpha(b):
     return "true" if b else "false"
 

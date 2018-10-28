@@ -1,4 +1,11 @@
+"""
+Java Backend Format Strings
 
+The following section lists format strings for the Java backend, and can/
+should be updated as the text API to the Stanford Portable Library changes.
+The strings are marked using keyword format syntax, which can be expanded by
+keyword in Python
+"""
 # Platform::filelib_fileExists
 # Platform::filelib_isFile
 # Platform::filelib_isSymbolicLink
