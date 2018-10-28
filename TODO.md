@@ -224,6 +224,7 @@ A non-exhaustive list of tasks and modules to do.
 
 ### In Progress
 ```
+--- decorators.py
 ├── strlib.cpp
 ├── strlib.h
 ├── recursion.cpp

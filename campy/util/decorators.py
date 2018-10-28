@@ -211,3 +211,20 @@ def enforce_types_challenge(severity=1):
             return retval
         return wrapper
     return decorator
+
+def stylist(old, new, details):
+    def stylist_decorator(function):
+        @_functools.wraps(function)
+        def stylist_wrapper(*args, **kwargs):
+            print('Access to {0} has been stylistically replaced.'.format(function.__name__))
+            print(old)
+            print(new)
+            return function(*args, **kwargs)
+        return stylist_wrapper
+    return stylist_decorator
+
+
+# Example code.
+# @stylist("GOval.getWidth()", "GOval.width", "In Python, you can just access this attribute directly.")
+# def getWidth():
+# print('I am a getWidth function.')
