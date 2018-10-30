@@ -1,6 +1,6 @@
 #!/usr/bin/env python3 -tt
-from campy.gsounds import *
-from campy.main import entrypoint
+from campy.util.sound import *
+from campy.private.main import entrypoint
 
 @entrypoint
 def main():
