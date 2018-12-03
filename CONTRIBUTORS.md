@@ -3,7 +3,7 @@
 Thank you to all of our contributors!
 
 ## Active Maintainer
-> Last Updated: 2017-12-18
+> Last Updated: 2018-11-12
 
 - Sam Redmond (sredmond)
 
