@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>campy.graphics.gevents &mdash; campy 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> campy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">campy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>campy.graphics.gevents</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for campy.graphics.gevents</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3 -tt</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file defines the event types used in the Stanford Portable Graphics Libraries.</span>
+<span class="sd">The structure of this package is adapted from the Java event model.</span>
+
+<span class="sd">EventClassType</span>
+<span class="sd">==============</span>
+<span class="sd">This _enumeration definest the vent classes. The element values are each a single bit</span>
+<span class="sd">and can be added or ORed together to generate an event mask. The CLICK_EVENT class</span>
+<span class="sd">responds only to the MOUSE_CLICKED event type. The ANY_EVENT class selects any event.</span>
+
+<span class="sd">    - NULL_EVENT</span>
+<span class="sd">    - ACTION_EVENT</span>
+<span class="sd">    - KEY_EVENT</span>
+<span class="sd">    - TIMER_EVENT</span>
+<span class="sd">    - WINDOW_EVENT</span>
+<span class="sd">    - MOUSE_EVENT</span>
+<span class="sd">    - CLICK_EVENT</span>
+<span class="sd">    - ANY_EVENT</span>
+
+<span class="sd">EventType</span>
+<span class="sd">=========</span>
+<span class="sd">This _enumeration type defines the event types for all events.</span>
+
+<span class="sd">    - WINDOW_CLOSED</span>
+<span class="sd">    - WINDOW_RESIZED</span>
+<span class="sd">    - ACTION_PERFORMED</span>
+<span class="sd">    - MOUSE_CLICKED</span>
+<span class="sd">    - MOUSE_PRESSED</span>
+<span class="sd">    - MOUSE_RELEASED</span>
+<span class="sd">    - MOUSE_MOVED</span>
+<span class="sd">    - MOUSE_DRAGGED</span>
+<span class="sd">    - KEY_PRESSED</span>
+<span class="sd">    - KEY_RELEASED</span>
+<span class="sd">    - KEY_TYPED</span>
+<span class="sd">    - TIMER_TICKED</span>
+
+
+<span class="sd">ModifierCodes</span>
+<span class="sd">=============</span>
+<span class="sd">This _enumeration type defines a set of constants used to check whether</span>
+<span class="sd">modifiers are in effect.</span>
+
+<span class="sd">    - SHIFT_DOWN</span>
+<span class="sd">    - CTRL_DOWN</span>
+<span class="sd">    - META_DOWN</span>
+<span class="sd">    - ALT_DOWN</span>
+<span class="sd">    - ALT_GRAPH_DOWN</span>
+<span class="sd">    - BUTTON1_DOWN</span>
+<span class="sd">    - BUTTON2_DOWN</span>
+<span class="sd">    - BUTTON3_DOWN</span>
+
+<span class="sd">KeyCodes</span>
+<span class="sd">========</span>
+<span class="sd">This type defines the names of the key codes returned in a key event</span>
+
+<span class="sd">    - BACKSPACE_KEY</span>
+<span class="sd">    - TAB_KEY</span>
+<span class="sd">    - ENTER_KEY</span>
+<span class="sd">    - CLEAR_KEY</span>
+<span class="sd">    - ESCAPE_KEY</span>
+<span class="sd">    - PAGE_UP_KEY</span>
+<span class="sd">    - PAGE_DOWN_KEY</span>
+<span class="sd">    - END_KEY</span>
+<span class="sd">    - HOME_KEY</span>
+<span class="sd">    - LEFT_ARROW_KEY</span>
+<span class="sd">    - UP_ARROW_KEY</span>
+<span class="sd">    - RIGHT_ARROW_KEY</span>
+<span class="sd">    - DOWN_ARROW_KEY</span>
+<span class="sd">    - F1_KEY</span>
+<span class="sd">    - F2_KEY</span>
+<span class="sd">    - F3_KEY</span>
+<span class="sd">    - F4_KEY</span>
+<span class="sd">    - F5_KEY</span>
+<span class="sd">    - F6_KEY</span>
+<span class="sd">    - F7_KEY</span>
+<span class="sd">    - F8_KEY</span>
+<span class="sd">    - F9_KEY</span>
+<span class="sd">    - F10_KEY</span>
+<span class="sd">    - F11_KEY</span>
+<span class="sd">    - F12_KEY</span>
+<span class="sd">    - DELETE_KEY</span>
+<span class="sd">    - HELP_KEY</span>
+
+<span class="sd">TODO:</span>
+<span class="sd">    Reconsider using EventClassType. Instead use inheritance?</span>
+<span class="sd">    Deduplicate events that capture a GWindow.</span>
+<span class="sd">    Check for validity on property access.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">enum</span> <span class="k">as</span> <span class="nn">_enum</span>
+
+
+<div class="viewcode-block" id="EventClassType"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.EventClassType">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
+<span class="k">class</span> <span class="nc">EventClassType</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">NULL_EVENT</span>   <span class="o">=</span> <span class="mh">0x000</span>
+    <span class="n">ACTION_EVENT</span> <span class="o">=</span> <span class="mh">0x010</span>
+    <span class="n">KEY_EVENT</span>    <span class="o">=</span> <span class="mh">0x020</span>
+    <span class="n">TIMER_EVENT</span>  <span class="o">=</span> <span class="mh">0x040</span>
+    <span class="n">WINDOW_EVENT</span> <span class="o">=</span> <span class="mh">0x080</span>
+    <span class="n">MOUSE_EVENT</span>  <span class="o">=</span> <span class="mh">0x100</span>
+    <span class="n">CLICK_EVENT</span>  <span class="o">=</span> <span class="mh">0x200</span>
+    <span class="n">ANY_EVENT</span>    <span class="o">=</span> <span class="mh">0x3F0</span></div>
+
+
+<div class="viewcode-block" id="EventType"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.EventType">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
+<span class="k">class</span> <span class="nc">EventType</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">WINDOW_CLOSED</span>    <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">WINDOW_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">WINDOW_RESIZED</span>   <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">WINDOW_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">CONSOLE_CLOSED</span>   <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">WINDOW_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="n">ACTION_PERFORMED</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">ACTION_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">MOUSE_CLICKED</span>    <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">MOUSE_PRESSED</span>    <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">MOUSE_RELEASED</span>   <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="n">MOUSE_MOVED</span>      <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">4</span>
+    <span class="n">MOUSE_DRAGGED</span>    <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">5</span>
+    <span class="n">KEY_PRESSED</span>      <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">KEY_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">KEY_RELEASED</span>     <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">KEY_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">KEY_TYPED</span>        <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">KEY_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="n">TIMER_TICKED</span>     <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">TIMER_EVENT</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="ModifierCodes"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.ModifierCodes">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
+<span class="k">class</span> <span class="nc">ModifierCodes</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">SHIFT_DOWN</span>     <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span>
+    <span class="n">CTRL_DOWN</span>      <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span>
+    <span class="n">META_DOWN</span>      <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span>
+    <span class="n">ALT_DOWN</span>       <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+    <span class="n">ALT_GRAPH_DOWN</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span>
+    <span class="n">BUTTON1_DOWN</span>   <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span>
+    <span class="n">BUTTON2_DOWN</span>   <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span>
+    <span class="n">BUTTON3_DOWN</span>   <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span></div>
+
+
+<div class="viewcode-block" id="KeyCodes"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.KeyCodes">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
+<span class="k">class</span> <span class="nc">KeyCodes</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">BACKSPACE_KEY</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">TAB_KEY</span> <span class="o">=</span> <span class="mi">9</span>
+    <span class="n">ENTER_KEY</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">CLEAR_KEY</span> <span class="o">=</span> <span class="mi">12</span>
+    <span class="n">ESCAPE_KEY</span> <span class="o">=</span> <span class="mi">27</span>
+    <span class="n">PAGE_UP_KEY</span> <span class="o">=</span> <span class="mi">33</span>
+    <span class="n">PAGE_DOWN_KEY</span> <span class="o">=</span> <span class="mi">34</span>
+    <span class="n">END_KEY</span> <span class="o">=</span> <span class="mi">35</span>
+    <span class="n">HOME_KEY</span> <span class="o">=</span> <span class="mi">36</span>
+    <span class="n">LEFT_ARROW_KEY</span> <span class="o">=</span> <span class="mi">37</span>
+    <span class="n">UP_ARROW_KEY</span> <span class="o">=</span> <span class="mi">38</span>
+    <span class="n">RIGHT_ARROW_KEY</span> <span class="o">=</span> <span class="mi">39</span>
+    <span class="n">DOWN_ARROW_KEY</span> <span class="o">=</span> <span class="mi">40</span>
+    <span class="n">F1_KEY</span> <span class="o">=</span> <span class="mi">112</span>
+    <span class="n">F2_KEY</span> <span class="o">=</span> <span class="mi">113</span>
+    <span class="n">F3_KEY</span> <span class="o">=</span> <span class="mi">114</span>
+    <span class="n">F4_KEY</span> <span class="o">=</span> <span class="mi">115</span>
+    <span class="n">F5_KEY</span> <span class="o">=</span> <span class="mi">116</span>
+    <span class="n">F6_KEY</span> <span class="o">=</span> <span class="mi">117</span>
+    <span class="n">F7_KEY</span> <span class="o">=</span> <span class="mi">118</span>
+    <span class="n">F8_KEY</span> <span class="o">=</span> <span class="mi">119</span>
+    <span class="n">F9_KEY</span> <span class="o">=</span> <span class="mi">120</span>
+    <span class="n">F10_KEY</span> <span class="o">=</span> <span class="mi">121</span>
+    <span class="n">F11_KEY</span> <span class="o">=</span> <span class="mi">122</span>
+    <span class="n">F12_KEY</span> <span class="o">=</span> <span class="mi">123</span>
+    <span class="n">DELETE_KEY</span> <span class="o">=</span> <span class="mi">127</span>
+    <span class="n">HELP_KEY</span> <span class="o">=</span> <span class="mi">156</span></div>
+
+<div class="viewcode-block" id="GEvent"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.GEvent">[docs]</a><span class="k">class</span> <span class="nc">GEvent</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class is the root of the hierarchy for all events.</span>
+
+<span class="sd">    The standard paradigm for using GEvent is illustrated</span>
+<span class="sd">    by the following program, which allows the user to draw lines on the</span>
+<span class="sd">    graphics window::</span>
+
+<span class="sd">        gw = _gwindow.GWindow()</span>
+<span class="sd">        print(&quot;This program lets the user draw lines by dragging.&quot;)</span>
+<span class="sd">        while(True):</span>
+<span class="sd">            e = gevents.waitForEvent(gevents.EventClassType.MOUSE_EVENT)</span>
+<span class="sd">            if(e.getEventType() == gevents.EventType.MOUSE_PRESSED):</span>
+<span class="sd">                line = gobjects.GLine(e.getX(), e.getY(), e.getX(), e.getY());</span>
+<span class="sd">                gw.add(line);</span>
+<span class="sd">            elif (e.getEventType() == gevents.EventType.MOUSE_DRAGGED)</span>
+<span class="sd">                line.setEndPoint(e.getrX(), e.getY());</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        event_class [EventClassType]: Enumerated type constant indicating the class of the event.</span>
+<span class="sd">        event_type [EventType]: Enumerated type constant corresponding to the specific event type.</span>
+<span class="sd">        time [float]: System time in milliseconds at which the event occurred.</span>
+<span class="sd">        valid [bool]: Whether this event represents a fully-initialized valid event.</span>
+<span class="sd">        modifiers [int]: Integer whose bits indicate what modifiers are in effect.</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        To ensure portability among systems that represent time in different</span>
+<span class="sd">        ways, this library uses a float to</span>
+<span class="sd">        represent time, which is always encoded as the number of milliseconds</span>
+<span class="sd">        that have elapsed since 00:00:00 UTC on January 1, 1970, which is</span>
+<span class="sd">        the conventional zero point for computer-based time systems.</span>
+
+<span class="sd">        To check whether the shift key is down, for example, one could use</span>
+<span class="sd">        the following code::</span>
+
+<span class="sd">            if e.modifiers &amp; SHIFT_DOWN: ...</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Ensures that an event is properly initialized to a NULL event.</span>
+
+<span class="sd">        @rtype: void</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_event_class</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">NULL_EVENT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_event_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># &quot;Enforce&quot; read-only properties.</span>
+    <span class="c1"># TODO(sredmond): This is somewhat gross and ill-advised.</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">event_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_class</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">event_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">modifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;GEvent(NULL)&quot;</span><span class="p">;</span></div>
+
+<div class="viewcode-block" id="GWindowEvent"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.GWindowEvent">[docs]</a><span class="k">class</span> <span class="nc">GWindowEvent</span><span class="p">(</span><span class="n">GEvent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This event subclass represents a window event.</span>
+<span class="sd">    Each GWindowEvent keeps track of the event type</span>
+<span class="sd">    (WINDOW_CLOSED, WINDOW_RESIZED) along</span>
+<span class="sd">    with the identity of the window.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        gwindow [GWindow]: Reference to the GWindow in which this event took place</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a GWindowEvent using the specified parameters</span>
+
+<span class="sd">        @type type: EventType</span>
+<span class="sd">        @param type: type of event</span>
+<span class="sd">        @type gw: GWindow</span>
+<span class="sd">        @param gw: GWindow event took place in</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event_type</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">gwindow</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_class</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">WINDOW_EVENT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_type</span> <span class="o">=</span> <span class="n">event_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span> <span class="o">=</span> <span class="n">gwindow</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gwindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO(sredmond): Do we have to recreate a new GWindow with the existing data?</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span>
+
+    <span class="c1"># def getGWindow(self):</span>
+    <span class="c1">#     &#39;&#39;&#39;</span>
+    <span class="c1">#     Returns the graphics window in which this event occurred.</span>
+
+    <span class="c1">#     @rtype: L{GWindow}</span>
+    <span class="c1">#     &#39;&#39;&#39;</span>
+    <span class="c1">#     import campy.graphics.gwindow as _gwindow</span>
+    <span class="c1">#     return _gwindow.GWindow(gwd = self.gwd)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;GWindowEvent(?)&quot;</span>
+        <span class="k">return</span>  <span class="s2">&quot;GWindowEvent(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GActionEvent"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.GActionEvent">[docs]</a><span class="k">class</span> <span class="nc">GActionEvent</span><span class="p">(</span><span class="n">GEvent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This event subclass represents an action event.</span>
+<span class="sd">    Action events are generated by the classes in the</span>
+<span class="sd">    L{GInteractor}</span>
+<span class="sd">    hierarchy.  As an example, the following program displays</span>
+<span class="sd">    a button that, when pushed, generates the message</span>
+<span class="sd">    &amp;ldquo;Please do not press this button again&amp;rdquo;</span>
+<span class="sd">    (with thanks to Douglas Adams&amp;rsquo;s Hitchhiker&amp;rsquo;s</span>
+<span class="sd">    Guide to the Galaxy)::</span>
+
+<span class="sd">        gw = _gwindow.GWindow</span>
+<span class="sd">        button = ginteractors.GButton(&quot;RED&quot;);</span>
+<span class="sd">        gw.addToRegion(button, &quot;SOUTH&quot;);</span>
+<span class="sd">        while(True):</span>
+<span class="sd">            e = gevents.waitForEvent(ACTION_EVENT | CLICK_EVENT);</span>
+<span class="sd">            if(e.getEventType() == MOUSE_CLICKED):</span>
+<span class="sd">                break;</span>
+<span class="sd">            print(&quot;Please do not press this button again.&quot;)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        source [GObject]: GInteractor from which event originated.</span>
+<span class="sd">        action_command [string]: GInteractor command.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">action_command</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a GActionEvent using the specified parameters.</span>
+
+<span class="sd">        @type type: EventType</span>
+<span class="sd">        @param type: type of event</span>
+<span class="sd">        @type source: GObject</span>
+<span class="sd">        @param source: interactor event originated from</span>
+<span class="sd">        @type actionCommand: string</span>
+<span class="sd">        @param actionCommand: interactor command</span>
+<span class="sd">        @rtype: void</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event_type</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">source</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">action_command</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_class</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">ACTION_EVENT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_type</span> <span class="o">=</span> <span class="n">event_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_command</span> <span class="o">=</span> <span class="n">action_command</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">action_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_command</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;GActionEvent(?)&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;GActionEvent(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action_command</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GMouseEvent"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.GMouseEvent">[docs]</a><span class="k">class</span> <span class="nc">GMouseEvent</span><span class="p">(</span><span class="n">GEvent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This event subclass represents a mouse event.  Each mouse event</span>
+<span class="sd">    records the event type (MOUSE_PRESSED,</span>
+<span class="sd">    MOUSE_RELEASED, MOUSE_CLICKED,</span>
+<span class="sd">    MOUSE_MOVED, MOUSE_DRAGGED) along</span>
+<span class="sd">    with the coordinates of the event.  Clicking the mouse generates</span>
+<span class="sd">    three events in the following order: MOUSE_PRESSED,</span>
+<span class="sd">    MOUSE_RELEASED, MOUSE_CLICKED.</span>
+
+<span class="sd">    As an example, the following program uses mouse events to let</span>
+<span class="sd">    the user draw rectangles on the graphics window.  The only</span>
+<span class="sd">    complexity in this code is the use of the library functions</span>
+<span class="sd">    min and abs to ensure that the</span>
+<span class="sd">    dimensions of the rectangle are positive::</span>
+
+<span class="sd">        gw = _gwindow.GWindow</span>
+<span class="sd">        print(&quot;This program lets the user draw rectangles.&quot;)</span>
+<span class="sd">        while(True):</span>
+<span class="sd">            e = gevents.waitForEvent();</span>
+<span class="sd">            if (e.getEventType() == MOUSE_PRESSED):</span>
+<span class="sd">                startX = e.getX();</span>
+<span class="sd">                startY = e.getY();</span>
+<span class="sd">                rect = gobjects.GRect(startX, startY, 0, 0);</span>
+<span class="sd">                rect.setFilled(True);</span>
+<span class="sd">                gw.add(rect);</span>
+<span class="sd">            elif(e.getEventType() == MOUSE_DRAGGED):</span>
+<span class="sd">                x = min(e.getX(), startX);</span>
+<span class="sd">                y = min(e.getY(), startY);</span>
+<span class="sd">                width = abs(e.getX() - startX);</span>
+<span class="sd">                height = abs(e.getY() - startY);</span>
+<span class="sd">                rect.setBounds(x, y, width, height);</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        gwindow [GWindow]: GWindow in which MouseEvent occurred.</span>
+<span class="sd">        x [float]: The x-coordinate at which the event occurred.</span>
+<span class="sd">        y [float]: The y-coordinate at which the event occurred.</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        The x- and y-coordinates are given relative to the window origin at</span>
+<span class="sd">        the upper left corner of the window.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a GMouseEvent using the specified parameters.</span>
+
+<span class="sd">        @type type: EventType</span>
+<span class="sd">        @param type: type of event</span>
+<span class="sd">        @type gw: GWindow</span>
+<span class="sd">        @param gw: window event took place in</span>
+<span class="sd">        @type x: float</span>
+<span class="sd">        @param x: x location of event</span>
+<span class="sd">        @type y: float</span>
+<span class="sd">        @param y: y location of event</span>
+<span class="sd">        @rtype: void</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">gwindow</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_class</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_type</span> <span class="o">=</span> <span class="n">event_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span> <span class="o">=</span> <span class="n">gwindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gwindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO(sredmond): Do we have to recreate a new GWindow with the existing data?</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;GMouseEvent(?)&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;GMouseEvent(</span><span class="si">{}</span><span class="s2">, x=</span><span class="si">{}</span><span class="s2">, y=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GKeyEvent"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.GKeyEvent">[docs]</a><span class="k">class</span> <span class="nc">GKeyEvent</span><span class="p">(</span><span class="n">GEvent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This event subclass represents a key event.  Each key event records</span>
+<span class="sd">    the event type along with two representations of the key.  The</span>
+<span class="sd">    getKeyChar function is more generally useful and</span>
+<span class="sd">    returns the character after taking into account modifier keys.</span>
+<span class="sd">    The getKeyCode function returns an integer identifying</span>
+<span class="sd">    the key, which can be a function key as well as a standard key.</span>
+<span class="sd">    The codes return by getKeyCode are listed in the</span>
+<span class="sd">    KeyCodes _enumeration.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        gwindow [GWindow]: GWindow in which MouseEvent occurred.</span>
+<span class="sd">        key_char [int]: Value of key.</span>
+<span class="sd">        key_code [int]: Code of key.</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        Returns the character represented by the keystroke, taking the modifier</span>
+<span class="sd">        keys into account.  For example, if the user types the &#39;a&#39;</span>
+<span class="sd">        key with the shift key down, getKeyChar will return</span>
+<span class="sd">        &#39;A&#39;.  If the key code in the event does not correspond</span>
+<span class="sd">        to a character, getKeyChar returns the null character.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">key_char</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">key_code</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a GKeyEvent using the specified parameters.</span>
+
+<span class="sd">        @type type: EventType</span>
+<span class="sd">        @param type: type of event</span>
+<span class="sd">        @type gw: GWindow</span>
+<span class="sd">        @param gw: window event takes place in</span>
+<span class="sd">        @type keyChar: int</span>
+<span class="sd">        @param keyChar: value of key</span>
+<span class="sd">        @type keyCode: KeyCodes</span>
+<span class="sd">        @param keyCode: code of key</span>
+<span class="sd">        @rtype: void</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event_type</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">gwindow</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">key_char</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">key_code</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_class</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">KEY_EVENT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_type</span> <span class="o">=</span> <span class="n">event_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span> <span class="o">=</span> <span class="n">gwindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_key_char</span> <span class="o">=</span> <span class="n">key_char</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_key_code</span> <span class="o">=</span> <span class="n">key_code</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">gwindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO(sredmond): Do we have to recreate a new GWindow with the existing data?</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key_char</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key_char</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">key_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key_code</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;GKeyEvent(?)&quot;</span>
+        <span class="c1"># TODO(sredmond): The C++ libs use key_char for KEY_TYPED for some reason.</span>
+        <span class="c1"># Investigate further.</span>
+        <span class="k">return</span> <span class="s2">&quot;GKeyEvent(</span><span class="si">{}</span><span class="s2">, </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">chr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key_code</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="GTimerEvent"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.GTimerEvent">[docs]</a><span class="k">class</span> <span class="nc">GTimerEvent</span><span class="p">(</span><span class="n">GEvent</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This event subclass represents a timer event.  Timer events are</span>
+<span class="sd">    generated by a GTimer</span>
+<span class="sd">    object, which produces a new event at a fixed interval measured in</span>
+<span class="sd">    milliseconds.  As an example, the following program generates a</span>
+<span class="sd">    timer event every two seconds, stopping when the user clicks</span>
+<span class="sd">    somewhere in the window::</span>
+
+
+<span class="sd">        print(&quot;This program generates timer events.&quot;)</span>
+<span class="sd">        timer = gtimer.GTimer(2000)</span>
+<span class="sd">        timer.start()</span>
+<span class="sd">        while(True):</span>
+<span class="sd">            e = gevents.waitForEvent(CLICK_EVENT | TIMER_EVENT);</span>
+<span class="sd">            if (e.getEventType() == MOUSE_CLICKED):</span>
+<span class="sd">                break;</span>
+<span class="sd">        print(&quot;Timer ticked&quot;)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        timer [GTimer]: GTimer from which this event originated.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Creates a GTimerEvent for the specified timer.</span>
+
+<span class="sd">        @type type: EventType</span>
+<span class="sd">        @param type: the event type</span>
+<span class="sd">        @type timer: GTimer</span>
+<span class="sd">        @param timer: timer associated with event</span>
+<span class="sd">        @rtype: void</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">event_type</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">timer</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_class</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">TIMER_EVENT</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_event_type</span> <span class="o">=</span> <span class="n">event_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_valid</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timer</span> <span class="o">=</span> <span class="n">timer</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timer</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">():</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Converts the event to a human-readable representation of the event.</span>
+
+<span class="sd">        @rtype: string</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;GTimerEvent(?)&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;GTimerEvent(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="wait_for_click"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.wait_for_click">[docs]</a><span class="k">def</span> <span class="nf">wait_for_click</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Waits for a mouse click in any window, discarding any other events.</span>
+
+<span class="sd">    @rtype: void</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">wait_for_event</span><span class="p">(</span><span class="n">EventClassType</span><span class="o">.</span><span class="n">CLICK_EVENT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="wait_for_event"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.wait_for_event">[docs]</a><span class="k">def</span> <span class="nf">wait_for_event</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="n">EventClassType</span><span class="o">.</span><span class="n">ANY_EVENT</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Dismisses the process until an event occurs whose type is covered by</span>
+<span class="sd">    the event mask.  The mask parameter is a combination of the events of</span>
+<span class="sd">    interest.  For example, to wait for a mouse event or an action event,</span>
+<span class="sd">    clients can use the following call:</span>
+
+<span class="sd">    e = waitForEvent(MOUSE_EVENT + ACTION_EVENT);</span>
+
+<span class="sd">    The mask parameter is optional.  If it is missing,</span>
+<span class="sd">    waitForEvent accepts any event.</span>
+
+<span class="sd">    As a more sophisticated example, the following code is the canonical</span>
+<span class="sd">    event loop for an animated application that needs to respond to mouse,</span>
+<span class="sd">    key, and timer events::</span>
+
+<span class="sd">        timer = gtimer.GTimer(ANIMATION_DELAY_IN_MILLISECONDS);</span>
+<span class="sd">        timer.start()</span>
+<span class="sd">        while(True):</span>
+<span class="sd">            e = gevents.waitForEvent(TIMER_EVENT + MOUSE_EVENT + KEY_EVENT)</span>
+<span class="sd">            if(e.getEventClass == gevents.EventClassType.TIMER_EVENT):</span>
+<span class="sd">                takeAnimationStep()</span>
+<span class="sd">            elif(e.getEventClass == gevents.EventClassType.MOUSE_EVENT):</span>
+<span class="sd">                handleMouseEvent(e)</span>
+<span class="sd">            elif(e.getEventClass == gevents.EventClassType.KEY_EVENT):</span>
+<span class="sd">                handleKeyEvent(e)</span>
+
+<span class="sd">    @type mask: EventClassType</span>
+<span class="sd">    @param mask: EventClassType to wait for, defaults to ANY_EVENT</span>
+<span class="sd">    @rtype: GEvent</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
+    <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">waitForEvent</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="get_next_event"><a class="viewcode-back" href="../../../campy.graphics.gevents.html#campy.graphics.gevents.get_next_event">[docs]</a><span class="k">def</span> <span class="nf">get_next_event</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="n">EventClassType</span><span class="o">.</span><span class="n">ANY_EVENT</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Checks to see if there are any events of the desired type waiting on the</span>
+<span class="sd">    event queue.  If so, this function returns the event in exactly the same</span>
+<span class="sd">    fashion as waitForEvent; if not, getNextEvent</span>
+<span class="sd">    returns an invalid event.  The mask parameter is optional.</span>
+<span class="sd">    If it is missing, getNextEvent accepts any event.</span>
+
+<span class="sd">    @type mask: EventClassType</span>
+<span class="sd">    @param mask: EventClasstype to check for, defaults to ANY_EVENT</span>
+<span class="sd">    @rtype: GEvent</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
+    <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">getNextEvent</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">EventClassType</span><span class="o">.</span><span class="n">NULL_EVENT</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">GEvent</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">event_class</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">event_type</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">GMouseEvent</span><span class="p">(</span><span class="n">EventType</span><span class="o">.</span><span class="n">MOUSE_CLICKED</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">event_class</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">event_type</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sam Redmond
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

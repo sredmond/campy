@@ -1,0 +1,829 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>campy.private.platform module &mdash; campy 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> campy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">campy.private.platform module</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">campy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>campy.private.platform module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/campy.private.platform.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-campy.private.platform">
+<span id="campy-private-platform-module"></span><h1>campy.private.platform module<a class="headerlink" href="#module-campy.private.platform" title="Permalink to this headline">¶</a></h1>
+<p>The platform module is resonsible for initalizing the connection to the java back end
+as well as sending and receiving interprocess communcations. This module should not
+be referenced by applications using this library.</p>
+<dl class="class">
+<dt id="campy.private.platform.Platform">
+<em class="property">class </em><code class="descclassname">campy.private.platform.</code><code class="descname">Platform</code><a class="reference internal" href="_modules/campy/private/platform.html#Platform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="campy.private.platform.Platform.BACKEND">
+<code class="descname">BACKEND</code><em class="property"> = None</em><a class="headerlink" href="#campy.private.platform.Platform.BACKEND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.private.platform.Platform.EVENT_QUEUE">
+<code class="descname">EVENT_QUEUE</code><em class="property"> = None</em><a class="headerlink" href="#campy.private.platform.Platform.EVENT_QUEUE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.private.platform.Platform.Q">
+<code class="descname">Q</code><em class="property"> = None</em><a class="headerlink" href="#campy.private.platform.Platform.Q" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.private.platform.Platform.SOURCE_TABLE">
+<code class="descname">SOURCE_TABLE</code><em class="property"> = None</em><a class="headerlink" href="#campy.private.platform.Platform.SOURCE_TABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.private.platform.Platform.TIMER_TABLE">
+<code class="descname">TIMER_TABLE</code><em class="property"> = None</em><a class="headerlink" href="#campy.private.platform.Platform.TIMER_TABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.private.platform.Platform.WINDOW_TABLE">
+<code class="descname">WINDOW_TABLE</code><em class="property"> = None</em><a class="headerlink" href="#campy.private.platform.Platform.WINDOW_TABLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.addItem">
+<code class="descname">addItem</code><span class="sig-paren">(</span><em>gobj</em>, <em>item</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.addItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.addItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.clearConsole">
+<code class="descname">clearConsole</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.clearConsole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.clearConsole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.createGChooser">
+<code class="descname">createGChooser</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.createGChooser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.createGChooser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.createGTextField">
+<code class="descname">createGTextField</code><span class="sig-paren">(</span><em>gobj</em>, <em>num_chars</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.createGTextField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.createGTextField" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.create_sound">
+<code class="descname">create_sound</code><span class="sig-paren">(</span><em>sound</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.create_sound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.create_sound" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.delete_sound">
+<code class="descname">delete_sound</code><span class="sig-paren">(</span><em>sound</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.delete_sound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.delete_sound" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.echo_console">
+<code class="descname">echo_console</code><span class="sig-paren">(</span><em>line</em>, <em>stderr=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.echo_console"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.echo_console" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.end_line_console">
+<code class="descname">end_line_console</code><span class="sig-paren">(</span><em>stderr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.end_line_console"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.end_line_console" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.file_open_file_dialog">
+<code class="descname">file_open_file_dialog</code><span class="sig-paren">(</span><em>title</em>, <em>mode</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.file_open_file_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.file_open_file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.g3drect_constructor">
+<code class="descname">g3drect_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>width</em>, <em>height</em>, <em>raised</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.g3drect_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.g3drect_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.g3drect_set_raised">
+<code class="descname">g3drect_set_raised</code><span class="sig-paren">(</span><em>gobj</em>, <em>raised</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.g3drect_set_raised"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.g3drect_set_raised" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.garc_constructor">
+<code class="descname">garc_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>width</em>, <em>height</em>, <em>start</em>, <em>sweep</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.garc_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.garc_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.garc_set_frame_rectangle">
+<code class="descname">garc_set_frame_rectangle</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.garc_set_frame_rectangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.garc_set_frame_rectangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.garc_set_start_angle">
+<code class="descname">garc_set_start_angle</code><span class="sig-paren">(</span><em>gobj</em>, <em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.garc_set_start_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.garc_set_start_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.garc_set_sweep_angle">
+<code class="descname">garc_set_sweep_angle</code><span class="sig-paren">(</span><em>gobj</em>, <em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.garc_set_sweep_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.garc_set_sweep_angle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_constructor">
+<code class="descname">gbufferedimage_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_fill">
+<code class="descname">gbufferedimage_fill</code><span class="sig-paren">(</span><em>gobj</em>, <em>rgb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_fill_region">
+<code class="descname">gbufferedimage_fill_region</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>, <em>rgb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_fill_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_fill_region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_load">
+<code class="descname">gbufferedimage_load</code><span class="sig-paren">(</span><em>gobj</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_resize">
+<code class="descname">gbufferedimage_resize</code><span class="sig-paren">(</span><em>gobj</em>, <em>width</em>, <em>height</em>, <em>retain</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_resize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_resize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_save">
+<code class="descname">gbufferedimage_save</code><span class="sig-paren">(</span><em>gobj</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_set_rgb">
+<code class="descname">gbufferedimage_set_rgb</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em>, <em>rgb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_set_rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_set_rgb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbufferedimage_update_all_pixels">
+<code class="descname">gbufferedimage_update_all_pixels</code><span class="sig-paren">(</span><em>gobj</em>, <em>base64</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbufferedimage_update_all_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbufferedimage_update_all_pixels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gbutton_constructor">
+<code class="descname">gbutton_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gbutton_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gbutton_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gcheckbox_constructor">
+<code class="descname">gcheckbox_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gcheckbox_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gcheckbox_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gcheckbox_is_selected">
+<code class="descname">gcheckbox_is_selected</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gcheckbox_is_selected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gcheckbox_is_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gcheckbox_set_selected">
+<code class="descname">gcheckbox_set_selected</code><span class="sig-paren">(</span><em>gobj</em>, <em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gcheckbox_set_selected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gcheckbox_set_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gcompound_add">
+<code class="descname">gcompound_add</code><span class="sig-paren">(</span><em>compound</em>, <em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gcompound_add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gcompound_add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gcompound_constructor">
+<code class="descname">gcompound_constructor</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gcompound_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gcompound_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.getNextEvent">
+<code class="descname">getNextEvent</code><span class="sig-paren">(</span><em>mask</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.getNextEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.getNextEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.getSelectedItem">
+<code class="descname">getSelectedItem</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.getSelectedItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.getSelectedItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.getSize">
+<code class="descname">getSize</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.getSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.getSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.getText">
+<code class="descname">getText</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.getText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.getText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.get_line_console">
+<code class="descname">get_line_console</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.get_line_console"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.get_line_console" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.get_pipe">
+<code class="descname">get_pipe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.get_pipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.get_pipe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.get_result">
+<code class="descname">get_result</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.get_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.get_result" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.get_status">
+<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.get_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gfilechooser_show_open_dialog">
+<code class="descname">gfilechooser_show_open_dialog</code><span class="sig-paren">(</span><em>current_dir</em>, <em>file_filter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gfilechooser_show_open_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gfilechooser_show_open_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gfilechooser_show_save_dialog">
+<code class="descname">gfilechooser_show_save_dialog</code><span class="sig-paren">(</span><em>current_dir</em>, <em>file_filter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gfilechooser_show_save_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gfilechooser_show_save_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gimage_constructor">
+<code class="descname">gimage_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gimage_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gimage_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.glabel_constructor">
+<code class="descname">glabel_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.glabel_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.glabel_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.glabel_get_font_ascent">
+<code class="descname">glabel_get_font_ascent</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.glabel_get_font_ascent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.glabel_get_font_ascent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.glabel_get_font_descent">
+<code class="descname">glabel_get_font_descent</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.glabel_get_font_descent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.glabel_get_font_descent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.glabel_get_size">
+<code class="descname">glabel_get_size</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.glabel_get_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.glabel_get_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.glabel_set_font">
+<code class="descname">glabel_set_font</code><span class="sig-paren">(</span><em>gobj</em>, <em>font</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.glabel_set_font"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.glabel_set_font" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.glabel_set_label">
+<code class="descname">glabel_set_label</code><span class="sig-paren">(</span><em>gobj</em>, <em>str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.glabel_set_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.glabel_set_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gline_constructor">
+<code class="descname">gline_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gline_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gline_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gline_set_end_point">
+<code class="descname">gline_set_end_point</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gline_set_end_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gline_set_end_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gline_set_start_point">
+<code class="descname">gline_set_start_point</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gline_set_start_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gline_set_start_point" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_contains">
+<code class="descname">gobject_contains</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_contains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_get_bounds">
+<code class="descname">gobject_get_bounds</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_get_bounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_get_bounds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_remove">
+<code class="descname">gobject_remove</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_rotate">
+<code class="descname">gobject_rotate</code><span class="sig-paren">(</span><em>gobj</em>, <em>theta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_rotate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_scale">
+<code class="descname">gobject_scale</code><span class="sig-paren">(</span><em>gobj</em>, <em>sx</em>, <em>sy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_send_backward">
+<code class="descname">gobject_send_backward</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_send_backward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_send_backward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_send_forward">
+<code class="descname">gobject_send_forward</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_send_forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_send_forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_send_to_back">
+<code class="descname">gobject_send_to_back</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_send_to_back"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_send_to_back" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_send_to_front">
+<code class="descname">gobject_send_to_front</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_send_to_front"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_send_to_front" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_set_color">
+<code class="descname">gobject_set_color</code><span class="sig-paren">(</span><em>gobj</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_set_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_set_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_set_fill_color">
+<code class="descname">gobject_set_fill_color</code><span class="sig-paren">(</span><em>gobj</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_set_fill_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_set_fill_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_set_filled">
+<code class="descname">gobject_set_filled</code><span class="sig-paren">(</span><em>gobj</em>, <em>flag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_set_filled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_set_filled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_set_line_width">
+<code class="descname">gobject_set_line_width</code><span class="sig-paren">(</span><em>gobj</em>, <em>line_width</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_set_line_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_set_line_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_set_location">
+<code class="descname">gobject_set_location</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_set_location"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_set_location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gobject_set_size">
+<code class="descname">gobject_set_size</code><span class="sig-paren">(</span><em>gobj</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gobject_set_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gobject_set_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.goptionpane_show_confirm_dialog">
+<code class="descname">goptionpane_show_confirm_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title</em>, <em>confirm_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.goptionpane_show_confirm_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.goptionpane_show_confirm_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.goptionpane_show_input_dialog">
+<code class="descname">goptionpane_show_input_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.goptionpane_show_input_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.goptionpane_show_input_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.goptionpane_show_message_dialog">
+<code class="descname">goptionpane_show_message_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title</em>, <em>message_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.goptionpane_show_message_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.goptionpane_show_message_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.goptionpane_show_option_dialog">
+<code class="descname">goptionpane_show_option_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title</em>, <em>options</em>, <em>initially_selected</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.goptionpane_show_option_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.goptionpane_show_option_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.goptionpane_show_text_file_dialog">
+<code class="descname">goptionpane_show_text_file_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title</em>, <em>rows</em>, <em>cols</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.goptionpane_show_text_file_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.goptionpane_show_text_file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.goval_constructor">
+<code class="descname">goval_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.goval_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.goval_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gpolygon_add_vertex">
+<code class="descname">gpolygon_add_vertex</code><span class="sig-paren">(</span><em>gobj</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gpolygon_add_vertex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gpolygon_add_vertex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gpolygon_constructor">
+<code class="descname">gpolygon_constructor</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gpolygon_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gpolygon_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.grect_constructor">
+<code class="descname">grect_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.grect_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.grect_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.groundrect_constructor">
+<code class="descname">groundrect_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>width</em>, <em>height</em>, <em>corner</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.groundrect_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.groundrect_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gslider_constructor">
+<code class="descname">gslider_constructor</code><span class="sig-paren">(</span><em>gobj</em>, <em>min</em>, <em>max</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gslider_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gslider_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gslider_get_value">
+<code class="descname">gslider_get_value</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gslider_get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gslider_get_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gslider_set_value">
+<code class="descname">gslider_set_value</code><span class="sig-paren">(</span><em>gobj</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gslider_set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gslider_set_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gtimer_constructor">
+<code class="descname">gtimer_constructor</code><span class="sig-paren">(</span><em>timer</em>, <em>millis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gtimer_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gtimer_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gtimer_delete">
+<code class="descname">gtimer_delete</code><span class="sig-paren">(</span><em>timer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gtimer_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gtimer_delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gtimer_pause">
+<code class="descname">gtimer_pause</code><span class="sig-paren">(</span><em>millis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gtimer_pause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gtimer_pause" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gtimer_start">
+<code class="descname">gtimer_start</code><span class="sig-paren">(</span><em>timer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gtimer_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gtimer_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gtimer_stop">
+<code class="descname">gtimer_stop</code><span class="sig-paren">(</span><em>timer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gtimer_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gtimer_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_add_to_region">
+<code class="descname">gwindow_add_to_region</code><span class="sig-paren">(</span><em>gw</em>, <em>gobj</em>, <em>region</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_add_to_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_add_to_region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_clear">
+<code class="descname">gwindow_clear</code><span class="sig-paren">(</span><em>gw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_clear_canvas">
+<code class="descname">gwindow_clear_canvas</code><span class="sig-paren">(</span><em>gw</em>, <em>exit_on_close</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_clear_canvas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_clear_canvas" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_close">
+<code class="descname">gwindow_close</code><span class="sig-paren">(</span><em>gw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_constructor">
+<code class="descname">gwindow_constructor</code><span class="sig-paren">(</span><em>gw</em>, <em>width</em>, <em>height</em>, <em>top_compound</em>, <em>visible=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_constructor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_constructor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_delete">
+<code class="descname">gwindow_delete</code><span class="sig-paren">(</span><em>gw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_draw">
+<code class="descname">gwindow_draw</code><span class="sig-paren">(</span><em>gw</em>, <em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_exit_graphics">
+<code class="descname">gwindow_exit_graphics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_exit_graphics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_exit_graphics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_get_screen_height">
+<code class="descname">gwindow_get_screen_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_get_screen_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_get_screen_height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_get_screen_width">
+<code class="descname">gwindow_get_screen_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_get_screen_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_get_screen_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_remove_from_region">
+<code class="descname">gwindow_remove_from_region</code><span class="sig-paren">(</span><em>gw</em>, <em>gobj</em>, <em>region</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_remove_from_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_remove_from_region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_repaint">
+<code class="descname">gwindow_repaint</code><span class="sig-paren">(</span><em>gw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_repaint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_repaint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_request_focus">
+<code class="descname">gwindow_request_focus</code><span class="sig-paren">(</span><em>gw</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_request_focus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_request_focus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_set_exit_on_close">
+<code class="descname">gwindow_set_exit_on_close</code><span class="sig-paren">(</span><em>gw</em>, <em>exit_on_close</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_set_exit_on_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_set_exit_on_close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_set_region_alignment">
+<code class="descname">gwindow_set_region_alignment</code><span class="sig-paren">(</span><em>gw</em>, <em>region</em>, <em>align</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_set_region_alignment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_set_region_alignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_set_visible">
+<code class="descname">gwindow_set_visible</code><span class="sig-paren">(</span><em>flag</em>, <em>gobj=None</em>, <em>gw=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_set_visible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_set_visible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.gwindow_set_window_title">
+<code class="descname">gwindow_set_window_title</code><span class="sig-paren">(</span><em>gw</em>, <em>title</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.gwindow_set_window_title"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.gwindow_set_window_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.note_play">
+<code class="descname">note_play</code><span class="sig-paren">(</span><em>note</em>, <em>repeat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.note_play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.note_play" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.parseActionEvent">
+<code class="descname">parseActionEvent</code><span class="sig-paren">(</span><em>tokens</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.parseActionEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.parseActionEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.parseEvent">
+<code class="descname">parseEvent</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.parseEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.parseEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.parseKeyEvent">
+<code class="descname">parseKeyEvent</code><span class="sig-paren">(</span><em>tokens</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.parseKeyEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.parseKeyEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.parseMouseEvent">
+<code class="descname">parseMouseEvent</code><span class="sig-paren">(</span><em>tokens</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.parseMouseEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.parseMouseEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.parseTimerEvent">
+<code class="descname">parseTimerEvent</code><span class="sig-paren">(</span><em>tokens</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.parseTimerEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.parseTimerEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.parseWindowEvent">
+<code class="descname">parseWindowEvent</code><span class="sig-paren">(</span><em>tokens</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.parseWindowEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.parseWindowEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.play_sound">
+<code class="descname">play_sound</code><span class="sig-paren">(</span><em>sound</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.play_sound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.play_sound" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.put_console">
+<code class="descname">put_console</code><span class="sig-paren">(</span><em>line</em>, <em>stderr=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.put_console"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.put_console" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.put_pipe">
+<code class="descname">put_pipe</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.put_pipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.put_pipe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.scanDimension">
+<code class="descname">scanDimension</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.scanDimension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.scanDimension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.scanRectangle">
+<code class="descname">scanRectangle</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.scanRectangle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.scanRectangle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.setActionCommand">
+<code class="descname">setActionCommand</code><span class="sig-paren">(</span><em>gobj</em>, <em>cmd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.setActionCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.setActionCommand" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.setConsoleFont">
+<code class="descname">setConsoleFont</code><span class="sig-paren">(</span><em>font</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.setConsoleFont"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.setConsoleFont" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.setConsoleSize">
+<code class="descname">setConsoleSize</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.setConsoleSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.setConsoleSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.setSelectedItem">
+<code class="descname">setSelectedItem</code><span class="sig-paren">(</span><em>gobj</em>, <em>item</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.setSelectedItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.setSelectedItem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.setText">
+<code class="descname">setText</code><span class="sig-paren">(</span><em>gobj</em>, <em>str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.setText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.setText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.private.platform.Platform.waitForEvent">
+<code class="descname">waitForEvent</code><span class="sig-paren">(</span><em>mask</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#Platform.waitForEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.Platform.waitForEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.private.platform.boolalpha">
+<code class="descclassname">campy.private.platform.</code><code class="descname">boolalpha</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/platform.html#boolalpha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.platform.boolalpha" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sam Redmond
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

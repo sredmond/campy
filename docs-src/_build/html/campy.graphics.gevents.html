@@ -1,0 +1,914 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>campy.graphics.gevents module &mdash; campy 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> campy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">campy.graphics.gevents module</a><ul>
+<li><a class="reference internal" href="#eventclasstype">EventClassType</a></li>
+<li><a class="reference internal" href="#eventtype">EventType</a></li>
+<li><a class="reference internal" href="#modifiercodes">ModifierCodes</a></li>
+<li><a class="reference internal" href="#keycodes">KeyCodes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">campy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>campy.graphics.gevents module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/campy.graphics.gevents.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-campy.graphics.gevents">
+<span id="campy-graphics-gevents-module"></span><h1>campy.graphics.gevents module<a class="headerlink" href="#module-campy.graphics.gevents" title="Permalink to this headline">¶</a></h1>
+<p>This file defines the event types used in the Stanford Portable Graphics Libraries.
+The structure of this package is adapted from the Java event model.</p>
+<div class="section" id="eventclasstype">
+<h2>EventClassType<a class="headerlink" href="#eventclasstype" title="Permalink to this headline">¶</a></h2>
+<p>This _enumeration definest the vent classes. The element values are each a single bit
+and can be added or ORed together to generate an event mask. The CLICK_EVENT class
+responds only to the MOUSE_CLICKED event type. The ANY_EVENT class selects any event.</p>
+<blockquote>
+<div><ul class="simple">
+<li>NULL_EVENT</li>
+<li>ACTION_EVENT</li>
+<li>KEY_EVENT</li>
+<li>TIMER_EVENT</li>
+<li>WINDOW_EVENT</li>
+<li>MOUSE_EVENT</li>
+<li>CLICK_EVENT</li>
+<li>ANY_EVENT</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="eventtype">
+<h2>EventType<a class="headerlink" href="#eventtype" title="Permalink to this headline">¶</a></h2>
+<p>This _enumeration type defines the event types for all events.</p>
+<blockquote>
+<div><ul class="simple">
+<li>WINDOW_CLOSED</li>
+<li>WINDOW_RESIZED</li>
+<li>ACTION_PERFORMED</li>
+<li>MOUSE_CLICKED</li>
+<li>MOUSE_PRESSED</li>
+<li>MOUSE_RELEASED</li>
+<li>MOUSE_MOVED</li>
+<li>MOUSE_DRAGGED</li>
+<li>KEY_PRESSED</li>
+<li>KEY_RELEASED</li>
+<li>KEY_TYPED</li>
+<li>TIMER_TICKED</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="modifiercodes">
+<h2>ModifierCodes<a class="headerlink" href="#modifiercodes" title="Permalink to this headline">¶</a></h2>
+<p>This _enumeration type defines a set of constants used to check whether
+modifiers are in effect.</p>
+<blockquote>
+<div><ul class="simple">
+<li>SHIFT_DOWN</li>
+<li>CTRL_DOWN</li>
+<li>META_DOWN</li>
+<li>ALT_DOWN</li>
+<li>ALT_GRAPH_DOWN</li>
+<li>BUTTON1_DOWN</li>
+<li>BUTTON2_DOWN</li>
+<li>BUTTON3_DOWN</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="keycodes">
+<h2>KeyCodes<a class="headerlink" href="#keycodes" title="Permalink to this headline">¶</a></h2>
+<p>This type defines the names of the key codes returned in a key event</p>
+<blockquote>
+<div><ul class="simple">
+<li>BACKSPACE_KEY</li>
+<li>TAB_KEY</li>
+<li>ENTER_KEY</li>
+<li>CLEAR_KEY</li>
+<li>ESCAPE_KEY</li>
+<li>PAGE_UP_KEY</li>
+<li>PAGE_DOWN_KEY</li>
+<li>END_KEY</li>
+<li>HOME_KEY</li>
+<li>LEFT_ARROW_KEY</li>
+<li>UP_ARROW_KEY</li>
+<li>RIGHT_ARROW_KEY</li>
+<li>DOWN_ARROW_KEY</li>
+<li>F1_KEY</li>
+<li>F2_KEY</li>
+<li>F3_KEY</li>
+<li>F4_KEY</li>
+<li>F5_KEY</li>
+<li>F6_KEY</li>
+<li>F7_KEY</li>
+<li>F8_KEY</li>
+<li>F9_KEY</li>
+<li>F10_KEY</li>
+<li>F11_KEY</li>
+<li>F12_KEY</li>
+<li>DELETE_KEY</li>
+<li>HELP_KEY</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt>TODO:</dt>
+<dd>Reconsider using EventClassType. Instead use inheritance?
+Deduplicate events that capture a GWindow.
+Check for validity on property access.</dd>
+</dl>
+<dl class="class">
+<dt id="campy.graphics.gevents.EventClassType">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">EventClassType</code><a class="reference internal" href="_modules/campy/graphics/gevents.html#EventClassType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.EventClassType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.ACTION_EVENT">
+<code class="descname">ACTION_EVENT</code><em class="property"> = 16</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.ACTION_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.ANY_EVENT">
+<code class="descname">ANY_EVENT</code><em class="property"> = 1008</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.ANY_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.CLICK_EVENT">
+<code class="descname">CLICK_EVENT</code><em class="property"> = 512</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.CLICK_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.KEY_EVENT">
+<code class="descname">KEY_EVENT</code><em class="property"> = 32</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.KEY_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.MOUSE_EVENT">
+<code class="descname">MOUSE_EVENT</code><em class="property"> = 256</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.MOUSE_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.NULL_EVENT">
+<code class="descname">NULL_EVENT</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.NULL_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.TIMER_EVENT">
+<code class="descname">TIMER_EVENT</code><em class="property"> = 64</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.TIMER_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventClassType.WINDOW_EVENT">
+<code class="descname">WINDOW_EVENT</code><em class="property"> = 128</em><a class="headerlink" href="#campy.graphics.gevents.EventClassType.WINDOW_EVENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.EventType">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">EventType</code><a class="reference internal" href="_modules/campy/graphics/gevents.html#EventType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.EventType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.ACTION_PERFORMED">
+<code class="descname">ACTION_PERFORMED</code><em class="property"> = 17</em><a class="headerlink" href="#campy.graphics.gevents.EventType.ACTION_PERFORMED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.CONSOLE_CLOSED">
+<code class="descname">CONSOLE_CLOSED</code><em class="property"> = 131</em><a class="headerlink" href="#campy.graphics.gevents.EventType.CONSOLE_CLOSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.KEY_PRESSED">
+<code class="descname">KEY_PRESSED</code><em class="property"> = 33</em><a class="headerlink" href="#campy.graphics.gevents.EventType.KEY_PRESSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.KEY_RELEASED">
+<code class="descname">KEY_RELEASED</code><em class="property"> = 34</em><a class="headerlink" href="#campy.graphics.gevents.EventType.KEY_RELEASED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.KEY_TYPED">
+<code class="descname">KEY_TYPED</code><em class="property"> = 35</em><a class="headerlink" href="#campy.graphics.gevents.EventType.KEY_TYPED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.MOUSE_CLICKED">
+<code class="descname">MOUSE_CLICKED</code><em class="property"> = 257</em><a class="headerlink" href="#campy.graphics.gevents.EventType.MOUSE_CLICKED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.MOUSE_DRAGGED">
+<code class="descname">MOUSE_DRAGGED</code><em class="property"> = 261</em><a class="headerlink" href="#campy.graphics.gevents.EventType.MOUSE_DRAGGED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.MOUSE_MOVED">
+<code class="descname">MOUSE_MOVED</code><em class="property"> = 260</em><a class="headerlink" href="#campy.graphics.gevents.EventType.MOUSE_MOVED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.MOUSE_PRESSED">
+<code class="descname">MOUSE_PRESSED</code><em class="property"> = 258</em><a class="headerlink" href="#campy.graphics.gevents.EventType.MOUSE_PRESSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.MOUSE_RELEASED">
+<code class="descname">MOUSE_RELEASED</code><em class="property"> = 259</em><a class="headerlink" href="#campy.graphics.gevents.EventType.MOUSE_RELEASED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.TIMER_TICKED">
+<code class="descname">TIMER_TICKED</code><em class="property"> = 65</em><a class="headerlink" href="#campy.graphics.gevents.EventType.TIMER_TICKED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.WINDOW_CLOSED">
+<code class="descname">WINDOW_CLOSED</code><em class="property"> = 129</em><a class="headerlink" href="#campy.graphics.gevents.EventType.WINDOW_CLOSED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.EventType.WINDOW_RESIZED">
+<code class="descname">WINDOW_RESIZED</code><em class="property"> = 130</em><a class="headerlink" href="#campy.graphics.gevents.EventType.WINDOW_RESIZED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.GActionEvent">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">GActionEvent</code><span class="sig-paren">(</span><em>event_type=None</em>, <em>source=None</em>, <em>action_command=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#GActionEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.GActionEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gevents.GEvent" title="campy.graphics.gevents.GEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gevents.GEvent</span></code></a></p>
+<p>This event subclass represents an action event.
+Action events are generated by the classes in the
+L{GInteractor}
+hierarchy.  As an example, the following program displays
+a button that, when pushed, generates the message
+&amp;ldquo;Please do not press this button again&amp;rdquo;
+(with thanks to Douglas Adams&amp;rsquo;s Hitchhiker&amp;rsquo;s
+Guide to the Galaxy):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gw</span> <span class="o">=</span> <span class="n">_gwindow</span><span class="o">.</span><span class="n">GWindow</span>
+<span class="n">button</span> <span class="o">=</span> <span class="n">ginteractors</span><span class="o">.</span><span class="n">GButton</span><span class="p">(</span><span class="s2">&quot;RED&quot;</span><span class="p">);</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">addToRegion</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="s2">&quot;SOUTH&quot;</span><span class="p">);</span>
+<span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">gevents</span><span class="o">.</span><span class="n">waitForEvent</span><span class="p">(</span><span class="n">ACTION_EVENT</span> <span class="o">|</span> <span class="n">CLICK_EVENT</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventType</span><span class="p">()</span> <span class="o">==</span> <span class="n">MOUSE_CLICKED</span><span class="p">):</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please do not press this button again.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>source [GObject]: GInteractor from which event originated.
+action_command [string]: GInteractor command.</dd>
+</dl>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GActionEvent.action_command">
+<code class="descname">action_command</code><a class="headerlink" href="#campy.graphics.gevents.GActionEvent.action_command" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GActionEvent.source">
+<code class="descname">source</code><a class="headerlink" href="#campy.graphics.gevents.GActionEvent.source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.GEvent">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">GEvent</code><a class="reference internal" href="_modules/campy/graphics/gevents.html#GEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.GEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is the root of the hierarchy for all events.</p>
+<p>The standard paradigm for using GEvent is illustrated
+by the following program, which allows the user to draw lines on the
+graphics window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gw</span> <span class="o">=</span> <span class="n">_gwindow</span><span class="o">.</span><span class="n">GWindow</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This program lets the user draw lines by dragging.&quot;</span><span class="p">)</span>
+<span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">gevents</span><span class="o">.</span><span class="n">waitForEvent</span><span class="p">(</span><span class="n">gevents</span><span class="o">.</span><span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventType</span><span class="p">()</span> <span class="o">==</span> <span class="n">gevents</span><span class="o">.</span><span class="n">EventType</span><span class="o">.</span><span class="n">MOUSE_PRESSED</span><span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">gobjects</span><span class="o">.</span><span class="n">GLine</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">e</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span> <span class="n">e</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">e</span><span class="o">.</span><span class="n">getY</span><span class="p">());</span>
+        <span class="n">gw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventType</span><span class="p">()</span> <span class="o">==</span> <span class="n">gevents</span><span class="o">.</span><span class="n">EventType</span><span class="o">.</span><span class="n">MOUSE_DRAGGED</span><span class="p">)</span>
+        <span class="n">line</span><span class="o">.</span><span class="n">setEndPoint</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getrX</span><span class="p">(),</span> <span class="n">e</span><span class="o">.</span><span class="n">getY</span><span class="p">());</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>event_class [EventClassType]: Enumerated type constant indicating the class of the event.
+event_type [EventType]: Enumerated type constant corresponding to the specific event type.
+time [float]: System time in milliseconds at which the event occurred.
+valid [bool]: Whether this event represents a fully-initialized valid event.
+modifiers [int]: Integer whose bits indicate what modifiers are in effect.</dd>
+<dt>Notes:</dt>
+<dd><p class="first">To ensure portability among systems that represent time in different
+ways, this library uses a float to
+represent time, which is always encoded as the number of milliseconds
+that have elapsed since 00:00:00 UTC on January 1, 1970, which is
+the conventional zero point for computer-based time systems.</p>
+<p>To check whether the shift key is down, for example, one could use
+the following code:</p>
+<div class="last highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">modifiers</span> <span class="o">&amp;</span> <span class="n">SHIFT_DOWN</span><span class="p">:</span> <span class="o">...</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GEvent.event_class">
+<code class="descname">event_class</code><a class="headerlink" href="#campy.graphics.gevents.GEvent.event_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GEvent.event_type">
+<code class="descname">event_type</code><a class="headerlink" href="#campy.graphics.gevents.GEvent.event_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GEvent.modifiers">
+<code class="descname">modifiers</code><a class="headerlink" href="#campy.graphics.gevents.GEvent.modifiers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GEvent.time">
+<code class="descname">time</code><a class="headerlink" href="#campy.graphics.gevents.GEvent.time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GEvent.valid">
+<code class="descname">valid</code><a class="headerlink" href="#campy.graphics.gevents.GEvent.valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.GKeyEvent">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">GKeyEvent</code><span class="sig-paren">(</span><em>event_type=None</em>, <em>gwindow=None</em>, <em>key_char=None</em>, <em>key_code=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#GKeyEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.GKeyEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gevents.GEvent" title="campy.graphics.gevents.GEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gevents.GEvent</span></code></a></p>
+<p>This event subclass represents a key event.  Each key event records
+the event type along with two representations of the key.  The
+getKeyChar function is more generally useful and
+returns the character after taking into account modifier keys.
+The getKeyCode function returns an integer identifying
+the key, which can be a function key as well as a standard key.
+The codes return by getKeyCode are listed in the
+KeyCodes _enumeration.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>gwindow [GWindow]: GWindow in which MouseEvent occurred.
+key_char [int]: Value of key.
+key_code [int]: Code of key.</dd>
+<dt>Notes:</dt>
+<dd>Returns the character represented by the keystroke, taking the modifier
+keys into account.  For example, if the user types the ‘a’
+key with the shift key down, getKeyChar will return
+‘A’.  If the key code in the event does not correspond
+to a character, getKeyChar returns the null character.</dd>
+</dl>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GKeyEvent.gwindow">
+<code class="descname">gwindow</code><a class="headerlink" href="#campy.graphics.gevents.GKeyEvent.gwindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GKeyEvent.key_char">
+<code class="descname">key_char</code><a class="headerlink" href="#campy.graphics.gevents.GKeyEvent.key_char" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GKeyEvent.key_code">
+<code class="descname">key_code</code><a class="headerlink" href="#campy.graphics.gevents.GKeyEvent.key_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.GMouseEvent">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">GMouseEvent</code><span class="sig-paren">(</span><em>event_type=None</em>, <em>gwindow=None</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#GMouseEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.GMouseEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gevents.GEvent" title="campy.graphics.gevents.GEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gevents.GEvent</span></code></a></p>
+<p>This event subclass represents a mouse event.  Each mouse event
+records the event type (MOUSE_PRESSED,
+MOUSE_RELEASED, MOUSE_CLICKED,
+MOUSE_MOVED, MOUSE_DRAGGED) along
+with the coordinates of the event.  Clicking the mouse generates
+three events in the following order: MOUSE_PRESSED,
+MOUSE_RELEASED, MOUSE_CLICKED.</p>
+<p>As an example, the following program uses mouse events to let
+the user draw rectangles on the graphics window.  The only
+complexity in this code is the use of the library functions
+min and abs to ensure that the
+dimensions of the rectangle are positive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gw</span> <span class="o">=</span> <span class="n">_gwindow</span><span class="o">.</span><span class="n">GWindow</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This program lets the user draw rectangles.&quot;</span><span class="p">)</span>
+<span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">gevents</span><span class="o">.</span><span class="n">waitForEvent</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventType</span><span class="p">()</span> <span class="o">==</span> <span class="n">MOUSE_PRESSED</span><span class="p">):</span>
+        <span class="n">startX</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">getX</span><span class="p">();</span>
+        <span class="n">startY</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">getY</span><span class="p">();</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">startX</span><span class="p">,</span> <span class="n">startY</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">setFilled</span><span class="p">(</span><span class="kc">True</span><span class="p">);</span>
+        <span class="n">gw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rect</span><span class="p">);</span>
+    <span class="k">elif</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventType</span><span class="p">()</span> <span class="o">==</span> <span class="n">MOUSE_DRAGGED</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getX</span><span class="p">(),</span> <span class="n">startX</span><span class="p">);</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getY</span><span class="p">(),</span> <span class="n">startY</span><span class="p">);</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getX</span><span class="p">()</span> <span class="o">-</span> <span class="n">startX</span><span class="p">);</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getY</span><span class="p">()</span> <span class="o">-</span> <span class="n">startY</span><span class="p">);</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">setBounds</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>gwindow [GWindow]: GWindow in which MouseEvent occurred.
+x [float]: The x-coordinate at which the event occurred.
+y [float]: The y-coordinate at which the event occurred.</dd>
+<dt>Notes:</dt>
+<dd>The x- and y-coordinates are given relative to the window origin at
+the upper left corner of the window.</dd>
+</dl>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GMouseEvent.gwindow">
+<code class="descname">gwindow</code><a class="headerlink" href="#campy.graphics.gevents.GMouseEvent.gwindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GMouseEvent.x">
+<code class="descname">x</code><a class="headerlink" href="#campy.graphics.gevents.GMouseEvent.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GMouseEvent.y">
+<code class="descname">y</code><a class="headerlink" href="#campy.graphics.gevents.GMouseEvent.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.GTimerEvent">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">GTimerEvent</code><span class="sig-paren">(</span><em>event_type=None</em>, <em>timer=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#GTimerEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.GTimerEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gevents.GEvent" title="campy.graphics.gevents.GEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gevents.GEvent</span></code></a></p>
+<p>This event subclass represents a timer event.  Timer events are
+generated by a GTimer
+object, which produces a new event at a fixed interval measured in
+milliseconds.  As an example, the following program generates a
+timer event every two seconds, stopping when the user clicks
+somewhere in the window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This program generates timer events.&quot;</span><span class="p">)</span>
+<span class="n">timer</span> <span class="o">=</span> <span class="n">gtimer</span><span class="o">.</span><span class="n">GTimer</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+<span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">gevents</span><span class="o">.</span><span class="n">waitForEvent</span><span class="p">(</span><span class="n">CLICK_EVENT</span> <span class="o">|</span> <span class="n">TIMER_EVENT</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventType</span><span class="p">()</span> <span class="o">==</span> <span class="n">MOUSE_CLICKED</span><span class="p">):</span>
+        <span class="k">break</span><span class="p">;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timer ticked&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>timer [GTimer]: GTimer from which this event originated.</dd>
+</dl>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GTimerEvent.timer">
+<code class="descname">timer</code><a class="headerlink" href="#campy.graphics.gevents.GTimerEvent.timer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.GWindowEvent">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">GWindowEvent</code><span class="sig-paren">(</span><em>event_type=None</em>, <em>gwindow=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#GWindowEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.GWindowEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gevents.GEvent" title="campy.graphics.gevents.GEvent"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gevents.GEvent</span></code></a></p>
+<p>This event subclass represents a window event.
+Each GWindowEvent keeps track of the event type
+(WINDOW_CLOSED, WINDOW_RESIZED) along
+with the identity of the window.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>gwindow [GWindow]: Reference to the GWindow in which this event took place</dd>
+</dl>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.GWindowEvent.gwindow">
+<code class="descname">gwindow</code><a class="headerlink" href="#campy.graphics.gevents.GWindowEvent.gwindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.KeyCodes">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">KeyCodes</code><a class="reference internal" href="_modules/campy/graphics/gevents.html#KeyCodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.KeyCodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.BACKSPACE_KEY">
+<code class="descname">BACKSPACE_KEY</code><em class="property"> = 8</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.BACKSPACE_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.CLEAR_KEY">
+<code class="descname">CLEAR_KEY</code><em class="property"> = 12</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.CLEAR_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.DELETE_KEY">
+<code class="descname">DELETE_KEY</code><em class="property"> = 127</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.DELETE_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.DOWN_ARROW_KEY">
+<code class="descname">DOWN_ARROW_KEY</code><em class="property"> = 40</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.DOWN_ARROW_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.END_KEY">
+<code class="descname">END_KEY</code><em class="property"> = 35</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.END_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.ENTER_KEY">
+<code class="descname">ENTER_KEY</code><em class="property"> = 10</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.ENTER_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.ESCAPE_KEY">
+<code class="descname">ESCAPE_KEY</code><em class="property"> = 27</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.ESCAPE_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F10_KEY">
+<code class="descname">F10_KEY</code><em class="property"> = 121</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F10_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F11_KEY">
+<code class="descname">F11_KEY</code><em class="property"> = 122</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F11_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F12_KEY">
+<code class="descname">F12_KEY</code><em class="property"> = 123</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F12_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F1_KEY">
+<code class="descname">F1_KEY</code><em class="property"> = 112</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F1_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F2_KEY">
+<code class="descname">F2_KEY</code><em class="property"> = 113</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F2_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F3_KEY">
+<code class="descname">F3_KEY</code><em class="property"> = 114</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F3_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F4_KEY">
+<code class="descname">F4_KEY</code><em class="property"> = 115</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F4_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F5_KEY">
+<code class="descname">F5_KEY</code><em class="property"> = 116</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F5_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F6_KEY">
+<code class="descname">F6_KEY</code><em class="property"> = 117</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F6_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F7_KEY">
+<code class="descname">F7_KEY</code><em class="property"> = 118</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F7_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F8_KEY">
+<code class="descname">F8_KEY</code><em class="property"> = 119</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F8_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.F9_KEY">
+<code class="descname">F9_KEY</code><em class="property"> = 120</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.F9_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.HELP_KEY">
+<code class="descname">HELP_KEY</code><em class="property"> = 156</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.HELP_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.HOME_KEY">
+<code class="descname">HOME_KEY</code><em class="property"> = 36</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.HOME_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.LEFT_ARROW_KEY">
+<code class="descname">LEFT_ARROW_KEY</code><em class="property"> = 37</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.LEFT_ARROW_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.PAGE_DOWN_KEY">
+<code class="descname">PAGE_DOWN_KEY</code><em class="property"> = 34</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.PAGE_DOWN_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.PAGE_UP_KEY">
+<code class="descname">PAGE_UP_KEY</code><em class="property"> = 33</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.PAGE_UP_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.RIGHT_ARROW_KEY">
+<code class="descname">RIGHT_ARROW_KEY</code><em class="property"> = 39</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.RIGHT_ARROW_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.TAB_KEY">
+<code class="descname">TAB_KEY</code><em class="property"> = 9</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.TAB_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.KeyCodes.UP_ARROW_KEY">
+<code class="descname">UP_ARROW_KEY</code><em class="property"> = 38</em><a class="headerlink" href="#campy.graphics.gevents.KeyCodes.UP_ARROW_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gevents.ModifierCodes">
+<em class="property">class </em><code class="descclassname">campy.graphics.gevents.</code><code class="descname">ModifierCodes</code><a class="reference internal" href="_modules/campy/graphics/gevents.html#ModifierCodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.ALT_DOWN">
+<code class="descname">ALT_DOWN</code><em class="property"> = 8</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.ALT_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.ALT_GRAPH_DOWN">
+<code class="descname">ALT_GRAPH_DOWN</code><em class="property"> = 16</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.ALT_GRAPH_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.BUTTON1_DOWN">
+<code class="descname">BUTTON1_DOWN</code><em class="property"> = 32</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.BUTTON1_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.BUTTON2_DOWN">
+<code class="descname">BUTTON2_DOWN</code><em class="property"> = 64</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.BUTTON2_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.BUTTON3_DOWN">
+<code class="descname">BUTTON3_DOWN</code><em class="property"> = 128</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.BUTTON3_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.CTRL_DOWN">
+<code class="descname">CTRL_DOWN</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.CTRL_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.META_DOWN">
+<code class="descname">META_DOWN</code><em class="property"> = 4</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.META_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gevents.ModifierCodes.SHIFT_DOWN">
+<code class="descname">SHIFT_DOWN</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gevents.ModifierCodes.SHIFT_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gevents.get_next_event">
+<code class="descclassname">campy.graphics.gevents.</code><code class="descname">get_next_event</code><span class="sig-paren">(</span><em>mask=&lt;EventClassType.ANY_EVENT: 1008&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#get_next_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.get_next_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks to see if there are any events of the desired type waiting on the
+event queue.  If so, this function returns the event in exactly the same
+fashion as waitForEvent; if not, getNextEvent
+returns an invalid event.  The mask parameter is optional.
+If it is missing, getNextEvent accepts any event.</p>
+<p>&#64;type mask: EventClassType
+&#64;param mask: EventClasstype to check for, defaults to ANY_EVENT
+&#64;rtype: GEvent</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gevents.wait_for_click">
+<code class="descclassname">campy.graphics.gevents.</code><code class="descname">wait_for_click</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#wait_for_click"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.wait_for_click" title="Permalink to this definition">¶</a></dt>
+<dd><p>Waits for a mouse click in any window, discarding any other events.</p>
+<p>&#64;rtype: void</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gevents.wait_for_event">
+<code class="descclassname">campy.graphics.gevents.</code><code class="descname">wait_for_event</code><span class="sig-paren">(</span><em>mask=&lt;EventClassType.ANY_EVENT: 1008&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gevents.html#wait_for_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gevents.wait_for_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dismisses the process until an event occurs whose type is covered by
+the event mask.  The mask parameter is a combination of the events of
+interest.  For example, to wait for a mouse event or an action event,
+clients can use the following call:</p>
+<p>e = waitForEvent(MOUSE_EVENT + ACTION_EVENT);</p>
+<p>The mask parameter is optional.  If it is missing,
+waitForEvent accepts any event.</p>
+<p>As a more sophisticated example, the following code is the canonical
+event loop for an animated application that needs to respond to mouse,
+key, and timer events:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">timer</span> <span class="o">=</span> <span class="n">gtimer</span><span class="o">.</span><span class="n">GTimer</span><span class="p">(</span><span class="n">ANIMATION_DELAY_IN_MILLISECONDS</span><span class="p">);</span>
+<span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="k">while</span><span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">gevents</span><span class="o">.</span><span class="n">waitForEvent</span><span class="p">(</span><span class="n">TIMER_EVENT</span> <span class="o">+</span> <span class="n">MOUSE_EVENT</span> <span class="o">+</span> <span class="n">KEY_EVENT</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventClass</span> <span class="o">==</span> <span class="n">gevents</span><span class="o">.</span><span class="n">EventClassType</span><span class="o">.</span><span class="n">TIMER_EVENT</span><span class="p">):</span>
+        <span class="n">takeAnimationStep</span><span class="p">()</span>
+    <span class="k">elif</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventClass</span> <span class="o">==</span> <span class="n">gevents</span><span class="o">.</span><span class="n">EventClassType</span><span class="o">.</span><span class="n">MOUSE_EVENT</span><span class="p">):</span>
+        <span class="n">handleMouseEvent</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">elif</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">getEventClass</span> <span class="o">==</span> <span class="n">gevents</span><span class="o">.</span><span class="n">EventClassType</span><span class="o">.</span><span class="n">KEY_EVENT</span><span class="p">):</span>
+        <span class="n">handleKeyEvent</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>&#64;type mask: EventClassType
+&#64;param mask: EventClassType to wait for, defaults to ANY_EVENT
+&#64;rtype: GEvent</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sam Redmond
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

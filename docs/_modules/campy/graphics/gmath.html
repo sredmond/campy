@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>campy.graphics.gmath &mdash; campy 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> campy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">campy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>campy.graphics.gmath</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for campy.graphics.gmath</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">This file exports several functions for working with graphical gemoetry along with</span>
+<span class="sd">the mathematical constants PI and E</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">_math</span>
+
+<span class="kn">from</span> <span class="nn">campy.system.error</span> <span class="k">import</span> <span class="n">error</span>
+
+<span class="n">PI</span> <span class="o">=</span> <span class="n">_math</span><span class="o">.</span><span class="n">pi</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">The mathematical constant pi, which is the ratio of the circumference of a circle to</span>
+<span class="sd">its diameter</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">E</span> <span class="o">=</span> <span class="n">_math</span><span class="o">.</span><span class="n">e</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">The mathematical constant e, which is the base of the natural logarithm</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<div class="viewcode-block" id="to_degrees"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.to_degrees">[docs]</a><span class="k">def</span> <span class="nf">to_degrees</span><span class="p">(</span><span class="n">radians</span><span class="p">):</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Converts an angle from radians to degrees.</span>
+
+<span class="sd">	@type radians: float</span>
+<span class="sd">	@param radians: radians</span>
+<span class="sd">	@rtype: float</span>
+<span class="sd">	@return: degrees</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">return</span> <span class="n">_math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">radians</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="to_radians"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.to_radians">[docs]</a><span class="k">def</span> <span class="nf">to_radians</span><span class="p">(</span><span class="n">degrees</span><span class="p">):</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Converts an angle from degrees to radians.</span>
+
+<span class="sd">	@type degrees: float</span>
+<span class="sd">	@param degrees: degrees</span>
+<span class="sd">	@rtype: float</span>
+<span class="sd">	@return: radians</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">return</span> <span class="n">_math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="sin_degrees"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.sin_degrees">[docs]</a><span class="k">def</span> <span class="nf">sin_degrees</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Returns the trigonometric sine of angle, which is expressed in degrees</span>
+
+<span class="sd">	@type angle: float</span>
+<span class="sd">	@param angle: degrees</span>
+<span class="sd">	@rtype: float</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">return</span> <span class="n">_math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">to_radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="cos_degrees"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.cos_degrees">[docs]</a><span class="k">def</span> <span class="nf">cos_degrees</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Returns the trigonometric cosine of angle, which is expressed in degrees</span>
+
+<span class="sd">	@type angle: float</span>
+<span class="sd">	@param angle: degrees</span>
+<span class="sd">	@rtype: float</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">return</span> <span class="n">_math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">to_radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="tan_degrees"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.tan_degrees">[docs]</a><span class="k">def</span> <span class="nf">tan_degrees</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Returns the trigonometric tangent of angle, which is expressed in degrees</span>
+
+<span class="sd">	@type angle: float</span>
+<span class="sd">	@param angle: degrees</span>
+<span class="sd">	@rtype: float</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">return</span> <span class="n">_math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">to_radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="vector_distance"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.vector_distance">[docs]</a><span class="k">def</span> <span class="nf">vector_distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Computes the distance between the origin and the specified point.</span>
+
+<span class="sd">	@type pt: GPoint</span>
+<span class="sd">	@param pt: GPoint to compute distance to, will override x and y parameters</span>
+<span class="sd">	@type x: float</span>
+<span class="sd">	@param x: x value of point</span>
+<span class="sd">	@type y: float</span>
+<span class="sd">	@param y: y value of point</span>
+<span class="sd">	@rtype: float</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">return</span> <span class="n">_math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="vector_angle"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.vector_angle">[docs]</a><span class="k">def</span> <span class="nf">vector_angle</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+	<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">	Returns the angle in degrees from the origin to the specified point. This</span>
+<span class="sd">	functoin takes account of the fact that the graphics coordinate system is flipped</span>
+<span class="sd">	in the y direction from the traditional Cartesian plane.</span>
+
+<span class="sd">	@type pt: GPoint</span>
+<span class="sd">	@param pt: GPoint to angle to, will override x and y parameters</span>
+<span class="sd">	@type x: float</span>
+<span class="sd">	@param x: x value of point</span>
+<span class="sd">	@type y: float</span>
+<span class="sd">	@param y: y value of point</span>
+<span class="sd">	@rtype: float</span>
+<span class="sd">	@return: degrees</span>
+<span class="sd">	&#39;&#39;&#39;</span>
+	<span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">return</span> <span class="mi">0</span>
+	<span class="k">return</span> <span class="n">to_degrees</span><span class="p">(</span><span class="n">_math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="o">-</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="count_digits"><a class="viewcode-back" href="../../../campy.graphics.gmath.html#campy.graphics.gmath.count_digits">[docs]</a><span class="k">def</span> <span class="nf">count_digits</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">base</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="n">error</span><span class="p">(</span><span class="s2">&quot;countDigits: base must be 1 or greater&quot;</span><span class="p">)</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+	<span class="n">digits</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="n">digits</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="n">n</span> <span class="o">//=</span> <span class="n">base</span>
+	<span class="k">return</span> <span class="n">digits</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sam Redmond
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

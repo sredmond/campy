@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>campy.graphics.gcolor module &mdash; campy 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> campy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">campy.graphics.gcolor module</a><ul>
+<li><a class="reference internal" href="#file-gcolor-py">File: gcolor.py</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">campy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>campy.graphics.gcolor module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/campy.graphics.gcolor.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-campy.graphics.gcolor">
+<span id="campy-graphics-gcolor-module"></span><h1>campy.graphics.gcolor module<a class="headerlink" href="#module-campy.graphics.gcolor" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="file-gcolor-py">
+<h2>File: gcolor.py<a class="headerlink" href="#file-gcolor-py" title="Permalink to this headline">¶</a></h2>
+<p>This file exports a GColor class that allows students to easily deal with colors.</p>
+<p>We deal in a few abstractions:</p>
+<p>A GColor should be thought of as an opaque data type that can be initialized from
+any number of possible representations and serialized to many other types of
+representations.</p>
+<p># TODO(sredmond): Should a GColor be mutable or immutable?
+# Decision: immutable!</p>
+<dl class="docutils">
+<dt>A representation of a color comes in many forms:</dt>
+<dd>human-readable: a string like “blue” or “seagreen”
+hex: a string like “#83E” or “#F390D2”
+int: an argb 32-bit value</dd>
+</dl>
+<dl class="class">
+<dt id="campy.graphics.gcolor.GColor">
+<em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">GColor</code><span class="sig-paren">(</span><em>argb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="campy.graphics.gcolor.GColor.as_hex">
+<code class="descname">as_hex</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.as_hex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="campy.graphics.gcolor.GColor.from_name">
+<em class="property">classmethod </em><code class="descname">from_name</code><span class="sig-paren">(</span><em>color_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.from_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.from_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gcolor.GColor.get_approximate_name">
+<code class="descname">get_approximate_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.get_approximate_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.get_approximate_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gcolor.GColor.get_name">
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.get_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="campy.graphics.gcolor.GColor.normalize">
+<em class="property">classmethod </em><code class="descname">normalize</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize a color description provided by an end user.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="campy.graphics.gcolor.IllegalColorException">
+<em class="property">exception </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">IllegalColorException</code><a class="reference internal" href="_modules/campy/graphics/gcolor.html#IllegalColorException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.IllegalColorException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="campy.system.error.html#campy.system.error.ErrorException" title="campy.system.error.ErrorException"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.system.error.ErrorException</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="campy.graphics.gcolor.Pixel">
+<em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">Pixel</code><span class="sig-paren">(</span><em>red=0</em>, <em>green=0</em>, <em>blue=0</em>, <em>alpha=255</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dl class="attribute">
+<dt id="campy.graphics.gcolor.Pixel.alpha">
+<code class="descname">alpha</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.alpha" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gcolor.Pixel.argb">
+<code class="descname">argb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.argb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.argb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gcolor.Pixel.blue">
+<code class="descname">blue</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.blue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gcolor.Pixel.green">
+<code class="descname">green</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.green" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gcolor.Pixel.red">
+<code class="descname">red</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.red" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gcolor.Pixel.rgb">
+<code class="descname">rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.rgb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gcolor.color_to_rgb">
+<code class="descclassname">campy.graphics.gcolor.</code><code class="descname">color_to_rgb</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#color_to_rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.color_to_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a color name into an integer that encodes the
+red, green, and blue components of the color.</p>
+<p>&#64;type colorName: string
+&#64;rtype: int or None if</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gcolor.lazy_init_colors">
+<code class="descclassname">campy.graphics.gcolor.</code><code class="descname">lazy_init_colors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#lazy_init_colors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.lazy_init_colors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gcolor.normalize">
+<code class="descclassname">campy.graphics.gcolor.</code><code class="descname">normalize</code><span class="sig-paren">(</span><em>cls</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize a color description provided by an end user.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gcolor.rgb_to_hex">
+<code class="descclassname">campy.graphics.gcolor.</code><code class="descname">rgb_to_hex</code><span class="sig-paren">(</span><em>rgb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#rgb_to_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.rgb_to_hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts an rgb value into a color name in the
+form “#rrggbb”.  Each of the rr,
+gg, and bb values are two-digit
+hexadecimal numbers indicating the intensity of that component.</p>
+<p>&#64;type rgb: int
+&#64;rtype: string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gcolor.to_hex">
+<code class="descclassname">campy.graphics.gcolor.</code><code class="descname">to_hex</code><span class="sig-paren">(</span><em>pixel</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#to_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.to_hex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sam Redmond
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

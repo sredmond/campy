@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>campy.util.simpio module &mdash; campy 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> campy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">campy.util.simpio module</a><ul>
+<li><a class="reference internal" href="#file-simpio-h">File: simpio.h</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">campy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>campy.util.simpio module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/campy.util.simpio.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-campy.util.simpio">
+<span id="campy-util-simpio-module"></span><h1>campy.util.simpio module<a class="headerlink" href="#module-campy.util.simpio" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="file-simpio-h">
+<h2>File: simpio.h<a class="headerlink" href="#file-simpio-h" title="Permalink to this headline">¶</a></h2>
+<p>This file exports a set of functions that simplify input/output
+operations in Python and provide some error-checking on console input.</p>
+<p>Modified from Marty Stepp’s CPP libraries.</p>
+<p>&#64;author sredmond</p>
+<dl class="function">
+<dt id="campy.util.simpio.append_space">
+<code class="descclassname">campy.util.simpio.</code><code class="descname">append_space</code><span class="sig-paren">(</span><em>prompt</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/simpio.html#append_space"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.simpio.append_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a space to the end of the given string if none is present.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.util.simpio.get_fn_cond">
+<code class="descclassname">campy.util.simpio.</code><code class="descname">get_fn_cond</code><span class="sig-paren">(</span><em>fn</em>, <em>pred</em>, <em>prompt='&gt; '</em>, <em>reprompt='Invalid input. Please try again. '</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/simpio.html#get_fn_cond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.simpio.get_fn_cond" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.util.simpio.get_integer">
+<code class="descclassname">campy.util.simpio.</code><code class="descname">get_integer</code><span class="sig-paren">(</span><em>prompt='Enter an integer: '</em>, <em>reprompt='Illegal integer format. Try again.'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/simpio.html#get_integer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.simpio.get_integer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.util.simpio.get_line">
+<code class="descclassname">campy.util.simpio.</code><code class="descname">get_line</code><span class="sig-paren">(</span><em>prompt=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/simpio.html#get_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.simpio.get_line" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.util.simpio.get_positive_real">
+<code class="descclassname">campy.util.simpio.</code><code class="descname">get_positive_real</code><span class="sig-paren">(</span><em>prompt='Enter a positive number: '</em>, <em>reprompt='Illegal numeric format. Try again. '</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/simpio.html#get_positive_real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.simpio.get_positive_real" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.util.simpio.get_real">
+<code class="descclassname">campy.util.simpio.</code><code class="descname">get_real</code><span class="sig-paren">(</span><em>prompt='Enter a number: '</em>, <em>reprompt='Illegal numeric format. Try again.'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/simpio.html#get_real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.simpio.get_real" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.util.simpio.get_yes_or_no">
+<code class="descclassname">campy.util.simpio.</code><code class="descname">get_yes_or_no</code><span class="sig-paren">(</span><em>prompt='Yes or No? '</em>, <em>reprompt=&quot;Please type a word that starts with 'Y' or 'N': &quot;</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/simpio.html#get_yes_or_no"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.simpio.get_yes_or_no" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sam Redmond
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

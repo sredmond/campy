@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>campy.graphics.goptionpane &mdash; campy 0.0.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> campy
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">campy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>campy.graphics.goptionpane</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for campy.graphics.goptionpane</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This file defines the &lt;code&gt;GOptionPane&lt;/code&gt; class which supports</span>
+<span class="sd">popping up graphical dialog boxes for user input.</span>
+
+<span class="sd">This class is inspired by, extremely similar to, and implemented on</span>
+<span class="sd">the back-end by, Java&#39;s JOptionPane class, so you may wish to consult</span>
+<span class="sd">that class&#39;s documentation in the Java API Specification for more</span>
+<span class="sd">information.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">enum</span> <span class="k">as</span> <span class="nn">_enum</span>
+
+<span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
+<span class="kn">from</span> <span class="nn">campy.system.error</span> <span class="k">import</span> <span class="n">error</span> <span class="k">as</span> <span class="n">error</span>
+
+<span class="sd">&quot;&quot;&quot;Constants for showConfirmDialog types, taken from Java&#39;s JOptionPane.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ConfirmType"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.ConfirmType">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
+<span class="k">class</span> <span class="nc">ConfirmType</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The three types of confirm dialogs: Yes/No, Yes/No/Cancel, or OK/Cancel.&quot;&quot;&quot;</span>
+    <span class="n">YES_NO</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">YES_NO_CANCEL</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">OK_CANCEL</span> <span class="o">=</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="ConfirmResult"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.ConfirmResult">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
+<span class="k">class</span> <span class="nc">ConfirmResult</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The various results that can be returned from some option dialogs.&quot;&quot;&quot;</span>
+    <span class="n">CANCEL</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># For yes/no/cancel</span>
+    <span class="n">NO</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># No is &#39;falsey&#39;</span>
+    <span class="n">YES</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Yes is &#39;truthy&#39;</span>
+    <span class="n">OK</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># For ok/cancel dialogs</span></div>
+
+<div class="viewcode-block" id="MessageType"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.MessageType">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
+<span class="k">class</span> <span class="nc">MessageType</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">ERROR</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">INFORMATION</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">PLAIN</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">QUESTION</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">WARNING</span> <span class="o">=</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="GOptionPane"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.GOptionPane">[docs]</a><span class="k">class</span> <span class="nc">GOptionPane</span><span class="p">():</span>
+
+<div class="viewcode-block" id="GOptionPane.InternalResult"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.GOptionPane.InternalResult">[docs]</a>    <span class="k">class</span> <span class="nc">InternalResult</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The results that can come back from showConfirmDialog.</span>
+
+<span class="sd">        These are converted into Result enum values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">CANCEL_OPTION</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">CLOSED_OPTION</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">NO_OPTION</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">OK_OPTION</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">YES_OPTION</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="GOptionPane.show_confirm_dialog"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.GOptionPane.show_confirm_dialog">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">show_confirm_dialog</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">confirm_type</span><span class="o">=</span><span class="n">ConfirmType</span><span class="o">.</span><span class="n">YES_NO</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">confirm_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ConfirmType</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s2">&quot;GOptionPane::show_confirm_dialog: Illegal dialog type.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Select an option&quot;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">InternalResult</span><span class="p">(</span><span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">goptionpane_show_confirm_dialog</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">confirm_type</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;from platform: &quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">InternalResult</span><span class="o">.</span><span class="n">OK_OPTION</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">InternalResult</span><span class="o">.</span><span class="n">YES_OPTION</span><span class="p">]:</span>
+            <span class="c1"># this is weird code because JOptionPane thinks of OK and Yes as the same,</span>
+            <span class="c1">#and differentiates based on context of whether this is an OK/Cancel or Yes/No dialog</span>
+            <span class="k">return</span> <span class="n">ConfirmResult</span><span class="o">.</span><span class="n">OK</span> <span class="k">if</span> <span class="n">confirm_type</span> <span class="o">==</span> <span class="n">ConfirmType</span><span class="o">.</span><span class="n">OK_CANCEL</span> <span class="k">else</span> <span class="n">ConfirmResult</span><span class="o">.</span><span class="n">YES</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">InternalResult</span><span class="o">.</span><span class="n">NO_OPTION</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ConfirmResult</span><span class="o">.</span><span class="n">NO</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ConfirmResult</span><span class="o">.</span><span class="n">CANCEL</span></div>
+
+<div class="viewcode-block" id="GOptionPane.show_input_dialog"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.GOptionPane.show_input_dialog">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">show_input_dialog</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">goptionpane_show_input_dialog</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GOptionPane.show_message_dialog"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.GOptionPane.show_message_dialog">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">show_message_dialog</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">message_type</span><span class="o">=</span><span class="n">MessageType</span><span class="o">.</span><span class="n">PLAIN</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">message_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MessageType</span><span class="p">:</span>
+            <span class="n">error</span><span class="p">(</span><span class="s2">&quot;GOptionPane::showMessageDialog: Illegal dialog type.&quot;</span><span class="p">);</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Message&quot;</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">goptionpane_show_message_dialog</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">message_type</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GOptionPane.show_option_dialog"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.GOptionPane.show_option_dialog">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">show_option_dialog</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">initially_selected</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Select an option&quot;</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">goptionpane_show_option_dialog</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">initially_selected</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">InternalResult</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">InternalResult</span><span class="o">.</span><span class="n">CLOSED_OPTION</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">options</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="GOptionPane.show_text_file_dialog"><a class="viewcode-back" href="../../../campy.graphics.goptionpane.html#campy.graphics.goptionpane.GOptionPane.show_text_file_dialog">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">show_text_file_dialog</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">rows</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cols</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Text file contents&quot;</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">goptionpane_show_text_file_dialog</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span></div></div>
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sam Redmond
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
