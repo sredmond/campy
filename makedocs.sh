@@ -9,6 +9,11 @@ OLD_DIR=$(pwd)
 cd $(git rev-parse --show-toplevel)
 cd docs-src
 make html
+cd ..
 cp -r docs-src/_build/html/ docs/
+cd docs-src
+make clean
+cd ..
 cd "${OLD_DIR}"
+
 set +x

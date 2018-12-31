@@ -28,6 +28,16 @@
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-54146031-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-54146031-5');
+</script> 
+
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -210,6 +220,8 @@
 
 <span class="n">_inst</span> <span class="o">=</span> <span class="n">Platformatter</span><span class="p">()</span>
 <span class="n">pformat</span> <span class="o">=</span> <span class="n">_inst</span><span class="o">.</span><span class="n">format</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Platformatter&#39;</span><span class="p">,</span> <span class="s1">&#39;pformat&#39;</span><span class="p">]</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">_test</span><span class="p">()</span>
