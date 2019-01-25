@@ -70,5 +70,7 @@ def _test():
 _inst = Platformatter()
 pformat = _inst.format
 
+__all__ = ['Platformatter', 'pformat']
+
 if __name__ == '__main__':
     _test()
