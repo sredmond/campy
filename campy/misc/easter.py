@@ -1,5 +1,7 @@
-"""A whole file full of Easter eggs? Neat!
+"""A whole file full of Easter eggs? Neat!"""
 
+# Copied without permission from https://gist.github.com/xero/3555086.
+LOGO = """\
                         ..:77I777777777777777777777I. .
                      ..?77777777777777777777777777777$+..
                    . ~7777777I7777777777777777777777777$~..
@@ -51,12 +53,10 @@
                          .++==+=+++++++++++++++++++++..
                          ....,==++++++++++++++++=,.....
                                 ....:~+++=:......
-
-> Copied without permission from https://gist.github.com/xero/3555086.
 """
 
-# Taken from http://ascii.co.uk/art/snake
-PYTHON = r"""\
+# Copied from http://ascii.co.uk/art/snake
+SNAKE = r"""\
                       __    __    __    __
                      /  \  /  \  /  \  /  \
 ____________________/  __\/  __\/  __\/  __\_____________________________
@@ -66,6 +66,12 @@ ___________________/  /__/  /__/  /__/  /________________________________
                                            \_____/--<
 """
 
+# Taken from https://www.rottentomatoes.com/m/monty_python_and_the_holy_grail/quotes/
 QUOTES = [
-
+  "French: Now go away or I will taunt you a second time.",
+  "Black Knight: All right, we'll call it a draw.",
+  "Old Man from Scene 24: Our King? Well I didn't vote for you!",
+  "French: Your mother was a hamster and your father smelt of elderberries!",
+  "Knight: Ni!",
+  "Dennis: Listen. Strange women lying in ponds distributing swords is no basis for a system of government. Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony."
 ]
