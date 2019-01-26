@@ -13,19 +13,21 @@ class Observable():
     def __init__(self):
         self.observers = []
 
-    def add_observer(self, obs):
-        if obs not in self.observers:
-            self.observers.append(obs)
+    def add_observer(self, observer):
+        if observer not in self.observers:
+            self.observers.append(observer)
 
     def notify_observers(self, *args, **kwargs):
-        for obs in self.observers:
-            obs.update(self, *args, **kwargs)
+        for observer in self.observers:
+            observer.update(self, *args, **kwargs)
 
-    def remove_observer(self, obs):
-        if obs in self.observers:
-            self.observers.remove(obs)
+    def remove_observer(self, observer):
+        if observer in self.observers:
+            self.observers.remove(observer)
 
 class Observer():
     @_abstractmethod
-    def update(self, obs, *args, **kwargs):
+    def update(self, observed, *args, **kwargs):
         pass
+
+__all__ = ['Observable', 'Observer']
