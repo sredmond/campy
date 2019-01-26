@@ -149,35 +149,58 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.system.error</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">File: error.py</span>
-<span class="sd">--------------</span>
-<span class="sd">Implementation of the error function.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Top-level Exceptions and Errors.</span>
 
-<span class="sd">TODO: Make naming consistent with PEP8? (i.e. Error and InterruptedIOError instead?)</span>
+<span class="sd">Provides a generic function to raise an error from a message.</span>
+
+<span class="sd">All exceptions (that are not builtin exceptions like ValueError, IndexError)</span>
+<span class="sd">raised in this library inherit from :class:`CampyException`, the root of all</span>
+<span class="sd">exceptions in this library.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<div class="viewcode-block" id="ErrorException"><a class="viewcode-back" href="../../../campy.system.error.html#campy.system.error.ErrorException">[docs]</a><span class="k">class</span> <span class="nc">ErrorException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Allows errors to be reported in a consistent way.&quot;&quot;&quot;</span></div>
-    <span class="c1"># def __init__(self, message=&#39;&#39;):</span>
-    <span class="c1">#     # if isinstance(msg, Exception):</span>
-    <span class="c1">#     #     msg = &quot;{cls}: {msg}&quot;.format(cls=msg.__class__, msg=str(msg))</span>
-    <span class="c1">#     super().__init__(self, message)</span>
+<span class="c1"># TODO(sredmond): Should this be called ErrorException for consistency with ACM?</span>
+<div class="viewcode-block" id="CampyException"><a class="viewcode-back" href="../../../campy.system.error.html#campy.system.error.CampyException">[docs]</a><span class="k">class</span> <span class="nc">CampyException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Root of all exceptions in the :mod:`campy` module.</span>
 
-<div class="viewcode-block" id="InterruptedIOException"><a class="viewcode-back" href="../../../campy.system.error.html#campy.system.error.InterruptedIOException">[docs]</a><span class="k">class</span> <span class="nc">InterruptedIOException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Thrown when a blocking I/O call is interrupted by closing the program.&quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
+<span class="sd">    This allows for consistent exception reporting in the module.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InterruptedIOError"><a class="viewcode-back" href="../../../campy.system.error.html#campy.system.error.InterruptedIOError">[docs]</a><span class="k">class</span> <span class="nc">InterruptedIOError</span><span class="p">(</span><span class="n">CampyException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A blocking I/O call is interrupted by closing the program.&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="error"><a class="viewcode-back" href="../../../campy.system.error.html#campy.system.error.error">[docs]</a><span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Generic function to raise an error.</span>
 
 <span class="sd">    Signals an error condition in a program by throwing an</span>
-<span class="sd">    &lt;code&gt;ErrorException&lt;/code&gt; with the specified message.</span>
+<span class="sd">    :class:`CampyException`: with the specified message.</span>
 
 <span class="sd">    :param str message: error message</span>
-<span class="sd">    :raises: An :class:`ErrorException` with the supplied error message.</span>
+<span class="sd">    :raises: An :class:`CampyException` with the supplied error message.</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        if &#39;Red Leicester&#39; not in cheeses:</span>
+<span class="sd">            error(&quot;I&#39;m afraid we&#39;re fresh out of Red Leicester, sir.&quot;)</span>
+
+<span class="sd">    You can check whether a code block raises a :class:`CampyException` with::</span>
+
+<span class="sd">        try:</span>
+<span class="sd">            do_something_that_might_raise_a_campy_exception()</span>
+<span class="sd">        except CampyException:</span>
+<span class="sd">            recover_from_an_error()</span>
+
+<span class="sd">    If the supplied message is an instance or a subclass of :class:`Exception`,</span>
+<span class="sd">    the :class:`CampyException` is raised from the supplied Exception so that</span>
+<span class="sd">    traceback information is maintained.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">raise</span> <span class="n">ErrorException</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">CampyException</span><span class="p">(</span><span class="n">message</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">message</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">CampyException</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CampyException&#39;</span><span class="p">,</span> <span class="s1">&#39;InterruptedIOError&#39;</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">]</span>
 </pre></div>
 
            </div>

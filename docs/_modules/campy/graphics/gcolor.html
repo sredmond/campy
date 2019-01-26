@@ -172,7 +172,7 @@
 <span class="kn">import</span> <span class="nn">string</span> <span class="k">as</span> <span class="nn">_string</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span> <span class="k">as</span> <span class="n">_nt</span>
 
-<span class="kn">from</span> <span class="nn">campy.system.error</span> <span class="k">import</span> <span class="n">ErrorException</span>
+<span class="kn">from</span> <span class="nn">campy.system.error</span> <span class="k">import</span> <span class="n">CampyException</span>
 
 <div class="viewcode-block" id="Pixel"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.Pixel">[docs]</a><span class="k">class</span> <span class="nc">Pixel</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">red</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">green</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">blue</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mh">0xFF</span><span class="p">):</span>
@@ -272,7 +272,7 @@
 
 <span class="n">_colortable</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="IllegalColorException"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.IllegalColorException">[docs]</a><span class="k">class</span> <span class="nc">IllegalColorException</span><span class="p">(</span><span class="n">ErrorException</span><span class="p">):</span>
+<div class="viewcode-block" id="IllegalColorException"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.IllegalColorException">[docs]</a><span class="k">class</span> <span class="nc">IllegalColorException</span><span class="p">(</span><span class="n">CampyException</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="color_to_rgb"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.color_to_rgb">[docs]</a><span class="k">def</span> <span class="nf">color_to_rgb</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>

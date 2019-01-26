@@ -88,10 +88,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">campy.system.error module</a><ul>
-<li><a class="reference internal" href="#file-error-py">File: error.py</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">campy.system.error module</a></li>
 </ul>
 </div>
             
@@ -158,22 +155,24 @@
             
   <div class="section" id="module-campy.system.error">
 <span id="campy-system-error-module"></span><h1>campy.system.error module<a class="headerlink" href="#module-campy.system.error" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="file-error-py">
-<h2>File: error.py<a class="headerlink" href="#file-error-py" title="Permalink to this headline">¶</a></h2>
-<p>Implementation of the error function.</p>
-<p>TODO: Make naming consistent with PEP8? (i.e. Error and InterruptedIOError instead?)</p>
+<p>Top-level Exceptions and Errors.</p>
+<p>Provides a generic function to raise an error from a message.</p>
+<p>All exceptions (that are not builtin exceptions like ValueError, IndexError)
+raised in this library inherit from <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a>, the root of all
+exceptions in this library.</p>
 <dl class="exception">
-<dt id="campy.system.error.ErrorException">
-<em class="property">exception </em><code class="descclassname">campy.system.error.</code><code class="descname">ErrorException</code><a class="reference internal" href="_modules/campy/system/error.html#ErrorException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.ErrorException" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.system.error.CampyException">
+<em class="property">exception </em><code class="descclassname">campy.system.error.</code><code class="descname">CampyException</code><a class="reference internal" href="_modules/campy/system/error.html#CampyException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.CampyException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Allows errors to be reported in a consistent way.</p>
+<p>Root of all exceptions in the <a class="reference internal" href="campy.html#module-campy" title="campy"><code class="xref py py-mod docutils literal notranslate"><span class="pre">campy</span></code></a> module.</p>
+<p>This allows for consistent exception reporting in the module.</p>
 </dd></dl>
 
 <dl class="exception">
-<dt id="campy.system.error.InterruptedIOException">
-<em class="property">exception </em><code class="descclassname">campy.system.error.</code><code class="descname">InterruptedIOException</code><a class="reference internal" href="_modules/campy/system/error.html#InterruptedIOException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.InterruptedIOException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
-<p>Thrown when a blocking I/O call is interrupted by closing the program.</p>
+<dt id="campy.system.error.InterruptedIOError">
+<em class="property">exception </em><code class="descclassname">campy.system.error.</code><code class="descname">InterruptedIOError</code><a class="reference internal" href="_modules/campy/system/error.html#InterruptedIOError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.InterruptedIOError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.system.error.CampyException</span></code></a></p>
+<p>A blocking I/O call is interrupted by closing the program.</p>
 </dd></dl>
 
 <dl class="function">
@@ -181,20 +180,34 @@
 <code class="descclassname">campy.system.error.</code><code class="descname">error</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/system/error.html#error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generic function to raise an error.</p>
 <p>Signals an error condition in a program by throwing an
-&lt;code&gt;ErrorException&lt;/code&gt; with the specified message.</p>
+<a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a>: with the specified message.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>str</em>) – error message</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">An <a class="reference internal" href="#campy.system.error.ErrorException" title="campy.system.error.ErrorException"><code class="xref py py-class docutils literal notranslate"><span class="pre">ErrorException</span></code></a> with the supplied error message.</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">An <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a> with the supplied error message.</td>
 </tr>
 </tbody>
 </table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">&#39;Red Leicester&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cheeses</span><span class="p">:</span>
+    <span class="n">error</span><span class="p">(</span><span class="s2">&quot;I&#39;m afraid we&#39;re fresh out of Red Leicester, sir.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can check whether a code block raises a <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a> with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">do_something_that_might_raise_a_campy_exception</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">CampyException</span><span class="p">:</span>
+    <span class="n">recover_from_an_error</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If the supplied message is an instance or a subclass of <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>,
+the <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a> is raised from the supplied Exception so that
+traceback information is maintained.</p>
 </dd></dl>
 
-</div>
 </div>
 
 
