@@ -38,10 +38,3 @@ class Direction(enum.Enum):
         return "{}.{}".format(self.__class__.__name__, self.name)
 
 __all__ = ['Direction']
-
-if __name__ == '__main__':
-    direction = Direction.NORTH
-    print(direction)
-    print(direction.left())      # => Direction.WEST
-    print(direction.right())     # => Direction.EAST
-    print(direction.opposite())  # => Direction.SOUTH
