@@ -19,6 +19,18 @@ When adding a note, please append your username and the date.
 
 ## Building Documentation
 
-- `sphinx-quickstart` and enable all extensions
-- `sphinx-apidoc -o docs/ . --separate`
-- `make html`
+Setting up:
+```
+(campy-dev)$ cd $(git rev-parse --show-toplevel)
+(campy-dev)$ cd docs-src/
+(campy-dev) docs-src$ sphinx-quickstart  # and enable all extensions.
+(campy-dev) docs-src$ cd ..
+(campy-dev)$ sphinx-apidoc --separate`-o docs-src/ campy/
+```
+
+Making the documentation:
+
+```
+(campy-dev)$ cd $(git rev-parse --show-toplevel)
+(campy-dev)$ ./makedocs.sh
+```
