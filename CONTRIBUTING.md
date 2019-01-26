@@ -7,19 +7,27 @@ We love pull requests! By participating in this project, you agree to abide by t
 Fork this repository, then clone it to your local machine:
 
 ```
-git clone git@github.com:your-username/campy.git
+$ git clone git@github.com:your-username/campy.git
 ```
 
-Ideally, activate a virtual environment. Install the project source as a dependency with:
+Ideally, activate a virtual environment for developing this library. Install the project source as a dependency with:
 
 ```
-pip install -e path/to/campy
+$ pip install -e path/to/campy
 ```
+
+This should be the path to the folder that contains `campy`'s `setup.py` file.
 
 If you want a reasonable development environment, also run
 
 ```
-pip install sphinx sphinx_rtd_theme "ipython[all]"
+$ pip install "ipython[all]" pytest tox
+```
+
+If you're going to be operating as a maintainer of the project, handling documentation and distribution, you'll also need some maintenance packages:
+
+```
+$ pip install sphinx sphinx_rtd_theme twine "requests[security]"
 ```
 
 ## What We Need Help With
@@ -28,7 +36,22 @@ We've compiled a list of tasks we need help with at `TODO.md`. Anything you can 
 
 ## Style
 
-Read the STYLE.md guide before beginning.
+Read the `STYLE.md` guide before beginning. Otherwise, we conform to PEP8.
+
+## Logging
+
+We use the standard library `logging` module to log useful events to the console.
+
+## Testing
+
+We use `pytest` for unit tests. Since many of the components of this library are interactive, each test file differentiates whether or not to run these tests by checking to see if CAMPY_TEST_PLATFORM is set.
+
+### Running Unit Tests
+
+```
+(campy-dev)$ pytest
+
+```
 
 ---
 
