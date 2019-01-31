@@ -1,9 +1,8 @@
-"""
-A Python client for the Stanford Portable Graphics Library
+"""A Python client for the Stanford Portable Graphics Library
 
 This file is modified from https://github.com/pypa/sampleproject/blob/master/setup.py
 """
-
+import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 
@@ -11,11 +10,10 @@ from setuptools import setup, find_packages
 # from codecs import open
 # from os import path
 
-# here = path.abspath(path.dirname(__file__))
+HERE = pathlib.Path(__file__).parent
 
-# Get the long description from the README file
-# with open(path.join(here, 'readME.rst'), encoding='utf-8') as f:
-#     long_description = f.read()
+# The text of the README file
+README = (HERE / "README.md").read_text()
 
 setup(
     name='campy',
@@ -23,13 +21,14 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.1.dev2',
+    version="0.0.1.dev1",
 
-    description='Python Client for Stanford Libraries, including Stanford\'s Portable Graphics Library',
-    # long_description=long_description,
+    description="CamPy provides a Python client for the Stanford ACM Libraries for use in introductory programming classes.",
+    long_description=README,
+    long_description_content_type="text/markdown",
 
     # The project's main homepage.
-    # url='https://github.com/pypa/sampleproject',
+    url='https://campy.sredmond.io',
 
     # Author details
     author='Sam Redmond',
@@ -60,10 +59,12 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 
     # What does your project relate to?
-    keywords='sample setuptools development',
+    keywords='Stanford Teaching ACM Graphics CS106A CS106B CS106X CS106AP Karel GObject',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
