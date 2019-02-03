@@ -149,85 +149,191 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.graphics.gcolor</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python3 -tt</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">File: gcolor.py</span>
-<span class="sd">---------------</span>
-<span class="sd">This file exports a GColor class that allows students to easily deal with colors.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Utilities for working with colors and pixels in this graphical library.</span>
 
-<span class="sd">We deal in a few abstractions:</span>
+<span class="sd">A :class:`GColor` is a heavy object representing an abstract color. It</span>
+<span class="sd">should be thought of as an opaque data type that can be initialized from any of</span>
+<span class="sd">several possible representations, and serialized to any of those representations.</span>
 
-<span class="sd">A GColor should be thought of as an opaque data type that can be initialized from</span>
-<span class="sd">any number of possible representations and serialized to many other types of</span>
-<span class="sd">representations.</span>
-
-<span class="sd"># TODO(sredmond): Should a GColor be mutable or immutable?</span>
-<span class="sd"># Decision: immutable!</span>
-
-<span class="sd">A representation of a color comes in many forms:</span>
-<span class="sd">    human-readable: a string like &quot;blue&quot; or &quot;seagreen&quot;</span>
-<span class="sd">    hex: a string like &quot;#83E&quot; or &quot;#F390D2&quot;</span>
-<span class="sd">    int: an argb 32-bit value</span>
+<span class="sd">A :class:`Pixel` represents a single pixel of an image, and is stored much more</span>
+<span class="sd">efficiently.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">string</span> <span class="k">as</span> <span class="nn">_string</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span> <span class="k">as</span> <span class="n">_nt</span>
 
+
 <span class="kn">from</span> <span class="nn">campy.system.error</span> <span class="k">import</span> <span class="n">CampyException</span>
 
-<div class="viewcode-block" id="Pixel"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.Pixel">[docs]</a><span class="k">class</span> <span class="nc">Pixel</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Pixel"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.Pixel">[docs]</a><span class="k">class</span> <span class="nc">Pixel</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A :class:`Pixel` represents a single, possibly-transparent pixel from an image.</span>
+
+<span class="sd">    The main difference between a Pixel and a GColor is that a :class:`Pixel` is an</span>
+<span class="sd">    efficiently stored integer representing the alpha, red, green, and blue channels</span>
+<span class="sd">    of the pixel, whereas a GColor has more utility methods attached. Additionally, a</span>
+<span class="sd">    Pixel is mutable, whereas a GColor is immutable.</span>
+
+<span class="sd">    Students will likely never have to directly instantiate Pixels, and will instead</span>
+<span class="sd">    likely just modify provided Pixels.</span>
+
+<span class="sd">    Pixels can be modified directly by getting or setting their properties.</span>
+
+<span class="sd">    To change the values of channels of a pixel::</span>
+
+<span class="sd">        cardinal = Pixel(168, 0, 59)</span>
+<span class="sd">        print(cardinal.red)</span>
+
+<span class="sd">        cardinal.red = 223</span>
+<span class="sd">        cardinal.green = 202</span>
+<span class="sd">        cardinal.blue = 151</span>
+
+<span class="sd">        red, green, blue = cardinal.rgb()</span>
+
+<span class="sd">    To modify the alpha channel of a pixel, use the same syntax::</span>
+
+<span class="sd">        opaque = Pixel(168, 0, 59)</span>
+<span class="sd">        opaque.alpha //= 2</span>
+<span class="sd">        alpha, red, green, blue = opaque.argb()</span>
+
+<span class="sd">    When setting values for these channels, it is required to supply an integer between</span>
+<span class="sd">    0 and 255, inclusive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO(sredmond): Say which methods might produce Pixels to modify.</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">red</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">green</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">blue</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mh">0xFF</span><span class="p">):</span>
-        <span class="c1"># TODO(sredmond): Bounds checking</span>
-        <span class="bp">self</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">red</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">green</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">blue</span>
+        <span class="sd">&quot;&quot;&quot;Create a new Pixel by channels.</span>
+
+<span class="sd">        The red, green, blue, and alpha channels can be independently set.</span>
+
+<span class="sd">        To create a default (black) pixel::</span>
+
+<span class="sd">            default = Pixel()</span>
+
+<span class="sd">        To create a pixel with given red, green, and blue values::</span>
+
+<span class="sd">            cardinal = Pixel(168, 0, 59)</span>
+
+<span class="sd">        To create a red pixel::</span>
+
+<span class="sd">            red = Pixel(red=0xFF)</span>
+
+<span class="sd">        To create a cyan (half-blue, half-green) pixel::</span>
+
+<span class="sd">            cyan = Pixel(green=0x7F, blue=0x7F)</span>
+
+<span class="sd">        To create a semi-transparent green pixel::</span>
+
+<span class="sd">            pixel = Pixel(green=0xFF, alpha=0x7F)</span>
+
+<span class="sd">        :param red: The value of the red channel between 0 and 255.</span>
+<span class="sd">        :param green: The value of the green channel between 0 and 255.</span>
+<span class="sd">        :param blue: The value of the blue channel between 0 and 255.</span>
+<span class="sd">        :param alpha: The value of the alpha channel between 0 and 255.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># NOTE(sredmond): Since int is immutable, we need to</span>
+        <span class="c1"># TODO(sredmond): Check that the supplied arguments are within valid bounds.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">red</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">green</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">blue</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set this :class:`Pixel`&#39;s alpha channel.</span>
+
+<span class="sd">        Usage::</span>
+
+<span class="sd">            pixel = Pixel(168, 0, 59)</span>
+<span class="sd">            pixel.alpha = 127</span>
+<span class="sd">            print(pixel.alpha)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Docs for CPP say &quot;have to &amp; a second time because of sign-extension on &gt;&gt; shift&quot;, double check</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">red</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+        <span class="sd">&quot;&quot;&quot;Get or set this :class:`Pixel`&#39;s red channel.</span>
+
+<span class="sd">        Usage::</span>
+
+<span class="sd">            pixel = Pixel(168, 0, 59)</span>
+<span class="sd">            pixel.red = 41</span>
+<span class="sd">            print(pixel.red)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">green</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+        <span class="sd">&quot;&quot;&quot;Get or set this :class:`Pixel`&#39;s green channel.</span>
+
+<span class="sd">        Usage::</span>
+
+<span class="sd">            pixel = Pixel(168, 0, 59)</span>
+<span class="sd">            pixel.green = 41</span>
+<span class="sd">            print(pixel.green)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">blue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+        <span class="sd">&quot;&quot;&quot;Get or set this :class:`Pixel`&#39;s blue channel.</span>
+
+<span class="sd">        Usage::</span>
+
+<span class="sd">            pixel = Pixel(168, 0, 59)</span>
+<span class="sd">            pixel.blue = 41</span>
+<span class="sd">            print(pixel.blue)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
 
     <span class="nd">@alpha</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">alpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_alpha</span><span class="p">):</span>
-        <span class="bp">self</span> <span class="o">|=</span> <span class="n">new_alpha</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mh">0xFF</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">|=</span> <span class="n">new_alpha</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span>
 
     <span class="nd">@red</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">red</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_red</span><span class="p">):</span>
-        <span class="bp">self</span> <span class="o">|=</span> <span class="n">new_red</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mh">0xFF</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">|=</span> <span class="p">(</span><span class="n">new_red</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span>
 
     <span class="nd">@green</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">green</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_green</span><span class="p">):</span>
-        <span class="bp">self</span> <span class="o">|=</span> <span class="n">new_green</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mh">0xFF</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">|=</span> <span class="n">new_green</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span>
 
     <span class="nd">@blue</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">blue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_blue</span><span class="p">):</span>
-        <span class="bp">self</span> <span class="o">|=</span> <span class="n">new_blue</span>
-
-<div class="viewcode-block" id="Pixel.argb"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.Pixel.argb">[docs]</a>    <span class="k">def</span> <span class="nf">argb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blue</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="mh">0xFF</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">|=</span> <span class="n">new_blue</span>
 
 <div class="viewcode-block" id="Pixel.rgb"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.Pixel.rgb">[docs]</a>    <span class="k">def</span> <span class="nf">rgb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blue</span></div></div>
+        <span class="sd">&quot;&quot;&quot;Return a 3-tuple of this Pixel&#39;s channels, not including alpha transparency.</span>
 
-<div class="viewcode-block" id="normalize"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.normalize">[docs]</a><span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Normalize a color description provided by an end user.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Pixel</span><span class="p">(</span><span class="n">color</span><span class="p">)</span></div>
+<span class="sd">        The elements of the tuple correspond to red, green, and blue.</span>
 
-<div class="viewcode-block" id="to_hex"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.to_hex">[docs]</a><span class="k">def</span> <span class="nf">to_hex</span><span class="p">(</span><span class="n">pixel</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+<span class="sd">        To extract all color channels at once::</span>
+
+<span class="sd">            pixel = Pixel(168, 0, 59)</span>
+<span class="sd">            red, green, blue = pixel.rgb()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blue</span></div>
+
+<div class="viewcode-block" id="Pixel.argb"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.Pixel.argb">[docs]</a>    <span class="k">def</span> <span class="nf">argb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a 4-tuple of this Pixel&#39;s channels, including alpha transparency.</span>
+
+<span class="sd">        The elements of the tuple correspond to alpha, red, green, and blue.</span>
+
+<span class="sd">        To extract all channels at once::</span>
+
+<span class="sd">            pixel = Pixel(168, 0, 59)</span>
+<span class="sd">            alpha, red, green, blue = pixel.argb()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blue</span></div></div>
 
 
-<div class="viewcode-block" id="GColor"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor">[docs]</a><span class="k">class</span> <span class="nc">GColor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="GColor"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor">[docs]</a><span class="k">class</span> <span class="nc">GColor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Immutable!</span>
+<span class="sd">    A representation of a color comes in many forms:</span>
+<span class="sd">    human-readable: a string like &quot;blue&quot; or &quot;seagreen&quot;</span>
+<span class="sd">    hex: a string like &quot;#83E&quot; or &quot;#F390D2&quot;</span>
+<span class="sd">    int: an argb 32-bit value&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="GColor.normalize"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.normalize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Normalize a color description provided by an end user.</span>
@@ -259,6 +365,12 @@
         <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="GColor.get_approximate_name"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.get_approximate_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_approximate_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="GColor.darker"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.darker">[docs]</a>    <span class="k">def</span> <span class="nf">darker</span><span class="p">():</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="GColor.brighter"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.brighter">[docs]</a>    <span class="k">def</span> <span class="nf">brighter</span><span class="p">():</span>
         <span class="k">pass</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argb</span><span class="p">):</span>

@@ -88,10 +88,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">campy.graphics.gcolor module</a><ul>
-<li><a class="reference internal" href="#file-gcolor-py">File: gcolor.py</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#">campy.graphics.gcolor module</a></li>
 </ul>
 </div>
             
@@ -158,28 +155,34 @@
             
   <div class="section" id="module-campy.graphics.gcolor">
 <span id="campy-graphics-gcolor-module"></span><h1>campy.graphics.gcolor module<a class="headerlink" href="#module-campy.graphics.gcolor" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="file-gcolor-py">
-<h2>File: gcolor.py<a class="headerlink" href="#file-gcolor-py" title="Permalink to this headline">¶</a></h2>
-<p>This file exports a GColor class that allows students to easily deal with colors.</p>
-<p>We deal in a few abstractions:</p>
-<p>A GColor should be thought of as an opaque data type that can be initialized from
-any number of possible representations and serialized to many other types of
-representations.</p>
-<p># TODO(sredmond): Should a GColor be mutable or immutable?
-# Decision: immutable!</p>
-<dl class="docutils">
-<dt>A representation of a color comes in many forms:</dt>
-<dd>human-readable: a string like “blue” or “seagreen”
-hex: a string like “#83E” or “#F390D2”
-int: an argb 32-bit value</dd>
-</dl>
+<p>Utilities for working with colors and pixels in this graphical library.</p>
+<p>A <a class="reference internal" href="#campy.graphics.gcolor.GColor" title="campy.graphics.gcolor.GColor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code></a> is a heavy object representing an abstract color. It
+should be thought of as an opaque data type that can be initialized from any of
+several possible representations, and serialized to any of those representations.</p>
+<p>A <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a> represents a single pixel of an image, and is stored much more
+efficiently.</p>
 <dl class="class">
 <dt id="campy.graphics.gcolor.GColor">
 <em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">GColor</code><span class="sig-paren">(</span><em>argb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Immutable!
+A representation of a color comes in many forms:
+human-readable: a string like “blue” or “seagreen”
+hex: a string like “#83E” or “#F390D2”
+int: an argb 32-bit value</p>
 <dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.as_hex">
 <code class="descname">as_hex</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.as_hex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gcolor.GColor.brighter">
+<code class="descname">brighter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.brighter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.brighter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gcolor.GColor.darker">
+<code class="descname">darker</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.darker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.darker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -214,36 +217,105 @@ int: an argb 32-bit value</dd>
 <dl class="class">
 <dt id="campy.graphics.gcolor.Pixel">
 <em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">Pixel</code><span class="sig-paren">(</span><em>red=0</em>, <em>green=0</em>, <em>blue=0</em>, <em>alpha=255</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a> represents a single, possibly-transparent pixel from an image.</p>
+<p>The main difference between a Pixel and a GColor is that a <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a> is an
+efficiently stored integer representing the alpha, red, green, and blue channels
+of the pixel, whereas a GColor has more utility methods attached. Additionally, a
+Pixel is mutable, whereas a GColor is immutable.</p>
+<p>Students will likely never have to directly instantiate Pixels, and will instead
+likely just modify provided Pixels.</p>
+<p>Pixels can be modified directly by getting or setting their properties.</p>
+<p>To change the values of channels of a pixel:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cardinal</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cardinal</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+
+<span class="n">cardinal</span><span class="o">.</span><span class="n">red</span> <span class="o">=</span> <span class="mi">223</span>
+<span class="n">cardinal</span><span class="o">.</span><span class="n">green</span> <span class="o">=</span> <span class="mi">202</span>
+<span class="n">cardinal</span><span class="o">.</span><span class="n">blue</span> <span class="o">=</span> <span class="mi">151</span>
+
+<span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">cardinal</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To modify the alpha channel of a pixel, use the same syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">opaque</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">opaque</span><span class="o">.</span><span class="n">alpha</span> <span class="o">//=</span> <span class="mi">2</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">opaque</span><span class="o">.</span><span class="n">argb</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When setting values for these channels, it is required to supply an integer between
+0 and 255, inclusive.</p>
 <dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.alpha">
 <code class="descname">alpha</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.alpha" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s alpha channel.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">pixel</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">127</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pixel</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gcolor.Pixel.argb">
 <code class="descname">argb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.argb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.argb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return a 4-tuple of this Pixel’s channels, including alpha transparency.</p>
+<p>The elements of the tuple correspond to alpha, red, green, and blue.</p>
+<p>To extract all channels at once:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">pixel</span><span class="o">.</span><span class="n">argb</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.blue">
 <code class="descname">blue</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.blue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s blue channel.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">pixel</span><span class="o">.</span><span class="n">blue</span> <span class="o">=</span> <span class="mi">41</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pixel</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.green">
 <code class="descname">green</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.green" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s green channel.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">pixel</span><span class="o">.</span><span class="n">green</span> <span class="o">=</span> <span class="mi">41</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pixel</span><span class="o">.</span><span class="n">green</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.red">
 <code class="descname">red</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.red" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s red channel.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">pixel</span><span class="o">.</span><span class="n">red</span> <span class="o">=</span> <span class="mi">41</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pixel</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gcolor.Pixel.rgb">
 <code class="descname">rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.rgb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return a 3-tuple of this Pixel’s channels, not including alpha transparency.</p>
+<p>The elements of the tuple correspond to red, green, and blue.</p>
+<p>To extract all color channels at once:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">pixel</span><span class="o">.</span><span class="n">rgb</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </dd></dl>
 
@@ -262,12 +334,6 @@ red, green, and blue components of the color.</p>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="campy.graphics.gcolor.normalize">
-<code class="descclassname">campy.graphics.gcolor.</code><code class="descname">normalize</code><span class="sig-paren">(</span><em>cls</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.normalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalize a color description provided by an end user.</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="campy.graphics.gcolor.rgb_to_hex">
 <code class="descclassname">campy.graphics.gcolor.</code><code class="descname">rgb_to_hex</code><span class="sig-paren">(</span><em>rgb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#rgb_to_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.rgb_to_hex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts an rgb value into a color name in the
@@ -278,12 +344,6 @@ hexadecimal numbers indicating the intensity of that component.</p>
 &#64;rtype: string</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="campy.graphics.gcolor.to_hex">
-<code class="descclassname">campy.graphics.gcolor.</code><code class="descname">to_hex</code><span class="sig-paren">(</span><em>pixel</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#to_hex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.to_hex" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 </div>
 
 

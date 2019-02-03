@@ -155,25 +155,25 @@
             
   <div class="section" id="module-campy.graphics.gwindow">
 <span id="campy-graphics-gwindow-module"></span><h1>campy.graphics.gwindow module<a class="headerlink" href="#module-campy.graphics.gwindow" title="Permalink to this headline">¶</a></h1>
-<p>This file defines the &lt;code&gt;GWindow&lt;/code&gt; class which supports
-drawing graphical objects on the screen.</p>
+<p>Provide a <a class="reference internal" href="#campy.graphics.gwindow.GWindow" title="campy.graphics.gwindow.GWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code></a> that supports drawing graphical objects on screen.</p>
 <dl class="class">
 <dt id="campy.graphics.gwindow.Alignment">
 <em class="property">class </em><code class="descclassname">campy.graphics.gwindow.</code><code class="descname">Alignment</code><a class="reference internal" href="_modules/campy/graphics/gwindow.html#Alignment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.Alignment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Horizontal alignment within a region.</p>
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Alignment.ALIGN_CENTER">
-<code class="descname">ALIGN_CENTER</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gwindow.Alignment.ALIGN_CENTER" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Alignment.CENTER">
+<code class="descname">CENTER</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gwindow.Alignment.CENTER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Alignment.ALIGN_LEFT">
-<code class="descname">ALIGN_LEFT</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.gwindow.Alignment.ALIGN_LEFT" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Alignment.LEFT">
+<code class="descname">LEFT</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.gwindow.Alignment.LEFT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Alignment.ALIGN_RIGHT">
-<code class="descname">ALIGN_RIGHT</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.gwindow.Alignment.ALIGN_RIGHT" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Alignment.RIGHT">
+<code class="descname">RIGHT</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.gwindow.Alignment.RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -181,35 +181,37 @@ drawing graphical objects on the screen.</p>
 <dl class="class">
 <dt id="campy.graphics.gwindow.CloseOperation">
 <em class="property">class </em><code class="descclassname">campy.graphics.gwindow.</code><code class="descname">CloseOperation</code><a class="reference internal" href="_modules/campy/graphics/gwindow.html#CloseOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Actions to take on closure of a GWindow.</p>
+<p>Currently unused.</p>
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.CloseOperation.CLOSE_DISPOSE">
-<code class="descname">CLOSE_DISPOSE</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.CLOSE_DISPOSE" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.CloseOperation.DISPOSE">
+<code class="descname">DISPOSE</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.DISPOSE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.CloseOperation.CLOSE_DO_NOTHING">
-<code class="descname">CLOSE_DO_NOTHING</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.CLOSE_DO_NOTHING" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.CloseOperation.DO_NOTHING">
+<code class="descname">DO_NOTHING</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.DO_NOTHING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.CloseOperation.CLOSE_EXIT">
-<code class="descname">CLOSE_EXIT</code><em class="property"> = 3</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.CLOSE_EXIT" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.CloseOperation.EXIT">
+<code class="descname">EXIT</code><em class="property"> = 3</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.EXIT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.CloseOperation.CLOSE_HIDE">
-<code class="descname">CLOSE_HIDE</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.CLOSE_HIDE" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.CloseOperation.HIDE">
+<code class="descname">HIDE</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation.HIDE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.graphics.gwindow.GWindow">
-<em class="property">class </em><code class="descclassname">campy.graphics.gwindow.</code><code class="descname">GWindow</code><span class="sig-paren">(</span><em>gwd=None</em>, <em>width=None</em>, <em>height=None</em>, <em>visible=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class represents a graphics window that supports simple graphics.
-Each GWindow consists of two layers.  The background layer
+<em class="property">class </em><code class="descclassname">campy.graphics.gwindow.</code><code class="descname">GWindow</code><span class="sig-paren">(</span><em>width=500</em>, <em>height=500</em>, <em>visible=True</em>, <em>title=''</em>, <em>color=None</em>, <em>top=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A Graphics Window that supports simple graphics.</p>
+<p>Each GWindow consists of two layers. The background layer
 provides a surface for drawing static pictures that involve no animation.
 Graphical objects drawn in the background layer are persistent and do
 not require the client to update the contents of the window.  The
@@ -233,8 +235,6 @@ at the center of the window:</p>
 <span class="n">gw</span><span class="o">.</span><span class="n">fillOval</span><span class="p">(</span><span class="n">width</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>A GWindow object may be freely copied, after which all
-copies refer to the same window.</p>
 <dl class="attribute">
 <dt id="campy.graphics.gwindow.GWindow.DEFAULT_HEIGHT">
 <code class="descname">DEFAULT_HEIGHT</code><em class="property"> = 500</em><a class="headerlink" href="#campy.graphics.gwindow.GWindow.DEFAULT_HEIGHT" title="Permalink to this definition">¶</a></dt>
@@ -248,390 +248,504 @@ copies refer to the same window.</p>
 <dl class="method">
 <dt id="campy.graphics.gwindow.GWindow.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>gobj</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the GObject to the foreground layer of the window.
-The second form of the call sets the location of the object to
-(x, y) first.</p>
-<p>In terms of memory management, adding a GObject pointer to
-a GWindow transfers control of that object from the client to
-the window manager.  Deleting a GWindow automatically deletes
-any GObjects it contains.</p>
-<p>&#64;type gobj: GObject
-&#64;type x: float
-&#64;type y: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.addToRegion">
-<code class="descname">addToRegion</code><span class="sig-paren">(</span><em>gobj</em>, <em>region</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.addToRegion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.addToRegion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the interactor (which can also be a GLabel) to
-the control strip specified by the region parameter.
-The region parameter must be one of the strings
-“NORTH”, “EAST”, “SOUTH”,
-or “WEST”.</p>
-<p>&#64;type gobj: GObject
-&#64;type region: string
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears the contents of the window.</p>
-<p>&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.close">
-<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the window from the screen.</p>
-<p>&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.draw">
-<code class="descname">draw</code><span class="sig-paren">(</span><em>gobj</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.draw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draws the GObject on the background layer.  For convenience,
-the gobj parameter may be passed either as a constant
-reference or as a pointer.  If the x and y
-parameters are included, the object is moved to that location before
-drawing.</p>
-<p>&#64;type gobj: GObject
-&#64;type x: float
-&#64;type y: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.drawLine">
-<code class="descname">drawLine</code><span class="sig-paren">(</span><em>p0=None</em>, <em>p1=None</em>, <em>x0=None</em>, <em>y0=None</em>, <em>x1=None</em>, <em>y1=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.drawLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.drawLine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draws a line connecting the specified points. If p0 and p1 are both valid
-GPoints they will override any x, y values passed in</p>
-<p>&#64;type p0: GPoint
-&#64;type p1: GPoint
-&#64;type x0: float
-&#64;type y0: float
-&#64;type x1: float
-&#64;type y1: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.drawOval">
-<code class="descname">drawOval</code><span class="sig-paren">(</span><em>bounds=None</em>, <em>x=None</em>, <em>y=None</em>, <em>width=None</em>, <em>height=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.drawOval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.drawOval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draws the frame of a oval with the specified bounds.</p>
-<p>&#64;type bounds: GRectangle
-&#64;param bounds: will override explict x, y, width and height parameters
-&#64;type x: float
-&#64;type y: float
-&#64;type width: float
-&#64;type height: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.drawPolarLine">
-<code class="descname">drawPolarLine</code><span class="sig-paren">(</span><em>r</em>, <em>theta</em>, <em>p0=None</em>, <em>x0=None</em>, <em>y0=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.drawPolarLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.drawPolarLine" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draws a line of length r in the direction theta
-from the initial point.  The angle theta is measured in
-degrees counterclockwise from the +x axis.  The method returns
-the end point of the line.</p>
-<p>&#64;type r: float
-&#64;type theta: float
-&#64;param theta: degrees
-&#64;type p0: GPoint
-&#64;param p0: if p0 is passed in it will override x0, y0
-&#64;type x0: float
-&#64;type y0: float
-&#64;rtype: GPoint
-&#64;return: the end point of the line drawn</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.drawRect">
-<code class="descname">drawRect</code><span class="sig-paren">(</span><em>bounds=None</em>, <em>x=None</em>, <em>y=None</em>, <em>width=None</em>, <em>height=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.drawRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.drawRect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draws the frame of a rectangle with the specified bounds.</p>
-<p>&#64;type bounds: GRectangle
-&#64;param bounds: will override explict x, y, width and height parameters
-&#64;type x: float
-&#64;type y: float
-&#64;type width: float
-&#64;type height: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.fillOval">
-<code class="descname">fillOval</code><span class="sig-paren">(</span><em>bounds=None</em>, <em>x=None</em>, <em>y=None</em>, <em>width=None</em>, <em>height=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.fillOval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.fillOval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fills the frame of a oval with the specified bounds.</p>
-<p>&#64;type bounds: GRectangle
-&#64;param bounds: will override explict x, y, width and height parameters
-&#64;type x: float
-&#64;type y: float
-&#64;type width: float
-&#64;type height: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.fillRect">
-<code class="descname">fillRect</code><span class="sig-paren">(</span><em>bounds=None</em>, <em>x=None</em>, <em>y=None</em>, <em>width=None</em>, <em>height=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.fillRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.fillRect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fills the frame of a rectangle with the specified bounds.</p>
-<p>&#64;type bounds: GRectangle
-&#64;param bounds: will override explict x, y, width and height parameters
-&#64;type x: float
-&#64;type y: float
-&#64;type width: float
-&#64;type height: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.getColor">
-<code class="descname">getColor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.getColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.getColor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current color as a string in the form “#rrggbb”.
-In this string, the values rr, gg,
-and bb are two-digit hexadecimal values representing
-the red, green, and blue components of the color, respectively.</p>
-<p>&#64;rtype: string</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.getHeight">
-<code class="descname">getHeight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.getHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.getHeight" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the height of the graphics window in pixels.</p>
-<p>&#64;rtype: float</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.getObjectAt">
-<code class="descname">getObjectAt</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.getObjectAt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.getObjectAt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a pointer to the topmost GObject containing the
-point (x, y), or NULL if no such
-object exists.</p>
-<p>&#64;type x: float
-&#64;type y: float
-&#64;rtype: GObject</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.getWidth">
-<code class="descname">getWidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.getWidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.getWidth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the width of the graphics window in pixels.</p>
-<p>&#64;rtype: float</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.getWindowTitle">
-<code class="descname">getWindowTitle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.getWindowTitle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.getWindowTitle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the title of the graphics window.</p>
-<p>&#64;rtype: string</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="campy.graphics.gwindow.GWindow.height">
-<code class="descname">height</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.height" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.isVisible">
-<code class="descname">isVisible</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.isVisible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.isVisible" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tests whether the window is visible.</p>
-<p>&#64;rtype: boolean</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.remove">
-<code class="descname">remove</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.remove" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes the object from the window.</p>
-<p>&#64;type gobj: GObject
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.removeFromRegion">
-<code class="descname">removeFromRegion</code><span class="sig-paren">(</span><em>gobj</em>, <em>region</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.removeFromRegion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.removeFromRegion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the interactor (which can also be a GLabel) to
-the control strip specified by the region parameter.
-The region parameter must be one of the strings
-“NORTH”, “EAST”, “SOUTH”,
-or “WEST”.</p>
-<p>&#64;type gobj: GObject
-&#64;type region: string
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.repaint">
-<code class="descname">repaint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.repaint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.repaint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Schedule a repaint on this window.</p>
-<p>&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.requestFocus">
-<code class="descname">requestFocus</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.requestFocus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.requestFocus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Asks the system to assign the keyboard focus to the window, which
-brings it to the top and ensures that key events are delivered to
-the window.  Clicking in the window automatically requests the focus.</p>
-<p>&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.setColor">
-<code class="descname">setColor</code><span class="sig-paren">(</span><em>color=None</em>, <em>rgb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.setColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.setColor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the color used for drawing.  The color parameter is
-usually one of the predefined color names:</p>
-<blockquote>
-<div><ul class="simple">
-<li>BLACK,</li>
-<li>BLUE,</li>
-<li>CYAN,</li>
-<li>DARK_GRAY,</li>
-<li>GRAY,</li>
-<li>GREEN,</li>
-<li>LIGHT_GRAY,</li>
-<li>MAGENTA,</li>
-<li>ORANGE,</li>
-<li>PINK,</li>
-<li>RED,</li>
-<li>WHITE,</li>
-<li>YELLOW.</li>
-</ul>
-</div></blockquote>
-<p>The case of the individual letters in the color name is ignored, as
-are spaces and underscores, so that the color DARK_GRAY
-can be written as “Dark Gray”.</p>
-<p>The color can also be specified as a string in the form
-“#rrggbb” where rr, gg, and
-bb are pairs of hexadecimal digits indicating the
-red, green, and blue components of the color.</p>
-<p>&#64;type color: string
-&#64;param color: takes precedence over rgb
-&#64;type rgb: int
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.setRegionAlignment">
-<code class="descname">setRegionAlignment</code><span class="sig-paren">(</span><em>region</em>, <em>align</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.setRegionAlignment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.setRegionAlignment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the alignment of the specified side region as specified by the
-string align.  The region parameter must be
-one of the strings “NORTH”, “EAST”,
-“SOUTH”, or “WEST” and the align
-parameter must be “LEFT”, “RIGHT”, or
-“CENTER”.  By default, side panels use
-CENTER alignment.</p>
-<p>&#64;type region: string
-&#64;type align: string</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.setVisible">
-<code class="descname">setVisible</code><span class="sig-paren">(</span><em>flag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.setVisible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.setVisible" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determines whether the window is visible on the screen.</p>
-<p>&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gwindow.GWindow.setWindowTitle">
-<code class="descname">setWindowTitle</code><span class="sig-paren">(</span><em>title</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.setWindowTitle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.setWindowTitle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the title of the graphics window.</p>
-<p>&#64;type title: string
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="campy.graphics.gwindow.GWindow.title">
-<code class="descname">title</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.title" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="campy.graphics.gwindow.GWindow.width">
-<code class="descname">width</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.width" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the width of the GWindow.</p>
+<dd><p>Add a <code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code> to the foreground layer of this <a class="reference internal" href="#campy.graphics.gwindow.GWindow" title="campy.graphics.gwindow.GWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code></a>.</p>
+<p>If both x and y are supplied, the object is moved to that location before adding.</p>
+<p>To add a GOval to the window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">oval</span> <span class="o">=</span> <span class="n">GOval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">oval</span><span class="p">)</span>
+</pre></div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return int:</th><td class="field-body">the width of the GWindow in pixels.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gobj</strong> – The GObject to draw to this GWindow’s foreground layer.</li>
+<li><strong>x</strong> – The x-coordinate at which to draw the GObject.</li>
+<li><strong>y</strong> – The y-coordinate at which to draw the GObject.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.add_to_region">
+<code class="descname">add_to_region</code><span class="sig-paren">(</span><em>gobj</em>, <em>region</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.add_to_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.add_to_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an interactor to the control strip in a given region.</p>
+<p>The interactor could also be a GLabel.</p>
+<p>The region argument must be some region from the <a class="reference internal" href="#campy.graphics.gwindow.Region" title="campy.graphics.gwindow.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> enum.</p>
+<p>To add a button to the SOUTH region:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">button</span> <span class="o">=</span> <span class="n">GButton</span><span class="p">(</span><span class="s2">&quot;Click me!&quot;</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add_to_region</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="n">Region</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gobj</strong> – The interactor to add to a region.</li>
+<li><strong>region</strong> (<a class="reference internal" href="#campy.graphics.gwindow.Region" title="campy.graphics.gwindow.Region"><em>Region</em></a>) – The region to which the interactor will be added.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="class">
-<dt id="campy.graphics.gwindow.GWindowData">
-<em class="property">class </em><code class="descclassname">campy.graphics.gwindow.</code><code class="descname">GWindowData</code><span class="sig-paren">(</span><em>windowWidth=0</em>, <em>windowHeight=0</em>, <em>visible=False</em>, <em>windowTitle=''</em>, <em>windowColor=''</em>, <em>top=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindowData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindowData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This block contains all data pertaining to the window.  Shallow copying
-of the GWindow object ensures that all copies refer to the
-same onscreen window.</p>
-<p>Only for use internally by the gwindow module</p>
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all content from this GWindow.</p>
+<p>Both the background and foreground layers are cleared with this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close this GWindow.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gwindow.GWindow.color">
+<code class="descname">color</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the marker color used for drawing.</p>
+<p>When accessing the color, retrieve a GColor object.</p>
+<p>TODO(sredmond): Document what sorts of colors can be supplied.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.draw">
+<code class="descname">draw</code><span class="sig-paren">(</span><em>gobj</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.draw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a GObject on this GWindow’s background layer.</p>
+<p>The background layer is for static drawings that cannot be modified once drawn.</p>
+<p>If both x and y are supplied, the object is moved to that location before drawing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gobj</strong> – The GObject to draw to this GWindow’s background layer.</li>
+<li><strong>x</strong> – The x-coordinate at which to draw the GObject.</li>
+<li><strong>y</strong> – The y-coordinate at which to draw the GObject.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.draw_line">
+<code class="descname">draw_line</code><span class="sig-paren">(</span><em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.draw_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.draw_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a line between the given coordinates.</p>
+<p>The line’s color is this GWindow’s current marker color.</p>
+<p>To draw a line from (0, 0) to (4, 1):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_line</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To draw a line between two :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>GPoint`s:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_line</span><span class="p">(</span><span class="o">*</span><span class="n">p0</span><span class="p">,</span> <span class="o">*</span><span class="n">p1</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x0</strong> – The x-coordinate of the starting point.</li>
+<li><strong>y0</strong> – The y-coordinate of the starting point.</li>
+<li><strong>x1</strong> – The x-coordinate of the ending point.</li>
+<li><strong>y1</strong> – The y-coordinate of the ending point.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.draw_oval">
+<code class="descname">draw_oval</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.draw_oval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.draw_oval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the outline of an oval.</p>
+<p>The oval’s upper-left corner has coordinates given by (x, y), and size
+given by (width, height). The corner of an oval is the corner of the oval’s
+bounding box.</p>
+<p>The color of the oval’s outline will be this GWindow’s current marker color.</p>
+<p>To draw an oval with an upper-left corner at (0, 0), a width of 300 pixels,
+and a height of 200 pixels:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_oval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To draw a circle centered at (410, 410) with radius 160:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_oval</span><span class="p">(</span><span class="mi">410</span> <span class="o">-</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">410</span> <span class="o">-</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">160</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">160</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – The x-coordinate of the upper-left corner of the oval’s bounding box.</li>
+<li><strong>y</strong> – The y-coordinate of the upper-left corner of the oval’s bounding box.</li>
+<li><strong>width</strong> – The width of the oval in pixels.</li>
+<li><strong>height</strong> – The height of the oval in pixels.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.draw_polar_line">
+<code class="descname">draw_polar_line</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>r</em>, <em>theta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.draw_polar_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.draw_polar_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a line from an initial point with a given length and polar direction.</p>
+<p>The angle is measured in degrees counterclockwise from the positive x-axis.</p>
+<p>This function also returns the ending point of the constructed line.</p>
+<p>To draw a line of length 3 from the point (0, 0) at an angle of 60 degrees:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_polar_line</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> – The x-coordinate of the starting point.</li>
+<li><strong>y</strong> – The y-coordinate of the starting point.</li>
+<li><strong>r</strong> – The length of the line to draw.</li>
+<li><strong>theta</strong> – The angle (measured from the positive x-axis) of the new line.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The endpoint of the line.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.draw_rect">
+<code class="descname">draw_rect</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.draw_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.draw_rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the outline of a rectangle.</p>
+<p>The rectangle’s upper-left corner has coordinates given by (x, y) and size
+given by (width, height).</p>
+<p>The color of the rectangle’s outline will be this GWindow’s current color.</p>
+<p>To draw a rectangle with an upper-left corner at (0, 0), a width of 300 pixels,
+and a height of 200 pixels:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_rectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – The x-coordinate of the upper-left corner of the rectangle’s bounding box.</li>
+<li><strong>y</strong> – The y-coordinate of the upper-left corner of the rectangle’s bounding box.</li>
+<li><strong>width</strong> – The width of the rectangle in pixels.</li>
+<li><strong>height</strong> – The height of the rectangle in pixels.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.fill_oval">
+<code class="descname">fill_oval</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.fill_oval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.fill_oval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a filled oval.</p>
+<p>The oval’s upper-left corner has coordinates given by (x, y), and size
+given by (width, height). The corner of an oval is the corner of the oval’s
+bounding box.</p>
+<p>The color of the oval will be this GWindow’s current marker color.</p>
+<p>To draw a filled oval with an upper-left corner at (0, 0), a width of 300
+pixels, and a height of 200 pixels:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">fill_oval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To draw a filled circle centered at (410, 410) with radius 160:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">fill_oval</span><span class="p">(</span><span class="mi">410</span> <span class="o">-</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">410</span> <span class="o">-</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">160</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">160</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – The x-coordinate of the upper-left corner of the oval’s bounding box.</li>
+<li><strong>y</strong> – The y-coordinate of the upper-left corner of the oval’s bounding box.</li>
+<li><strong>width</strong> – The width of the oval in pixels.</li>
+<li><strong>height</strong> – The height of the oval in pixels.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.fill_rect">
+<code class="descname">fill_rect</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.fill_rect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.fill_rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a filled rectangle.</p>
+<p>The rectangle’s upper-left corner has coordinates given by (x, y) and size
+given by (width, height).</p>
+<p>The color of the rectangle’s outline will be this GWindow’s current color.</p>
+<p>To draw a rectangle with an upper-left corner at (0, 0), a width of 300 pixels,
+and a height of 200 pixels:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_rectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – The x-coordinate of the upper-left corner of the rectangle’s bounding box.</li>
+<li><strong>y</strong> – The y-coordinate of the upper-left corner of the rectangle’s bounding box.</li>
+<li><strong>width</strong> – The width of the rectangle in pixels.</li>
+<li><strong>height</strong> – The height of the rectangle in pixels.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.get_object_at">
+<code class="descname">get_object_at</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.get_object_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.get_object_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the topmost GObject containing the point (x, y) or None.</p>
+<p>If no GObject contains the point (x, y), then return None.</p>
+<p>This only searches through the foreground layer.</p>
+<p>To search for a GObject at the point (41, 106):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">gobj</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">get_object_at</span><span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="mi">106</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">gobj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;We found an object!&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No object found.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> – The x-coordinate of the point to examine.</li>
+<li><strong>y</strong> – The y-coordinate of the point to examine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The topmost GObject containing the given point, or None if no such object was found.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gwindow.GWindow.height">
+<code class="descname">height</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get this GWindow’s height (in pixels).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a <code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code> from this <a class="reference internal" href="#campy.graphics.gwindow.GWindow" title="campy.graphics.gwindow.GWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code></a>.</p>
+<p>If the GObject was in the foreground layer of the window, return True.
+Otherwise, return False, but otherwise do not any failure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gobj</strong> – The GObject to remove from this GWindow.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether the GObject was previously contained in this GWindow.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.remove_from_region">
+<code class="descname">remove_from_region</code><span class="sig-paren">(</span><em>gobj</em>, <em>region</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.remove_from_region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.remove_from_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an interactor from the control strip in a given region.</p>
+<p>The region argument must be some region from the <a class="reference internal" href="#campy.graphics.gwindow.Region" title="campy.graphics.gwindow.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a> enum.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gobj</strong> – The interactor to remove from a region.</li>
+<li><strong>region</strong> (<a class="reference internal" href="#campy.graphics.gwindow.Region" title="campy.graphics.gwindow.Region"><em>Region</em></a>) – The region from which the interactor will be removed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.graphics.gwindow.GWindow.set_region_alignment">
+<code class="descname">set_region_alignment</code><span class="sig-paren">(</span><em>region</em>, <em>align</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#GWindow.set_region_alignment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.GWindow.set_region_alignment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set an alignment for a given region.</p>
+<p>Both the region and alignment arguments must be from the <a class="reference internal" href="#campy.graphics.gwindow.Region" title="campy.graphics.gwindow.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>
+and <a class="reference internal" href="#campy.graphics.gwindow.Alignment" title="campy.graphics.gwindow.Alignment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Alignment</span></code></a> enums respectively.</p>
+<p>To CENTER the content in the SOUTH region:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">set_region_alignment</span><span class="p">(</span><span class="n">Region</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">,</span> <span class="n">Alignment</span><span class="o">.</span><span class="n">CENTER</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>region</strong> (<a class="reference internal" href="#campy.graphics.gwindow.Region" title="campy.graphics.gwindow.Region"><em>Region</em></a>) – The region in which to set alignment.</li>
+<li><strong>align</strong> (<a class="reference internal" href="#campy.graphics.gwindow.Alignment" title="campy.graphics.gwindow.Alignment"><em>Alignment</em></a>) – The alignment to set in the region.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gwindow.GWindow.title">
+<code class="descname">title</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set this GWindow’s title.</p>
+<p>Changing the title modifies the text in the top bar of the GWindow.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;My Title&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gwindow.GWindow.visible">
+<code class="descname">visible</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set this GWindow’s visibility.</p>
+<p>TODO(sredmond): Document what, exactly, a GWindow’s visibility means.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">window</span><span class="o">.</span><span class="n">visible</span><span class="p">:</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gwindow.GWindow.width">
+<code class="descname">width</code><a class="headerlink" href="#campy.graphics.gwindow.GWindow.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get this GWindow’s width (in pixels).</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.graphics.gwindow.Region">
 <em class="property">class </em><code class="descclassname">campy.graphics.gwindow.</code><code class="descname">Region</code><a class="reference internal" href="_modules/campy/graphics/gwindow.html#Region"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.Region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Regions of a <a class="reference internal" href="#campy.graphics.gwindow.GWindow" title="campy.graphics.gwindow.GWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code></a>.</p>
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Region.REGION_CENTER">
-<code class="descname">REGION_CENTER</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.gwindow.Region.REGION_CENTER" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Region.CENTER">
+<code class="descname">CENTER</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.gwindow.Region.CENTER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Region.REGION_EAST">
-<code class="descname">REGION_EAST</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gwindow.Region.REGION_EAST" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Region.EAST">
+<code class="descname">EAST</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gwindow.Region.EAST" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Region.REGION_NORTH">
-<code class="descname">REGION_NORTH</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.gwindow.Region.REGION_NORTH" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Region.NORTH">
+<code class="descname">NORTH</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.gwindow.Region.NORTH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Region.REGION_SOUTH">
-<code class="descname">REGION_SOUTH</code><em class="property"> = 3</em><a class="headerlink" href="#campy.graphics.gwindow.Region.REGION_SOUTH" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Region.SOUTH">
+<code class="descname">SOUTH</code><em class="property"> = 3</em><a class="headerlink" href="#campy.graphics.gwindow.Region.SOUTH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="campy.graphics.gwindow.Region.REGION_WEST">
-<code class="descname">REGION_WEST</code><em class="property"> = 4</em><a class="headerlink" href="#campy.graphics.gwindow.Region.REGION_WEST" title="Permalink to this definition">¶</a></dt>
+<dt id="campy.graphics.gwindow.Region.WEST">
+<code class="descname">WEST</code><em class="property"> = 4</em><a class="headerlink" href="#campy.graphics.gwindow.Region.WEST" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
-<dt id="campy.graphics.gwindow.exitGraphics">
-<code class="descclassname">campy.graphics.gwindow.</code><code class="descname">exitGraphics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#exitGraphics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.exitGraphics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Closes all graphics windows and exits from the application without
-waiting for any additional user interaction.</p>
-<p>&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="campy.graphics.gwindow.getScreenHeight">
-<code class="descclassname">campy.graphics.gwindow.</code><code class="descname">getScreenHeight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#getScreenHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.getScreenHeight" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the height of the entire display screen.</p>
-<p>&#64;rtype: float</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="campy.graphics.gwindow.getScreenWidth">
-<code class="descclassname">campy.graphics.gwindow.</code><code class="descname">getScreenWidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#getScreenWidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.getScreenWidth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the width of the entire display screen.</p>
-<p>&#64;rtype: float</p>
+<dt id="campy.graphics.gwindow.exit_graphics">
+<code class="descclassname">campy.graphics.gwindow.</code><code class="descname">exit_graphics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#exit_graphics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.exit_graphics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close all graphical windows and forcibly exit the application.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gwindow.pause">
 <code class="descclassname">campy.graphics.gwindow.</code><code class="descname">pause</code><span class="sig-paren">(</span><em>milliseconds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#pause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.pause" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pauses for the indicated number of milliseconds.  This function is
-useful for animation where the motion would otherwise be too fast.</p>
-<p>&#64;type milliseconds: int
-&#64;rtype: void</p>
+<dd><p>Pause for the given number of milliseconds.</p>
+<p>This is useful for animation where the graphical updates would otherwise be
+too fast to observe.</p>
+<p>To pause for half a second:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pause</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>milliseconds</strong> – The number of milliseconds to pause.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gwindow.screen_height">
+<code class="descclassname">campy.graphics.gwindow.</code><code class="descname">screen_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#screen_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.screen_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the height of the entire display screen.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The height of the display screen in pixels.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.graphics.gwindow.screen_width">
+<code class="descclassname">campy.graphics.gwindow.</code><code class="descname">screen_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gwindow.html#screen_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.screen_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the width of the entire display screen.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The width of the display screen.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
