@@ -5,27 +5,26 @@ A backend provides several utilities
 """
 
 class GraphicsBackendBase:
-    def gwindow_add_to_region(self, gw, gobj, region): pass
+    # GWindow Lifecycle
     def gwindow_constructor(self, gw, width, height, top_compound, visible=True): pass
-    def gwindow_delete(self, gw): pass
     def gwindow_close(self, gw): pass
-    def gwindow_request_focus(self, gw): pass
+    def gwindow_delete(self, gw): pass
     def gwindow_set_exit_on_close(self, gw, exit_on_close): pass
-    def gwindow_clear(self, gw, exit_on_close): pass
-    def gwindow_clear_canvas(self, gw, exit_on_close): pass
-    def gwindow_close(self, gw): pass
-    def gwindow_delete(self, gw): pass
-    def gwindow_request_focus(self, gw): pass
+    def gwindow_exit_graphics(self): pass
+
     def gwindow_clear(self, gw): pass
+    def gwindow_clear_canvas(self, gw, exit_on_close): pass
+    def gwindow_add_to_region(self, gw, gobj, region): pass
+    def gwindow_request_focus(self, gw): pass
     def gwindow_repaint(self, gw): pass
     def gwindow_set_visible(self, flag, gobj = None, gw = None): pass
     def gwindow_set_window_title(self, gw, title): pass
     def gwindow_get_screen_width(self): pass
     def gwindow_get_screen_height(self): pass
-    def gwindow_exit_graphics(self): pass
     def gwindow_draw(self, gw, gobj): pass
     def gwindow_set_region_alignment(self, gw, region, align): pass
     def gwindow_remove_from_region(self, gw, gobj, region): pass
+
     def gobject_set_location(self, gobj, x, y): pass
     def gobject_set_filled(self, gobj, flag): pass
     def gobject_remove(self, gobj): pass
@@ -41,6 +40,7 @@ class GraphicsBackendBase:
     def gobject_contains(self, gobj, x, y): pass
     def gobject_scale(self, gobj, sx, sy): pass
     def gobject_rotate(self, gobj, theta): pass
+
     def grect_constructor(self, gobj, width, height): pass
     def groundrect_constructor(self, gobj, width, height, corner): pass
     def gcompound_constructor(self, gobj): pass
@@ -77,6 +77,7 @@ class GraphicsBackendBase:
     def gbufferedimage_save(self, gobj, filename): pass
     def gbufferedimage_set_rgb(self, gobj, x, y, rgb): pass
     def gbufferedimage_update_all_pixels(self, gobj, base64): pass
+
     def setActionCommand(self, gobj, cmd): pass
     def getSize(self, gobj): pass
     def gbutton_constructor(self, gobj, label): pass
@@ -101,7 +102,6 @@ class GraphicsBackendBase:
     def goptionpane_show_message_dialog(self, message, title, message_type): pass
     def goptionpane_show_option_dialog(self, message, title, options, initially_selected): pass
     def goptionpane_show_text_file_dialog(self, message, title, rows, cols): pass
-    def note_play(self, note, repeat): pass
     def getNextEvent(self, mask): pass
     def waitForEvent(self, mask): pass
     def parseEvent(self, line): pass
@@ -110,16 +110,6 @@ class GraphicsBackendBase:
     def parseTimerEvent(self, tokens, type): pass
     def parseWindowEvent(self, tokens, type): pass
     def parseActionEvent(self, tokens, type): pass
-    def scanDimension(self, str): pass
-    def scanRectangle(self, str): pass
-    def put_pipe(self, command): pass
-    def get_pipe(self): pass
-    def get_status(self): pass
-    def get_result(self): pass
-    def put_pipe(self, command): pass
-    def get_pipe(self): pass
-    def get_status(self): pass
-    def get_result(self, consume_acks=True, stop_on_event=False, caller=''): pass
     def startupMain(self): pass
 
 class ConsoleBackendBase:
@@ -154,4 +144,7 @@ class SoundBackendBase:
         pass
 
     def play_sound(self, sound, *args):
+        pass
+
+    def note_play(self, note, repeat):
         pass
