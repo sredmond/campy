@@ -12,31 +12,31 @@ import campy.graphics.gcolor as _gcolor
 @_enum.unique
 class Alignment(_enum.Enum):
     """Horizontal alignment within a region."""
-    LEFT   = 0
+    LEFT = 0
     CENTER = 1
-    RIGHT  = 2
+    RIGHT = 2
 
 
 @_enum.unique
 class Region(_enum.Enum):
     """Regions of a :class:`GWindow`."""
     CENTER = 0
-    EAST   = 1
-    NORTH  = 2
-    SOUTH  = 3
-    WEST   = 4
+    EAST = 1
+    NORTH = 2
+    SOUTH = 3
+    WEST = 4
 
 
 @_enum.unique
 class CloseOperation(_enum.Enum):
-    """Actions to take on closure of a GWindow.
+    """Actions to take upon closure of a GWindow.
 
     Currently unused.
     """
     DO_NOTHING = 0
-    HIDE       = 1
-    DISPOSE    = 2
-    EXIT       = 3
+    HIDE = 1
+    DISPOSE = 2
+    EXIT = 3
 
 
 # TODO(sredmond): There used to be a lot of fluff around copying a GWindow.
@@ -73,10 +73,8 @@ class GWindow:
     # The default width (in pixels) for a new GWindow.
     DEFAULT_WIDTH = 500
 
-
     # The default height (in pixels) for a new GWindow.
     DEFAULT_HEIGHT = 500
-
 
     # TODO(sredmond): Add a default color once the GColor library is fixed!
     def __init__(self, width=DEFAULT_WIDTH, height=DEFAULT_HEIGHT, visible=True, title="", color=None, top=None):
@@ -120,13 +118,11 @@ class GWindow:
         # TODO(sredmond): Isn't it a little silly to pass this object along with its attributes?
         _platform.Platform().gwindow_constructor(self, self._width, self._height, self._top)
 
-
     def close(self):
         """Close this GWindow."""
         # TODO(sredmond): Use the CloseOperation setting to determine how aggresive to close things down.
         _platform.Platform().gwindow_close(self)
         _platform.Platform().gwindow_delete(self)
-
 
     @property
     def width(self):
@@ -135,14 +131,12 @@ class GWindow:
         # this value will be incorrect.
         return self._width
 
-
     @property
     def height(self):
         """Get this GWindow's height (in pixels)."""
         # TODO(sredmond): If the actual GWindow's height changes (i.e. from a resize operation),
         # this value will be incorrect.
         return self._height
-
 
     @property
     def visible(self):
@@ -153,17 +147,15 @@ class GWindow:
         Usage::
 
             window = GWindow()
-            if window.visible:
-                window.visible = False
+            if not window.visible:
+                window.visible = True
         """
         return self._visible
-
 
     @visible.setter
     def visible(self, flag):
         self._visible = flag
         _platform.Platform().gwindow_set_visible(flag, gw=self)
-
 
     @property
     def title(self):
@@ -179,12 +171,10 @@ class GWindow:
         """
         return self._title
 
-
     @title.setter
     def title(self, title):
         self._title = title
         _platform.Platform().gwindow_set_window_title(self, title)
-
 
     @property
     def color(self):
@@ -200,7 +190,6 @@ class GWindow:
     def color(self, color):
         self._color = color
         # TODO(sredmond): Canonicalize this input color into a GColor.
-
 
     def draw_line(self, x0, y0, x1, y1):
         """Draw a line between the given coordinates.
@@ -227,7 +216,6 @@ class GWindow:
         line.color = self.color
         self.draw(line)
 
-
     def draw_polar_line(self, x, y, r, theta):
         """Draw a line from an initial point with a given length and polar direction.
 
@@ -251,7 +239,6 @@ class GWindow:
         y1 = y0 - r * math.sin(math.radians(theta))  # Subtraction, since y decreases upwards.
         self.draw_line(x0, y0, x1, y1)
         return _gobjects.GPoint(x1, y1)
-
 
     def draw_oval(self, x, y, width, height):
         """Draw the outline of an oval.
@@ -282,7 +269,6 @@ class GWindow:
         oval = _gobjects.GOval(x, y, width, height)
         oval.color = self.color
         self.draw(oval)
-
 
     def fill_oval(self, x, y, width, height):
         """Draw a filled oval.
@@ -317,7 +303,6 @@ class GWindow:
         oval.filled = True
         self.draw(oval)
 
-
     def draw_rect(self, x, y, width, height):
         """Draw the outline of a rectangle.
 
@@ -341,7 +326,6 @@ class GWindow:
         rect = _gobjects.GRect(x, y, width, height)
         rect.color = self.color
         self.draw(rect)
-
 
     def fill_rect(self, x, y, width, height):
         """Draw a filled rectangle.
@@ -368,7 +352,6 @@ class GWindow:
         rect.filled = True
         self.draw(rect)
 
-
     def draw(self, gobj, x=None, y=None):
         """Draw a GObject on this GWindow's background layer.
 
@@ -384,7 +367,6 @@ class GWindow:
             gobj.location = x, y
         _platform.Platform().gwindow_draw(self, gobj)
 
-
     def clear(self):
         """Clear all content from this GWindow.
 
@@ -392,7 +374,6 @@ class GWindow:
         """
         _platform.Platform().gwindow_clear(self)  # Remove from background layer.
         self._top.removeAll()  # Remove from foreground layer.
-
 
     def add(self, gobj, x=None, y=None):
         """Add a :class:`GObject` to the foreground layer of this :class:`GWindow`.
@@ -413,14 +394,12 @@ class GWindow:
             gobj.location = x, y
         self._top.add(gobj)
 
-
     def __iadd__(self, gobj):
         """Implement ``self += gobj``.
 
         Add a GObject to the foreground layer of this :class:`GWindow`.
         """
         self.add(gobj)
-
 
     def remove(self, gobj):
         """Remove a :class:`GObject` from this :class:`GWindow`.
@@ -433,7 +412,6 @@ class GWindow:
         """
         return self._top.remove(gobj)
 
-
     def __isub__(self, obj):
         """Implement ``self -= gobj``.
 
@@ -441,7 +419,6 @@ class GWindow:
         """
         # Ignore the return value.
         self.remove(gobj)
-
 
     def add_to_region(self, gobj, region):
         """Add an interactor to the control strip in a given region.
@@ -463,7 +440,6 @@ class GWindow:
         # TODO(sredmond): Either here, or at the platform level, convert into the region as a string.
         _platform.Platform().gwindow_add_to_region(self, gobj, region)
 
-
     def remove_from_region(self, gobj, region):
         """Remove an interactor from the control strip in a given region.
 
@@ -475,7 +451,6 @@ class GWindow:
         """
         # TODO(sredmond): Either here, or at the platform level, convert into the region as a string.
         _platform.Platform().gwindow_remove_from_region(self, gobj, region)
-
 
     def set_region_alignment(self, region, align):
         """Set an alignment for a given region.
@@ -495,7 +470,6 @@ class GWindow:
         """
         # TODO(sredmond): Either here, or at the platform level, convert into the region and alignment as a string.
         _platform.Platform().gwindow_set_region_alignment(self, region, align)
-
 
     def get_object_at(self, x, y):
         """Return the topmost GObject containing the point (x, y) or None.
@@ -524,7 +498,6 @@ class GWindow:
                 return gobj
         return None
 
-
     def _request_focus(self):
         """Ask the OS to assign keyboard focus to this GWindow.
 
@@ -534,7 +507,6 @@ class GWindow:
         It is not guaranteed that the OS will give focus to this GWindow.
         """
         _platform.Platform().gwindow_request_focus(self)
-
 
     def _repaint(self):
         """Schedule a repaint on this window."""
@@ -572,7 +544,7 @@ def screen_height():
 
     :returns: The height of the display screen in pixels.
     """
-    return _platform.Platform().gwindow_get_screen_height();
+    return _platform.Platform().gwindow_get_screen_height()
 
 
 def exit_graphics():
