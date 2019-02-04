@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-"""
-Draw a graphical pyramid on screen.
+"""Draw a graphical pyramid on screen.
 
 Demonstrates use of
 
@@ -16,9 +15,10 @@ from campy.util.randomgenerator import *
 window = GWindow(width=1280, height=800)
 window.title = 'Pyramid'
 
-MAX_WIDTH = window.getWidth()
-MAX_HEIGHT = window.getHeight()
+MAX_WIDTH = window.width
+MAX_HEIGHT = window.height
 NUM_BRICKS_IN_BASE = 12
+
 BRICK_WIDTH = MAX_WIDTH // NUM_BRICKS_IN_BASE
 BRICK_HEIGHT = MAX_HEIGHT // NUM_BRICKS_IN_BASE
 
@@ -28,8 +28,8 @@ def get_color(row_num, colors=DEFAULT_COLORS):
 
 def make_brick(x, y, color):
     brick = GRect(BRICK_WIDTH, BRICK_HEIGHT, x, y)
-    brick.setFilled(True)     # TODO(sredmond): Make this brick.filled = True
-    brick.setFillColor(color) # TODO(sredmond): Make this brick.fill_color
+    brick.filled = True     # TODO(sredmond): Make this brick.filled = True
+    brick.fill_color = color # TODO(sredmond): Make this brick.fill_color
     return brick
 
 def make_pyramid():
