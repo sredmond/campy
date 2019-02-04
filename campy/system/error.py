@@ -1,29 +1,52 @@
-"""
-File: error.py
---------------
-Implementation of the error function.
+"""Top-level Exceptions and Errors.
 
-TODO: Make naming consistent with PEP8? (i.e. Error and InterruptedIOError instead?)
-"""
-class ErrorException(Exception):
-    """Allows errors to be reported in a consistent way."""
-    # def __init__(self, message=''):
-    #     # if isinstance(msg, Exception):
-    #     #     msg = "{cls}: {msg}".format(cls=msg.__class__, msg=str(msg))
-    #     super().__init__(self, message)
+Provides a generic function to raise an error from a message.
 
-class InterruptedIOException(Exception):
-    """Thrown when a blocking I/O call is interrupted by closing the program."""
-    pass
+All exceptions (that are not builtin exceptions like ValueError, IndexError)
+raised in this library inherit from :class:`CampyException`, the root of all
+exceptions in this library.
+"""
+# TODO(sredmond): Should this be called ErrorException for consistency with ACM?
+class CampyException(Exception):
+    """Root of all exceptions in the :mod:`campy` module.
+
+    This allows for consistent exception reporting in the module.
+    """
+
+
+class InterruptedIOError(CampyException):
+    """A blocking I/O call is interrupted by closing the program."""
 
 
 def error(message):
     """Generic function to raise an error.
 
     Signals an error condition in a program by throwing an
-    <code>ErrorException</code> with the specified message.
+    :class:`CampyException`: with the specified message.
 
     :param str message: error message
-    :raises: An :class:`ErrorException` with the supplied error message.
+    :raises: An :class:`CampyException` with the supplied error message.
+
+    Usage::
+
+        if 'Red Leicester' not in cheeses:
+            error("I'm afraid we're fresh out of Red Leicester, sir.")
+
+    You can check whether a code block raises a :class:`CampyException` with::
+
+        try:
+            do_something_that_might_raise_a_campy_exception()
+        except CampyException:
+            recover_from_an_error()
+
+    If the supplied message is an instance or a subclass of :class:`Exception`,
+    the :class:`CampyException` is raised from the supplied Exception so that
+    traceback information is maintained.
     """
-    raise ErrorException(message)
+    if isinstance(message, Exception) or issubclass(message, Exception):
+        raise CampyException(message) from message
+    else:
+        raise CampyException(message)
+
+
+__all__ = ['CampyException', 'InterruptedIOError', 'error']
