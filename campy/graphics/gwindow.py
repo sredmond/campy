@@ -5,6 +5,7 @@ import math
 
 import campy.graphics.gtypes as _gtypes
 import campy.graphics.gobjects as _gobjects
+import campy.graphics.gtypes as _gtypes
 import campy.private.platform as _platform
 import campy.graphics.gcolor as _gcolor
 
@@ -223,10 +224,10 @@ class GWindow:
 
         This function also returns the ending point of the constructed line.
 
-        To draw a line of length 3 from the point (0, 0) at an angle of 60 degrees::
+        To draw a line of length 3 from the point (100, 100) at an angle of 60 degrees::
 
             window = GWindow()
-            window.draw_polar_line(0, 0, 3, 60)
+            window.draw_polar_line(100, 100, 3, 60)
 
         :param x: The x-coordinate of the starting point.
         :param y: The y-coordinate of the starting point.
@@ -235,10 +236,10 @@ class GWindow:
         :returns: The endpoint of the line.
         """
         # TODO(sredmond): Consider alternate ways to specify coordinates with a GPoint.
-        x1 = x0 + r * math.cos(math.radians(theta))
-        y1 = y0 - r * math.sin(math.radians(theta))  # Subtraction, since y decreases upwards.
-        self.draw_line(x0, y0, x1, y1)
-        return _gobjects.GPoint(x1, y1)
+        x_end = x + r * math.cos(math.radians(theta))
+        y_end = y - r * math.sin(math.radians(theta))  # Subtraction, since y decreases upwards.
+        self.draw_line(x, y, x_end, y_end)
+        return _gtypes.GPoint(x_end, y_end)
 
     def draw_oval(self, x, y, width, height):
         """Draw the outline of an oval.
@@ -266,8 +267,9 @@ class GWindow:
         :param height: The height of the oval in pixels.
         """
         # TODO(sredmond): Find a way to supply a GRectangle's bounds instead.
-        oval = _gobjects.GOval(x, y, width, height)
-        oval.color = self.color
+        # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
+        oval = _gobjects.GOval(width, height, x, y)
+        # oval.color = self.color  # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.
         self.draw(oval)
 
     def fill_oval(self, x, y, width, height):
@@ -296,11 +298,12 @@ class GWindow:
         :param height: The height of the oval in pixels.
         """
         # TODO(sredmond): Find a way to supply a GRectangle's bounds instead.
-        oval = _gobjects.GOval(x, y, width, height)
+        # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
+        oval = _gobjects.GOval(width, height, x, y)
         oval.color = self.color
         # TODO(sredmond): Possibly, fall back to a black outline when the oval is filled.
-        oval.fill_color = self.color
-        oval.filled = True
+        # oval.fill_color = self.color # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.
+        # oval.filled = True  # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.
         self.draw(oval)
 
     def draw_rect(self, x, y, width, height):
@@ -323,7 +326,8 @@ class GWindow:
         :param height: The height of the rectangle in pixels.
         """
         # TODO(sredmond): Find a way to supply a GRectangle's bounds instead.
-        rect = _gobjects.GRect(x, y, width, height)
+        # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
+        rect = _gobjects.GRect(width, height, x, y)
         rect.color = self.color
         self.draw(rect)
 
@@ -346,7 +350,8 @@ class GWindow:
         :param width: The width of the rectangle in pixels.
         :param height: The height of the rectangle in pixels.
         """
-        rect = _gobjects.GRect(x, y, width, height)
+        # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
+        rect = _gobjects.GRect(width, height, x, y)
         rect.color = self.color
         rect.fill_color = self.color
         rect.filled = True
