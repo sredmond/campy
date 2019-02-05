@@ -27,51 +27,6 @@ __ARC_TOLERANCE__ = 2.5 # Default arc tolerance
 __DEFAULT_CORNER__ = 10 # Default corner rounding
 __DEFAULT_GLABEL_FONT__ = "Dialog-13" # Default label font
 
-
-# SECTION: Graphical Mixins
-class Fillable:
-    """Represents a graphical object that can be filled.
-
-    Adds a _filled attribute to the subclass instance as
-    well as a _fill_color.
-    """
-    def __init__(self, filled=False, fill_color=''):
-        self._filled = False
-        self._fill_color = fill_color
-
-    @property
-    def filled(self):
-        """Return whether this object is filled.
-
-        @rtype: boolean
-        """
-        return self._filled
-
-    @filled.setter
-    def filled(self, is_filled):
-        """Set whether the object is filled.
-
-        True means filled and False means outlined."""
-        self._filled = is_filled
-        _platform.Platform().gobject_set_filled(self, is_filled)
-
-    @property
-    def fill_color(self):
-        """Return the color used to fill this object.
-
-        If none has been set, return the empty string."""
-        return self._fill_color
-
-    @fill_color.setter
-    def fill_color(self, color):
-        color = _gcolor.GColor.normalize(color)
-        # color = _gcolor.canonicalize(color)
-        # hex_color = color.to_hex()
-        self._fill_color = color
-        _platform.Platform().gobject_set_fill_color(self, self._fill_color.as_hex)
-
-# END SECTION: Graphical Mixins
-
 __ID__ = 0
 class GObject:
     '''
@@ -435,6 +390,52 @@ class GObject:
         @rtype: GObject
         '''
         return self.parent
+
+# SECTION: Graphical Mixins
+class GFillableObject(GObject):
+    """Represents a graphical object that can be filled.
+
+    Adds a _filled attribute to the subclass instance as
+    well as a _fill_color.
+    """
+    def __init__(self, filled=False, fill_color=''):
+        super().__init__()
+        self._filled = False
+        self._fill_color = fill_color
+
+    @property
+    def filled(self):
+        """Return whether this object is filled.
+
+        @rtype: boolean
+        """
+        return self._filled
+
+    @filled.setter
+    def filled(self, is_filled):
+        """Set whether the object is filled.
+
+        True means filled and False means outlined."""
+        self._filled = is_filled
+        _platform.Platform().gobject_set_filled(self, is_filled)
+
+    @property
+    def fill_color(self):
+        """Return the color used to fill this object.
+
+        If none has been set, return the empty string."""
+        return self._fill_color
+
+    @fill_color.setter
+    def fill_color(self, color):
+        color = _gcolor.GColor.normalize(color)
+        # color = _gcolor.canonicalize(color)
+        # hex_color = color.to_hex()
+        self._fill_color = color
+        _platform.Platform().gobject_set_fill_color(self, self._fill_color.as_hex)
+
+# END SECTION: Graphical Mixins
+
 
 class GRect(GObject):
     '''
@@ -904,7 +905,7 @@ class G3DRect(GRect):
                 str(self.width) + ", " + str(self.height) + ", " + \
                 str(self.raised).lower() + ")"
 
-class GOval(GObject, Fillable):
+class GOval(GFillableObject):
     '''
     This graphical object subclass represents an oval inscribed in
     a rectangular box.  For example, the following code displays a
