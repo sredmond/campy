@@ -23,373 +23,307 @@ import campy.private.platform as _platform
 import campy.graphics.gmath as _gmath
 import math
 
+
 __ARC_TOLERANCE__ = 2.5 # Default arc tolerance
 __DEFAULT_CORNER__ = 10 # Default corner rounding
 __DEFAULT_GLABEL_FONT__ = "Dialog-13" # Default label font
 
-__ID__ = 0
+
 class GObject:
-    '''
-    This class is the common superclass of all graphical objects that can
-    be displayed on a graphical window. For examples illustrating the use of the GObject class, see
-    the descriptions of the individual subclasses.
-    '''
+    """The common superclass of all graphical objects that can be displayed on a graphical window.
 
+    For examples illustrating the use of the GObject class, see the descriptions
+    of the individual subclasses.
+    """
     def __init__(self):
-        '''
-        Initializes a GObject
+        """Initialize a GObject with reasonable default values."""
+        self._x = 0.0
+        self._y = 0.0
 
-        @rtype: void
-        '''
-        global __ID__
-        self.x = 0.0
-        self.y = 0.0
-        self.color = ""
-        self.lineWidth = 1.0
-        self.transformed = False
-        self.visible = True
-        self.parent = None
-        self.ID = "GObject-" + str(__ID__)
-        __ID__ = __ID__ + 1
+        self._color = ""
+        self._line_width = 1.0
+        self._visible = True
 
-    def getX(self):
-        '''
-        Returns the x-coordinate of the object.
+        self._transformed = False
+        self._parent = None
 
-        @rtype: float
-        '''
-        return self.x
+    @property
+    def x(self):
+        """Get the x-coordinate of this :class:`GObject`."""
+        return self._x
 
-    def getY(self):
-        '''
-        Returns the y-coordinate of the object.
+    @property
+    def y(self):
+        """Get the y-coordinate of this :class:`GObject`."""
+        return self._y
 
-        @rtype: float
-        '''
-        return self.y
+    # TODO(sredmond): Should I expose setters for x and y?
 
     @property
     def location(self):
-        """Get or set the location of this object as a GPoint."""
+        """Get or set the location of this object as a :class:`GPoint`.
+
+        You can supply either a GPoint or a 2-element tuple to this property.
+        Accessing this property will return a GPoint which can be unpacked as a
+        tuple.
+        """
         return _gtypes.GPoint(self.x, self.y)
 
     @location.setter
-    def location(self, location):
-        x, y = location
-        self.x = x
-        self.y = y
+    def location(self, point):
+        x, y = point
+        self._x = x
+        self._y = y
         _platform.Platform().gobject_set_location(self, x, y)
 
-    def getLocation(self):
-        '''
-        Returns the location of this object as a GPoint.
-
-        @rtype: GPoint
-        '''
-        return _gtypes.GPoint(self.x, self.y)
-
-    def setLocation(self, pt=None, x=None, y=None):
-        '''
-        Sets the location of this object to the specified point.
-
-        @type pt: GPoint
-        @type x: float
-        @type y: float
-        @param pt: new location, will override x and y
-        @rtype: void
-        '''
-        if(pt != None):
-            x = pt.getX()
-            y = pt.getY()
-
-        if(x == None or y == None): return
-
-        self.x = x
-        self.y = y
-        _platform.Platform().gobject_set_location(self, x, y)
 
     def move(self, dx, dy):
-        '''
-        Moves the object on the screen using the displacements
-        dx and dy.
+        """Move this object on the screen using the supplied displacements.
 
-        @type dx: float
-        @type dy: float
-        @rtype: void
-        '''
-        self.setLocation(x=self.x + dx, y=self.y + dy)
+        :param dx: The displacement in the x-direction.
+        :param dy: The displacement in the y-direction.
+        """
+        self.location = (self.x + dx, self.y + dy)
 
-    def getWidth(self):
-        '''
-        Returns the width of this object, which is defined to be the width of
-        the bounding box.
+    @property
+    def bounds(self):
+        """Get the bounding box for this object.
 
-        @rtype: float
-        '''
-        bounds = self.getBounds()
-        if (bounds != None): return bounds.width
-        return None
+        The bounding box of an object is the smallest rectangle that covers
+        everything drawn by the figure. The coordinates of this rectangle will
+        usually, but not always, match the object's location. For example, the
+        location of a :class:`GLabel` gives the coordinates of the point on the
+        baseline where the string begins. However, the bounds of the GLabel
+        represent a rectangle that entirely covers the window area occupied by
+        the GLabel.
 
-    def getHeight(self):
-        '''`
-        Returns the height of this object, which is defined to be the height
-        of the bounding box.
+        Subclasses must override this property (and optionally declare a setter)
+        to indicate their bounding box.
 
-        @rtype: float
-        '''
-        bounds = self.getBounds()
-        if (bounds != None): return bounds.height
-        return None
+        :returns: The bounding box of this GObject.
+        :rtype: :class:`GRectangle`
+        """
+        # TODO(sredmond): Make this an abstract method?
+        return _gtypes.GRectangle(-1, -1, 0, 0)
 
-    def getSize(self):
-        '''
-        Returns the size of the object as a GDimension.
+    @property
+    def width(self):
+        """Get the width of this :class:`GObject`.
 
-        @rtype: GDimension
-        '''
-        bounds = self.getBounds()
-        if(bounds != None): return _gtypes.GDimension(bounds.width, bounds.height)
-        return None
+        The width of an object is the same as the width of its bounding box.
 
-    def getBounds(self):
-        '''
-        Returns the bounding box of this object, which is defined to be the
-        smallest rectangle that covers everything drawn by the figure.  The
-        coordinates of this rectangle do not necessarily match the location
-        returned by getLocation.  Given a GLabel
-        object, for example, getLocation returns the coordinates
-        of the point on the baseline at which the string begins; the
-        getBounds method, by contrast, returns a rectangle that
-        covers the entire window area occupied by the string.
+        :returns: The width (in pixels) of this GObject.
+        """
+        return self.bounds.width
 
-        @rtype: GRectangle
-        '''
-        return None
+    @property
+    def height(self):
+        """Get the height of this :class:`GObject`.
 
-    def setLineWidth(self, lineWidth):
-        '''
-        Sets the width of the line used to draw this object.
+        The height of an object is the same as the height of its bounding box.
 
-        @type lineWidth: int
-        @rtype: void
-        '''
-        self.lineWidth = lineWidth
-        _platform.Platform().gobject_set_line_width(self, lineWidth)
+        :returns: The height (in pixels) of this GObject.
+        """
+        return self.bounds.height
 
-    def getLineWidth(self):
-        '''
-        Returns the width of the line used to draw this object.
+    @property
+    def size(self):
+        """Get the size of this :class:`GObject` as a :class:`GDimension`.
 
-        @rtype: int
-        '''
-        return self.lineWidth
+        :returns: The size of this GObject in pixels.
+        :rtype: :class:`GDimension`
+        """
+        return _gtypes.GDimension(self.bounds.width, self.bounds.height)
 
-    def setColor(self, color=None, rgb=None):
-        '''
-        Sets the color used to display this object.  The color parameter is
-        usually one of the predefined color names:
+    @property
+    def color(self):
+        """Get or set the color used to draw this object.
 
-            - BLACK,
-            - BLUE,
-            - CYAN,
-            - DARK_GRAY,
-            - GRAY,
-            - GREEN,
-            - LIGHT_GRAY,
-            - MAGENTA,
-            - ORANGE,
-            - PINK,
-            - RED,
-            - WHITE,
-            - YELLOW.
+        The supplied color can be any object acceptable to :class:`GColor`, so
+        check that class's documentation for complete details on arguments.
 
-        The case of the individual letters in the color name is ignored, as
-        are spaces and underscores, so that the color DARK_GRAY
-        can be written as "Dark Gray".
+        Usually, the supplied color will be one of the predefined colors:
 
-        The color can also be specified as a string in the form
-        "#rrggbb" where rr, gg, and
-        bb are pairs of hexadecimal digits indicating the
-        red, green, and blue components of the color.
+            - BLACK
+            - BLUE
+            - CYAN
+            - DARK_GRAY
+            - GRAY
+            - GREEN
+            - LIGHT_GRAY
+            - MAGENTA
+            - ORANGE
+            - PINK
+            - RED
+            - WHITE
+            - YELLOW
 
-        @type color: string
-        @param color: takes precedence over rgb
-        @type rgb: int
-        @rtype: void
-        '''
-        if(color != None):
-            rgb = _gcolor.color_to_rgb(color)
+        TODO(sredmond): Add more detail to the possible colors with examples.
 
-        if(rgb == None): return
+        Accessing this property will return a :class:`GColor` which can be
+        used anywhere that expects a color.
+        """
+        return self._color
 
-        self.color = _gcolor.rgb_to_hex(rgb)
+    @color.setter
+    def color(self, color):
+        self._color = _gcolor.GColor.normalize(color)
         _platform.Platform().gobject_set_color(self, self.color)
 
-    def getColor(self):
-        '''
-        Returns the current color as a string in the form "#rrggbb".
-        In this string, the values rr, gg,
-        and bb are two-digit hexadecimal values representing
-        the red, green, and blue components of the color, respectively.
+    @property
+    def line_width(self):
+        """Get or set the line width used to draw this :class:`GObject`."""
+        # TODO(sredmond): Add more documentation here.
+        # TODO(sredmond): Does line width need to be an integer?
+        return self._line_width
 
-        @rtype: string
-        '''
-        return self.color
+    @line_width.setter
+    def line_width(self, width):
+        self._line_width = width
+        _platform.Platform().gobject_set_line_width(self, width)
 
-    def scale(self, sf=None, sx=None, sy=None):
-        '''
-        Scales the object by the specified scale factors.  Most clients will use
-        the first form, which scales the object by sf in both
-        dimensions, so that invoking gobj.scale(2) doubles the
-        size of the object.  The second form applies independent scale factors
-        to the x and y dimensions.
+    @property
+    def visible(self):
+        """Get or set whether this :class:`GObject` is visible.
 
-        @type sf: float
-        @type sx: float
-        @type sy: float
-        @param sf: scale factor, will override sx and sy
-        @rtype: void
-        '''
-        if(sf != None):
-            sx = sf
-            sy = sf
+        A :class:`GObject` that is visible will still exist on a GWindow once added.
 
-        if(sx == None or sy == None): return
+        Usage::
 
-        self.transformed = True
+            window = GWindow()
+            oval = GOval(0, 0, 41, 41)
+            window.add(oval)
+            print(oval.visible)  # => True
+            oval.visible = False  # Hides the oval on the window.
+            print(oval.visible)  # => False
+        """
+        return self._visible
+
+    @visible.setter
+    def visible(self, flag):
+        self._visible = flag
+        _platform.Platform().gwindow_set_visible(flag, gobj=self)
+
+    def scale(self, *scales):
+        """Scale this object by the given scale factor(s).
+
+        Most clients use the one-argument form, which scales an object in both
+        dimensions. To double the size of a GOval::
+
+            oval = GOval(0, 0, 41, 41)
+            oval.scale(2)
+            print(oval.width, oval.height)  # => 82, 82
+
+        There is also a two-argument form which applies separate scale factors
+        to the x- and y-dimensions::
+
+            oval = GOval(0, 0, 41, 41)
+            oval.scale(3, 5)
+            print(oval.width, oval.height)  # => 123, 205
+
+        It is an error to call this function with no arguments, or with three or
+        more arguments.
+
+        :param scales: The scale factors by which to scale this object.
+        """
+        # TODO(sredmond): Does this scale about the center or about the origin?
+        if not scales or len(scales) > 2:
+            return  # TODO(sredmond): Actually fail if the number of scale factors isn't 1 or 2.
+
+        if len(scales) == 1:
+            sx, sy = scales[0], scales[0]
+        else:
+            sx, sy = scales
+
+        # Mark this object as transformed so we know to defer to the platform's methods.
+        self._transformed = True
         _platform.Platform().gobject_scale(self, sx, sy)
 
     def rotate(self, theta):
-        '''
-        Transforms the object by rotating it theta degrees
-        counterclockwise around its origin.
+        """Rotate this object some degrees counterclockwise about its origin.
 
-        @type theta: float
-        @param theta: degrees
-        @rtype: void
-        '''
-        self.transformed = True
-        _platform.Platform().gobject_rotate(self, sx, sy)
+        :param: The angle (in degrees) about which to rotate this object about its origin.
+        """
+        # Mark this object as transformed so we know to defer to the platform's methods.
+        self._transformed = True
+        _platform.Platform().gobject_rotate(self, theta)
 
-    def setVisible(self, flag):
-        '''
-        Sets whether this object is visible.
+    def send_forward(self):
+        """Moves this object one step toward the front in the z dimension.
 
-        @type flag: boolean
-        @rtype: void
-        '''
-        self.visible = flag
-        _platform.Platform().gwindow_set_visible(flag, gobj = self)
-
-    def isVisible(self):
-        '''
-        Returns true if this object is visible.
-
-        @rtype: boolean
-        '''
-        return self.visible
-
-    def sendForward(self):
-        '''
-        Moves this object one step toward the front in the z dimension.
         If it was already at the front of the stack, nothing happens.
+        """
+        if self.parent:
+            self.parent.send_forward(self)
 
-        @rtype: void
-        '''
-        parent = self.getParent()
-        if(parent != None): parent.sendForward(self)
+    def send_to_front(self):
+        """Move this object to the front of the display in the z dimension.
 
-    def sendToFront(self):
-        '''
-        Moves this object to the front of the display in the z dimension.
         By moving it to the front, this object will appear to be on top of the
         other graphical objects on the display and may hide any objects that
         are further back.
+        """
+        if self.parent:
+            self.parent.send_forward(self)
 
-        @rtype: void
-        '''
-        parent = self.getParent()
-        if(parent != None): parent.sendToFront(self)
+    def send_backward(self):
+        """Moves this object one step toward the back in the z dimension.
 
-    def sendBackward(self):
-        '''
-        Moves this object one step toward the back in the z dimension.
         If it was already at the back of the stack, nothing happens.
+        """
+        if self.parent:
+            self.parent.send_backward(self)
 
-        @rtype: void
-        '''
-        parent = self.getParent()
-        if(parent != None): parent.sendBackward(self)
+    def send_to_back(self):
+         """Move this object to the back of the display in the z dimension.
 
-    def sendToBack(self):
-        '''
-        Moves this object to the back of the display in the z dimension.
         By moving it to the back, this object will appear to be behind the other
         graphical objects on the display and may be obscured by other objects
-        in front.
+        that are further forward.
+        """
+        if self.parent:
+            self.parent.send_to_back(self)
 
-        @rtype: void
-        '''
-        parent = self.getParent()
-        if(parent != None): parent.sendToBack(self)
+    def __contains__(self, point):
+        """Implement ``point in self``.
 
-    def contains(self, pt=None, x=None, y=None):
-        '''
-        Returns true if the specified point is inside the object.
+        Check whether a given :class:`GPoint` or 2-element tuple is contained
+        within the bounding box of this :class:`GObject`.
 
-        @type pt: GPoint
-        @type x: float
-        @type y: float
-        @param pt: point to check, will override x and y
-        @rtype: boolean
-        '''
-        if(pt != None):
-            x = pt.getX()
-            y = pt.getY()
-
-        if(x == None or y == None): return False
-
-        if(self.transformed):
+        Subclasses can override this method to provide shape-specific containment
+        checks. For example, the :class:`GOval` class provides a custom method to
+        check for containment.
+        """
+        # TODO(sredmond): It sort of feels like all of the subclasses (except GImage and GLabel)
+        # just define their own contains anyway. Is it still good design to keep this implementation here?
+        # Attempt to unpack the supplied point as a tuple.
+        x, y = pt
+        # TODO(sredmond): Should we really just offload the work if it happens to be transformed?
+        if self._transformed:
             return _platform.Platform().gobject_contains(self, x, y)
 
-        bounds = self.getBounds()
-        if(bounds == None): return False
-        return (x, y) in bounds
+        return (x, y) in self.bounds
 
-    def __contains__(self, pt):
-        x, y = pt
-        return self.contains(x=x, y=y)
+    @property
+    def parent(self):
+        """Return the GCompound that contains this object, if it exists.
 
-    def getType(self):
-        '''
-        Returns the concrete type of the object as a string, as in
-        "GOval" or "GRect".
+        Each :class:`GWindow` has a single :class:`GCompound` that is aligned
+        with the window. Adding objects to the window adds them to the window's
+        top :class:`GCompound`. So, a :class:`GObject` does not have a parent
+        until it is added to a :class:`GCompound`, either directly or by way of
+        adding the :class:`GObject` to a :class:`GWindow`::
 
-        @rtype: string
-        '''
-        return None
+            window = GWindow()
+            oval = GOval(0, 0, 41, 41)
+            print(oval.parent is None)  # => True
+            window.add(oval)
+            print(oval.parent is None)  # => False
 
-    def toString(self):
-        '''
-        Returns a print(ble representation of the object.)
-
-        @rtype: string
-        '''
-        return None
-
-    def getParent(self):
-        '''
-        Returns a pointer to the GCompound that contains this
-        object.  Every GWindow is initialized to contain a single
-        GCompound that is aligned with the window.  Adding
-        objects to the window adds them to that GCompound,
-        which means that every object you add to the window has a parent.
-        Calling getParent on the top-level GCompound
-        returns None.
-
-        @rtype: GObject
-        '''
-        return self.parent
+        :returns: This object's parent :class:`GCompound`, if it exists.
+        :rtype: :class:`GCompound`
+        """
+        return self._parent
 
 # SECTION: Graphical Mixins
 class GFillableObject(GObject):
@@ -1482,6 +1416,10 @@ class GLine(GObject):
 
     # TODO(sredmond): Add methods to get/set dx/dy?
     # TODO(sredmond): Add methods to get/set just x0/y0/x1/y1?
+
+    # TODO(sredmond): Implement bounds.
+    # @property
+    # def bounds
 
     def __contains__(self, point, tolerance=1.5):
         """Implement ``point in self``.
