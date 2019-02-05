@@ -17,12 +17,13 @@ There is also a :class:`GCompound` class to facilitate nested object structures.
 For more information on how to use each of these objects, see the comments on
 each class.
 """
+# TODO(sredmond): Handle lifecycles and deletion of these objects.
 import campy.graphics.gtypes as _gtypes
 import campy.graphics.gcolor as _gcolor
 import campy.private.platform as _platform
 import campy.graphics.gmath as _gmath
 
-import collections
+from collections.abc import MutableSequence
 import math
 
 __ARC_TOLERANCE__ = 2.5 # Default arc tolerance
@@ -1677,8 +1678,8 @@ class GPolygon(GObject):
         return "GPolygon(num_vertices={})".format(len(self.vertices))
 
 
-class GCompound(GObject, collections.abc.MutableSequence):
-    """A collection of other graphics objects.
+class GCompound(GObject, MutableSequence):
+    """A graphics object that is a collection of other graphics objects.
 
     Once assembled, the contained :class:`GObject`s can be manipulated as a unit.
 
@@ -1687,163 +1688,159 @@ class GCompound(GObject, collections.abc.MutableSequence):
 
     Internally, the :class:`GCompound` just holds a stack of its :class:`GObject`s.
     """
-
+    # TODO(sredmond): I was a little delirious when I wrote this - take another look over it.
+    # TODO(sredmond): It's a little weird to make this into a collection.
     def __init__(self):
         """Create an empty :class:`GCompound`."""
         super().__init__(self)
         self.contents = []
         _platform.Platform().gcompound_constructor(self)
 
-    def add(self, gobj, x=None, y=None):
-        '''
-        Adds a new graphical object to the GCompound.  The second
-        form moves the object to the point (x, y) first.
+    # These abstract methods end up adding a bunch of derived methods, some of which are nice.
+    # One of these is __contains__, which we override for the point containment. That might break
+    # something unexpectedly, so TODO(sredmond): Read more about these abstract superclasses and
+    # make a call.
+    def __getitem__(self, index):
+        """Return the :class:`GObject` at the given index.
 
-        @type gobj: GObject
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        if(x != None and y != None):
-            gobj.setLocation(x=x, y=y)
+        The number is from back to front in the z-dimension. That is, index 0
+        refers to the backmost element and index -1 refers to the frontmost element.
+        """
+        return self.contents[index]
+
+    def __setitem__(self, index, value):
+        self.contents[index] = value
+
+    def __delitem__(self, index):
+        gobj = self.contents.pop(index)
+        _platform.Platform().gobject_remove(gobj)
+        gobj.parent = None
+
+    def __len__(self):  # Definitely keep this one!
+        """Return the number of graphical objects stored in this :class:`GCompound`."""
+        return len(self.contents)
+
+    def insert(self, index, value):
+        self.contents.insert(index, value)
+    # End abstract methods.
+
+    def add(self, gobj, x=None, y=None):
+        """Add a new :class:`GObject` to this :class:`GCompound`.
+
+        If two additional arguments x and y are both supplied, move the object
+        to ``(x, y)`` first. It is an error to specify just one of x and y.
+
+        :param gobj: The object to add to this compound.
+        :param x: (optional) The x-coordinate of the location to which to move this object.
+        :param y: (optional) The y-coordinate of the location to which to move this object.
+        """
+        # TODO(sredmond): Raise an error if only x or only y is set.
+        if x is not None and y is not None:
+            gobj.location = (x, y)
 
         _platform.Platform().gcompound_add(self, gobj)
         self.contents.append(gobj)
         gobj.parent = self
 
     def remove(self, gobj):
-        '''
-        Removes the specified object from the GCompound.
+        """Remove a :class:`GObject` from this :class:`GCompound`.
 
-        @type gobj: GObject
-        @rtype: void
-        '''
-        index = self.findGObject(gobj)
-        if(index != -1): self.removeAt(index)
-        # TODO(sredmond): Return a boolean value here.
+        Return whether or not the :class:`GCompound` contained the :class:`GObject`.
 
-    def removeAll(self):
-        '''
-        Removes all graphical objects from the GCompound.
+        :param gobj: The object to remove.
+        :returns: Whether this compound contained the object.
+        """
+        # TODO(sredmond): People familiar with Python lists might expect this to raise a ValueError if the gobj isn't there.
+        try:
+            self.contents.remove(gobj)
+        except ValueError:
+            return False
+        else:
+            return True
 
-        @rtype: void
-        '''
-        while(len(self.contents) > 0):
-            self.removeAt(0)
+    def clear(self):
+        """Remove all graphical objects from the GCompound."""
+        while self.contents:
+            self.pop()
 
-    def getElementCount(self):
-        '''
-        Returns the number of graphical objects stored in the
-        GCompound.
+    @property
+    def bounds(self):
+        """Get the bounding box for this :class:`GCompound`.
 
-        @rtype: int
-        '''
-        return len(self.contents)
+        The bounding box of a :class:`GCompound` is the smallest rectangle that
+        covers all of its components bounding boxes.
 
-    def getElement(self, index):
-        '''
-        Returns the graphical object at the specified index,
-        numbering from back to front in the the z dimension.
+        :returns: A bounding box that covers all of this compounds components.
+        :rtype: :class:`GRectangle`
+        """
+        if self._transformed:
+            return _platform.Platform().gobject_get_bounds(self)
 
-        @rtype: GObject
-        '''
-        return self.contents[index]
+        min_x = min((obj.x for obj in self.contents), default=-1)
+        min_y = min((obj.y for obj in self.contents), default=-1)
+        max_x = max((obj.x + obj.width for obj in self.contents), default=-1)
+        max_y = max((obj.y + obj.height for obj in self.contents), default=-1)
 
-    def getBounds(self):
-        '''
-        Returns a bounding rectangle for this compound.
+        return _gtypes.GRectangle(min_x, min_y, max_x - min_x, max_y - min_y)
 
-        @rtype: GRectangle
-        '''
-        if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
-        import sys
-        xMin = sys.float_info.max
-        yMin = sys.float_info.max
-        xMax = sys.float_info.min
-        yMax = sys.float_info.min
-        for i in range(len(self.contents)):
-            bounds = self.contents[i].getBounds()
-            xMin = min(xMin, bounds.getX())
-            yMin = min(yMin, bounds.getY())
-            xMax = max(xMax, bounds.getX())
-            yMax = max(yMax, bounds.getY())
+    def __contains__(self, point):
+        """Implement ``point in self``.
 
-        return _gtypes.GRectangle(xMin, yMin, xMax - xMin, yMax - yMin)
+        Check whether a given :class:`GPoint` or 2-element tuple is contained
+        within the bounding box of this :class:`GCompound`. A point is contained
+        within a GCompound if it is contained within any of the components.
+        """
+        # Attempt to unpack the supplied point as a tuple.
+        x, y = point
 
-    def contains(self, x, y):
-        '''
-        Checks if this GCompound contains the given point
+        if self.transformed:
+            return _platform.Platform().gobject_contains(self, x, y)
 
-        @type x: float
-        @type y: float
-        @rtype: boolean
-        '''
-        if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
-        for i in range(len(self.contents)):
-            if(self.contents[i].contains(x, y)): return True
-        return False
+        return any((x, y) in obj for obj in self.contents)
 
-    def sendForward(self, gobj):
-        '''
-        Internal method
-        '''
-        index = self.findGObject(gobj)
-        if(index == -1): return
-        if(index != len(self.contents)-1):
-            self.contents.pop(index)
-            self.contents.insert(index + 1, gobj)
-            _platform.Platform().gobject_send_forward(gobj)
+    def send_forward(self, gobj):
+        try:
+            index = self.contents.find(gobj)
+        except ValueError:
+            return
+        else:
+            if index != len(self) - 1:
+                self.contents.pop(index)
+                self.contents.insert(index + 1, gobj)
+                _platform.Platform().gobject_send_forward(gobj)
 
-    def sendToFront(self, gobj):
-        '''
-        Internal method
-        '''
-        index = self.findGObject(gobj)
-        if(index == -1): return
-        if(index != len(self.contents)-1):
-            self.contents.pop(index)
-            self.contents.append(gobj)
-            _platform.Platform().gobject_send_to_front(gobj)
+    def send_to_front(self, gobj):
+        try:
+            index = self.contents.find(gobj)
+        except ValueError:
+            return
+        else:
+            if index != len(self) - 1:
+                self.contents.pop(index)
+                self.contents.append(index + 1, gobj)
+                _platform.Platform().gobject_send_to_front(gobj)
 
-    def sendBackward(self, gobj):
-        '''
-        Internal method
-        '''
-        index = self.findGObject(gobj)
-        if(index == -1): return
-        if(index != 0):
-            self.contents.pop(index)
-            self.contents.insert(index - 1, gobj)
-            _platform.Platform().gobject_send_backward(gobj)
+    def send_backward(self, gobj):
+        try:
+            index = self.contents.find(gobj)
+        except ValueError:
+            return
+        else:
+            if index > 0:
+                self.contents.pop(index)
+                self.contents.insert(index - 1, gobj)
+                _platform.Platform().gobject_send_backward(gobj)
 
-    def sendToBack(self, gobj):
-        '''
-        Internal method
-        '''
-        index = self.findGObject(gobj)
-        if(index == -1): return
-        if(index != 0):
-            self.contents.pop(index)
-            self.contents.insert(0, gobj)
-            _platform.Platform().gobject_send_to_back(gobj)
-
-    def findGObject(self, gobj):
-        '''
-        Internal method
-        '''
-        n = len(self.contents)
-        for i in range(n):
-            if(self.contents[i] == gobj): return i # comparison ok? I think so
-        return -1
-
-    def removeAt(self, index):
-        '''
-        Internal method
-        '''
-        gobj = self.contents[index]
-        self.contents.pop(index)
-        _platform.Platform().gobject_remove(gobj)
-        gobj.parent = None
+    def send_to_back(self, gobj):
+        try:
+            index = self.contents.find(gobj)
+        except ValueError:
+            return
+        else:
+            if index > 0:
+                self.contents.pop(index)
+                self.contents.insert(0, gobj)
+                _platform.Platform().gobject_send_to_back(gobj)
 
     def __iter__(self):
         return iter(self.contents)
