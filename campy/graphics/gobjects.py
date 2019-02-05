@@ -23,17 +23,9 @@ import campy.private.platform as _platform
 import campy.graphics.gmath as _gmath
 import math
 
-__LINE_TOLERANCE__ = 1.5 # Default line tolerance
 __ARC_TOLERANCE__ = 2.5 # Default arc tolerance
 __DEFAULT_CORNER__ = 10 # Default corner rounding
 __DEFAULT_GLABEL_FONT__ = "Dialog-13" # Default label font
-
-
-def dsq(x0, y0, x1, y1):
-    '''
-    Internal method to find the difference between two points squared
-    '''
-    return (x1 - x0) * (x1 - x0) + (y1 - y0) * (y1 - y0)
 
 
 # SECTION: Graphical Mixins
@@ -80,6 +72,7 @@ class Fillable:
 
 # END SECTION: Graphical Mixins
 
+__ID__ = 0
 class GObject:
     '''
     This class is the common superclass of all graphical objects that can
@@ -1363,123 +1356,197 @@ class GArc(GObject):
 
 
 class GLine(GObject):
-    '''
-    This graphical object subclass represents a line segment.  For
-    example, the following code adds lines that mark the diagonals
-    of the graphics window::
+    """Graphical representation of a line segment defined by two endpoints.
 
-        gw = _gwindow.GWindow()
-        print("This program draws the diagonals on the window.")
-        gw.add(gobjects.GLine(0, 0, gw.getWidth(), gw.getHeight()))
-        gw.add(gobjects.GLine(0, gw.getHeight(), gw.getWidth(), 0))
-    '''
+    To create a line from ``(14, 41)`` to ``(601, 106)``::
 
+        line = GLine(14, 41, 601, 106)
+
+    To draw two diagonal lines crossing a :class:`GWindow`::
+
+        window = GWindow()
+        window.add(GLine(0, 0, window.width, window.height))
+        window.add(GLine(0, window.height, window.width, 0))
+
+    Note that creating a :class:`GLine` will not automatically add it to any
+    displays. Rather, you must explicitly call the `.add` method on an
+    appropriate :class:`GWindow`.
+    """
     def __init__(self, x0, y0, x1, y1):
-        '''
-        Initializes a line segment from its endpoints.  The point
-        (x0, y0) defines the start of the
-        line and the point (x1, y1) defines
-        the end.
+        """Create a line segment from its endpoints.
 
-        @type x0: float
-        @type x1: float
-        @type y0: float
-        @type y1: float
-        @rtype: void
-        '''
-        GObject.__init__(self)
-        self.x0 = x0
-        self.y0 = y0
-        self.dx = x1 - x0
-        self.dy = y1 - y0
-        _platform.Platform().gline_constructor(self, x0, y0, x1, y1)
+        The first two parameters ``(x0, y0)`` define the start of the line, and
+        the next two parameters ``(x1, y1)`` define the end of the line.
 
-    def setStartPoint(self, x, y):
-        '''
-        Sets the initial point in the line to (x, y),
-        leaving the end point unchanged.  This method is therefore different from
-        setLocation, which moves both components of the line segment.
+        To create a line from ``(0, 0)`` to ``(41, 106)``::
 
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        self.dx += self.x - x
-        self.dy += self.y - y
-        self.x = x
-        self.y = y
-        _platform.Platform().gline_set_start_point(self, x, y)
+            line = GLine(0, 0, 41, 106)
 
-    def getStartPoint(self):
-        '''
-        Returns the point at which the line starts.
+        :param x0: The x-coordinate of the starting point.
+        :param y0: The y-coordinate of the starting point.
+        :param x1: The x-coordinate of the ending point.
+        :param y1: The y-coordinate of the ending point.
+        """
+        # TODO(sredmond): Consider allowing the user to supply two GPoints (with splats?)
+        super().__init__()
+        self._x0 = x0
+        self._y0 = y0
+        self._x1 = x1
+        self._y1 = y1
 
-        @rtype: GPoint
-        '''
-        return _gtypes.GPoint(self.x,self.y)
+        # TODO(sredmond): Don't bother sending along the values when we also send the built object.
+        _platform.Platform().gline_constructor(self, self._x0, self._y0, self._x1, self._y1)
 
-    def setEndPoint(self, x, y):
-        '''
-        Sets the end point in the line to (x, y),
-        leaving the start point unchanged.  This method is therefore different from
-        setLocation, which moves both components of the line segment.
+    @property
+    def start(self):
+        """Get or set this :class:`GLine`'s starting point.
 
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        self.dx = x - self.x
-        self.dy = y - self.y
-        _platform.Platform().gline_set_end_point(self, x, y)
+        Changing the start point modifies the line segment even if it has
+        already been added to a :class:`GWindow`.
 
-    def getEndPoint(self):
-        '''
-        Returns the point at which the line ends.
+        Usage::
 
-        @rtype: GPoint
-        '''
-        return _gtypes.GPoint(self.x + self.dx, self.y + self.dy)
+            window = GWindow()
+            line = GLine(0, 0, 41, 41)
+            window.add(line)
+            print(line.start)  # => GPoint(0, 0)
+            line.start = 4, 1
+            print(line.start)  # => GPoint(4, 1)
 
-    def contains(self, x, y):
-        '''
-        Returns whether or not this object contains the point x, y
+        You can supply either a GPoint or a 2-element tuple to this property.
+        Accessing this property will return a GPoint which can be unpacked as a
+        tuple::
 
-        @type x: float
-        @type y: float
-        @rtype: boolean
-        '''
-        if(self.transformed): return _platform.Platform().gline_contains(self, x, y)
-        x0 = self.getX()
-        y0 = self.getY()
-        x1 = x0 + self.dx
-        y1 = y0 + self.dy
-        tSquared = __LINE_TOLERANCE__ * __LINE_TOLERANCE__ #!!
-        if(dsq(x, y, x0, y0) < tSquared): return True
-        if(dsq(x, y, x1, y1) < tSquared): return True
-        if(x < min(x0, x1) - __LINE_TOLERANCE__): return False
-        if(x > max(x0, x1) + __LINE_TOLERANCE__): return False
-        if(y < min(y0, y1) - __LINE_TOLERANCE__): return False
-        if(y > max(y0, y1) + __LINE_TOLERANCE__): return False
-        if((x0 - x1) == 0 and (y0 - y1) == 0): return False
-        u = ((x - x0) * (x1 - x0) + (y - y0) * (y1 - y0)) / dsq(x0, y0, x1, y1)
-        return dsq(x, y, x0 + u * (x1 - x0), y0 + u * (y1 - y0)) < tSquared
+            window = GWindow()
+            line = GLine(0, 0, 41, 41)
+            window.add(line)
+            line.start = GPoint(16, 25)  # Supply a GPoint to the setter.
+            startx, starty = line.start  # Unpack the start point immediately.
 
-    def getType(self):
-        '''
-        Returns the type of this object
+        Setting the start point does not modify the end point. Thus, this is
+        different from setting this :class:`GLine`'s location, which translates
+        the entire line segment.
+        """
+        return _gtypes.GPoint(self._x0, self._y0)
 
-        @rtype: string
-        '''
-        return "GLine"
+    @start.setter
+    def start(self, start_point):
+        # Attempt to unpack the supplied start point as a tuple. This supports
+        # both GPoints and 2-element tuples.
+        start_x, start_y = start_point
+        self._x0 = start_x
+        self._y0 = start_y
+        _platform.Platform().gline_set_start_point(self, self._x0, self._y0)
 
-    def toString(self):
-        '''
-        Returns the string form of this object
+    @property
+    def end(self):
+        """Get or set this :class:`GLine`'s ending point.
 
-        @rtype: string
-        '''
-        return "GLine(" + str(self.x) + ", " + str(self.y) + ", " \
-                + str(x + dx) + ", " + str(y + dy) + ")"
+        Changing the end point modifies the line segment even if it has
+        already been added to a :class:`GWindow`.
+
+        Usage::
+
+            window = GWindow()
+            line = GLine(0, 0, 41, 41)
+            window.add(line)
+            print(line.end)  # => GPoint(41, 41)
+            line.end = 4, 1
+            print(line.end)  # => GPoint(4, 1)
+
+        You can supply either a GPoint or a 2-element tuple to this property.
+        Accessing this property will return a GPoint which can be unpacked as a
+        tuple::
+
+            window = GWindow()
+            line = GLine(0, 0, 41, 41)
+            window.add(line)
+            line.end = GPoint(106, 106)  # Supply a GPoint to the setter.
+            endx, endy = line.start  # Unpack the end point immediately.
+
+        Setting the end point does not modify the start point. Thus, this is
+        different from setting this :class:`GLine`'s location, which translates
+        the entire line segment.
+        """
+        return _gtypes.GPoint(self._x1, self._y1)
+
+    @end.setter
+    def end(self, end_point):
+        # Attempt to unpack the supplied start point as a tuple. This supports
+        # both GPoints and 2-element tuples.
+        end_x, end_y = start_point
+        self._x1 = end_x
+        self._y1 = end_y
+        _platform.Platform().gline_set_start_point(self, self._x1, self._y1)
+
+    # TODO(sredmond): Add methods to get/set dx/dy?
+    # TODO(sredmond): Add methods to get/set just x0/y0/x1/y1?
+
+    def __contains__(self, point, tolerance=1.5):
+        """Implement ``point in self``.
+
+        Check whether a given :class:`GPoint` or 2-element tuple is contained
+        within this line.
+
+        Since a line segment technically has zero area, this method actual checks
+        whether the supplied point is within some small, default tolerance (inclusive)
+        of any point on the line segment, measured by perpendicular distance.
+        For example, the point ``(2, 2)`` is within the default tolerance of
+        the line from ``(0, 0)`` to ``(5, 5)``::
+
+            line = GLine(0, 0, 5, 5)
+            print((2, 2) in line)  # => True
+            print((0, 5) in line)  # => False
+
+        For advanced users, this method is overloaded with an optional tolerance
+        parameter. Since *almost* no one will ever want to directly call
+        ``self.__contains__(point)``, the tolerance defaults to a reasonable value.
+        However, to check for containment with a custom tolerance, call::
+
+            line = GLine(0, 0, 5, 5)
+            print(line.__contains__((2, 2), tolerance=0.5))  # => False
+
+        :param point: The :class:`GPoint` or 2-element tuple to check.
+        :param tolerance: The maximum distance (in pixels) to still count as containment.
+        :returns: Whether the point is within a tolerance of any point on this line.
+        """
+        # TODO(sredmond): This method will need to change if the GLine is transformed.
+
+        # The distance between a point (x, y) and a line (infinite, not a segment)
+        # between two points (x0, y0) and (x1, y1) is given by:
+        #
+        #    |(y1 - y0) * x - (x1 - x0) * y + x1 * y0 - y1 * x0|
+        #    ---------------------------------------------------
+        #           distance between (x0, y0) and (x1, y1)
+        # Attempt to unpack the supplied point as a tuple.
+        x, y = point
+
+        # If our line segment is really a point, just check the circle.
+        if self._x0 == self._x1 and self._y0 == self._y1:
+            return math.hypot(self._x0 - x, self._y0 - y) <= tolerance
+
+        # If the distance to either of the endpoints is small enough, we're good.
+        if math.hypot(self._x0 - x, self._y0 - y) <= tolerance or math.hypot(self._x1 - x, self._y1 - y) <= tolerance:
+            return True
+
+        # Compute coefficients a, b, c for the expression of this line as ax + by + c = 0
+        a = self._y1 - self._y0
+        b = self._x0 - self._x1
+        c = self._x1 * self._y0 - self._y1 * self._x0
+        dist = math.hypot(a, b)
+
+        proj_x = (b * (b * x - a * y) - a * c) / (dist * dist)
+        proj_y = (a * (-b * x + a * y) - b * c) / (dist * dist)
+
+        # Otherwise, we're only close enough if (1) the point we project to (on
+        # the full line) is between the two endpoints AND (2) we are close enough
+        # to that point.
+        return (min(self._x0, self._x1) <= proj_x <= max(self._x0, self._x1)
+            and min(self._y0, self._y1) <= proj_y <= max(self._y0, self._y1)
+            and abs(a * x + b * y + c) / dist <= tolerance)
+
+    def __str__(self):
+        return "GLine({self.x0}, {self.y0}, {self.x1}, {self.y1}".format(self=self)
 
 class GImage(GObject):
     '''
