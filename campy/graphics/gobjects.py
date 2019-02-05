@@ -392,6 +392,10 @@ class GObject:
 		if(bounds == None): return False
 		return (x, y) in bounds
 
+	def __contains__(self, pt):
+		x, y = pt
+		return self.contains(x=x, y=y)
+
 	def getType(self):
 		'''
 		Returns the concrete type of the object as a string, as in
@@ -630,6 +634,7 @@ class GCompound(GObject):
 		'''
 		index = self.findGObject(gobj)
 		if(index != -1): self.removeAt(index)
+		# TODO(sredmond): Return a boolean value here.
 
 	def removeAll(self):
 		'''
@@ -769,6 +774,9 @@ class GCompound(GObject):
 		self.contents.pop(index)
 		_platform.Platform().gobject_remove(gobj)
 		gobj.parent = None
+
+	def __iter__(self):
+		return iter(self.contents)
 
 class GRoundRect(GRect):
 	'''
