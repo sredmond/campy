@@ -156,6 +156,7 @@
 
 <span class="kn">import</span> <span class="nn">campy.graphics.gtypes</span> <span class="k">as</span> <span class="nn">_gtypes</span>
 <span class="kn">import</span> <span class="nn">campy.graphics.gobjects</span> <span class="k">as</span> <span class="nn">_gobjects</span>
+<span class="kn">import</span> <span class="nn">campy.graphics.gtypes</span> <span class="k">as</span> <span class="nn">_gtypes</span>
 <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
 <span class="kn">import</span> <span class="nn">campy.graphics.gcolor</span> <span class="k">as</span> <span class="nn">_gcolor</span>
 
@@ -163,31 +164,31 @@
 <div class="viewcode-block" id="Alignment"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.Alignment">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
 <span class="k">class</span> <span class="nc">Alignment</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Horizontal alignment within a region.&quot;&quot;&quot;</span>
-    <span class="n">LEFT</span>   <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">LEFT</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">CENTER</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">RIGHT</span>  <span class="o">=</span> <span class="mi">2</span></div>
+    <span class="n">RIGHT</span> <span class="o">=</span> <span class="mi">2</span></div>
 
 
 <div class="viewcode-block" id="Region"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.Region">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
 <span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Regions of a :class:`GWindow`.&quot;&quot;&quot;</span>
     <span class="n">CENTER</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">EAST</span>   <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">NORTH</span>  <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">SOUTH</span>  <span class="o">=</span> <span class="mi">3</span>
-    <span class="n">WEST</span>   <span class="o">=</span> <span class="mi">4</span></div>
+    <span class="n">EAST</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">NORTH</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">SOUTH</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">WEST</span> <span class="o">=</span> <span class="mi">4</span></div>
 
 
 <div class="viewcode-block" id="CloseOperation"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.CloseOperation">[docs]</a><span class="nd">@_enum</span><span class="o">.</span><span class="n">unique</span>
 <span class="k">class</span> <span class="nc">CloseOperation</span><span class="p">(</span><span class="n">_enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Actions to take on closure of a GWindow.</span>
+    <span class="sd">&quot;&quot;&quot;Actions to take upon closure of a GWindow.</span>
 
 <span class="sd">    Currently unused.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">DO_NOTHING</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">HIDE</span>       <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">DISPOSE</span>    <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">EXIT</span>       <span class="o">=</span> <span class="mi">3</span></div>
+    <span class="n">HIDE</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">DISPOSE</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">EXIT</span> <span class="o">=</span> <span class="mi">3</span></div>
 
 
 <span class="c1"># TODO(sredmond): There used to be a lot of fluff around copying a GWindow.</span>
@@ -224,10 +225,8 @@
     <span class="c1"># The default width (in pixels) for a new GWindow.</span>
     <span class="n">DEFAULT_WIDTH</span> <span class="o">=</span> <span class="mi">500</span>
 
-
     <span class="c1"># The default height (in pixels) for a new GWindow.</span>
     <span class="n">DEFAULT_HEIGHT</span> <span class="o">=</span> <span class="mi">500</span>
-
 
     <span class="c1"># TODO(sredmond): Add a default color once the GColor library is fixed!</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">DEFAULT_WIDTH</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">DEFAULT_HEIGHT</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -271,13 +270,11 @@
         <span class="c1"># TODO(sredmond): Isn&#39;t it a little silly to pass this object along with its attributes?</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top</span><span class="p">)</span>
 
-
 <div class="viewcode-block" id="GWindow.close"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Close this GWindow.&quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Use the CloseOperation setting to determine how aggresive to close things down.</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
-
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -286,14 +283,12 @@
         <span class="c1"># this value will be incorrect.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_width</span>
 
-
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get this GWindow&#39;s height (in pixels).&quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): If the actual GWindow&#39;s height changes (i.e. from a resize operation),</span>
         <span class="c1"># this value will be incorrect.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_height</span>
-
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -309,12 +304,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_visible</span>
 
-
     <span class="nd">@visible</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_visible</span> <span class="o">=</span> <span class="n">flag</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_set_visible</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="n">gw</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -330,12 +323,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_title</span>
 
-
     <span class="nd">@title</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_title</span> <span class="o">=</span> <span class="n">title</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_set_window_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
-
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -351,7 +342,6 @@
     <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="n">color</span>
         <span class="c1"># TODO(sredmond): Canonicalize this input color into a GColor.</span>
-
 
 <div class="viewcode-block" id="GWindow.draw_line"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.draw_line">[docs]</a>    <span class="k">def</span> <span class="nf">draw_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw a line between the given coordinates.</span>
@@ -378,7 +368,6 @@
         <span class="n">line</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
 
-
 <div class="viewcode-block" id="GWindow.draw_polar_line"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.draw_polar_line">[docs]</a>    <span class="k">def</span> <span class="nf">draw_polar_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw a line from an initial point with a given length and polar direction.</span>
 
@@ -386,10 +375,10 @@
 
 <span class="sd">        This function also returns the ending point of the constructed line.</span>
 
-<span class="sd">        To draw a line of length 3 from the point (0, 0) at an angle of 60 degrees::</span>
+<span class="sd">        To draw a line of length 3 from the point (100, 100) at an angle of 60 degrees::</span>
 
 <span class="sd">            window = GWindow()</span>
-<span class="sd">            window.draw_polar_line(0, 0, 3, 60)</span>
+<span class="sd">            window.draw_polar_line(100, 100, 3, 60)</span>
 
 <span class="sd">        :param x: The x-coordinate of the starting point.</span>
 <span class="sd">        :param y: The y-coordinate of the starting point.</span>
@@ -398,11 +387,10 @@
 <span class="sd">        :returns: The endpoint of the line.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Consider alternate ways to specify coordinates with a GPoint.</span>
-        <span class="n">x1</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
-        <span class="n">y1</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">-</span> <span class="n">r</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>  <span class="c1"># Subtraction, since y decreases upwards.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">draw_line</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GPoint</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span></div>
-
+        <span class="n">x_end</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+        <span class="n">y_end</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">r</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>  <span class="c1"># Subtraction, since y decreases upwards.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw_line</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x_end</span><span class="p">,</span> <span class="n">y_end</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_gtypes</span><span class="o">.</span><span class="n">GPoint</span><span class="p">(</span><span class="n">x_end</span><span class="p">,</span> <span class="n">y_end</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GWindow.draw_oval"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.draw_oval">[docs]</a>    <span class="k">def</span> <span class="nf">draw_oval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw the outline of an oval.</span>
@@ -430,10 +418,10 @@
 <span class="sd">        :param height: The height of the oval in pixels.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Find a way to supply a GRectangle&#39;s bounds instead.</span>
-        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
-        <span class="n">oval</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
+        <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
+        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="c1"># oval.color = self.color  # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">oval</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="GWindow.fill_oval"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.fill_oval">[docs]</a>    <span class="k">def</span> <span class="nf">fill_oval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw a filled oval.</span>
@@ -461,13 +449,13 @@
 <span class="sd">        :param height: The height of the oval in pixels.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Find a way to supply a GRectangle&#39;s bounds instead.</span>
-        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
+        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">oval</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="c1"># TODO(sredmond): Possibly, fall back to a black outline when the oval is filled.</span>
-        <span class="n">oval</span><span class="o">.</span><span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
-        <span class="n">oval</span><span class="o">.</span><span class="n">filled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># oval.fill_color = self.color # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.</span>
+        <span class="c1"># oval.filled = True  # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">oval</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="GWindow.draw_rect"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.draw_rect">[docs]</a>    <span class="k">def</span> <span class="nf">draw_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw the outline of a rectangle.</span>
@@ -489,10 +477,10 @@
 <span class="sd">        :param height: The height of the rectangle in pixels.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Find a way to supply a GRectangle&#39;s bounds instead.</span>
-        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="GWindow.fill_rect"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.fill_rect">[docs]</a>    <span class="k">def</span> <span class="nf">fill_rect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw a filled rectangle.</span>
@@ -513,12 +501,12 @@
 <span class="sd">        :param width: The width of the rectangle in pixels.</span>
 <span class="sd">        :param height: The height of the rectangle in pixels.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">filled</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="GWindow.draw"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.draw">[docs]</a>    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Draw a GObject on this GWindow&#39;s background layer.</span>
@@ -535,7 +523,6 @@
             <span class="n">gobj</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">)</span></div>
 
-
 <div class="viewcode-block" id="GWindow.clear"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Clear all content from this GWindow.</span>
 
@@ -543,7 +530,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># Remove from background layer.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top</span><span class="o">.</span><span class="n">removeAll</span><span class="p">()</span>  <span class="c1"># Remove from foreground layer.</span></div>
-
 
 <div class="viewcode-block" id="GWindow.add"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add a :class:`GObject` to the foreground layer of this :class:`GWindow`.</span>
@@ -564,14 +550,12 @@
             <span class="n">gobj</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gobj</span><span class="p">)</span></div>
 
-
     <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Implement ``self += gobj``.</span>
 
 <span class="sd">        Add a GObject to the foreground layer of this :class:`GWindow`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gobj</span><span class="p">)</span>
-
 
 <div class="viewcode-block" id="GWindow.remove"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Remove a :class:`GObject` from this :class:`GWindow`.</span>
@@ -584,7 +568,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_top</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">gobj</span><span class="p">)</span></div>
 
-
     <span class="k">def</span> <span class="nf">__isub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Implement ``self -= gobj``.</span>
 
@@ -592,7 +575,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Ignore the return value.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">gobj</span><span class="p">)</span>
-
 
 <div class="viewcode-block" id="GWindow.add_to_region"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.add_to_region">[docs]</a>    <span class="k">def</span> <span class="nf">add_to_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Add an interactor to the control strip in a given region.</span>
@@ -614,7 +596,6 @@
         <span class="c1"># TODO(sredmond): Either here, or at the platform level, convert into the region as a string.</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_add_to_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span></div>
 
-
 <div class="viewcode-block" id="GWindow.remove_from_region"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.remove_from_region">[docs]</a>    <span class="k">def</span> <span class="nf">remove_from_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Remove an interactor from the control strip in a given region.</span>
 
@@ -626,7 +607,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Either here, or at the platform level, convert into the region as a string.</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_remove_from_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobj</span><span class="p">,</span> <span class="n">region</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="GWindow.set_region_alignment"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.set_region_alignment">[docs]</a>    <span class="k">def</span> <span class="nf">set_region_alignment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">align</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Set an alignment for a given region.</span>
@@ -646,7 +626,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Either here, or at the platform level, convert into the region and alignment as a string.</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_set_region_alignment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">align</span><span class="p">)</span></div>
-
 
 <div class="viewcode-block" id="GWindow.get_object_at"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.GWindow.get_object_at">[docs]</a>    <span class="k">def</span> <span class="nf">get_object_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the topmost GObject containing the point (x, y) or None.</span>
@@ -675,7 +654,6 @@
                 <span class="k">return</span> <span class="n">gobj</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
-
     <span class="k">def</span> <span class="nf">_request_focus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Ask the OS to assign keyboard focus to this GWindow.</span>
 
@@ -685,7 +663,6 @@
 <span class="sd">        It is not guaranteed that the OS will give focus to this GWindow.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_request_focus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
 
     <span class="k">def</span> <span class="nf">_repaint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Schedule a repaint on this window.&quot;&quot;&quot;</span>
@@ -723,7 +700,7 @@
 
 <span class="sd">    :returns: The height of the display screen in pixels.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_get_screen_height</span><span class="p">();</span></div>
+    <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gwindow_get_screen_height</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="exit_graphics"><a class="viewcode-back" href="../../../campy.graphics.gwindow.html#campy.graphics.gwindow.exit_graphics">[docs]</a><span class="k">def</span> <span class="nf">exit_graphics</span><span class="p">():</span>

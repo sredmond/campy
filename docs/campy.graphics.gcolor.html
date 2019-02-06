@@ -163,13 +163,22 @@ several possible representations, and serialized to any of those representations
 efficiently.</p>
 <dl class="class">
 <dt id="campy.graphics.gcolor.GColor">
-<em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">GColor</code><span class="sig-paren">(</span><em>argb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">GColor</code><span class="sig-paren">(</span><em>rgb</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Immutable!
-A representation of a color comes in many forms:
-human-readable: a string like “blue” or “seagreen”
-hex: a string like “#83E” or “#F390D2”
-int: an argb 32-bit value</p>
+<p>A <a class="reference internal" href="#campy.graphics.gcolor.GColor" title="campy.graphics.gcolor.GColor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code></a> represents a color.</p>
+<p>Colors can be represented in many different forms.</p>
+<ol class="arabic simple">
+<li>As a three-integer tuple, such as as (168, 0, 59), with each entry in the range 0..255</li>
+<li>As a three-character hex string prefaced with ‘#’, such as “#83E”</li>
+</ol>
+<p>(3) As a six-character hex string prefaced with ‘#’, such as “#A8003B”
+(2) As a three-character hex string prefaced with ‘0x’, such as “0x83E”
+(4) As a six-character hex string prefaced with ‘0x’, such as “0xA8003B”
+(5) As a name, such as “red” or “LiGhT sKy BlUe”
+(6) As a GColor constant, such as GColor.RED or GColor.LIGHT_SKY_BLUE.
+(7) As a 24-bit integer, representing the red, green, and blue channels.</p>
+<p>The canonical (internal) form for a GColor is as three integers between 0 and 255.</p>
+<p>A <a class="reference internal" href="#campy.graphics.gcolor.GColor" title="campy.graphics.gcolor.GColor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code></a> is immutable.</p>
 <dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.as_hex">
 <code class="descname">as_hex</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.as_hex" title="Permalink to this definition">¶</a></dt>

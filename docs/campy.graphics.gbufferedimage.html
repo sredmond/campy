@@ -167,7 +167,27 @@
 <dl class="attribute">
 <dt id="campy.graphics.gbufferedimage.GBufferedImage.bounds">
 <code class="descname">bounds</code><a class="headerlink" href="#campy.graphics.gbufferedimage.GBufferedImage.bounds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the bounding box for this object.</p>
+<p>The bounding box of an object is the smallest rectangle that covers
+everything drawn by the figure. The coordinates of this rectangle will
+usually, but not always, match the object’s location. For example, the
+location of a <code class="xref py py-class docutils literal notranslate"><span class="pre">GLabel</span></code> gives the coordinates of the point on the
+baseline where the string begins. However, the bounds of the GLabel
+represent a rectangle that entirely covers the window area occupied by
+the GLabel.</p>
+<p>Subclasses must override this property (and optionally declare a setter)
+to indicate their bounding box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The bounding box of this GObject.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">GRectangle</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gbufferedimage.GBufferedImage.clear">

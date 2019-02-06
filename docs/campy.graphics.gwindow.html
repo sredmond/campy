@@ -182,7 +182,7 @@
 <dt id="campy.graphics.gwindow.CloseOperation">
 <em class="property">class </em><code class="descclassname">campy.graphics.gwindow.</code><code class="descname">CloseOperation</code><a class="reference internal" href="_modules/campy/graphics/gwindow.html#CloseOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gwindow.CloseOperation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
-<p>Actions to take on closure of a GWindow.</p>
+<p>Actions to take upon closure of a GWindow.</p>
 <p>Currently unused.</p>
 <dl class="attribute">
 <dt id="campy.graphics.gwindow.CloseOperation.DISPOSE">
@@ -411,9 +411,9 @@ and a height of 200 pixels:</p>
 <dd><p>Draw a line from an initial point with a given length and polar direction.</p>
 <p>The angle is measured in degrees counterclockwise from the positive x-axis.</p>
 <p>This function also returns the ending point of the constructed line.</p>
-<p>To draw a line of length 3 from the point (0, 0) at an angle of 60 degrees:</p>
+<p>To draw a line of length 3 from the point (100, 100) at an angle of 60 degrees:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
-<span class="n">window</span><span class="o">.</span><span class="n">draw_polar_line</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">draw_polar_line</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">

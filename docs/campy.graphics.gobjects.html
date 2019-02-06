@@ -155,31 +155,22 @@
             
   <div class="section" id="module-campy.graphics.gobjects">
 <span id="campy-graphics-gobjects-module"></span><h1>campy.graphics.gobjects module<a class="headerlink" href="#module-campy.graphics.gobjects" title="Permalink to this headline">¶</a></h1>
-<p>This file exports a hierarchy of graphical shapes based on
-the model developed for the ACM Java Graphics.</p>
-<dl class="class">
-<dt id="campy.graphics.gobjects.Fillable">
-<em class="property">class </em><code class="descclassname">campy.graphics.gobjects.</code><code class="descname">Fillable</code><span class="sig-paren">(</span><em>filled=False</em>, <em>fill_color=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#Fillable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.Fillable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Represents a graphical object that can be filled.</p>
-<p>Adds a _filled attribute to the subclass instance as
-well as a _fill_color.</p>
-<dl class="attribute">
-<dt id="campy.graphics.gobjects.Fillable.fill_color">
-<code class="descname">fill_color</code><a class="headerlink" href="#campy.graphics.gobjects.Fillable.fill_color" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the color used to fill this object.</p>
-<p>If none has been set, return the empty string.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="campy.graphics.gobjects.Fillable.filled">
-<code class="descname">filled</code><a class="headerlink" href="#campy.graphics.gobjects.Fillable.filled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return whether this object is filled.</p>
-<p>&#64;rtype: boolean</p>
-</dd></dl>
-
-</dd></dl>
-
+<p>Provide a hierarchy of graphical shapes based on the ACM Graphics model.</p>
+<p>This module exports the superclass <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a>, as well as derived classes:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#campy.graphics.gobjects.GRect" title="campy.graphics.gobjects.GRect"><code class="xref py py-class docutils literal notranslate"><span class="pre">GRect</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.GRoundRect" title="campy.graphics.gobjects.GRoundRect"><code class="xref py py-class docutils literal notranslate"><span class="pre">GRoundRect</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.G3DRect" title="campy.graphics.gobjects.G3DRect"><code class="xref py py-class docutils literal notranslate"><span class="pre">G3DRect</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.GOval" title="campy.graphics.gobjects.GOval"><code class="xref py py-class docutils literal notranslate"><span class="pre">GOval</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.GArc" title="campy.graphics.gobjects.GArc"><code class="xref py py-class docutils literal notranslate"><span class="pre">GArc</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.GLine" title="campy.graphics.gobjects.GLine"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLine</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.GImage" title="campy.graphics.gobjects.GImage"><code class="xref py py-class docutils literal notranslate"><span class="pre">GImage</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.GLabel" title="campy.graphics.gobjects.GLabel"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLabel</span></code></a></li>
+<li><a class="reference internal" href="#campy.graphics.gobjects.GPolygon" title="campy.graphics.gobjects.GPolygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">GPolygon</span></code></a></li>
+</ul>
+<p>There is also a <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a> class to facilitate nested object structures.</p>
+<p>For more information on how to use each of these objects, see the comments on
+each class.</p>
 <dl class="class">
 <dt id="campy.graphics.gobjects.G3DRect">
 <em class="property">class </em><code class="descclassname">campy.graphics.gobjects.</code><code class="descname">G3DRect</code><span class="sig-paren">(</span><em>width</em>, <em>height</em>, <em>x=0</em>, <em>y=0</em>, <em>raised=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#G3DRect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.G3DRect" title="Permalink to this definition">¶</a></dt>
@@ -399,118 +390,133 @@ in the PacMan video game:</p>
 <dl class="class">
 <dt id="campy.graphics.gobjects.GCompound">
 <em class="property">class </em><code class="descclassname">campy.graphics.gobjects.</code><code class="descname">GCompound</code><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.GObject</span></code></a></p>
-<p>This graphical object subclass consists of a collection
-of other graphical objects.  Once assembled, the internal objects
-can be manipulated as a unit.  The GCompound keeps
-track of its own position, and all items within it are drawn
-relative to that location.</p>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.GObject</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.MutableSequence" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.MutableSequence</span></code></a></p>
+<p>A graphics object that is a collection of other graphics objects.</p>
+<p>Once assembled, the contained :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>GObject`s can be manipulated as a unit.</p>
+<p>The <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a> has its own position, and items within in are drawn
+relative to that position.</p>
+<p>Internally, the <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a> just holds a stack of its :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>GObject`s.</p>
 <dl class="method">
 <dt id="campy.graphics.gobjects.GCompound.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>gobj</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new graphical object to the GCompound.  The second
-form moves the object to the point (x, y) first.</p>
-<p>&#64;type gobj: GObject
-&#64;type x: float
-&#64;type y: float
-&#64;rtype: void</p>
+<dd><p>Add a new <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a> to this <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a>.</p>
+<p>If two additional arguments x and y are both supplied, move the object
+to <code class="docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> first. It is an error to specify just one of x and y.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>gobj</strong> – The object to add to this compound.</li>
+<li><strong>x</strong> – (optional) The x-coordinate of the location to which to move this object.</li>
+<li><strong>y</strong> – (optional) The y-coordinate of the location to which to move this object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GCompound.bounds">
+<code class="descname">bounds</code><a class="headerlink" href="#campy.graphics.gobjects.GCompound.bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the bounding box for this <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a>.</p>
+<p>The bounding box of a <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a> is the smallest rectangle that
+covers all of its components bounding boxes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A bounding box that covers all of this compounds components.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">GRectangle</span></code></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.contains">
-<code class="descname">contains</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.contains" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if this GCompound contains the given point</p>
-<p>&#64;type x: float
-&#64;type y: float
-&#64;rtype: boolean</p>
+<dt id="campy.graphics.gobjects.GCompound.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all graphical objects from the GCompound.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.findGObject">
-<code class="descname">findGObject</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.findGObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.findGObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.getBounds">
-<code class="descname">getBounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.getBounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.getBounds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a bounding rectangle for this compound.</p>
-<p>&#64;rtype: GRectangle</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.getElement">
-<code class="descname">getElement</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.getElement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.getElement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the graphical object at the specified index,
-numbering from back to front in the the z dimension.</p>
-<p>&#64;rtype: GObject</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.getElementCount">
-<code class="descname">getElementCount</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.getElementCount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.getElementCount" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of graphical objects stored in the
-GCompound.</p>
-<p>&#64;rtype: int</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.getType">
-<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.getType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the type of this object</p>
-<p>&#64;rtype: string</p>
+<dt id="campy.graphics.gobjects.GCompound.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><em>index</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>S.insert(index, value) – insert value before index</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gobjects.GCompound.remove">
 <code class="descname">remove</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.remove" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes the specified object from the GCompound.</p>
-<p>&#64;type gobj: GObject
-&#64;rtype: void</p>
+<dd><p>Remove a <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a> from this <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a>.</p>
+<p>Return whether or not the <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a> contained the <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gobj</strong> – The object to remove.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether this compound contained the object.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.removeAll">
-<code class="descname">removeAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.removeAll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.removeAll" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes all graphical objects from the GCompound.</p>
-<p>&#64;rtype: void</p>
+<dt id="campy.graphics.gobjects.GCompound.send_backward">
+<code class="descname">send_backward</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.send_backward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.send_backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves this object one step toward the back in the z dimension.</p>
+<p>If it was already at the back of the stack, nothing happens.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.removeAt">
-<code class="descname">removeAt</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.removeAt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.removeAt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method</p>
+<dt id="campy.graphics.gobjects.GCompound.send_forward">
+<code class="descname">send_forward</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.send_forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.send_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves this object one step toward the front in the z dimension.</p>
+<p>If it was already at the front of the stack, nothing happens.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.sendBackward">
-<code class="descname">sendBackward</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.sendBackward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.sendBackward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method</p>
+<dt id="campy.graphics.gobjects.GCompound.send_to_back">
+<code class="descname">send_to_back</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.send_to_back"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.send_to_back" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move this object to the back of the display in the z dimension.</p>
+<p>By moving it to the back, this object will appear to be behind the other
+graphical objects on the display and may be obscured by other objects
+that are further forward.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.sendForward">
-<code class="descname">sendForward</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.sendForward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.sendForward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method</p>
+<dt id="campy.graphics.gobjects.GCompound.send_to_front">
+<code class="descname">send_to_front</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.send_to_front"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.send_to_front" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move this object to the front of the display in the z dimension.</p>
+<p>By moving it to the front, this object will appear to be on top of the
+other graphical objects on the display and may hide any objects that
+are further back.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.sendToBack">
-<code class="descname">sendToBack</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.sendToBack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.sendToBack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.sendToFront">
-<code class="descname">sendToFront</code><span class="sig-paren">(</span><em>gobj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.sendToFront"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.sendToFront" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method</p>
+<dl class="class">
+<dt id="campy.graphics.gobjects.GFillableObject">
+<em class="property">class </em><code class="descclassname">campy.graphics.gobjects.</code><code class="descname">GFillableObject</code><span class="sig-paren">(</span><em>filled=False</em>, <em>fill_color=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GFillableObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GFillableObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.GObject</span></code></a></p>
+<p>Represents a graphical object that can be filled.</p>
+<p>Adds a _filled attribute to the subclass instance as
+well as a _fill_color.</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GFillableObject.fill_color">
+<code class="descname">fill_color</code><a class="headerlink" href="#campy.graphics.gobjects.GFillableObject.fill_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the color used to fill this object.</p>
+<p>If none has been set, return the empty string.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GCompound.toString">
-<code class="descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GCompound.toString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GCompound.toString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a string form of this object</p>
-<p>&#64;rtype: string</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GFillableObject.filled">
+<code class="descname">filled</code><a class="headerlink" href="#campy.graphics.gobjects.GFillableObject.filled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether this object is filled.</p>
+<p>&#64;rtype: boolean</p>
 </dd></dl>
 
 </dd></dl>
@@ -659,72 +665,78 @@ a new text string appears on the display.</p>
 <dt id="campy.graphics.gobjects.GLine">
 <em class="property">class </em><code class="descclassname">campy.graphics.gobjects.</code><code class="descname">GLine</code><span class="sig-paren">(</span><em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.GObject</span></code></a></p>
-<p>This graphical object subclass represents a line segment.  For
-example, the following code adds lines that mark the diagonals
-of the graphics window:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gw</span> <span class="o">=</span> <span class="n">_gwindow</span><span class="o">.</span><span class="n">GWindow</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This program draws the diagonals on the window.&quot;</span><span class="p">)</span>
-<span class="n">gw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gobjects</span><span class="o">.</span><span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">gw</span><span class="o">.</span><span class="n">getWidth</span><span class="p">(),</span> <span class="n">gw</span><span class="o">.</span><span class="n">getHeight</span><span class="p">()))</span>
-<span class="n">gw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gobjects</span><span class="o">.</span><span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">gw</span><span class="o">.</span><span class="n">getHeight</span><span class="p">(),</span> <span class="n">gw</span><span class="o">.</span><span class="n">getWidth</span><span class="p">(),</span> <span class="mi">0</span><span class="p">))</span>
+<p>Graphical representation of a line segment defined by two endpoints.</p>
+<p>To create a line from <code class="docutils literal notranslate"><span class="pre">(14,</span> <span class="pre">41)</span></code> to <code class="docutils literal notranslate"><span class="pre">(601,</span> <span class="pre">106)</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">line</span> <span class="o">=</span> <span class="n">GLine</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">601</span><span class="p">,</span> <span class="mi">106</span><span class="p">)</span>
 </pre></div>
 </div>
-<dl class="method">
-<dt id="campy.graphics.gobjects.GLine.contains">
-<code class="descname">contains</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine.contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine.contains" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns whether or not this object contains the point x, y</p>
-<p>&#64;type x: float
-&#64;type y: float
-&#64;rtype: boolean</p>
+<p>To draw two diagonal lines crossing a <code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">window</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">window</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">window</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that creating a <a class="reference internal" href="#campy.graphics.gobjects.GLine" title="campy.graphics.gobjects.GLine"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLine</span></code></a> will not automatically add it to any
+displays. Rather, you must explicitly call the <cite>.add</cite> method on an
+appropriate <code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code>.</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GLine.end">
+<code class="descname">end</code><a class="headerlink" href="#campy.graphics.gobjects.GLine.end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gobjects.GLine" title="campy.graphics.gobjects.GLine"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLine</span></code></a>’s ending point.</p>
+<p>Changing the end point modifies the line segment even if it has
+already been added to a <code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code>.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>  <span class="c1"># =&gt; GPoint(41, 41)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">end</span><span class="p">)</span>  <span class="c1"># =&gt; GPoint(4, 1)</span>
+</pre></div>
+</div>
+<p>You can supply either a GPoint or a 2-element tuple to this property.
+Accessing this property will return a GPoint which can be unpacked as a
+tuple:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">GPoint</span><span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">106</span><span class="p">)</span>  <span class="c1"># Supply a GPoint to the setter.</span>
+<span class="n">endx</span><span class="p">,</span> <span class="n">endy</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">start</span>  <span class="c1"># Unpack the end point immediately.</span>
+</pre></div>
+</div>
+<p>Setting the end point does not modify the start point. Thus, this is
+different from setting this <a class="reference internal" href="#campy.graphics.gobjects.GLine" title="campy.graphics.gobjects.GLine"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLine</span></code></a>’s location, which translates
+the entire line segment.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GLine.getEndPoint">
-<code class="descname">getEndPoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine.getEndPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine.getEndPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the point at which the line ends.</p>
-<p>&#64;rtype: GPoint</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GLine.getStartPoint">
-<code class="descname">getStartPoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine.getStartPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine.getStartPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the point at which the line starts.</p>
-<p>&#64;rtype: GPoint</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GLine.getType">
-<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine.getType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the type of this object</p>
-<p>&#64;rtype: string</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GLine.setEndPoint">
-<code class="descname">setEndPoint</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine.setEndPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine.setEndPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the end point in the line to (x, y),
-leaving the start point unchanged.  This method is therefore different from
-setLocation, which moves both components of the line segment.</p>
-<p>&#64;type x: float
-&#64;type y: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GLine.setStartPoint">
-<code class="descname">setStartPoint</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine.setStartPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine.setStartPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the initial point in the line to (x, y),
-leaving the end point unchanged.  This method is therefore different from
-setLocation, which moves both components of the line segment.</p>
-<p>&#64;type x: float
-&#64;type y: float
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GLine.toString">
-<code class="descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GLine.toString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GLine.toString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the string form of this object</p>
-<p>&#64;rtype: string</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GLine.start">
+<code class="descname">start</code><a class="headerlink" href="#campy.graphics.gobjects.GLine.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gobjects.GLine" title="campy.graphics.gobjects.GLine"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLine</span></code></a>’s starting point.</p>
+<p>Changing the start point modifies the line segment even if it has
+already been added to a <code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code>.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>  <span class="c1"># =&gt; GPoint(0, 0)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>  <span class="c1"># =&gt; GPoint(4, 1)</span>
+</pre></div>
+</div>
+<p>You can supply either a GPoint or a 2-element tuple to this property.
+Accessing this property will return a GPoint which can be unpacked as a
+tuple:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">GLine</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">GPoint</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>  <span class="c1"># Supply a GPoint to the setter.</span>
+<span class="n">startx</span><span class="p">,</span> <span class="n">starty</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">start</span>  <span class="c1"># Unpack the start point immediately.</span>
+</pre></div>
+</div>
+<p>Setting the start point does not modify the end point. Thus, this is
+different from setting this <a class="reference internal" href="#campy.graphics.gobjects.GLine" title="campy.graphics.gobjects.GLine"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLine</span></code></a>’s location, which translates
+the entire line segment.</p>
 </dd></dl>
 
 </dd></dl>
@@ -733,268 +745,272 @@ setLocation, which moves both components of the line segment.</p>
 <dt id="campy.graphics.gobjects.GObject">
 <em class="property">class </em><code class="descclassname">campy.graphics.gobjects.</code><code class="descname">GObject</code><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>This class is the common superclass of all graphical objects that can
-be displayed on a graphical window. For examples illustrating the use of the GObject class, see
-the descriptions of the individual subclasses.</p>
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.contains">
-<code class="descname">contains</code><span class="sig-paren">(</span><em>pt=None</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.contains"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.contains" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if the specified point is inside the object.</p>
-<p>&#64;type pt: GPoint
-&#64;type x: float
-&#64;type y: float
-&#64;param pt: point to check, will override x and y
-&#64;rtype: boolean</p>
+<p>The common superclass of all graphical objects that can be displayed on a graphical window.</p>
+<p>For examples illustrating the use of the GObject class, see the descriptions
+of the individual subclasses.</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.bounds">
+<code class="descname">bounds</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the bounding box for this object.</p>
+<p>The bounding box of an object is the smallest rectangle that covers
+everything drawn by the figure. The coordinates of this rectangle will
+usually, but not always, match the object’s location. For example, the
+location of a <a class="reference internal" href="#campy.graphics.gobjects.GLabel" title="campy.graphics.gobjects.GLabel"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLabel</span></code></a> gives the coordinates of the point on the
+baseline where the string begins. However, the bounds of the GLabel
+represent a rectangle that entirely covers the window area occupied by
+the GLabel.</p>
+<p>Subclasses must override this property (and optionally declare a setter)
+to indicate their bounding box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The bounding box of this GObject.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">GRectangle</span></code></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getBounds">
-<code class="descname">getBounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getBounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getBounds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the bounding box of this object, which is defined to be the
-smallest rectangle that covers everything drawn by the figure.  The
-coordinates of this rectangle do not necessarily match the location
-returned by getLocation.  Given a GLabel
-object, for example, getLocation returns the coordinates
-of the point on the baseline at which the string begins; the
-getBounds method, by contrast, returns a rectangle that
-covers the entire window area occupied by the string.</p>
-<p>&#64;rtype: GRectangle</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.color">
+<code class="descname">color</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the color used to draw this object.</p>
+<p>The supplied color can be any object acceptable to <code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code>, so
+check that class’s documentation for complete details on arguments.</p>
+<p>Usually, the supplied color will be one of the predefined colors:</p>
+<blockquote>
+<div><ul class="simple">
+<li>BLACK</li>
+<li>BLUE</li>
+<li>CYAN</li>
+<li>DARK_GRAY</li>
+<li>GRAY</li>
+<li>GREEN</li>
+<li>LIGHT_GRAY</li>
+<li>MAGENTA</li>
+<li>ORANGE</li>
+<li>PINK</li>
+<li>RED</li>
+<li>WHITE</li>
+<li>YELLOW</li>
+</ul>
+</div></blockquote>
+<p>TODO(sredmond): Add more detail to the possible colors with examples.</p>
+<p>Accessing this property will return a <code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code> which can be
+used anywhere that expects a color.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getColor">
-<code class="descname">getColor</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getColor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current color as a string in the form “#rrggbb”.
-In this string, the values rr, gg,
-and bb are two-digit hexadecimal values representing
-the red, green, and blue components of the color, respectively.</p>
-<p>&#64;rtype: string</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.height">
+<code class="descname">height</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the height of this <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a>.</p>
+<p>The height of an object is the same as the height of its bounding box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The height (in pixels) of this GObject.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getHeight">
-<code class="descname">getHeight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getHeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getHeight" title="Permalink to this definition">¶</a></dt>
-<dd><p>`
-Returns the height of this object, which is defined to be the height
-of the bounding box.</p>
-<p>&#64;rtype: float</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getLineWidth">
-<code class="descname">getLineWidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getLineWidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getLineWidth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the width of the line used to draw this object.</p>
-<p>&#64;rtype: int</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getLocation">
-<code class="descname">getLocation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getLocation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getLocation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the location of this object as a GPoint.</p>
-<p>&#64;rtype: GPoint</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getParent">
-<code class="descname">getParent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getParent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getParent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a pointer to the GCompound that contains this
-object.  Every GWindow is initialized to contain a single
-GCompound that is aligned with the window.  Adding
-objects to the window adds them to that GCompound,
-which means that every object you add to the window has a parent.
-Calling getParent on the top-level GCompound
-returns None.</p>
-<p>&#64;rtype: GObject</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getSize">
-<code class="descname">getSize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the size of the object as a GDimension.</p>
-<p>&#64;rtype: GDimension</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getType">
-<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the concrete type of the object as a string, as in
-“GOval” or “GRect”.</p>
-<p>&#64;rtype: string</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getWidth">
-<code class="descname">getWidth</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getWidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getWidth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the width of this object, which is defined to be the width of
-the bounding box.</p>
-<p>&#64;rtype: float</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getX">
-<code class="descname">getX</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getX"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getX" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the x-coordinate of the object.</p>
-<p>&#64;rtype: float</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.getY">
-<code class="descname">getY</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.getY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.getY" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the y-coordinate of the object.</p>
-<p>&#64;rtype: float</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.isVisible">
-<code class="descname">isVisible</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.isVisible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.isVisible" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if this object is visible.</p>
-<p>&#64;rtype: boolean</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.line_width">
+<code class="descname">line_width</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.line_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the line width used to draw this <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a>.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.gobjects.GObject.location">
 <code class="descname">location</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.location" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get or set the location of this object as a GPoint.</p>
+<dd><p>Get or set the location of this object as a <code class="xref py py-class docutils literal notranslate"><span class="pre">GPoint</span></code>.</p>
+<p>You can supply either a GPoint or a 2-element tuple to this property.
+Accessing this property will return a GPoint which can be unpacked as a
+tuple.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gobjects.GObject.move">
 <code class="descname">move</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.move"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.move" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves the object on the screen using the displacements
-dx and dy.</p>
-<p>&#64;type dx: float
-&#64;type dy: float
-&#64;rtype: void</p>
+<dd><p>Move this object on the screen using the supplied displacements.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dx</strong> – The displacement in the x-direction.</li>
+<li><strong>dy</strong> – The displacement in the y-direction.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.parent">
+<code class="descname">parent</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the GCompound that contains this object, if it exists.</p>
+<p>Each <code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code> has a single <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a> that is aligned
+with the window. Adding objects to the window adds them to the window’s
+top <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a>. So, a <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a> does not have a parent
+until it is added to a <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a>, either directly or by way of
+adding the <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a> to a <code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">oval</span> <span class="o">=</span> <span class="n">GOval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">oval</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># =&gt; True</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">oval</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">oval</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>  <span class="c1"># =&gt; False</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">This object’s parent <a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a>, if it exists.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#campy.graphics.gobjects.GCompound" title="campy.graphics.gobjects.GCompound"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code></a></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gobjects.GObject.rotate">
 <code class="descname">rotate</code><span class="sig-paren">(</span><em>theta</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.rotate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.rotate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Transforms the object by rotating it theta degrees
-counterclockwise around its origin.</p>
-<p>&#64;type theta: float
-&#64;param theta: degrees
-&#64;rtype: void</p>
+<dd><p>Rotate this object some degrees counterclockwise about its origin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Param:</th><td class="field-body">The angle (in degrees) about which to rotate this object about its origin.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gobjects.GObject.scale">
-<code class="descname">scale</code><span class="sig-paren">(</span><em>sf=None</em>, <em>sx=None</em>, <em>sy=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scales the object by the specified scale factors.  Most clients will use
-the first form, which scales the object by sf in both
-dimensions, so that invoking gobj.scale(2) doubles the
-size of the object.  The second form applies independent scale factors
-to the x and y dimensions.</p>
-<p>&#64;type sf: float
-&#64;type sx: float
-&#64;type sy: float
-&#64;param sf: scale factor, will override sx and sy
-&#64;rtype: void</p>
+<code class="descname">scale</code><span class="sig-paren">(</span><em>*scales</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale this object by the given scale factor(s).</p>
+<p>Most clients use the one-argument form, which scales an object in both
+dimensions. To double the size of a GOval:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">oval</span> <span class="o">=</span> <span class="n">GOval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">oval</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">oval</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">oval</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>  <span class="c1"># =&gt; 82, 82</span>
+</pre></div>
+</div>
+<p>There is also a two-argument form which applies separate scale factors
+to the x- and y-dimensions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">oval</span> <span class="o">=</span> <span class="n">GOval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">oval</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">oval</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">oval</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>  <span class="c1"># =&gt; 123, 205</span>
+</pre></div>
+</div>
+<p>It is an error to call this function with no arguments, or with three or
+more arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scales</strong> – The scale factors by which to scale this object.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GObject.sendBackward">
-<code class="descname">sendBackward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.sendBackward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.sendBackward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves this object one step toward the back in the z dimension.
-If it was already at the back of the stack, nothing happens.</p>
-<p>&#64;rtype: void</p>
+<dt id="campy.graphics.gobjects.GObject.send_backward">
+<code class="descname">send_backward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.send_backward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.send_backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves this object one step toward the back in the z dimension.</p>
+<p>If it was already at the back of the stack, nothing happens.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GObject.sendForward">
-<code class="descname">sendForward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.sendForward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.sendForward" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves this object one step toward the front in the z dimension.
-If it was already at the front of the stack, nothing happens.</p>
-<p>&#64;rtype: void</p>
+<dt id="campy.graphics.gobjects.GObject.send_forward">
+<code class="descname">send_forward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.send_forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.send_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves this object one step toward the front in the z dimension.</p>
+<p>If it was already at the front of the stack, nothing happens.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GObject.sendToBack">
-<code class="descname">sendToBack</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.sendToBack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.sendToBack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves this object to the back of the display in the z dimension.
-By moving it to the back, this object will appear to be behind the other
+<dt id="campy.graphics.gobjects.GObject.send_to_back">
+<code class="descname">send_to_back</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.send_to_back"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.send_to_back" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move this object to the back of the display in the z dimension.</p>
+<p>By moving it to the back, this object will appear to be behind the other
 graphical objects on the display and may be obscured by other objects
-in front.</p>
-<p>&#64;rtype: void</p>
+that are further forward.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="campy.graphics.gobjects.GObject.sendToFront">
-<code class="descname">sendToFront</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.sendToFront"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.sendToFront" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves this object to the front of the display in the z dimension.
-By moving it to the front, this object will appear to be on top of the
+<dt id="campy.graphics.gobjects.GObject.send_to_front">
+<code class="descname">send_to_front</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.send_to_front"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.send_to_front" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move this object to the front of the display in the z dimension.</p>
+<p>By moving it to the front, this object will appear to be on top of the
 other graphical objects on the display and may hide any objects that
 are further back.</p>
-<p>&#64;rtype: void</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.setColor">
-<code class="descname">setColor</code><span class="sig-paren">(</span><em>color=None</em>, <em>rgb=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.setColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.setColor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the color used to display this object.  The color parameter is
-usually one of the predefined color names:</p>
-<blockquote>
-<div><ul class="simple">
-<li>BLACK,</li>
-<li>BLUE,</li>
-<li>CYAN,</li>
-<li>DARK_GRAY,</li>
-<li>GRAY,</li>
-<li>GREEN,</li>
-<li>LIGHT_GRAY,</li>
-<li>MAGENTA,</li>
-<li>ORANGE,</li>
-<li>PINK,</li>
-<li>RED,</li>
-<li>WHITE,</li>
-<li>YELLOW.</li>
-</ul>
-</div></blockquote>
-<p>The case of the individual letters in the color name is ignored, as
-are spaces and underscores, so that the color DARK_GRAY
-can be written as “Dark Gray”.</p>
-<p>The color can also be specified as a string in the form
-“#rrggbb” where rr, gg, and
-bb are pairs of hexadecimal digits indicating the
-red, green, and blue components of the color.</p>
-<p>&#64;type color: string
-&#64;param color: takes precedence over rgb
-&#64;type rgb: int
-&#64;rtype: void</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.size">
+<code class="descname">size</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the size of this <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a> as a <code class="xref py py-class docutils literal notranslate"><span class="pre">GDimension</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The size of this GObject in pixels.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal notranslate"><span class="pre">GDimension</span></code></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.setLineWidth">
-<code class="descname">setLineWidth</code><span class="sig-paren">(</span><em>lineWidth</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.setLineWidth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.setLineWidth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the width of the line used to draw this object.</p>
-<p>&#64;type lineWidth: int
-&#64;rtype: void</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.visible">
+<code class="descname">visible</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set whether this <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a> is visible.</p>
+<p>A <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a> that is visible will still exist on a GWindow once added.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">oval</span> <span class="o">=</span> <span class="n">GOval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">oval</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">oval</span><span class="o">.</span><span class="n">visible</span><span class="p">)</span>  <span class="c1"># =&gt; True</span>
+<span class="n">oval</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Hides the oval on the window.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">oval</span><span class="o">.</span><span class="n">visible</span><span class="p">)</span>  <span class="c1"># =&gt; False</span>
+</pre></div>
+</div>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.setLocation">
-<code class="descname">setLocation</code><span class="sig-paren">(</span><em>pt=None</em>, <em>x=None</em>, <em>y=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.setLocation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.setLocation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the location of this object to the specified point.</p>
-<p>&#64;type pt: GPoint
-&#64;type x: float
-&#64;type y: float
-&#64;param pt: new location, will override x and y
-&#64;rtype: void</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.width">
+<code class="descname">width</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the width of this <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a>.</p>
+<p>The width of an object is the same as the width of its bounding box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The width (in pixels) of this GObject.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.setVisible">
-<code class="descname">setVisible</code><span class="sig-paren">(</span><em>flag</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.setVisible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.setVisible" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets whether this object is visible.</p>
-<p>&#64;type flag: boolean
-&#64;rtype: void</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.x">
+<code class="descname">x</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the x-coordinate of this <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="campy.graphics.gobjects.GObject.toString">
-<code class="descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GObject.toString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GObject.toString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a print(ble representation of the object.)</p>
-<p>&#64;rtype: string</p>
+<dl class="attribute">
+<dt id="campy.graphics.gobjects.GObject.y">
+<code class="descname">y</code><a class="headerlink" href="#campy.graphics.gobjects.GObject.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the y-coordinate of this <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1002,7 +1018,7 @@ red, green, and blue components of the color.</p>
 <dl class="class">
 <dt id="campy.graphics.gobjects.GOval">
 <em class="property">class </em><code class="descclassname">campy.graphics.gobjects.</code><code class="descname">GOval</code><span class="sig-paren">(</span><em>width</em>, <em>height</em>, <em>x=0</em>, <em>y=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#GOval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.GOval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.GObject</span></code></a>, <a class="reference internal" href="#campy.graphics.gobjects.Fillable" title="campy.graphics.gobjects.Fillable"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.Fillable</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#campy.graphics.gobjects.GFillableObject" title="campy.graphics.gobjects.GFillableObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.GFillableObject</span></code></a></p>
 <p>This graphical object subclass represents an oval inscribed in
 a rectangular box.  For example, the following code displays a
 filled green oval inscribed in the graphics window:</p>
@@ -1119,7 +1135,7 @@ the center of the window:</p>
 <span class="n">stopSign</span> <span class="o">=</span> <span class="n">gobjects</span><span class="o">.</span><span class="n">GPolygon</span><span class="p">()</span>
 <span class="n">stopSign</span><span class="o">.</span><span class="n">addVertex</span><span class="p">(</span><span class="o">-</span><span class="n">edge</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">edge</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">edge</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-        <span class="n">stopSign</span><span class="o">.</span><span class="n">addPolarEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="mi">45</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">stopSign</span><span class="o">.</span><span class="n">addPolarEdge</span><span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="mi">45</span><span class="n">i</span><span class="p">)</span>
 <span class="n">stopSign</span><span class="o">.</span><span class="n">setFilled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">stopSign</span><span class="o">.</span><span class="n">setColor</span><span class="p">(</span><span class="s2">&quot;RED&quot;</span><span class="p">)</span>
 <span class="n">gw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">stopSign</span><span class="p">,</span> <span class="n">gw</span><span class="o">.</span><span class="n">getWidth</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">gw</span><span class="o">.</span><span class="n">getHeight</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
@@ -1341,12 +1357,6 @@ of a rectangular box with rounded corners.</p>
 <p>&#64;rtype: string</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="function">
-<dt id="campy.graphics.gobjects.dsq">
-<code class="descclassname">campy.graphics.gobjects.</code><code class="descname">dsq</code><span class="sig-paren">(</span><em>x0</em>, <em>y0</em>, <em>x1</em>, <em>y1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gobjects.html#dsq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gobjects.dsq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Internal method to find the difference between two points squared</p>
 </dd></dl>
 
 </div>
