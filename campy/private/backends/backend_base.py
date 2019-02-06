@@ -102,14 +102,17 @@ class GraphicsBackendBase:
     def goptionpane_show_message_dialog(self, message, title, message_type): pass
     def goptionpane_show_option_dialog(self, message, title, options, initially_selected): pass
     def goptionpane_show_text_file_dialog(self, message, title, rows, cols): pass
+
     def getNextEvent(self, mask): pass
     def waitForEvent(self, mask): pass
+
     def parseEvent(self, line): pass
     def parseMouseEvent(self, tokens, type): pass
     def parseKeyEvent(self, tokens, type): pass
     def parseTimerEvent(self, tokens, type): pass
     def parseWindowEvent(self, tokens, type): pass
     def parseActionEvent(self, tokens, type): pass
+
     def startupMain(self): pass
 
 class ConsoleBackendBase:
