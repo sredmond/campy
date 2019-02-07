@@ -3,12 +3,16 @@
 A non-exhaustive list of tasks and modules to do.
 
 ## Administrative
-- Choose and standardize a logging framework.
-- Choose and standardize a testing framework.
+- Incorporate logging over printing.
+- Refactor tests into test modules.
+- Remove gh-pages and remote branch from repo.
+
 - Rewrite CONTIBUTING/CONTRIBUTORS.
+
 - Update README and STYLE guides.
+
 - Canonicalize backend API.
-- (Optional) Python2 compatibility.
+- Check compatibility with other Python versions and environments with Tox.
 
 ## Data Structures
 
@@ -65,7 +69,13 @@ A non-exhaustive list of tasks and modules to do.
 
 ### Documented
 
+```
+├── gwindow.cpp
+└── gwindow.h
+```
+
 ### Complete
+
 ```
 ├── goptionpane.cpp
 ├── goptionpane.h
@@ -79,8 +89,7 @@ A non-exhaustive list of tasks and modules to do.
 ├── gfilechooser.h
 ├── gobjects.cpp
 ├── gobjects.h
-├── gwindow.cpp
-└── gwindow.h
+
 ```
 
 ### In Progress
@@ -172,13 +181,16 @@ A non-exhaustive list of tasks and modules to do.
 
 ## System
 
-### Documented
+### Tested
 
-### Complete
 ```
 ├── error.cpp
 ├── error.h
 ```
+
+### Documented
+
+### Complete
 
 ### In Progress
 
@@ -198,10 +210,15 @@ A non-exhaustive list of tasks and modules to do.
 
 ## Util
 
-### Documented
+### Tested
 ```
 ├── direction.cpp
 ├── direction.h
+```
+
+### Documented
+```
+
 ```
 
 ### Complete
