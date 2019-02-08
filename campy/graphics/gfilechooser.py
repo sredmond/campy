@@ -1,12 +1,15 @@
-"""
-This file defines the <code>GFileChooser</code> class which supports
-popping up graphical dialog boxes to select file names.
+"""A :class:`GFileChooser` pops up a graphical dialog boxes to select a file.
 
-@author sredmond
+These dialog boxes come in two flavors:
+
+- Open Dialog: Select a file to open.
+- Save Dialog: Select a file to save.
 """
 import campy.private.platform as _platform
 
-class GFileChooser():
+# TODO(sredmond): If this class only has static methods, then they should just
+# be module-level functions.
+class GFileChooser:
     # Constants for dialog types, taken from Java's JFileChooser
     SAVE_DIALOG = 1
     OPEN_DIALOG = 1
