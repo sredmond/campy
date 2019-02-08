@@ -26,8 +26,6 @@ import campy.graphics.gmath as _gmath
 from collections.abc import MutableSequence
 import math
 
-__ARC_TOLERANCE__ = 2.5 # Default arc tolerance
-__DEFAULT_CORNER__ = 10 # Default corner rounding
 __DEFAULT_GLABEL_FONT__ = "Dialog-13" # Default label font
 
 
@@ -538,53 +536,40 @@ class GRect(GObject):
 
 
 class GRoundRect(GRect):
-    '''
-    This class represents a graphical object whose appearance consists
-    of a rectangular box with rounded corners.
-    '''
+    """Graphical representation of a rectangular box with rounded corners.
 
-    def __init__(self, width, height, x = 0, y = 0, corner = __DEFAULT_CORNER__):
-        '''
-        Initializes a new rectangle with the specified width and height.  If
-        the x and y parameters are specified, they
-        are used to specify the origin.  The corner parameter
-        specifies the diameter of the arc forming the corner.
+    The rounded corners are quarter-circle arcs of a fixed diameter.
+    """
+    # TODO(sredmond): Add documentation from the GRect object here
 
-        @type width: float
-        @type height: float
-        @type x: float
-        @type y: float
-        @type corner: float
-        @rtype: void
-        '''
-        GRect.__init__(self, width, height)
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+    # The number of pixels in the diameter of the arc forming the corner.
+    __CORNER_ROUNDING = 10
+
+    def __init__(self, width, height, x=None, y=None, corner=__CORNER_ROUNDING):
+        """Create a new rounded rectangle with the supplied width and height.
+
+        The client can also specify x and y coordinates for the top-left corner
+        of this :class:`GRoundRect`'s bounding box.
+
+        The corner parameter gives the diameter of the arc forming the corner,
+        with a reasonable default. The higher this number is, the more rounded
+        the resulting rectangle will be.
+
+        :param width: The width of the rounded rectangle in pixels.
+        :param height: The height of the rounded rectangle in pixels.
+        :param x: The x-coordinate of the top-left corner of this rounded rectangle.
+        :param y: The y-coordinate of the top-left corner of this rounded rectangle.
+        :param corner: The diameter in pixels of the rounded arcs.
+        """
+        super().__init__(width, height, x, y)
+
         self.corner = corner
-        self.fillFlag = False
-        self.fillColor = ""
         _platform.Platform().groundrect_constructor(self, width, height, corner)
-        self.setLocation(x=x, y=y)
 
-    def getType(self):
-        '''
-        Returns the type of this object
+    def __str__(self):
+        # TODO(sredmond): It's a little awkward that the constructor argument order is different.
+        return "GRoundRect(x={self.x}, y={self.y}, width={self.width}, height={self.height}, corner={self.corner})".format(self=self)
 
-        @rtype: string
-        '''
-        return "GRoundRect"
-
-    def toString(self):
-        '''
-        Returns a string version of this object
-
-        @rtype: string
-        '''
-        return "GRoundRect(" + str(self.x) + ", " + str(self.y) + ", " + \
-                str(self.width) + ", " + str(self.height) + ", " + \
-                str(self.corner) + ")"
 
 class G3DRect(GRect):
     '''
@@ -812,20 +797,22 @@ class GOval(GFillableObject):
         return "GOval(" + str(self.x) + ", " + str(self.y) + ", " + \
                 str(self.width) + ", " + str(self.height) + ")"
 
-class GArc(GObject):
-    '''
-    This graphical object subclass represents an elliptical arc.  The
-    arc is specified by the following parameters::
+class GArc(GFillableObject):
+    """Graphical representation of an elliptical arc.
 
-        - The coordinates of the bounding rectangle (x, y, width, height)
-        - The angle at which the arc starts (start)
-        - The number of degrees that the arc covers (sweep)
+    An elliptical arc is uniquely determined by the following three parameters:
 
-    All angles in a GArc description are measured in
-    degrees moving counterclockwise from the +x axis.  Negative
-    values for either start or sweep indicate
-    motion in a clockwise direction.
-    '''
+    - The coordinates of the ellipse's bounding rectangle (x, y, width, height)
+    - The angle at which the arc starts (start)
+    - The number of degrees that the arc covers (sweep)
+
+    All angles in the :class:`GArc` class are measured in degrees counterclockwise
+    from the positive x-axis. Negative angles refer to degrees clockwise.
+
+    To create an semicircle arc from... CONTINUE(sredmond)
+
+    """
+    __ARC_TOLERANCE = 2.5 # Default arc tolerance
 
     def __init__(self, width, height, start, sweep, x=0, y=0):
         '''
