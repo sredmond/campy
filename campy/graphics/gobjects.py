@@ -339,17 +339,14 @@ class GFillableObject(GObject):
 
     @property
     def filled(self):
-        """Return whether this object is filled.
+        """Get or set whether this object is filled.
 
-        @rtype: boolean
+        A value of True corresponds to filled and a value of False corresponds to outlined.
         """
         return self._filled
 
     @filled.setter
     def filled(self, is_filled):
-        """Set whether the object is filled.
-
-        True means filled and False means outlined."""
         self._filled = is_filled
         _platform.Platform().gobject_set_filled(self, is_filled)
 
@@ -548,7 +545,7 @@ class GRoundRect(GRect):
     def __init__(self, width, height, x=None, y=None, corner=__CORNER_ROUNDING):
         """Create a new rounded rectangle with the supplied width and height.
 
-        The client can also specify x and y coordinates for the top-left corner
+        The caller can also specify x and y coordinates for the top-left corner
         of this :class:`GRoundRect`'s bounding box.
 
         The corner parameter gives the diameter of the arc forming the corner,
@@ -572,72 +569,49 @@ class GRoundRect(GRect):
 
 
 class G3DRect(GRect):
-    '''
-    This graphical object subclass represents a rectangular box that can
-    be raised or lowered.
-    '''
+    """Graphical representation of a rectangular box that can be raised or lowered.
 
-    def __init__(self, width, height, x = 0, y = 0, raised = False):
-        '''
-        Initializes a new 3D rectangle with the specified width and height.  If
-        the x and y parameters are specified, they
-        are used to specify the origin.  The raised parameter
-        determines whether the rectangle should be drawn with highlights that
-        suggest that it is raised about the background.
+    The 3D effect of this rectangle is purely aesthetic and does not affect the
+    rectangle's z-positioning on the parent :class:`GCompound`.
+    """
+    # TODO(sredmond): Add more documentation from the GRect object here
+    def __init__(self, width, height, x=None, y=None, raised=False):
+        """Create a new 3D rectangle with the supplied width and height.
 
-        @type width: float
-        @type height: float
-        @type x: float
-        @type y: float
-        @type raised: boolean
-        @rtype: void
-        '''
-        GRect.__init__(self, width, height)
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.raised = raised
-        self.fillFlag = False
-        self.fillColor = ""
-        _platform.Platform().g3drect_constructor(self, width, height, str(raised).lower())
-        self.setLocation(x=x, y=y)
+        The caller can also specify x and y coordinates for the top-left corner
+        of this :class:`G3DRect`'s bounding box.
 
-    def setRaised(self, raised):
-        '''
-        Indicates whether this object appears raised.
+        If this rectangle is raised (defaulting to False), then the rectangle is
+        drawn with highlights that suggest that it is raised about the background.
 
-        @type raised: boolean
-        @rtype: void
-        '''
-        self.raised = raised
-        _platform.Platform().g3drect_set_raised(self, str(raised).lower())
+        :param width: The width of the 3D rectangle in pixels.
+        :param height: The height of the 3D rectangle in pixels.
+        :param x: The x-coordinate of the top-left corner of this 3D rectangle.
+        :param y: The y-coordinate of the top-left corner of this 3D rectangle.
+        :param raised: Whether to draw the 3D rectangle as raised (or lowered)
+        """
+        super().__init__(width, height, x, y)
+        self._raised = raised
+        _platform.Platform().g3drect_constructor(self, width, height, raised)
 
-    def isRaised(self):
-        '''
-        Returns true if this object appears raised.
+    @property
+    def raised(self):
+        """Get or set whether this object appears raised.
 
-        @rtype: boolean
-        '''
-        return self.raised
+        True represents a rectangle with highlights to appear raised above the background.
+        False represents a rectangle with highlights to appear lowered above the background.
+        """
+        return self._raised
 
-    def getType(self):
-        '''
-        Returns the type of this object
+    @raised.setter
+    def raised(self, is_raised):
+        self._raised = is_raised
+        _platform.Platform().g3drect_set_raised(self, is_raised)
 
-        @rtype: string
-        '''
-        return "G3DRect"
+    def __str__(self):
+        # TODO(sredmond): It's a little awkward that the constructor argument order is different.
+        return "G3DRect(x={self.x}, y={self.y}, width={self.width}, height={self.height}, raised={self.raised})".format(self=self)
 
-    def toString(self):
-        '''
-        Returns the string form of this object
-
-        @rtype: string
-        '''
-        return "G3DRect(" + str(self.x) + ", " + str(self.y) + ", " + \
-                str(self.width) + ", " + str(self.height) + ", " + \
-                str(self.raised).lower() + ")"
 
 class GOval(GFillableObject):
     '''
