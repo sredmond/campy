@@ -106,22 +106,6 @@ class JavaBackend:
         command = pformat(GWindow_clearCanvas, id=id(gw))
         self.put_pipe(command)
 
-    def gwindow_close(self, gw):
-        command = pformat(GWindow_close, id=id(gw))
-        self.put_pipe(command)
-
-    def gwindow_delete(self, gw):
-        command = pformat(GWindow_delete, id=id(gw))
-        self.put_pipe(command)
-
-    def gwindow_request_focus(self, gw):
-        command = pformat(GWindow_requestFocus, id=id(gw))
-        self.put_pipe(command)
-
-    def gwindow_clear(self, gw):
-        command = pformat(GWindow_clear, id=id(gw))
-        self.put_pipe(command)
-
     def gwindow_repaint(self, gw):
         command = pformat(GWindow_repaint, id=id(gw))
         self.put_pipe(command)

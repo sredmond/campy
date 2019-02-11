@@ -41,20 +41,28 @@ class GraphicsBackendBase:
     def gobject_scale(self, gobj, sx, sy): pass
     def gobject_rotate(self, gobj, theta): pass
 
+    # Rectangular regions
     def grect_constructor(self, gobj, width, height): pass
     def groundrect_constructor(self, gobj, width, height, corner): pass
-    def gcompound_constructor(self, gobj): pass
-    def gcompound_add(self, compound, gobj): pass
     def g3drect_constructor(self, gobj, width, height, raised): pass
     def g3drect_set_raised(self, gobj, raised): pass
+
+    # Elliptical regions
     def goval_constructor(self, gobj, width, height): pass
     def garc_constructor(self, gobj, width, height, start, sweep): pass
     def garc_set_start_angle(self, gobj, angle): pass
     def garc_set_sweep_angle(self, gobj, angle): pass
     def garc_set_frame_rectangle(self, gobj, x, y, width, height): pass
+
+    # GLines
     def gline_constructor(self, gobj, x1, y1, x2, y2): pass
     def gline_set_start_point(self, gobj, x, y): pass
     def gline_set_end_point(self, gobj, x, y): pass
+
+    # Compounds
+    def gcompound_constructor(self, gobj): pass
+    def gcompound_add(self, compound, gobj): pass
+
     def gimage_constructor(self, gobj,  filename): pass
     def glabel_constructor(self, gobj, label): pass
     def glabel_set_font(self, gobj, font): pass

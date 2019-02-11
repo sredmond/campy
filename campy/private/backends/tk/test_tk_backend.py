@@ -1,9 +1,6 @@
 from campy.private.backends.tk.backend_tk import TkBackend
+from campy.graphics.gwindow import GWindow
+from campy.graphics.gobjects import GRect
 
-b = TkBackend()
-
-w = b.gwindow_constructor('gwindow', 600, 400, 10, False)
-r = b.grect_constructor('grect', 200, 200)
-
-b.run()
-
+gw = GWindow(500, 600)
+gw.draw_oval(100, 100, 80, 120)

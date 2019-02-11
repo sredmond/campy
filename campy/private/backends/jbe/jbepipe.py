@@ -1,8 +1,13 @@
-"""
+"""Manage initialization of and communications to and from the Java backend.
 
+The Java backend should live in a JAR file adjacent to this module.
 
+The backend is initialized lazily, only created once someone tries to write
+to or read from the pipe. This means that the first call to the pipe will be
+slow, as it must take time to spawn the Java process.
 """
 # TODO(sredmond): Consider updating the subprocess calls to use Python 3.5+
+import logging
 import pathlib
 import queue  # TODO(sredmond): Double-check that this doesn't have to be multiprocessing.queue
 import shlex
@@ -12,23 +17,30 @@ import threading
 
 from campy.system import error
 
+# Module-level logger.
+logger = logging.getLogger(__name__)
 
-DEBUG_PIPE = True
 
-
+# The backend JAR should live adjacent to this file.
 SPL_JAR_LOCATION = pathlib.Path(__file__).parent / 'spl.jar'
+
+
+# Use `shlex` to parse shell text. These args, when passed to `Popen`, launch the Java backend.
 LAUNCH_SPL_ARGS = shlex.split('java -jar {}'.format(SPL_JAR_LOCATION))
 
 
-def debug_print(*values, **options):
-    if DEBUG_PIPE:
-        options['file'] = sys.stderr
-        options['flush'] = True
-        print(*values, **options)
+def debug_print(line):
+    # if DEBUG_PIPE:
+    # options['file'] = sys.stderr
+    # options['flush'] = True
+
+    logger.info(line)
+    # print(*values, **options)
+
 
 def append_output_to_queue(out, queue):
     for line in iter(out.readline, b''):
-        print(line)
+        logger.info('Adding output to queue: %r', line)
         queue.put(line)
     out.close()
 
@@ -79,12 +91,13 @@ class JavaBackendPipe:
         line += '\n'  # TODO(sredmond): Do we only need to add a newline when
         # there isn't already one, or always?
         # TODO(sredmond): Consider self.pipe.communicate(input=line, timeout=1)[0]
+        logger.info('Writing line: %r', line)
         debug_print(line)
         self.pipe.stdin.write(line)
         self.pipe.stdin.flush()
 
     def read(self):
-        print(self.line_queue.qsize())
+        logger.info('Queue size: %d', self.line_queue.qsize())
         return self.line_queue.get()
         # Alternatively, return self.pipe.stdout.readline()
 
