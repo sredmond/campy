@@ -1,16 +1,10 @@
-#!/usr/bin/env python
-"""Draw a graphical pyramid on screen.
-
-Demonstrates use of
-
-"""
+#!/usr/bin/env python3
+"""Draw a graphical pyramid on screen."""
 # TODO(sredmond): Rethink star-imports - they pollute the global namespace and
 # are generally a bad style point (awkward imports of _underscore identifiers).
 from campy.graphics.gwindow import *
 from campy.graphics.gobjects import *
-from campy.graphics.gevents import *
 from campy.graphics.gtimer import *
-from campy.util.randomgenerator import *
 
 window = GWindow(width=1280, height=800)
 window.title = 'Pyramid'
@@ -28,8 +22,8 @@ def get_color(row_num, colors=DEFAULT_COLORS):
 
 def make_brick(x, y, color):
     brick = GRect(BRICK_WIDTH, BRICK_HEIGHT, x, y)
-    brick.filled = True     # TODO(sredmond): Make this brick.filled = True
-    brick.fill_color = color # TODO(sredmond): Make this brick.fill_color
+    brick.filled = True
+    brick.fill_color = color
     return brick
 
 def make_pyramid():
