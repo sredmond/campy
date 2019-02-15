@@ -82,7 +82,6 @@ class GObject:
         self._y = y
         _platform.Platform().gobject_set_location(self, x, y)
 
-
     def move(self, dx, dy):
         """Move this object on the screen using the supplied displacements.
 
@@ -373,170 +372,116 @@ class GFillableObject(GObject):
 
 # END SECTION: Graphical Mixins
 
+class GRect(GFillableObject):
+    """Graphical representation of a rectangular box.
 
-class GRect(GObject):
-    '''
-    This class represents a graphical object whose appearance consists of
-    a rectangular box.  For example, the following code adds a filled, red
-    200x100 rectangle
-    at the upper left corner of the graphics window::
+    To add a filled red rectangle with width 200 and height 100 to a :class:`GWindow`::
 
-        gw = _gwindow.GWindow()
-        print("This program draws a red rectangle at (0, 0).")
-        rect = gobjects.GRect(0, 0, 200, 100)
-        rect.setFilled(true)
-        rect.setColor("RED")
-        gw.add(rect)
-    '''
+        window = GWindow()
+        rect = GRect(200, 100)
+        rect.filled = True
+        rect.color = "RED"
+        window.add(rect, 0, 0)
+    """
+    def __init__(self, width, height, *, x=0, y=0):
+        """Create a rectangle of a width and height with an optional location.
 
-    def __init__(self, width, height, x=None, y=None):
-        '''
-        Initializes a rectangle with the specified width and height.  The first
-        form is positioned at the origin; the second at the coordinates
-        given by x and y.
+        The two required arguments represent the width and the height of the
+        :class:`GRect`, in pixels. Keyword arguments can be supplied to set the
+        initial location of the :class:`GRect`.
 
-        @type width: float
-        @type height: float
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        GObject.__init__(self)
-        self.create(width, height)
-        if(x != None and y != None):
-            # self.setLocation(x=x, y=y)
-            self.location = x, y
+        A :class:`GRect` defaults to being unfilled and outlined in black. The
+        default location for a new :class:`GRect` is at (0, 0).
 
-    def create(self, width, height):
-        '''
-        Internal helper method
-        '''
-        self._x = 0.0
-        self._y = 0.0
+        To create a :class:`GRect` with width 200 and height 100::
+
+            rect = GRect(200, 100)
+
+        To create a 300x400 :class:`GRect` at position (50, 80)
+
+            rect = GRect(200, 100, x=50, y=80)
+
+        :param width: The width of the rectangle in pixels.
+        :param height: The height of the rectangle in pixels.
+        :param x: The x-coordinate of the top-left corner of this rectangle.
+        :param y: The y-coordinate of the top-left corner of this rectangle.
+        """
+        super().__init__()
         self._width = width
         self._height = height
-        self.fillFlag = False
-        self.fillColor = ""
+        self.location = x, y
+        # TODO(sredmond): Do we not need to pass x, y to the platform?
         _platform.Platform().grect_constructor(self, width, height)
 
-    def setSize(self, size=None, width=None, height=None):
-        '''
-        Changes the size of this rectangle to the specified width and height.
+    # @property
+    # def size(self):
+    #     return self.width, self.height
 
-        @type size: GDimention
-        @type width: float
-        @type height: float
-        @param size: GDimension, will override height and width
-        @rtype: void
-        '''
-        if(size != None):
-            width = size.getWidth()
-            height = size.getHeight()
+    # TODO(sredmond): Figure out how to set width as a property from an inherited getter.
 
-        if(width == None or height == None): return
+    # @property
+    # def setSize(self, size=None, width=None, height=None):
+    #     '''
+    #     Changes the size of this rectangle to the specified width and height.
 
-        if(self.transformed):
-            raise Exception("setSize: Object has been transformed")
+    #     @type size: GDimention
+    #     @type width: float
+    #     @type height: float
+    #     @param size: GDimension, will override height and width
+    #     @rtype: void
+    #     '''
+    #     if(size != None):
+    #         width = size.getWidth()
+    #         height = size.getHeight()
 
-        self.width = width
-        self.height = height
-        _platform.Platform().gobject_set_size(self, width, height)
+    #     if(width == None or height == None): return
 
-    def setBounds(self, bounds=None, x=None, y=None, width=None, height=None):
-        '''
-        Changes the bounds of this rectangle to the specified values.
+    #     if(self.transformed):
+    #         raise Exception("setSize: Object has been transformed")
 
-        @type bounds: GRectangle
-        @type x: float
-        @type y: float
-        @type width: float
-        @type height: float
-        @param bounds: bounding rectangle, will override other parameters
-        @rtype: void
-        '''
-        if(bounds != None):
-            x = bounds.getX()
-            y = bounds.getY()
-            width = bounds.getWidth()
-            height = bounds.getHeight()
+    #     self.width = width
+    #     self.height = height
+    #     _platform.Platform().gobject_set_size(self, width, height)
 
-        if(x == None or y == None or width == None or height == None): return
+    # def setBounds(self, bounds=None, x=None, y=None, width=None, height=None):
+    #     '''
+    #     Changes the bounds of this rectangle to the specified values.
 
-        self.setLocation(x=x, y=y)
-        self.setSize(width=width, height=height)
+    #     @type bounds: GRectangle
+    #     @type x: float
+    #     @type y: float
+    #     @type width: float
+    #     @type height: float
+    #     @param bounds: bounding rectangle, will override other parameters
+    #     @rtype: void
+    #     '''
+    #     if(bounds != None):
+    #         x = bounds.getX()
+    #         y = bounds.getY()
+    #         width = bounds.getWidth()
+    #         height = bounds.getHeight()
 
-    def getBounds(self):
-        '''
-        Returns the bounds of this rectangle
+    #     if(x == None or y == None or width == None or height == None): return
 
-        @rtype: GRectangle
-        '''
+    #     self.setLocation(x=x, y=y)
+    #     self.setSize(width=width, height=height)
+
+    @property
+    def bounds(self):
+        """Get the bounding box for this :class:`GRect`.
+
+        The bounding box of a :class:`GRect` is simply the rectangle's bounds
+        itself.
+
+        :returns: A bounding box that covers this :class:`GRect`.
+        :rtype: :class:`GRectangle`
+        """
+        # TODO(sredmond): What do we we do about transformed rectangles?
         if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
         return _gtypes.GRectangle(self.x, self.y, self.width, self.height)
 
-    def setFilled(self, flag):
-        '''
-        Sets the fill status for the rectangle, where false is
-        outlined and true is filled.
-
-        @type flag: boolean
-        @rtype: void
-        '''
-        self.fillFlag = flag
-        _platform.Platform().gobject_set_filled(self, flag)
-
-    def isFilled(self):
-        '''
-        Returns true if the rectangle is filled.
-
-        @rtype: boolean
-        '''
-        return self.fillFlag
-
-    def setFillColor(self, color="", rgb=None):
-        '''
-        Sets the color used to display the filled region of this rectangle.
-
-        @type color: string
-        @type rgb: int
-        @param color: will override rgb
-        @rtype: void
-        '''
-        self.fillColor = color
-        if(color != None and color != ""):
-            rgb = _gcolor.color_to_rgb(color)
-
-        if(rgb == None): return
-
-        color = _gcolor.rgb_to_hex(rgb)
-        _platform.Platform().gobject_set_fill_color(self, color)
-
-    def getFillColor(self):
-        '''
-        Returns the color used to display the filled region of this rectangle.  If
-        none has been set, getFillColor returns the empty string.
-
-        @rtype: string
-        '''
-        return self.fillColor
-
-    def getType(self):
-        '''
-        Returns the type of this object
-
-        @rtype: string
-        '''
-        return "GRect"
-
-    def toString(self):
-        '''
-        Returns a string form of this object
-
-        @rtype: string
-        '''
-        return "GRect(" + str(self.x) + ", " + str(self.y) + ", " + \
-                str(self.width) + ", " + str(self.height) + ")"
-
+    def __str__(self):
+        return "GRect({self.width}, {self.height}, x={self.x}, y={self.y}".format(self=self)
 
 
 class GRoundRect(GRect):
@@ -549,7 +494,7 @@ class GRoundRect(GRect):
     # The number of pixels in the diameter of the arc forming the corner.
     __CORNER_ROUNDING = 10
 
-    def __init__(self, width, height, x=None, y=None, corner=__CORNER_ROUNDING):
+    def __init__(self, width, height, *, x=None, y=None, corner=__CORNER_ROUNDING):
         """Create a new rounded rectangle with the supplied width and height.
 
         The caller can also specify x and y coordinates for the top-left corner
@@ -565,7 +510,7 @@ class GRoundRect(GRect):
         :param y: The y-coordinate of the top-left corner of this rounded rectangle.
         :param corner: The diameter in pixels of the rounded arcs.
         """
-        super().__init__(width, height, x, y)
+        super().__init__(width, height, x=x, y=y)
 
         self.corner = corner
         _platform.Platform().groundrect_constructor(self, width, height, corner)
@@ -582,7 +527,7 @@ class G3DRect(GRect):
     rectangle's z-positioning on the parent :class:`GCompound`.
     """
     # TODO(sredmond): Add more documentation from the GRect object here
-    def __init__(self, width, height, x=None, y=None, raised=False):
+    def __init__(self, width, height, *, x=None, y=None, raised=False):
         """Create a new 3D rectangle with the supplied width and height.
 
         The caller can also specify x and y coordinates for the top-left corner
@@ -597,7 +542,7 @@ class G3DRect(GRect):
         :param y: The y-coordinate of the top-left corner of this 3D rectangle.
         :param raised: Whether to draw the 3D rectangle as raised (or lowered)
         """
-        super().__init__(width, height, x, y)
+        super().__init__(width, height, x=x, y=y)
         self._raised = raised
         _platform.Platform().g3drect_constructor(self, width, height, raised)
 
@@ -634,7 +579,7 @@ class GOval(GFillableObject):
         gw.add(oval)
     '''
 
-    def __init__(self, width, height, x=0, y=0):
+    def __init__(self, width, height, *, x=0, y=0):
         '''
         Initializes a new oval inscribed in the specified rectangle.  The
         first form is positioned at the origin; the second at the coordinates
