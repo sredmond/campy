@@ -52,12 +52,18 @@ class GObject:
         """Get the x-coordinate of this :class:`GObject`."""
         return self._x
 
+    @x.setter
+    def x(self, x):
+        self.location = x, self.y
+
     @property
     def y(self):
         """Get the y-coordinate of this :class:`GObject`."""
         return self._y
 
-    # TODO(sredmond): Should I expose setters for x and y?
+    @y.setter
+    def y(self, y):
+        self.location = self.x, y
 
     @property
     def location(self):
@@ -398,16 +404,17 @@ class GRect(GObject):
         GObject.__init__(self)
         self.create(width, height)
         if(x != None and y != None):
-            self.setLocation(x=x, y=y)
+            # self.setLocation(x=x, y=y)
+            self.location = x, y
 
     def create(self, width, height):
         '''
         Internal helper method
         '''
-        self.x = 0.0
-        self.y = 0.0
-        self.width = width
-        self.height = height
+        self._x = 0.0
+        self._y = 0.0
+        self._width = width
+        self._height = height
         self.fillFlag = False
         self.fillColor = ""
         _platform.Platform().grect_constructor(self, width, height)
@@ -640,14 +647,16 @@ class GOval(GFillableObject):
         @rtype: void
         '''
         GObject.__init__(self)
-        self.x = 0
-        self.y = 0
-        self.width = width
-        self.height = height
+        # self.x = 0
+        # self.y = 0
+        self.location = 0, 0
+        # self.width = width
+        self._width = width
+        self._height = height
         self.fillFlag = False
         self.fillColor = ""
         _platform.Platform().goval_constructor(self, width, height)
-        self.setLocation(x=x, y=y)
+        self.location = x, y
 
     def setSize(self, width=None, height=None, size=None):
         '''
@@ -806,8 +815,7 @@ class GArc(GFillableObject):
         @rtype: void
         '''
         GObject.__init__(self)
-        self.x = x
-        self.y = y
+        self.location = x, y
         self.frameWidth = width
         self.frameHeight = height
         self.start = start
@@ -891,8 +899,7 @@ class GArc(GFillableObject):
             width = rect.getWidth()
             height = rect.getHeight()
 
-        self.x = x
-        self.y = y
+        self.location = x, y
         self.frameWidth = width
         self.frameHeight = height
         _platform.Platform().garc_set_frame_rectangle(self, x, y, width, height)
@@ -1653,7 +1660,7 @@ class GCompound(GObject, MutableSequence):
     # TODO(sredmond): It's a little weird to make this into a collection.
     def __init__(self):
         """Create an empty :class:`GCompound`."""
-        super().__init__(self)
+        super().__init__()
         self.contents = []
         _platform.Platform().gcompound_constructor(self)
 
@@ -1701,7 +1708,7 @@ class GCompound(GObject, MutableSequence):
 
         _platform.Platform().gcompound_add(self, gobj)
         self.contents.append(gobj)
-        gobj.parent = self
+        gobj._parent = self
 
     def remove(self, gobj):
         """Remove a :class:`GObject` from this :class:`GCompound`.
