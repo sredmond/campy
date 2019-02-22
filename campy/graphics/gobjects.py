@@ -1102,52 +1102,57 @@ class GLine(GObject):
         return "GLine({self.x0}, {self.y0}, {self.x1}, {self.y1}".format(self=self)
 
 class GImage(GObject):
-    '''
-    This graphical object subclass represents an image from a file.
-    For example, the following code displays a GImage
-    containing the Stanford tree at the center of the window, assuming
-    that the image file StanfordTree.png exists, either in
-    the current directory or an images subdirectory::
+    """Graphical representation of an image from a file.
 
-        gw = _gwindow.GWindow()
-        print("This program draws the Stanford tree.")
-        tree = gobjects.GImage("StanfordTree.png")
-        x = (gw.getWidth() - tree.getWidth()) / 2
-        y = (gw.getHeight() - tree.getHeight()) / 2
+    To display a :class:`GImage` of the Stanford tree::
+
+        window = GWindow()
+        tree = GImage("StanfordTree.png")
+        x = (window.width - tree.width) / 2
+        y = (window.height - tree.height) / 2
         gw.add(tree, x, y)
-    '''
+
+    The search for matching image files begins in the current directory and,
+    failing that, searches an ``images/`` subdirectory.
+    """
+    # TODO(sredmond): Have a environmental variable for a custom subdirectory.
+    # TODO(sredmond): When would you use a GImage over a GBufferedImage?
 
     def __init__(self, filename, x=0, y=0):
-        '''
-        Initializes a new image by loading the image from the specified
-        file, which is either in the current directory or a subdirectory named
-        images.  By default, the upper left corner of the image
-        appears at the origin; the second form automatically sets the location
+        """Initialize a new image from the given file.
+
+        The image file should either exist in the current directory or in a
+        subdirectory named ``images/``.
+
+        By default, the upper left corner of the image appears at the origin.
+        By supplying x- and y- coordinates, the caller can set the location
         to the point (x, y).
 
-        @type filename: string
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        GObject.__init__(self)
-        self.filename = filename
-        size = _platform.Platform().gimage_constructor(self, filename)
-        self.width = size.getWidth()
-        self.height = size.getHeight()
-        self.setLocation(x=x, y=y)
+        :param filename: the name of the image file to load.
+        :param x: (optional) the x-coordinate to which to move this :class:`GImage`.
+        :param y: (optional) the y-coordinate to which to move this :class:`GImage`.
+        """
+        super().__init__()
+        self._filename = filename
+        self.location = x, y
 
-    def getBounds(self):
-        '''
-        Returns the bounding rectangle for this object
+        self._size = _platform.Platform().gimage_constructor(self, filename)
 
-        @rtype: GRectangle
-        '''
-        if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
-        return _gtypes.GRectangle(self.x, self.y, self.width, self.height)
+    @property
+    def filename(self):
+        """Get this :class:`GImage`'s original filename."""
+        # Don't let the student easily change this filename.
+        return self._filename
+
+    @property
+    def bounds(self):
+        """Get the bounding box for this :class:`GImage`."""
+        if self.transformed: return _platform.Platform().gobject_get_bounds(self)
+        return _gtypes.GRectangle(self.x, self.y, self._size.width, self._size.height)
 
     def __str__(self):
         return 'GImage("{}")'.format(self.filename)
+
 
 class GLabel(GObject):
     """Graphical representation of a text string.
