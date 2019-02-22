@@ -1284,9 +1284,10 @@ class GPolygon(GFillableObject):
         window = GWindow()
         edge_length = 75
         stop_sign = GPolygon()
-        stop_sign.add_vertex(-edge_length / 2, edge_length / 2 + edge_length / math.sqrt(2.0))
+        start = GPoint(-edge_length / 2, edge_length / 2 + edge_length / math.sqrt(2.0))
+        stop_sign.add_vertex(start)
         for edge in range(8):
-            stop_sign.add_polar_edge(edge, 45*edge)
+            stop_sign.add_polar_edge(edge_length, 45*edge)
         stop_sign.filled = True
         stop_sign.color = "RED"
         window.add(stop_sign, window.width / 2, window.height / 2)
@@ -1295,38 +1296,30 @@ class GPolygon(GFillableObject):
     def __init__(self):
         """Initialize an empty polygon at the origin."""
         super().__init__()
-        self.cx = 0
-        self.cy = 0
+        self.last_x = 0
+        self.last_y = 0
         self.vertices = []
         _platform.Platform().gpolygon_constructor(self)
 
-    def add_vertex(self, x, y):
-        '''
-        Adds a vertex at (x, y) relative to the polygon
-        origin.
-
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        self.cx = x
-        self.cy = y
+    def add_vertex(self, point):
+        """Add a vertex at a given :class:`GPoint` relative to the polygon origin."""
+        # TODO(sredmond): Flush out this documentation with the usual messages.
+        x, y = point
+        self.last_x = x
+        self.last_y = y
         self.vertices.append(_gtypes.GPoint(x, y))
         _platform.Platform().gpolygon_add_vertex(self, x, y)
 
     def add_edge(self, dx, dy):
-        '''
+        """
         Adds an edge to the polygon whose components are given by the displacements
         dx and dy from the last vertex.
-
-        @type dx: float
-        @type dy: float
-        @rtype: void
-        '''
-        self.addVertex(self.cx + dx, self.cy + dy)
+        """
+        # TODO(sredmond): Fix documentation
+        self.add_vertex((self.last_x + dx, self.last_y + dy))
 
     def add_polar_edge(self, r, theta):
-        '''
+        """
         Adds an edge to the polygon specified in polar coordinates.  The length
         of the edge is given by r, and the edge extends in
         direction theta, measured in degrees counterclockwise
@@ -1336,43 +1329,41 @@ class GPolygon(GFillableObject):
         @type theta: float
         @param theta: degrees
         @rtype: void
-        '''
-        self.addEdge(r*math.cos(theta*_gmath.PI/180), \
-                    -r*math.sin(theta*_gmath.PI/180))
+        """
+        # TODO(sredmond): Fix documentation
+        self.add_edge(
+            r * _gmath.cos_degrees(theta),
+            -r * _gmath.sin_degrees(theta)
+        )
 
     @property
     def bounds(self):
-        '''
-        Returns the bounding rectangle for this object
+        """Get the bounding box for this :class:`GPolygon`.
 
-        @rtype: GRectangle
-        '''
-        if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
-        xMin = 0
-        yMin = 0
-        xMax = 0
-        yMax = 0
-        for i in range(len(self.vertices)):
-            x = vertices[i].getX()
-            y = vertices[i].getY()
-            if(i==0 or x < xMin): xMin = x
-            if(i==0 or y < yMin): yMin = y
-            if(i==0 or x > xMax): xMax = x
-            if(i==0 or y > yMax): yMax = y
-        return _gtypes.GRectangle(xMin, yMin, xMax - xMin, yMax - yMin)
+        :returns: The bounding box of this :class:`GPolygon`.
+        :rtype: :class:`GRectangle`
+        """
+        if self.transformed: return _platform.Platform().gobject_get_bounds(self)
+
+        xs = [vertex.x for vertex in self.vertices]
+        ys = [vertex.x for vertex in self.vertices]
+        min_x = min(xs)
+        max_x = max(xs)
+        min_y = min(ys)
+        max_y = max(ys)
+        return _gtypes.GRectangle(min_x, min_y, max_x - min_x, max_y - min_y))
 
 
-    def __contains__(self, pt):
-        '''
-        Returns whether or not this object contains the point x, y
+    def __contains__(self, point):
+        """Implement ``point in self``.
+        """
+        # TODO(sredmond): Add the usual documentation here.
+        x, y = point
+        if self.transformed: return _platform.Platform().gobject_contains(self, x, y)
 
-        @type x: float
-        @type y: float
-        @rtype: boolean
-        '''
-        x, y = pt
-        if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
+        # TOOD(sredmond): Verify this containment algorithm.
         crossings = 0
+
         n = len(self.vertices)
         if(n < 2): return False
         if(vertices[0] == vertices[n-1]): n = n - 1
@@ -1386,6 +1377,9 @@ class GPolygon(GFillableObject):
             x0 = x1
             y0 = y1
         return (crossings % 2 == 1)
+
+    def __iter__(self):
+        return iter(self.vertices)
 
     def __str__(self):
         return "GPolygon(num_vertices={})".format(len(self.vertices))
