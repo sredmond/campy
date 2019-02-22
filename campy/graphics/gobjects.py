@@ -331,15 +331,15 @@ class GObject:
 
 # SECTION: Graphical Mixins
 class GFillableObject(GObject):
-    """Represents a graphical object that can be filled.
+    """Representation of a :class:`GObject` that can be filled.
 
-    Adds a _filled attribute to the subclass instance as
-    well as a _fill_color.
+    Subclasses of :class:`GFillableObject` have a boolean property ``filled``
+    and a :class:`GColor`-valued property ``fill_color``.
     """
-    def __init__(self, filled=False, fill_color=''):
+    def __init__(self, filled=False, fill_color=None):
         super().__init__()
         self._filled = False
-        self._fill_color = fill_color
+        self._fill_color = self.color  # Default to the outline color.
 
     @property
     def filled(self):
@@ -364,10 +364,8 @@ class GFillableObject(GObject):
     @fill_color.setter
     def fill_color(self, color):
         color = _gcolor.GColor.normalize(color)
-        # color = _gcolor.canonicalize(color)
-        # hex_color = color.to_hex()
         self._fill_color = color
-        _platform.Platform().gobject_set_fill_color(self, self._fill_color.as_hex)
+        _platform.Platform().gobject_set_fill_color(self, self.fill_color.hex)
 
 # END SECTION: Graphical Mixins
 
@@ -595,43 +593,43 @@ class GOval(GFillableObject):
         self._height = height
         _platform.Platform().goval_constructor(self, width, height)
 
-    def setSize(self, width=None, height=None, size=None):
-        '''
-        Changes the size of the bounding rectangle to the specified width
-        and height.
+    # def setSize(self, width=None, height=None, size=None):
+    #     '''
+    #     Changes the size of the bounding rectangle to the specified width
+    #     and height.
 
-        @type width: float
-        @type height: float
-        @type size: GDimension
-        @param size: will override height and width parameters
-        @rtype: void
-        '''
-        if(self.transformed): raise Exception("setSize: Object has been transformed")
-        if(size != None):
-            width = size.width
-            height = size.height
+    #     @type width: float
+    #     @type height: float
+    #     @type size: GDimension
+    #     @param size: will override height and width parameters
+    #     @rtype: void
+    #     '''
+    #     if(self.transformed): raise Exception("setSize: Object has been transformed")
+    #     if(size != None):
+    #         width = size.width
+    #         height = size.height
 
-        self.width = width
-        self.height = height
-        _platform.Platform().gobject_set_size(self, width, height)
+    #     self.width = width
+    #     self.height = height
+    #     _platform.Platform().gobject_set_size(self, width, height)
 
-    def setBounds(self, x=None, y=None, width=None, height=None, bounds=None):
-        '''
-        Changes the bounds of the oval to the specified values.
+    # def setBounds(self, x=None, y=None, width=None, height=None, bounds=None):
+    #     '''
+    #     Changes the bounds of the oval to the specified values.
 
-        @type x: float
-        @type y: float
-        @type width: float
-        @type height: float
-        @type bounds: GRectangle
-        @param bounds: will override all other parameters
-        @rtype: void
-        '''
-        if(bounds != None):
-            x, y, width, height = bounds
+    #     @type x: float
+    #     @type y: float
+    #     @type width: float
+    #     @type height: float
+    #     @type bounds: GRectangle
+    #     @param bounds: will override all other parameters
+    #     @rtype: void
+    #     '''
+    #     if(bounds != None):
+    #         x, y, width, height = bounds
 
-        self.setLocation(x=x, y=y)
-        self.setSize(width, height)
+    #     self.setLocation(x=x, y=y)
+    #     self.setSize(width, height)
 
     def __contains__(self, point):
         """Implement ``point in self``.
@@ -669,227 +667,200 @@ class GArc(GFillableObject):
 
     An elliptical arc is uniquely determined by the following three parameters:
 
-    - The coordinates of the ellipse's bounding rectangle (x, y, width, height)
+    - The coordinates of the ellipse's bounding rectangle (width, height) and (x, y)
     - The angle at which the arc starts (start)
     - The number of degrees that the arc covers (sweep)
 
     All angles in the :class:`GArc` class are measured in degrees counterclockwise
     from the positive x-axis. Negative angles refer to degrees clockwise.
 
-    To create an semicircle arc from... CONTINUE(sredmond)
+    To create an semicircle arc starting 45 degrees counterclockwise of the
+    positive x-axis with diameter 50::
 
+        window = GWindow()
+        arc = GArc(50, 50, 45, 180, x=0, y=0)
+        window.add(arc)
+
+    If a :class:`GArc` is unfilled, the figure consists only of the arc itself.
+
+    If a :class:`GArc` is filled, the figure consists of the
+    pie-shaped wedge formed by connecting the endpoints of the arc to
+    the center.
+
+    For example, the following program draws a 270-degree arc starting at 45
+    degrees filled in yellow, similar to the PacMan video game::
+
+        window = GWindow()
+        center = GPoint(window.width / 2, window.height / 2)
+        radius = 25
+        pacman = GArc(2 * radius, 2 * radius, 45, 270
+            x=center.x - radius, y=center.y - radius)
+        pacman.filled = True
+        pacman.fill_color = "YELLOW"
+        window.add(pacman)
     """
-    __ARC_TOLERANCE = 2.5 # Default arc tolerance
-
     def __init__(self, width, height, start, sweep, x=0, y=0):
-        '''
-        Initializes a new GArc object consisting of an elliptical arc.
-        The first form creates a GArc whose origin is the point
-        (0, 0); the second form positions the GArc at the
-        point (x, y).
+        """Initialize a new :class:`GArc` consisting of an elliptical arc.
 
-        @type width: float
-        @type height: float
-        @type start: float
-        @param start: degrees
-        @type sweep: float
-        @param sweep: degrees
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        GObject.__init__(self)
+
+        By default, the corner of the rectangular box is at (0, 0). By
+        specifying x- and y- coordinates as keyword arguments, the caller can
+        locate the arc's bounding rectangle at a given position.
+
+        :param width: The width of the bounding rectangle in pixels.
+        :param height: The height of the bounding rectangle in pixels.
+        :param start: The angle at which the arc starts (in degrees) from the positive x-axis.
+        :param sweep: The angle that the arc sweeps out (in degrees).
+        :param x: The x-coordinate of the top-left corner of the bounding rectangle.
+        :param y: The y-coordinate of the top-left corner of the bounding rectangle.
+        """
+        super.__init__()
         self.location = x, y
+
+        # What are these?
         self.frameWidth = width
         self.frameHeight = height
-        self.start = start
-        self.sweep = sweep
-        self.fillFlag = False
-        self.fillColor = ""
+
+        self._start = start
+        self._sweep = sweep
         _platform.Platform().garc_constructor(self, width, height, start, sweep)
-        self.setLocation(x=x, y=y)
 
-    def setStartAngle(self, start):
-        '''
-        Sets the starting angle for this GArc object.
+    @property
+    def start(self):
+        """Get or set the starting angle (in degrees) of this :class:`GArc`.
 
-        @type start: float
-        @param start: degrees
-        @rtype: void
-        '''
-        self.start = start
+        The starting angle is measured in degrees counterclockwise from the
+        positive x-axis.
+        """
+        return self._start
+
+    @start.setter
+    def start(self, start_angle):
+        self._start = start_angle
         _platform.Platform().garc_set_start_angle(self, start)
 
-    def getStartAngle(self):
-        '''
-        Returns the starting angle for this GArc object.
+    @property
+    def sweep(self):
+        """Get or set the sweep angle (in degrees) of this :class:`GArc`.
 
-        @rtype: float
-        @return: degrees
-        '''
-        return self.start
+        The sweep angle is measured in degrees and represents the number of
+        degrees carved out by this :class:`GArc`. For example, a semi-elliptical
+        arc has a sweep of 180 degrees.
+        """
+        # TODO(sredmond): Enforce that sweep is between 0 and 360. or perhaps -360 and 360
+        return self._sweep
 
-    def setSweepAngle(self, sweep):
-        '''
-        Sets the sweep angle for this GArc object.
+    @sweep.setter
+    def sweep(self, sweep_angle):
+        self._sweep = sweep_angle
+        _platform.Platform().garc_set_sweep_angle(self, sweep_angle)
 
-        @type sweep: float
-        @param sweep: degrees
-        @rtype: void
-        '''
-        self.sweep = sweep
-        _platform.Platform().garc_set_sweep_angle(self, sweep)
+    @property
+    def start_point(self):
+        """Get the :class:`GPoint` at which the arc starts."""
+        rx, ry = self.width / 2, self.height / 2
+        cx, cy = self.x + rx, self.y + ry
+        return _gtypes.GPoint(cx + rx * _gmath.cos_degrees(self.start), cy - ry * math.sin_degrees(self.start))
 
-    def getSweepAngle(self):
-        '''
-        Returns the sweep angle for this GArc object.
+    @property
+    def end_point(self):
+        """Get the :class:`GPoint` at which the arc ends."""
+        rx, ry = self.width / 2, self.height / 2
+        cx, cy = self.x + rx, self.y + ry
+        return _gtypes.GPoint(cx + rx * _gmath.cos_degrees(self.start + self.sweep), cy - ry * math.sin_degrees(self.start + self.sweep))
 
-        @return: degrees
-        @rtype: float
-        '''
-        return self.sweep
+    # TODO(sredmond): Expose a setter for the start point or end point?
 
-    def getStartPoint(self):
-        '''
-        Returns the point at which the arc starts.
+    # def setFrameRectangle(self, x=None, y=None, width=None, height=None, rect=None):
+    #     '''
+    #     Changes the boundaries of the rectangle used to frame the arc.
 
-        @rtype: GPoint
-        '''
-        return getArcPoint(self.start)
+    #     @type x: float
+    #     @type y: float
+    #     @type width: float
+    #     @type height: float
+    #     @type rect: GRectangle
+    #     @param rect: bounding frame, will override other parameters
+    #     @rtype: void
+    #     '''
+    #     if(rect != None):
+    #         x = rect.getX()
+    #         y = rect.getY()
+    #         width = rect.getWidth()
+    #         height = rect.getHeight()
 
-    def getEndPoint(self):
-        '''
-        Returns the point at which the arc ends.
+    #     self.location = x, y
+    #     self.frameWidth = width
+    #     self.frameHeight = height
+    #     _platform.Platform().garc_set_frame_rectangle(self, x, y, width, height)
 
-        @rtype: GPoint
-        '''
-        return getArcPoint(self.start + self.sweep)
+    # def getFrameRectangle(self):
+    #     '''
+    #     Returns the boundaries of the rectangle used to frame the arc.
 
-    def setFrameRectangle(self, x=None, y=None, width=None, height=None, rect=None):
-        '''
-        Changes the boundaries of the rectangle used to frame the arc.
+    #     @rtype: GRectangle
+    #     '''
+    #     return _gtypes.GRectangle(0,0,0,0) #!!
 
-        @type x: float
-        @type y: float
-        @type width: float
-        @type height: float
-        @type rect: GRectangle
-        @param rect: bounding frame, will override other parameters
-        @rtype: void
-        '''
-        if(rect != None):
-            x = rect.getX()
-            y = rect.getY()
-            width = rect.getWidth()
-            height = rect.getHeight()
-
-        self.location = x, y
-        self.frameWidth = width
-        self.frameHeight = height
-        _platform.Platform().garc_set_frame_rectangle(self, x, y, width, height)
-
-    def getFrameRectangle(self):
-        '''
-        Returns the boundaries of the rectangle used to frame the arc.
+    @property
+    def bounds(self):
+        """Get the bounding rectangle for this arc.
 
         @rtype: GRectangle
-        '''
-        return _gtypes.GRectangle(0,0,0,0) #!!
-
-    def setFilled(self, flag):
-        '''
-        Sets the fill status for the arc, where false is
-        outlined and true is filled.  If a GArc is
-        unfilled, the figure consists only of the arc itself.  If a
-        GArc is filled, the figure consists of the
-        pie-shaped wedge formed by connecting the endpoints of the arc to
-        the center.  As an example, the following program draws a 270-degree
-        arc starting at 45 degrees, filled in yellow, much like the character
-        in the PacMan video game::
-
-            gw = _gwindow.GWindow()
-            print("This program draws the PacMan character.")
-            cx = gw.getWidth() / 2
-            cy = gw.getHeight() / 2
-            r = 25
-            pacman = gobjects.GArc(cx - r, cy - r, 2*r, 2*r, 45, 270)
-            pacman.setFilled(True)
-            pacman.setFillColor("YELLOW")
-            gw.add(pacman)
-
-        @type flag: boolean
-        @rtype: void
-        '''
-        self.fillFlag = flag
-        _platform.Platform().gobject_set_filled(self, flag)
-
-    def getFilled(self):
-        '''
-        Returns true if the arc is filled.
-
-        @rtype: boolean
-        '''
-        return self.fillFlag
-
-    def setFillColor(self, color=None, rgb=None):
-        '''
-        Sets the color used to display the filled region of this arc.
-        Colors are specified as strings as described in the notes for the setColor method.
-
-        @type color: string
-        @type rgb: int
-        @param color: will override rgb
-        @rtype: void
-        '''
-        self.fillColor = color
-        if(color != None and color != ""):
-            rgb = _gcolor.color_to_rgb(color)
-        if(rgb != None):
-            self.fillColor = _gcolor.rgb_to_hex(rgb)
-        _platform.Platform().gobject_set_fill_color(self, self.fillColor)
-
-    def getFillColor(self):
-        '''
-        Returns the color used to display the filled region of this arc.  If
-        none has been set, getFillColor returns the empty string.
-
-        @rtype: string
-        '''
-        return self.fillColor
-
-    def getBounds(self):
-        '''
-        Gets the bounding rectangle for this object
-
-        @rtype: GRectangle
-        '''
+        """
+        # TODO(sredmond): Should this be small if the arc is small?
+        # TODO(sredmond): Write this method.
         if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
+
         rx = self.frameWidth / 2
         ry = self.frameHeight / 2
         cx = self.x + rx
         cy = self.y + ry
+
         startRadians = self.start * _gmath.PI / 180
         sweepRadians = self.sweep * _gmath.PI / 180
+
         p1x = cx + math.cos(startRadians) * rx
         p1y = cy - math.sin(startRadians) * ry
         p2x = cx + math.cos(startRadians + sweepRadians) * rx
         p2y = cy - math.sin(startRadians + sweepRadians) * ry
+
         xMin = min(p1x, p2x)
         xMax = max(p1x, p2x)
         yMin = min(p1y, p2y)
         yMax = max(p1y, p2y)
-        if (self.containsAngle(0)): xMax = cx + rx
-        if (self.containsAngle(90)): yMin = cy - ry
-        if (self.containsAngle(180)): xMin = cx - rx
-        if (self.containsAngle(270)): yMax = cy + ry
-        if (self.isFilled()):
+
+        if self.containsAngle(0): xMax = cx + rx
+        if self.containsAngle(90): yMin = cy - ry
+        if self.containsAngle(180): xMin = cx - rx
+        if self.containsAngle(270): yMax = cy + ry
+
+        if self.filled:
             xMin = min(xMin, cx)
             yMin = min(yMin, cy)
             xMax = max(xMax, cx)
             yMax = max(yMax, cy)
         return _gtypes.GRectangle(xMin, yMin, xMax - xMin, yMax - yMin)
 
-    def contains(self, x, y):
+    def __contains__(self, point, tolerance=2.5):
+        """Implement ``point in self``.
+
+        A :class:`GArc` contains a point if and only if the point is contained
+        inside of the pie wedge defined by the bounds of the arc.
+
+        # For advanced users, this method is overloaded with an optional tolerance
+        # parameter. Since *almost* no one will ever want to directly call
+        # ``self.__contains__(point)``, the tolerance defaults to a reasonable value.
+        # However, to check for containment with a custom tolerance, call::
+
+        #     line = GLine(0, 0, 5, 5)
+        #     print(line.__contains__((2, 2), tolerance=0.5))  # => False
+
+        # :param point: The :class:`GPoint` or 2-element tuple to check.
+        # :param tolerance: The maximum distance (in pixels) to still count as containment.
+        # :returns: Whether the point is within a tolerance of any point on this line.
+        """
+
         '''
         Returns whether or not this object contains the point x, y
 
@@ -897,48 +868,21 @@ class GArc(GFillableObject):
         @type y: float
         @rtype: boolean
         '''
+        # TODO(sredmond): Write this method correctly.
         if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
+
         rx = frameWidth / 2
         ry = frameHeight / 2
-        if (rx == 0 or ry == 0): return False
+        if rx == 0 or ry == 0: return False
         dx = x - (self.x + rx)
         dy = y - (self.y + ry)
         r = (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry)
         if(self.fillFlag):
             if (r > 1.0): return False
         else:
-            t = ARC_TOLERANCE / ((rx + ry) / 2) #!!
+            t = tolerance / ((rx + ry) / 2) #!!
             if (abs(1.0 - r) > t): return False
         return self.containsAngle(math.atan2(-dy, dx) * 180 / _gmath.PI)
-
-    def getType(self):
-        '''
-        Returns the type of this object
-
-        @rtype: string
-        '''
-        return "GArc"
-
-    def toString(self):
-        '''
-        Returns the string form of this object
-
-        @rtype: string
-        '''
-        return "GArc(" + str(self.x) + ", " + str(self.y) + ", " + \
-                str(self.frameWidth) + ", " + str(self.frameHeight) + ", " + \
-                str(self.start) + ", " + str(self.sweep) + ")"
-
-    def getArcPoint(self, theta):
-        '''
-        Internal method
-        '''
-        rx = self.frameWidth / 2
-        ry = self.frameHeight / 2
-        cx = self.x + rx
-        cy = self.y + ry
-        radians = theta * _gmath.PI / 180
-        return _gtypes.GPoint(cx + rx * math.cos(radians), cy - ry * math.sin(radians))
 
     def containsAngle(self, theta):
         '''
@@ -955,6 +899,9 @@ class GArc(GFillableObject):
             return (theta >= start or theta <= start + sweep - 360)
         else:
             return (theta >= start and theta <= start + sweep)
+
+    def __str__(self):
+        return "GArc({self.frame_width}, {self.frame_height}, {self.start}, {self.sweep}, x={self.x}, y={self.y}".format(self=self)
 
 
 class GLine(GObject):
