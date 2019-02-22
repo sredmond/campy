@@ -16,40 +16,41 @@ import time
 window = GWindow()
 window.title = 'Breakout'
 
-ball = GOval(20,20, window.getWidth()/2, window.getHeight()/2)
+ball = GOval(20, 20, x=window.width / 2, y=window.height / 2, )
 ball.filled = True
 window.add(ball)
 vx = 2.7
 vy = 3.0
 
-paddle = GRect(125, 15, window.getWidth()/2, window.getHeight() - 50)
+paddle = GRect(125, 15, x=window.width / 2, y=window.height - 50)
 paddle.filled = True
 window.add(paddle)
 
 spacer = 5
-recW = (window.getWidth() - (9*spacer)) / 10.0
+brick_width = (window.width -  9 * spacer) / 10
 
 for i in range(10):
 	for j in range(10):
-		rec = GRect(recW, 15, j*(recW + spacer), 50 + i * (15 + spacer))
-		rec.setFilled(True)
-		if(i<2):
-			rec.setColor(color = "RED")
-		elif(i<4):
-			rec.setColor(color = "ORANGE")
-		elif(i<6):
-			rec.setColor(color = "YELLOW")
-		elif(i<8):
-			rec.setColor(color = "GREEN")
-		elif(i<10):
-			rec.setColor(color = "BLUE")
-		window.add(rec)
+		brick = GRect(brick_width, 15, x=j * (brick_width + spacer), y=50 + i * (15 + spacer))
+		brick.filled = True
+		if i < 2:
+			brick.fill_color = "RED"
+		elif i < 4:
+			brick.fill_color = "ORANGE"
+		elif i < 6:
+			brick.fill_color = "YELLOW"
+		elif i < 8:
+			brick.fill_color = "GREEN"
+		elif i<10:
+			brick.fill_color = "BLUE"
+		window.add(brick)
 
 timer = GTimer(milliseconds=15)
+
 import sys
 timer.start()
-while(True):
-	e = getNextEvent()
+while True:
+	e = get_next_event ()
 	if(e.getEventType() == EventType.MOUSE_MOVED):
 		newX = e.getX()
 		if(newX - paddle.getWidth()/2 > 0 and \
