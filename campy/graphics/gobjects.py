@@ -301,6 +301,7 @@ class GObject:
         # just define their own contains anyway. Is it still good design to keep this implementation here?
         # Attempt to unpack the supplied point as a tuple.
         x, y = pt
+
         # TODO(sredmond): Should we really just offload the work if it happens to be transformed?
         if self._transformed:
             return _platform.Platform().gobject_contains(self, x, y)
@@ -564,42 +565,35 @@ class G3DRect(GRect):
 
 
 class GOval(GFillableObject):
-    '''
-    This graphical object subclass represents an oval inscribed in
-    a rectangular box.  For example, the following code displays a
-    filled green oval inscribed in the graphics window::
+    """Graphical representation of an oval inscribed in a rectangular box.
 
-        gw = _gwindow.GWindow()
-        print("This program draws a green oval filling the window.")
-        oval = gobjects.GOval(gw.getWidth(), gw.getHeight())
-        oval.setFilled(true)
-        oval.setColor("GREEN")
-        gw.add(oval)
-    '''
+    To display a filled green oval::
+
+        window = GWindow()
+        oval = gobjects.GOval(window.width, window.height)
+        oval.filled = True
+        oval.color = "GREEN"
+        window.add(oval)
+    """
 
     def __init__(self, width, height, *, x=0, y=0):
-        '''
-        Initializes a new oval inscribed in the specified rectangle.  The
-        first form is positioned at the origin; the second at the coordinates
-        given by x and y.
+        """Initialize a new oval inscribed in a rectangular box.
 
-        @type width: float
-        @type height: float
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        GObject.__init__(self)
-        # self.x = 0
-        # self.y = 0
-        self.location = 0, 0
-        # self.width = width
+        By default, the corner of the rectangular box is at (0, 0). By
+        specifying x- and y- coordinates as keyword arguments, the caller can
+        locate the oval at a given position.
+
+
+        :param width: The width of the bounding rectangle in pixels.
+        :param height: The height of the bounding rectangle in pixels.
+        :param x: The x-coordinate of the top-left corner of the bounding rectangle.
+        :param y: The y-coordinate of the top-left corner of the bounding rectangle.
+        """
+        super.__init__()
+        self.location = x, y
         self._width = width
         self._height = height
-        self.fillFlag = False
-        self.fillColor = ""
         _platform.Platform().goval_constructor(self, width, height)
-        self.location = x, y
 
     def setSize(self, width=None, height=None, size=None):
         '''
@@ -639,89 +633,36 @@ class GOval(GFillableObject):
         self.setLocation(x=x, y=y)
         self.setSize(width, height)
 
-    def getBounds(self):
-        '''
-        Returns the GRectangle bounding this object
+    def __contains__(self, point):
+        """Implement ``point in self``.
 
-        @rtype: GRectangle
-        '''
-        if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
-        return _gtypes.GRectangle(self.x, self.y, self.width, self.height)
+        Check whether a given :class:`GPoint` or 2-element tuple is contained
+        within this oval. A point is contained within the oval if it lies
+        completely inside the oval or is on the boundary.
 
-    def contains(self, x, y):
-        '''
-        Returns whether or not the oval contains the given point x, y
+        :param point: The :class:`GPoint` or 2-element tuple to check.
+        :returns: Whether the point is within this oval.
+        """
+        # Attempt to unpack the supplied point as a tuple.
+        x, y = point
 
-        @rtype: boolean
-        '''
-        if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
+        # TODO(sredmond): How should I handle transformed GObjects?
+        if self.transformed:
+            return _platform.Platform().gobject_contains(self, x, y)
+
         rx = self.width / 2
         ry = self.height / 2
-        if(rx == 0 or ry == 0): return False
+        if rx == 0 or ry == 0:  # No points in a line.
+            return False
+
+        # `point` is at (dx, dy) relative to ellipse center.
         dx = x - (self.x + rx)
         dy = y - (self.y + ry)
         return (dx * dx) / (rx * rx) + (dy * dy) / (ry * ry) <= 1.0
 
-    def setFilled(self, flag):
-        '''
-        Sets the fill status for the oval, where false is
-        outlined and true is filled.
+    def __str__(self):
+        return "GOval({self.width}, {self.height}, x={self.x}, y={self.y})".format(self=self)
 
-        @type flag: boolean
-        @rtype: void
-        '''
-        self.fillFlag = flag
-        _platform.Platform().gobject_set_filled(self, flag)
-
-    def isFilled(self):
-        '''
-        Returns true if the oval is filled.
-
-        @rtype: boolean
-        '''
-        return self.fillFlag
-
-    def setFillColor(self, color = None, rgb = None):
-        '''
-        Sets the color used to display the filled region of this oval.
-
-        @type color: string
-        @type rgb: int
-        @param color: will override rgb parameter
-        @rtype: void
-        '''
-        self.fillColor = color
-        if(color != None and color != ""):
-            rgb = _gcolor.color_to_rgb(color)
-        if(rgb != None):
-            self.fillColor = _gcolor.rgb_to_hex(rgb)
-        _platform.Platform().gobject_set_fill_color(self, self.fillColor)
-
-    def getFillColor(self):
-        '''
-        Returns the color used to display the filled region of this oval.  If
-        none has been set, getFillColor returns the empty string.
-
-        @rtype: string
-        '''
-        return self.fillColor
-
-    def getType(self):
-        '''
-        Returns the type of this object
-
-        @rtype: string
-        '''
-        return "GOval"
-
-    def toString(self):
-        '''
-        Returns the string form of this object
-
-        @rtype: string
-        '''
-        return "GOval(" + str(self.x) + ", " + str(self.y) + ", " + \
-                str(self.width) + ", " + str(self.height) + ")"
 
 class GArc(GFillableObject):
     """Graphical representation of an elliptical arc.
