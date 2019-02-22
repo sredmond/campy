@@ -26,8 +26,6 @@ import campy.graphics.gmath as _gmath
 from collections.abc import MutableSequence
 import math
 
-__DEFAULT_GLABEL_FONT__ = "Dialog-13" # Default label font
-
 
 class GObject:
     """The common superclass of all graphical objects that can be displayed on a graphical window.
@@ -49,7 +47,7 @@ class GObject:
 
     @property
     def x(self):
-        """Get the x-coordinate of this :class:`GObject`."""
+        """Get or set the x-coordinate of this :class:`GObject`."""
         return self._x
 
     @x.setter
@@ -58,7 +56,7 @@ class GObject:
 
     @property
     def y(self):
-        """Get the y-coordinate of this :class:`GObject`."""
+        """Get or set the y-coordinate of this :class:`GObject`."""
         return self._y
 
     @y.setter
@@ -1264,103 +1262,92 @@ class GImage(GObject):
         return 'GImage("{}")'.format(self.filename)
 
 class GLabel(GObject):
-    '''
-    This graphical object subclass represents a text string.  For
-    example, the following code adds a GLabel containing
-    the string "hello, world" to the center of the window::
+    """Graphical representation of a text string.
 
-        gw = _gwindow.GWindow()
-        print("This program draws the 'hello, world' message.")
-        label = gobjects.GLabel("hello, world")
-        label.setFont("SansSerif-18")
-        x = (gw.getWidth() - label.getWidth()) / 2
-        y = (gw.getHeight() + label.getFontAscent()) / 2
-        gw.add(label, x, y)
+    For example, to add a :class:`GLabel` with the message "Hello, world!" to
+    the center of a :class:`GWindow`::
 
-    Controlling the appearance and positioning of a GLabel
-    depends on understanding the following terms:
+        window = GWindow()
+        label = GLabel("Hello, world!")
+        label.font = "SansSerif-18"
+        x = (window.width - label.width) / 2
+        y = (window.height + label.ascent) / 2
+        window.add(label, x, y)
+
+    In order to control the appearance and positioning of a :class:`GLabel`,
+    it's important to understand the following terms:
 
         - The baseline is the horizontal line on which the characters rest.
         - The origin is the point on the baseline at which the label begins.
         - The height is the distance that separate two successive lines.
         - The ascent is the maximum distance a character in this font extends above the baseline.
         - The descent is the maximum distance a character in this font extends below the baseline.
-    '''
+    """
+    # TODO(sredmond): Are ascent and descent distances for the given text, or for the font itself?
+    # TODO(sredmond): What exactly do we mean in the description of height above?
 
-    def __init__(self, str, x=0, y=0):
-        '''
-        Initializes a GLabel object containing the specified string.
-        By default, the baseline of the first character appears at the origin;
-        the second form automatically resets the location of the
-        GLabel to the point (x, y).
+    DEFAULT_FONT = "Dialog-13"
 
-        @type str: string
-        @type x: float
-        @type y: float
-        @rtype: void
-        '''
-        GObject.__init__(self)
-        self.str = str
-        _platform.Platform().glabel_constructor(self, str)
-        self.setFont(__DEFAULT_GLABEL_FONT__)
-        size = _platform.Platform().glabel_get_size(self)
-        self.width = size.width
-        self.height = size.height
-        self._ascent = _platform.Platform().glabel_get_font_ascent(self)
-        self._descent = _platform.Platform().glabel_get_font_descent(self)
-        self.setLocation(x=x, y=y)
+    def __init__(self, label, x=0, y=0):
+        """Initialize a :class:`GLabel` displaying a given label.
 
-    def setFont(self, font):
-        '''
-        Changes the font used to display the GLabel as specified by
-        the string font, which has the following format:
+        Supplying x and y arguments sets the location of the :class:`GLabel` to
+        (x, y). Recall that the location of a :class:`GLabel` is its bottom-left
+        coordinate.
 
-        family-style-size
+        :param label: The message to display in this :class:`GLabel`.
+        :param x: The x-coordinate of the bottom-left corner of this rectangle.
+        :param y: The y-coordinate of the bottom-left corner of this rectangle.
+        """
+        super().__init__()
+        self._label = label
+        self.font = GLabel.DEFAULT_FONT  # Also sets self._ascent, self._descent
+        self.location = x, y
+        # TODO(sredmond): Check that overriding bounds makes width and height work appropriately.
+        # size = _platform.Platform().glabel_get_size(self)
+        # self.width = size.width
+        # self.height = size.height
 
-        where both style and size are optional.
-        If any of these elements are missing or specified as an asterisk,
-        the existing value is retained.
+        # TODO(sredmond): Consider replacing with just a constructor.
+        _platform.Platform().glabel_constructor(self, label)
 
-        @type font: string
-        @rtype: void
-        '''
-        self.font = font
+
+    @property
+    def font(self):
+        """Get or set this :class:`GLabel`'s font.
+
+        TODO(sredmond): Describe valid font formats."""
+        # family-style-size
+        # missing -> where both style and size are optional.
+        return self._font
+
+    @font.setter
+    def font(self, font):
+        self._font = font
         _platform.Platform().glabel_set_font(self, font)
-        size = _platform.Platform().glabel_get_size(self)
-        self.width = size.width
-        self.height = size.height
         self._ascent = _platform.Platform().glabel_get_font_ascent(self)
         self._descent = _platform.Platform().glabel_get_font_descent(self)
 
-    def getFont(self):
-        '''
-        Returns the current font for the GLabel.
+        # size = _platform.Platform().glabel_get_size(self)
+        # self.width = size.width
+        # self.height = size.height
 
-        @rtype: string
-        '''
-        return self.font
+    @property
+    def label(self):
+        """Get or set this :class:`GLabel`'s label.
 
-    def setLabel(self, str):
-        '''
-        Changes the string stored within the GLabel object, so that
-        a new text string appears on the display.
+        Setting the label changes the internal state of the :class:`GLabel`,
+        so a existing drawn labels will redisplay."""
+        return self._label
 
-        @type str: string
-        @rtype: void
-        '''
-        self.str = str
-        _platform.Platform().setLabel(self, str)
-        size = _platform.Platform().glabel_get_size(self)
-        self.width = size.width
-        self.height = size.height
+    @label.setter
+    def label(self, label):
+        self._label = label
+        _platform.Platform().glabel_set_label(self, label)
 
-    def getLabel(self):
-        '''
-        Returns the string displayed by this object.
-
-        @rtype: string
-        '''
-        return self.str
+        # size = _platform.Platform().glabel_get_size(self)
+        # self.width = size.width
+        # self.height = size.height
 
     @property
     def ascent(self):
@@ -1372,85 +1359,55 @@ class GLabel(GObject):
         """Return the maximum distance strings in this font descend below the baseline."""
         return self._descent
 
-    def getFontAscent(self):
-        '''
-        Returns the maximum distance strings in this font extend above
-        the baseline.
+    @property
+    def bounds(self):
+        """Get the bounding box for this :class:`GLabel`.
 
-        @rtype: float
-        '''
-        return self.ascent
+        The bounding box of a :class:`GLabel` is the smallest rectangle that
+        completely covers the displayed message.
 
-    def getFontDescent(self):
-        '''
-        Returns the maximum distance strings in this font descend below
-        the baseline.
+        :returns: A bounding box that covers this :class:`GLabel`'s message.
+        :rtype: :class:`GRectangle`
+        """
+        # TODO(sredmond): How do we handle bounds when there could be descent?
 
-        @rtype: float
-        '''
-        return self._descent
-
-    def getBounds(self):
-        '''
-        Returns the bounding rectangle for this object
-
-        @rtype: GRectangle
-        '''
         if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
-        return _gtypes.GRectangle(self.x, self.y - self._ascent, self.width, self.height)
+        # TODO(sredmond): This won't work until we separately store width and height from platform size calculations.
+        return _gtypes.GRectangle(self.x, self.y - self.ascent, self.width, self.height)
 
-    def getType(self):
-        '''
-        Returns the type of this object
+    def __str__(self):
+        return 'GLabel("{}")'.format(self.label)
 
-        @rtype: string
-        '''
-        return "GLabel"
+class GPolygon(GFillableObject):
+    """Graphical representation of a polygon.
 
-    def toString(self):
-        '''
-        Returns the string form of this object
+    Polygons are bounded by line segments. A :class:`GPolygon` is initialized
+    to an empty polygon with no vertices. To complete the figure, you need to
+    add vertices to the polygon using the methods :meth:`add_vertex`,
+    :meth:`add_edge`, or :meth:`add_polar_edge`.
 
-        @rtype: string
-        '''
-        return "GLabel(\"" + self.str + "\")"
+    To add a filled red octagon to the center of the window::
 
-class GPolygon(GObject):
-    '''
-    This graphical object subclass represents a polygon bounded by
-    line segments.  The GPolygon constructor creates an
-    empty polygon.  To complete the figure, you need to add vertices
-    to the polygon using the methods addVertex, addEdge, addPolarEdge.
-    As an example, the following code adds a filled red octagon to
-    the center of the window::
-
-        gw = _gwindow.GWindow()
-        print("This program draws a red octagon.")
-        edge = 75
-        stopSign = gobjects.GPolygon()
-        stopSign.addVertex(-edge / 2, edge / 2 + edge / math.sqrt(2.0))
-        for i in range(8):
-            stopSign.addPolarEdge(edge, 45i)
-        stopSign.setFilled(True)
-        stopSign.setColor("RED")
-        gw.add(stopSign, gw.getWidth() / 2, gw.getHeight() / 2)
-    '''
+        window = GWindow()
+        edge_length = 75
+        stop_sign = GPolygon()
+        stop_sign.add_vertex(-edge_length / 2, edge_length / 2 + edge_length / math.sqrt(2.0))
+        for edge in range(8):
+            stop_sign.add_polar_edge(edge, 45*edge)
+        stop_sign.filled = True
+        stop_sign.color = "RED"
+        window.add(stop_sign, window.width / 2, window.height / 2)
+    """
 
     def __init__(self):
-        '''
-        Initializes a new empty polygon at the origin.
-
-        @rtype: void
-        '''
-        GObject.__init__(self)
-        self.fillFlag = False
-        self.fillColor = ""
-        self.cx = None
-        self.cy = None
+        """Initialize an empty polygon at the origin."""
+        super().__init__()
+        self.cx = 0
+        self.cy = 0
         self.vertices = []
         _platform.Platform().gpolygon_constructor(self)
 
-    def addVertex(self, x, y):
+    def add_vertex(self, x, y):
         '''
         Adds a vertex at (x, y) relative to the polygon
         origin.
@@ -1464,7 +1421,7 @@ class GPolygon(GObject):
         self.vertices.append(_gtypes.GPoint(x, y))
         _platform.Platform().gpolygon_add_vertex(self, x, y)
 
-    def addEdge(self, dx, dy):
+    def add_edge(self, dx, dy):
         '''
         Adds an edge to the polygon whose components are given by the displacements
         dx and dy from the last vertex.
@@ -1475,7 +1432,7 @@ class GPolygon(GObject):
         '''
         self.addVertex(self.cx + dx, self.cy + dy)
 
-    def addPolarEdge(self, r, theta):
+    def add_polar_edge(self, r, theta):
         '''
         Adds an edge to the polygon specified in polar coordinates.  The length
         of the edge is given by r, and the edge extends in
@@ -1490,60 +1447,8 @@ class GPolygon(GObject):
         self.addEdge(r*math.cos(theta*_gmath.PI/180), \
                     -r*math.sin(theta*_gmath.PI/180))
 
-    def getVertices(self):
-        '''
-        Returns a list of the points in the polygon.
-
-        @rtype: [GPoint]
-        @return: list of GPoints
-        '''
-        return self.vertices
-
-    def setFilled(self, flag):
-        '''
-        Sets the fill status for the polygon, where false is
-        outlined and true is filled.
-
-        @type flag: boolean
-        @rtype: void
-        '''
-        self.fillFlag = flag
-        _platform.Platform().gobject_set_filled(self, flag)
-
-    def isFilled(self):
-        '''
-        Returns true if the polygon is filled.
-
-        @rtype: boolean
-        '''
-        return self.fillFlag
-
-    def setFillColor(self, color=None, rgb=None):
-        '''
-        Sets the color used to display the filled region of this polygon.
-
-        @type color: string
-        @type rgb: int
-        @param color: will override rgb
-        @rtype: void
-        '''
-        self.fillColor = color
-        if(color != None and color != ""):
-            rgb = _gcolor.color_to_rgb(color)
-        if(rgb != None):
-            self.fillColor = _gcolor.rgb_to_hex(rgb)
-        _platform.Platform().gobject_set_fill_color(self, self.fillColor)
-
-    def getFillColor(self):
-        '''
-        Returns the color used to display the filled region of this polygon.  If
-        none has been set, getFillColor returns the empty string.
-
-        @rtype: string
-        '''
-        return self.fillColor
-
-    def getBounds(self):
+    @property
+    def bounds(self):
         '''
         Returns the bounding rectangle for this object
 
@@ -1563,7 +1468,8 @@ class GPolygon(GObject):
             if(i==0 or y > yMax): yMax = y
         return _gtypes.GRectangle(xMin, yMin, xMax - xMin, yMax - yMin)
 
-    def contains(self, x, y):
+
+    def __contains__(self, pt):
         '''
         Returns whether or not this object contains the point x, y
 
@@ -1571,6 +1477,7 @@ class GPolygon(GObject):
         @type y: float
         @rtype: boolean
         '''
+        x, y = pt
         if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
         crossings = 0
         n = len(self.vertices)
