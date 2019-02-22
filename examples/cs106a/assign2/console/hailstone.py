@@ -18,4 +18,4 @@ def hailstone(n):
 if __name__ == '__main__':
     n = get_integer('Enter a number: ')
     steps = hailstone(n)
-    print('The process took {} to reach 1'.format(steps))
+    print('The process took {} step(s) to reach 1'.format(steps))

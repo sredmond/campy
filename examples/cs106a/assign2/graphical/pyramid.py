@@ -21,7 +21,7 @@ def get_color(row_num, colors=DEFAULT_COLORS):
     return colors[row_num % len(colors)]
 
 def make_brick(x, y, color):
-    brick = GRect(BRICK_WIDTH, BRICK_HEIGHT, x, y)
+    brick = GRect(BRICK_WIDTH, BRICK_HEIGHT, x=x, y=y)
     brick.filled = True
     brick.fill_color = color
     return brick
