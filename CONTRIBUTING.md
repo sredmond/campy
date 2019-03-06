@@ -1,6 +1,6 @@
 # Contributing
 
-We love pull requests! By participating in this project, you agree to abide by the [Stanford Code of Conduct](https://adminguide.stanford.edu/chapter-1/subchapter-1/policy-1-1-1).
+We love pull requests! By contributing to this project, you agree to abide by the [Stanford Code of Conduct](https://adminguide.stanford.edu/chapter-1/subchapter-1/policy-1-1-1) as well as this project's [Code of Conduct][https://github.com/sredmond/campy/blob/master/CODE_OF_CONDUCT.md].
 
 ## Getting Started
 
