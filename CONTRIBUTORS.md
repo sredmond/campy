@@ -3,7 +3,7 @@
 Thank you to all of our contributors!
 
 ## Active Maintainer
-> Last Updated: 2019-01-23
+> Last Updated: 2019-03-02
 
 - Sam Redmond (sredmond)
 
@@ -18,7 +18,7 @@ All contributors throughout the project's lifetime can be found [here](https://g
 
 ## Inactive Contributors
 
-- Alex Valderrama [older version of ACM-to-Python bridge]
-- Marty Stepp [current maintainer of C++ ACM libraries]
-- Keith Schwarz [contributor to JavaBackEnd]
-- Eric Roberts [creator of ACM libraries]
+- Alex Valderrama [creator of an initial Python wrapper around ACM's Java Backend]
+- Marty Stepp [current maintainer of Stanford C++ libraries]
+- Keith Schwarz [contributor to the Java Backend for Stanford's Portable Graphics Library]
+- Eric Roberts [creator of the ACM libraries]
