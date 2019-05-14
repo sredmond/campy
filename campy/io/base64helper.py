@@ -27,12 +27,3 @@ def decode(b):
     return _base64.standard_b64decode(b)
 
 __all__ = ['encode', 'decode']
-
-if __name__ == '__main__':
-    print("**TESTING {}**".format(__file__))
-    msg = b'Hello world!'
-    encoded = encode(msg)
-    decoded = decode(encoded)
-    print("{} encodes into {}".format(msg, encoded))
-    print("{} decodes into {}".format(encoded, decoded))
-

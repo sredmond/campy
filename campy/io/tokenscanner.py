@@ -303,18 +303,3 @@ class _NumberScannerState(_enum.IntEnum):
     FOUND_EXPONENT_SIGN = 4
     SCANNING_EXPONENT = 5
     FINAL_STATE = 6
-
-def _test():
-    pass
-
-if __name__ == '__main__':
-    import io as _io
-    source = _io.StringIO('hello 3.14 "world" is this weird >> then I think so')
-    scanner = TokenScanner(source)
-    scanner.add_operator('>>')
-    scanner._scan_numbers = True
-    scanner._scan_words = True
-    while scanner.has_more_tokens():
-        token = scanner.next_token()
-        print(token)
-        print(scanner.get_token_type(token))

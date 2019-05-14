@@ -124,7 +124,7 @@ class ibitstream(_io.BufferedReader):
         self.seek(0, _io.SEEK_END)
         end = self.tell()
         self.seek(cur, _io.SEEK_SET)
-        return end
+        return end * NUM_BITS_IN_BYTE
 
 
 class obitstream(_io.BufferedWriter):
@@ -167,7 +167,7 @@ class obitstream(_io.BufferedWriter):
         self.seek(0, _io.SEEK_END)
         end = self.tell()
         self.seek(cur, _io.SEEK_SET)
-        return end
+        return end * NUM_BITS_IN_BYTE
 
 class ifbitstream(ibitstream):
     def __init__(self, filename):
@@ -198,38 +198,5 @@ class ostringbitstream(obitstream):
 
     def getvalue(self):
         return self.stream.getvalue()
-
-def print_stream(stream, count=None):
-    if not count:
-        count = stream.size()
-    for _ in range(count):
-        b = 0
-        for __ in range(NUM_BITS_IN_BYTE):
-            bit = stream.readbit()
-            print(bit, end='')
-            b *= 2
-            b += bit
-
-        print(" ({})".format(chr(b)))
-
-if __name__ == '__main__':
-    print("First 6 bytes of this file, using ifbitstream")
-    with ifbitstream(__file__) as stream:
-        print_stream(stream, 6)
-
-    print("Writing bits to ofbitstream around /dev/null")
-    with ofbitstream('/dev/null') as stream:
-        stream.writebit(0)
-        stream.writebit(1)
-
-    print("Reading from in-memory istringbitstream")
-    with istringbitstream(b'hello') as stream:
-        print_stream(stream)
-
-    print("Writing `hi` into ostringbitstream")
-    with ostringbitstream() as stream:
-        for bit in map(int, '0110100001101001'):
-            stream.writebit(bit)
-        print("value is: {}".format(stream.getvalue()))
 
 __all__ = ['ibitstream', 'obitstream', 'ifbitstream', 'ofbitstream', 'istringbitstream', 'ostringbitstream']
