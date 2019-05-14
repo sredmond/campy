@@ -1,10 +1,10 @@
+"""Tests for the :mod:`campy.graphics.gfilechooser` module."""
 from campy.graphics.gfilechooser import GFileChooser
 
-OPEN = True
-SAVE = True
+# TODO(sredmond): Find a way to unit test these modules.
 
-if OPEN:
-    print("--------show_open_dialog--------")
+def test_open_dialog():
+    assert False
     print(GFileChooser.show_open_dialog())
     print(GFileChooser.show_open_dialog('/Users/sredmond/Desktop/'))
     # print(GFileChooser.show_open_dialog('/'))
@@ -14,12 +14,11 @@ if OPEN:
     print(GFileChooser.show_open_dialog('../../'))
 
 
-if SAVE:
-    print("--------show_save_dialog--------")
+def test_save_dialog():
+    assert False
     print(GFileChooser.show_save_dialog())
     print(GFileChooser.show_save_dialog('/'))
     print(GFileChooser.show_save_dialog('~/Desktop'))
     print(GFileChooser.show_save_dialog('/not/a/dir'))
     print(GFileChooser.show_save_dialog('/no/trailing/slash/'))
     print(GFileChooser.show_save_dialog('../../'))
-
