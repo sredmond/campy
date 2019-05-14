@@ -108,6 +108,3 @@ def starts_with(string, prefix):
 def ends_with(string, suffix):
     return string.endswith(suffix)
 
-if __name__ == '__main__':
-    quoted = "\a\b\f\n\r\t\v\"\\abcdefghijklmnopqrstuvwxyz1234567890"
-    print(writeQuotedString(quoted))

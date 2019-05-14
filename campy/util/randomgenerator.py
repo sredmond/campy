@@ -54,10 +54,3 @@ class RandomGenerator(_random.Random):
         self._fixed_reals.appendleft(value)
 
 RandomGenerator._instance = RandomGenerator()
-
-if __name__ == '__main__':
-    rgen = RandomGenerator.get_instance()
-    print(rgen.randchance(0.7))
-    rgen._feed_int(5)
-    print(rgen2.randint(0, 10))
-    print(rgen.randint(0, 10))

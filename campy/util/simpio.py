@@ -79,9 +79,3 @@ def append_space(prompt):
     if not prompt.endswith(' '):
         return prompt + ' '
     return prompt
-
-if __name__ == '__main__':
-    print(get_integer())
-    print(get_real())
-    print(get_positive_real())
-    print(get_yes_or_no())
