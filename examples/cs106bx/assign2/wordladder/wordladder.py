@@ -1,8 +1,9 @@
+#!/usr/bin/env python
+"""CS106B/X Assignment 2 Example: Word Ladder
 
-"""Example implementatino of CS106B Assignment 2: WordLadder.
 
 """
-from campy.datastructures.lexion import Lexicon
+from campy.datastructures.lexicon import Lexicon
 from campy.util.simpio import get_line
 
 
