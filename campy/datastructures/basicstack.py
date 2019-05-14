@@ -65,20 +65,4 @@ class BasicStack(_collections_abc.Sized, _collections_abc.Iterable, _collections
     front = peek
     # Removed: isempty, size, equals
 
-if __name__ == '__main__':
-    bs = BasicStack()
-    bs_with_data = BasicStack([6, "of one"])
-    print(bs)
-    bs.push("of one")
-    bs.push(6)
-    bs.push(8)
-    print(bs.pop())
-    print(bs)
-    print(bs == bs_with_data)
-    print(bs.peek())
-    bs.add(12)
-    print(bs > bs_with_data)
-
-    # TODO(sredmond): Optionally add __add__ and the like
-
 

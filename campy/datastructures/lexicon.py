@@ -197,12 +197,3 @@ class _TrieNode(object):
 
 def _scrub(string):
     return ''.join(filter(str.islower, string))
-
-if __name__ == '__main__':
-    lex = Lexicon(file='/usr/share/dict/words')
-    print(lex)
-    print('aaron' in lex)
-    for word in lex:
-        print(word)
-        break
-

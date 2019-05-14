@@ -1,3 +1,6 @@
+"""A basic, stripped down queue.
+
+"""
 import collections as _collections
 import collections.abc as _collections_abc
 import functools as _functools
@@ -65,20 +68,4 @@ class BasicQueue(_collections_abc.Sized, _collections_abc.Iterable, _collections
     front = peek
     # Removed: isempty, size, equals
 
-if __name__ == '__main__':
-    bq = BasicQueue()
-    bq_with_data = BasicQueue([6, "of one"])
-    print(bq)
-    bq.enqueue(8)
-    bq.enqueue(6)
-    print(bq.dequeue())
-    bq.enqueue("of one")
-    print(bq)
-    print(bq == bq_with_data)
-    print(bq.peek())
-    bq.add(12)
-    print(bq > bq_with_data)
-
-    # TODO(sredmond): Optionally add __add__ and the like
-
-
+__all__ = ['BasicQueue']
