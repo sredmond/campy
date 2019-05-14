@@ -1,27 +1,17 @@
-# /*
-#  * File: shuffle.cpp
-#  * -----------------
-#  * Implementation of the functions in shuffle.h.
-#  * See shuffle.h for documentation of each function.
-#  *
-#  * @author Marty Stepp
-#  * @version 2014/10/08
-#  * - removed 'using namespace' statement
-#  * @since 2014/02/01
-#  */
+"""Shuffle an immutable collection and return a copy of the collection."""
+import random as _random
 
-#include "shuffle.h"
+def shuffle(collection, random=None):
+    """Randomly shuffle a collection.
 
-def shuffle_string(str):
-    """Randomly reararnges the characters of the given string and returns the rearranged version."""
-    pass
-    # for (int i = 0, length = s.length(); i < length; i++) {
-    #     int j = randomInteger(i, length - 1);
-    #     if (i != j) {
-    #         std::string::value_type temp = s[i];
-    #         s[i] = s[j];
-    #         s[j] = temp;
-    #     }
-    # }
-    # return s;
-# }
+    Note that this function has different behavior depending on what the input is.
+
+    If collection represents an infinite iterable, this will loop indefinitely.
+    """
+    elements = list(collection)  # Consume
+    _random.shuffle(elements, random=random)
+    if isinstance(collection, str):
+        return ''.join(elements)
+    return collection.__class__(elements)
+
+__all__ = ['shuffle']
