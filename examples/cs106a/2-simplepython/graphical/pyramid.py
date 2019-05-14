@@ -1,24 +1,31 @@
-#!/usr/bin/env python3
-"""Draw a graphical pyramid on screen."""
-# TODO(sredmond): Rethink star-imports - they pollute the global namespace and
-# are generally a bad style point (awkward imports of _underscore identifiers).
-from campy.graphics.gwindow import *
-from campy.graphics.gobjects import *
-from campy.graphics.gtimer import *
+#!/usr/bin/env python
+"""CS106A Assignment 2 Example: Pyramid
 
-window = GWindow(width=1280, height=800)
-window.title = 'Pyramid'
+This program draw a pyramid consisting of bricks arranged in horizontal rows.
+"""
+from campy.graphics.gwindow import GWindow
+from campy.graphics.gobjects import GRect
 
-MAX_WIDTH = window.width
-MAX_HEIGHT = window.height
-NUM_BRICKS_IN_BASE = 12
+# Width of each brick (in pixels).
+BRICK_WIDTH = 60
 
-BRICK_WIDTH = MAX_WIDTH // NUM_BRICKS_IN_BASE
-BRICK_HEIGHT = MAX_HEIGHT // NUM_BRICKS_IN_BASE
+# Height of each brick (in pixels).
+BRICK_HEIGHT = 24
 
-DEFAULT_COLORS = ('red', 'green', 'blue', 'yellow', 'orange')
-def get_color(row_num, colors=DEFAULT_COLORS):
-    return colors[row_num % len(colors)]
+# Number of bricks in the base.
+BRICKS_IN_BASE = 14
+
+###############
+# Extensions! #
+###############
+
+# Color names to cycle between.
+COLORS = ('RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE', 'INDIGO', 'VIOLET')
+
+
+def get_color(row_num):
+    return COLORS[row_num % len(COLORS)]
+
 
 def make_brick(x, y, color):
     brick = GRect(BRICK_WIDTH, BRICK_HEIGHT, x=x, y=y)
@@ -26,17 +33,31 @@ def make_brick(x, y, color):
     brick.fill_color = color
     return brick
 
-def make_pyramid():
-    start_y = MAX_HEIGHT - BRICK_HEIGHT
-    for brick_row in range(NUM_BRICKS_IN_BASE):
-        row_color = get_color(brick_row)
+
+def draw_row(window, bricks_in_row, start_x, row_y, row_color):
+    for brick_num in range(bricks_in_row):
+        # Slide to the right as we lay bricks in this row.
+        x = start_x + brick_num * BRICK_WIDTH
+        brick = make_brick(x, row_y, row_color)
+        window.add(brick)
+
+
+def draw_pyramid(window):
+    # Align the bottom row to the bottom of the window.
+    start_y = window.height - BRICK_HEIGHT
+    for brick_row in range(BRICKS_IN_BASE):
+        bricks_in_row = BRICKS_IN_BASE - brick_row
+        # Center the row in the window.
+        start_x = (window.width - bricks_in_row * BRICK_WIDTH) // 2
         row_y = start_y - brick_row * BRICK_HEIGHT
-        num_bricks_in_row = NUM_BRICKS_IN_BASE - brick_row
-        start_x = (MAX_WIDTH - num_bricks_in_row * BRICK_WIDTH) // 2
-        for brick_num in range(num_bricks_in_row):
-            x = start_x + brick_num * BRICK_WIDTH
-            brick = make_brick(x, row_y, row_color)
-            window.add(brick)
+        row_color = get_color(brick_row)
+        draw_row(window, bricks_in_row, start_x, row_y, row_color)
+
 
 if __name__ == '__main__':
-    make_pyramid()
+    # Leave some extra space in the window.
+    window_width = BRICK_WIDTH * (BRICKS_IN_BASE + 1)
+    window_height = BRICK_HEIGHT * (BRICKS_IN_BASE + 1)
+
+    window = GWindow(width=window_width, height=window_height, title='Pyramid')
+    draw_pyramid(window)
