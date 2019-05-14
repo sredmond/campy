@@ -16,8 +16,9 @@ class NameSurferGraph(GCompound):
 
     def __init__(self, width, height):
         super().__init__()
-        self.width = width
-        self.height = height
+        # TODO(sredmond): Is it appropriate to set the width and height here?
+        self._width = width
+        self._height = height
         self.draw_background()
         self._entries = []
 

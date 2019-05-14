@@ -16,23 +16,23 @@ if __name__ == '__main__':
     graph_button = GButton('Graph')
     clear_button = GButton('Clear!')
 
-    window.addToRegion(GLabel('Name'), "NORTH")
-    window.addToRegion(infield, "NORTH")
-    window.addToRegion(graph_button, "NORTH")
-    window.addToRegion(clear_button, "NORTH")
+    window.add_to_region(GLabel('Name'), "NORTH")
+    window.add_to_region(infield, "NORTH")
+    window.add_to_region(graph_button, "NORTH")
+    window.add_to_region(clear_button, "NORTH")
 
     # Construct NSDB and NSGraph
     db = NameSurferDatabase(NAMES_DATA_FILE)
     graph = NameSurferGraph(window.width, window.height - 40)
     window.add(graph)
 
-    while True:
-        event = get_next_event()
-        if event.event_type == EventType.ACTION_PERFORMED:
-            if event.source == graph_button:
-                entry = db[infield.text]
-                if not entry:
-                    continue
-                graph.add_entry(entry)
-            if event.source == clear_button:
-                graph.clear()
+    # while True:
+    #     event = get_next_event()
+    #     if event.event_type == EventType.ACTION_PERFORMED:
+    #         if event.source == graph_button:
+    #             entry = db[infield.text]
+    #             if not entry:
+    #                 continue
+    #             graph.add_entry(entry)
+    #         if event.source == clear_button:
+    #             graph.clear()
