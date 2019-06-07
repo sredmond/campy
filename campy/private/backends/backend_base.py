@@ -31,21 +31,21 @@ class GraphicsBackendBase(abc.ABC):
 
     # GWindow drawing.
     def gwindow_clear(self, gwindow): pass
-    def gwindow_clear_canvas(self, gwindow, exit_on_close): pass
+    def gwindow_clear_canvas(self, gwindow): pass
     def gwindow_repaint(self, gwindow): pass
     def gwindow_draw(self, gwindow, gobject): pass
 
     # GWindow attributes.
     def gwindow_request_focus(self, gwindow): pass
-    def gwindow_set_visible(self, flag, gobject=None, gwindow=None): pass
+    def gwindow_set_visible(self, gwindow, flag): pass
     def gwindow_set_window_title(self, gwindow, title): pass
-    def gwindow_get_screen_width(self): pass
-    def gwindow_get_screen_height(self): pass
+    def gwindow_get_width(self): pass
+    def gwindow_get_height(self): pass
 
     # GWindow geometry.
     def gwindow_add_to_region(self, gwindow, gobject, region): pass
-    def gwindow_set_region_alignment(self, gwindow, region, align): pass
     def gwindow_remove_from_region(self, gwindow, gobject, region): pass
+    def gwindow_set_region_alignment(self, gwindow, region, align): pass
 
     # Shared GObject operations.
     def gobject_set_location(self, gobject, x, y): pass
@@ -62,17 +62,18 @@ class GraphicsBackendBase(abc.ABC):
     def gobject_get_bounds(self, gobject): pass
     def gobject_set_line_width(self, gobject, line_width): pass
     def gobject_contains(self, gobject, x, y): pass
+    def gobject_set_visible(self, gobject, flag): pass
     def gobject_scale(self, gobject, sx, sy): pass
     def gobject_rotate(self, gobject, theta): pass
 
     # Rectangular regions
-    def grect_constructor(self, gobject, width, height): pass
+    def grect_constructor(self, grect): pass
     def groundrect_constructor(self, gobject, width, height, corner): pass
     def g3drect_constructor(self, gobject, width, height, raised): pass
     def g3drect_set_raised(self, gobject, raised): pass
 
     # Elliptical regions
-    def goval_constructor(self, gobject, width, height): pass
+    def goval_constructor(self, gobject): pass
     def garc_constructor(self, gobject, width, height, start, sweep): pass
     def garc_set_start_angle(self, gobject, angle): pass
     def garc_set_sweep_angle(self, gobject, angle): pass
