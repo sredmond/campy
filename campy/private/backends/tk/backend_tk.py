@@ -548,12 +548,16 @@ class TkBackend(GraphicsBackendBase):
 
         win.canvas.itemconfig(tkid, start=angle)
 
+        win._master.update_idletasks()
+
     def garc_set_sweep_angle(self, garc, angle):
         if not hasattr(garc, '_tkid'): return
         tkid = garc._tkid
         win = garc._tkwin
 
         win.canvas.itemconfig(tkid, extent=angle)
+
+        win._master.update_idletasks()
 
     def garc_set_frame_rectangle(self, garc, x, y, width, height): pass
 
@@ -562,36 +566,130 @@ class TkBackend(GraphicsBackendBase):
     # GLines #
     ##########
     def gline_constructor(self, gline):
-        if hasattr(garc, '_tkwin'):
+        if hasattr(gline, '_tkwin'):
             return
 
         win = self._windows[-1]
-        garc._tkwin = win
+        gline._tkwin = win
 
-        garc._tkid = win.canvas.create_line(
+        gline._tkid = win.canvas.create_line(
             gline.start.x, gline.start.y, gline.end.x, gline.end.y,
-            fill=garc.color.hex,
-            state=tk.NORMAL if garc.visible else tk.HIDDEN)
+            fill=gline.color.hex,
+            state=tk.NORMAL if gline.visible else tk.HIDDEN)
 
         win._master.update_idletasks()
 
     def gline_set_start_point(self, gline, x, y):
-        if not hasattr(garc, '_tkid'): return
-        tkid = garc._tkid
-        win = garc._tkwin
+        if not hasattr(gline, '_tkid'): return
+        tkid = gline._tkid
+        win = gline._tkwin
 
         win.canvas.coords(tkid, x, y, gline.end.x, gline.end.y,)
 
         win._master.update_idletasks()
 
     def gline_set_end_point(self, gline, x, y):
-        if not hasattr(garc, '_tkid'): return
-        tkid = garc._tkid
-        win = garc._tkwin
+        if not hasattr(gline, '_tkid'): return
+        tkid = gline._tkid
+        win = gline._tkwin
 
         win.canvas.coords(tkid, gline.start.x, gline.start.y, x, y)
 
         win._master.update_idletasks()
+
+    ##########
+    # Labels #
+    ##########
+    def glabel_constructor(self, glabel):
+        if hasattr(glabel, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        glabel._tkwin = win
+
+        # TODO(sredmond): Document that we're putting the anchor at the NW corner.
+        # TODO(sredmond): Respect the font that's been set.
+        glabel._tkid = win.canvas.create_text(
+            glabel.x, glabel.y,
+            text=glabel.text,
+            fill=glabel.color.hex, anchor=tk.NW,
+            state=tk.NORMAL if glabel.visible else tk.HIDDEN)
+
+        win._master.update_idletasks()
+
+    def glabel_set_font(self, glabel, font): pass
+    def glabel_set_label(self, glabel, text):
+        if not hasattr(glabel, '_tkid'): return
+        tkid = glabel._tkid
+        win = glabel._tkwin
+
+        win.canvas.itemconfig(tkid, text=text)
+
+    def glabel_get_font_ascent(self, glabel): pass
+    def glabel_get_font_descent(self, glabel): pass
+    def glabel_get_size(self, glabel):
+        # TODO(sredmond): This is currently broken.
+        if not hasattr(glabel, '_tkid'): return 0, 0
+        tkid = glabel._tkid
+        win = glabel._tkwin
+
+        x0, y0, x1, y1 = win.canvas.bbox(tkid)
+        return x1 - x0, y1 - y0
+
+    # Polygons
+    def gpolygon_constructor(self, gpolygon):
+        if hasattr(gpolygon, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        gpolygon._tkwin = win
+
+        coords = sum(((v.x + gpolygon.x, v.y + gpolygon.y) for v in gpolygon.vertices), ())
+        print(coords)
+        gpolygon._tkid = win.canvas.create_polygon(coords,  # Not the fastest, but it'll do
+            outline=gpolygon.color.hex, fill=gpolygon.fill_color.hex if gpolygon.filled else '',
+            state=tk.NORMAL if gpolygon.visible else tk.HIDDEN)
+
+        win._master.update_idletasks()
+
+    def gpolygon_add_vertex(self, gpolygon, x, y):
+        if not hasattr(gpolygon, '_tkid'): return
+        tkid = gpolygon._tkid
+        win = gpolygon._tkwin
+
+        win.canvas.coords(tkid, x, y, gpolygon.end.x, gpolygon.end.y,)
+
+        win._master.update_idletasks()
+
+    ###############
+    # Interactors #
+    ###############
+    def gbutton_constructor(self, gbutton):
+        if hasattr(gbutton, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        gbutton._tkwin = win
+
+        gbutton._tkobj = tk.Button(win._master, text=gbutton.label, command=gbutton.click,
+            state=tk.NORMAL if not gbutton.disabled else tk.DISABLED)
+        gbutton._tkobj.pack()
+
+        win._master.update_idletasks()
+
+    def gcheckbox_constructor(self, gcheckbox, label): pass
+    def gcheckbox_is_selected(self, gcheckbox): pass
+    def gcheckbox_set_selected(self, gcheckbox, state): pass
+    def gslider_constructor(self, gslider, min, max, value): pass
+    def gslider_get_value(self, gslider): pass
+    def gslider_set_value(self, gslider, value): pass
+    def gtextfield_constructor(self, gtextfield, num_chars): pass
+    def gtextfield_get_text(self, gtextfield): pass
+    def gtextfield_set_text(self, gtextfield, str): pass
+    def gchooser_constructor(self, gchooser): pass
+    def gchooser_add_item(self, gchooser, item): pass
+    def gchooser_get_selected_item(self, gchooser): pass
+    def gchooser_set_selected_item(self, gchooser, item): pass
 
     ###########
     # Dialogs #
@@ -643,11 +741,30 @@ class TkBackend(GraphicsBackendBase):
 if __name__ == '__main__':
     # Quick tests.
     from campy.graphics.gwindow import GWindow
-    from campy.graphics.gobjects import GRect
+    from campy.graphics.gobjects import GRect, GPolygon
     from campy.graphics.gfilechooser import show_open_dialog
     from campy.graphics.goptionpane import *
+    from campy.graphics.gtypes import *
+    from campy.gui.interactors import *
+
+    import math
 
     window = GWindow()
     rect = GRect(100, 200, x=50, y=60)
     window.add(rect)
     rect.location = 300, 300
+    button = GButton('Button')
+    window.add(button)
+
+    # Add a polygon.
+    edge_length = 75
+    stop_sign = GPolygon()
+    start = GPoint(-edge_length / 2, edge_length / 2 + edge_length / math.sqrt(2.0))
+    stop_sign.add_vertex(start)
+    for edge in range(8):
+        stop_sign.add_polar_edge(edge_length, 45*edge)
+    stop_sign.filled = True
+    stop_sign.color = "BLACK"
+    stop_sign.fill_color = "RED"
+    window.add(stop_sign, window.width / 2, window.height / 2)
+

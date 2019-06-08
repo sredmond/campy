@@ -89,16 +89,16 @@ class GraphicsBackendBase(abc.ABC):
     def gcompound_add(self, compound, gobject): pass
 
     # Labels
-    def glabel_constructor(self, gobject, label): pass
-    def glabel_set_font(self, gobject, font): pass
-    def glabel_set_label(self, gobject, str): pass
-    def glabel_get_font_ascent(self, gobject): pass
-    def glabel_get_font_descent(self, gobject): pass
-    def glabel_get_size(self, gobject): pass
+    def glabel_constructor(self, glabel): pass
+    def glabel_set_font(self, glabel, font): pass
+    def glabel_set_label(self, glabel, text): pass
+    def glabel_get_font_ascent(self, glabel): pass
+    def glabel_get_font_descent(self, glabel): pass
+    def glabel_get_size(self, glabel): pass
 
     # Polygons
-    def gpolygon_constructor(self, gobject): pass
-    def gpolygon_add_vertex(self, gobject, x, y): pass
+    def gpolygon_constructor(self, gpolygon): pass
+    def gpolygon_add_vertex(self, gpolygon, x, y): pass
 
     # Timers
     def gtimer_constructor(self, timer, millis): pass
@@ -125,20 +125,20 @@ class GraphicsBackendBase(abc.ABC):
     def wait_for_event(self, mask): pass
 
     # Interactors
-    def gbutton_constructor(self, gbutton, label): pass
+    def gbutton_constructor(self, gbutton): pass
     def gcheckbox_constructor(self, gcheckbox, label): pass
     def gcheckbox_is_selected(self, gcheckbox): pass
     def gcheckbox_set_selected(self, gcheckbox, state): pass
-    def gslider_constructor(self, gobject, min, max, value): pass
-    def gslider_get_value(self, gobject): pass
-    def gslider_set_value(self, gobject, value): pass
-    def gtextfield_constructor(self, gobject, num_chars): pass
-    def gtextfield_get_text(self, gobject): pass
-    def gtextfield_set_text(self, gobject, str): pass
-    def gchooser_constructor(self, gobject): pass
-    def gchooser_add_item(self, gobject, item): pass
-    def gchooser_get_selected_item(self, gobject): pass
-    def gchooser_set_selected_item(self, gobject, item): pass
+    def gslider_constructor(self, gslider, min, max, value): pass
+    def gslider_get_value(self, gslider): pass
+    def gslider_set_value(self, gslider, value): pass
+    def gtextfield_constructor(self, gtextfield, num_chars): pass
+    def gtextfield_get_text(self, gtextfield): pass
+    def gtextfield_set_text(self, gtextfield, text): pass
+    def gchooser_constructor(self, gchooser): pass
+    def gchooser_add_item(self, gchooser, item): pass
+    def gchooser_get_selected_item(self, gchooser): pass
+    def gchooser_set_selected_item(self, gchooser, item): pass
 
     # Dialogs
     def gfilechooser_show_open_dialog(self, current_dir, file_filter): pass
