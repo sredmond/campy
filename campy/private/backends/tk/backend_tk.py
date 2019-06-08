@@ -19,6 +19,7 @@ Each GWindow is associated to a single Canvas. GWindows beyond the first will op
 """
 # It is discouraged to instantiate multiple instances of Tk graphics
 from campy.private.backends.backend_base import GraphicsBackendBase
+from campy.private.backends.tk.menu import setup_menubar
 
 import atexit
 import logging
@@ -249,6 +250,9 @@ class TkWindow:
         self._closed = False
         self._master.protocol("WM_DELETE_WINDOW", self._close)
         self._master.resizable(width=False, height=False)  # Disable resizing by default.
+
+        # TODO(sredmond): On macOS, multiple backends might race to set the process-level menu bar.
+        setup_menubar(self._master)
 
         self._frame = tk.Frame(self._master)
 
