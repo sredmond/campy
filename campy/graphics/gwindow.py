@@ -107,9 +107,10 @@ class GWindow:
         self._height = height
         self._visible = visible
         self._title = title
+        # TODO(sredmond): Propagate the title to the backend constructor.
 
         if not color:
-            color = _gcolor.color_to_rgb("BLACK")
+            color = _gcolor.GColor.BLACK
         self._color = color
 
         if not top:
@@ -268,7 +269,7 @@ class GWindow:
         """
         # TODO(sredmond): Find a way to supply a GRectangle's bounds instead.
         # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
-        oval = _gobjects.GOval(width, height, x, y)
+        oval = _gobjects.GOval(width, height, x=x, y=y)
         # oval.color = self.color  # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.
         self.draw(oval)
 
@@ -299,7 +300,7 @@ class GWindow:
         """
         # TODO(sredmond): Find a way to supply a GRectangle's bounds instead.
         # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
-        oval = _gobjects.GOval(width, height, x, y)
+        oval = _gobjects.GOval(width, height, x=x, y=y)
         oval.color = self.color
         # TODO(sredmond): Possibly, fall back to a black outline when the oval is filled.
         # oval.fill_color = self.color # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.
@@ -327,7 +328,7 @@ class GWindow:
         """
         # TODO(sredmond): Find a way to supply a GRectangle's bounds instead.
         # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
-        rect = _gobjects.GRect(width, height, x, y)
+        rect = _gobjects.GRect(width, height, x=x, y=y)
         rect.color = self.color
         self.draw(rect)
 
@@ -351,7 +352,7 @@ class GWindow:
         :param height: The height of the rectangle in pixels.
         """
         # TODO(sredmond): It's a little awkward to reverse the order of the arguments here.
-        rect = _gobjects.GRect(width, height, x, y)
+        rect = _gobjects.GRect(width, height, x=x, y=y)
         rect.color = self.color
         rect.fill_color = self.color
         rect.filled = True
@@ -395,6 +396,7 @@ class GWindow:
         :param x: The x-coordinate at which to draw the GObject.
         :param y: The y-coordinate at which to draw the GObject.
         """
+        # TODO(sredmond): Handle the case where location is a float.
         if x is not None and y is not None:
             gobj.location = x, y
         self._top.add(gobj)

@@ -38,8 +38,8 @@ class GObject:
         self._x = 0.0
         self._y = 0.0
 
-        self._color = ""
-        self._line_width = 1.0
+        self._color = _gcolor.GColor.BLACK
+        self._line_width = 1.0  # TODO(sredmond): Lots of GObjects currently ignore self._line_width
         self._visible = True
 
         self._transformed = False
@@ -166,6 +166,7 @@ class GObject:
         Accessing this property will return a :class:`GColor` which can be
         used anywhere that expects a color.
         """
+        # TODO(sredmond): It looks like setting the color for a gobject won't change the outside.
         return self._color
 
     @color.setter
@@ -300,7 +301,7 @@ class GObject:
         # TODO(sredmond): It sort of feels like all of the subclasses (except GImage and GLabel)
         # just define their own contains anyway. Is it still good design to keep this implementation here?
         # Attempt to unpack the supplied point as a tuple.
-        x, y = pt
+        x, y = point
 
         # TODO(sredmond): Should we really just offload the work if it happens to be transformed?
         if self._transformed:
@@ -365,7 +366,7 @@ class GFillableObject(GObject):
     def fill_color(self, color):
         color = _gcolor.GColor.normalize(color)
         self._fill_color = color
-        _platform.Platform().gobject_set_fill_color(self, self.fill_color.hex)
+        _platform.Platform().gobject_set_fill_color(self, self.fill_color)
 
 # END SECTION: Graphical Mixins
 
@@ -407,8 +408,6 @@ class GRect(GFillableObject):
         self._width = width
         self._height = height
         self.location = x, y
-        # TODO(sredmond): Do we not need to pass x, y to the platform?
-        _platform.Platform().grect_constructor(self, width, height)
 
     # @property
     # def size(self):
@@ -433,7 +432,7 @@ class GRect(GFillableObject):
 
     #     if(width == None or height == None): return
 
-    #     if(self.transformed):
+    #     if(self._transformed):
     #         raise Exception("setSize: Object has been transformed")
 
     #     self.width = width
@@ -474,11 +473,11 @@ class GRect(GFillableObject):
         :rtype: :class:`GRectangle`
         """
         # TODO(sredmond): What do we we do about transformed rectangles?
-        if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
-        return _gtypes.GRectangle(self.x, self.y, self.width, self.height)
+        if(self._transformed): return _platform.Platform().gobject_get_bounds(self)
+        return _gtypes.GRectangle(self.x, self.y, self._width, self._height)
 
     def __str__(self):
-        return "GRect({self.width}, {self.height}, x={self.x}, y={self.y}".format(self=self)
+        return "GRect({self.width}, {self.height}, x={self.x}, y={self.y})".format(self=self)
 
 
 class GRoundRect(GRect):
@@ -489,9 +488,9 @@ class GRoundRect(GRect):
     # TODO(sredmond): Add documentation from the GRect object here
 
     # The number of pixels in the diameter of the arc forming the corner.
-    __CORNER_ROUNDING = 10
+    CORNER_ROUNDING = 10
 
-    def __init__(self, width, height, *, x=None, y=None, corner=__CORNER_ROUNDING):
+    def __init__(self, width, height, *, x=None, y=None, corner=CORNER_ROUNDING):
         """Create a new rounded rectangle with the supplied width and height.
 
         The caller can also specify x and y coordinates for the top-left corner
@@ -587,11 +586,12 @@ class GOval(GFillableObject):
         :param x: The x-coordinate of the top-left corner of the bounding rectangle.
         :param y: The y-coordinate of the top-left corner of the bounding rectangle.
         """
-        super.__init__()
-        self.location = x, y
+        super().__init__()
         self._width = width
         self._height = height
-        _platform.Platform().goval_constructor(self, width, height)
+        # _platform.Platform().goval_constructor(self, width, height)
+        # TODO(sredmond): At the moment, this needs to be after the constructor line. This is a sign of a bad organization and should be changed.
+        self.location = x, y
 
     # def setSize(self, width=None, height=None, size=None):
     #     '''
@@ -604,7 +604,7 @@ class GOval(GFillableObject):
     #     @param size: will override height and width parameters
     #     @rtype: void
     #     '''
-    #     if(self.transformed): raise Exception("setSize: Object has been transformed")
+    #     if(self._transformed): raise Exception("setSize: Object has been transformed")
     #     if(size != None):
     #         width = size.width
     #         height = size.height
@@ -631,6 +631,20 @@ class GOval(GFillableObject):
     #     self.setLocation(x=x, y=y)
     #     self.setSize(width, height)
 
+    @property
+    def bounds(self):
+        """Get the bounding box for this :class:`GOval`.
+
+        The bounding box of a :class:`GOval` is simply the bounding rectangle.
+
+        :returns: A bounding box that covers this :class:`GOval`.
+        :rtype: :class:`GRectangle`
+        """
+        # TODO(sredmond): What do we we do about transformed rectangles?
+        if(self._transformed): return _platform.Platform().gobject_get_bounds(self)
+        return _gtypes.GRectangle(self.x, self.y, self._width, self._height)
+
+
     def __contains__(self, point):
         """Implement ``point in self``.
 
@@ -645,7 +659,7 @@ class GOval(GFillableObject):
         x, y = point
 
         # TODO(sredmond): How should I handle transformed GObjects?
-        if self.transformed:
+        if self._transformed:
             return _platform.Platform().gobject_contains(self, x, y)
 
         rx = self.width / 2
@@ -714,7 +728,7 @@ class GArc(GFillableObject):
         :param x: The x-coordinate of the top-left corner of the bounding rectangle.
         :param y: The y-coordinate of the top-left corner of the bounding rectangle.
         """
-        super.__init__()
+        super().__init__()
         self.location = x, y
 
         # What are these?
@@ -723,7 +737,7 @@ class GArc(GFillableObject):
 
         self._start = start
         self._sweep = sweep
-        _platform.Platform().garc_constructor(self, width, height, start, sweep)
+        # _platform.Platform().garc_constructor(self, width, height, start, sweep)
 
     @property
     def start(self):
@@ -810,7 +824,7 @@ class GArc(GFillableObject):
         """
         # TODO(sredmond): Should this be small if the arc is small?
         # TODO(sredmond): Write this method.
-        if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
+        if(self._transformed): return _platform.Platform().gobject_get_bounds(self)
 
         rx = self.frameWidth / 2
         ry = self.frameHeight / 2
@@ -869,7 +883,7 @@ class GArc(GFillableObject):
         @rtype: boolean
         '''
         # TODO(sredmond): Write this method correctly.
-        if(self.transformed): return _platform.Platform().gobject_contains(self, x, y)
+        if(self._transformed): return _platform.Platform().gobject_contains(self, x, y)
 
         rx = frameWidth / 2
         ry = frameHeight / 2
@@ -1147,7 +1161,7 @@ class GImage(GObject):
     @property
     def bounds(self):
         """Get the bounding box for this :class:`GImage`."""
-        if self.transformed: return _platform.Platform().gobject_get_bounds(self)
+        if self._transformed: return _platform.Platform().gobject_get_bounds(self)
         return _gtypes.GRectangle(self.x, self.y, self._size.width, self._size.height)
 
     def __str__(self):
@@ -1193,7 +1207,7 @@ class GLabel(GObject):
         :param y: The y-coordinate of the bottom-left corner of this rectangle.
         """
         super().__init__()
-        self._label = label
+        self._text = label
         self.font = GLabel.DEFAULT_FONT  # Also sets self._ascent, self._descent
         self.location = x, y
         # TODO(sredmond): Check that overriding bounds makes width and height work appropriately.
@@ -1202,7 +1216,7 @@ class GLabel(GObject):
         # self.height = size.height
 
         # TODO(sredmond): Consider replacing with just a constructor.
-        _platform.Platform().glabel_constructor(self, label)
+        # _platform.Platform().glabel_constructor(self, label)
 
 
     @property
@@ -1226,17 +1240,17 @@ class GLabel(GObject):
         # self.height = size.height
 
     @property
-    def label(self):
+    def text(self):
         """Get or set this :class:`GLabel`'s label.
 
         Setting the label changes the internal state of the :class:`GLabel`,
         so a existing drawn labels will redisplay."""
-        return self._label
+        return self._text
 
-    @label.setter
-    def label(self, label):
-        self._label = label
-        _platform.Platform().glabel_set_label(self, label)
+    @text.setter
+    def text(self, text):
+        self._text = text
+        _platform.Platform().glabel_set_label(self, text)
 
         # size = _platform.Platform().glabel_get_size(self)
         # self.width = size.width
@@ -1245,12 +1259,16 @@ class GLabel(GObject):
     @property
     def ascent(self):
         """Return the maximum distance strings in this font ascend above the baseline."""
-        return self._ascent
+        # PATCH! Remove me.
+        return 10
+        # return self._ascent
 
     @property
     def descent(self):
         """Return the maximum distance strings in this font descend below the baseline."""
-        return self._descent
+        # PATCH! Remove me.
+        return 0
+        # return self._descent
 
     @property
     def bounds(self):
@@ -1264,9 +1282,11 @@ class GLabel(GObject):
         """
         # TODO(sredmond): How do we handle bounds when there could be descent?
 
-        if(self.transformed): return _platform.Platform().gobject_get_bounds(self)
+        if self._transformed: return _platform.Platform().gobject_get_bounds(self)
         # TODO(sredmond): This won't work until we separately store width and height from platform size calculations.
-        return _gtypes.GRectangle(self.x, self.y - self.ascent, self.width, self.height)
+        # return _gtypes.GRectangle(self.x, self.y - self.ascent, self._width, self._height)
+        width, height = _platform.Platform().glabel_get_size(self)
+        return _gtypes.GRectangle(self.x, self.y - self.ascent, width, height)  # Placeholder TODO
 
     def __str__(self):
         return 'GLabel("{}")'.format(self.label)
@@ -1299,7 +1319,7 @@ class GPolygon(GFillableObject):
         self.last_x = 0
         self.last_y = 0
         self.vertices = []
-        _platform.Platform().gpolygon_constructor(self)
+        # _platform.Platform().gpolygon_constructor(self)
 
     def add_vertex(self, point):
         """Add a vertex at a given :class:`GPoint` relative to the polygon origin."""
@@ -1343,15 +1363,15 @@ class GPolygon(GFillableObject):
         :returns: The bounding box of this :class:`GPolygon`.
         :rtype: :class:`GRectangle`
         """
-        if self.transformed: return _platform.Platform().gobject_get_bounds(self)
+        if self._transformed: return _platform.Platform().gobject_get_bounds(self)
 
         xs = [vertex.x for vertex in self.vertices]
-        ys = [vertex.x for vertex in self.vertices]
+        ys = [vertex.y for vertex in self.vertices]
         min_x = min(xs)
         max_x = max(xs)
         min_y = min(ys)
         max_y = max(ys)
-        return _gtypes.GRectangle(min_x, min_y, max_x - min_x, max_y - min_y))
+        return _gtypes.GRectangle(min_x, min_y, max_x - min_x, max_y - min_y)
 
 
     def __contains__(self, point):
@@ -1359,7 +1379,7 @@ class GPolygon(GFillableObject):
         """
         # TODO(sredmond): Add the usual documentation here.
         x, y = point
-        if self.transformed: return _platform.Platform().gobject_contains(self, x, y)
+        if self._transformed: return _platform.Platform().gobject_contains(self, x, y)
 
         # TOOD(sredmond): Verify this containment algorithm.
         crossings = 0
@@ -1445,6 +1465,26 @@ class GCompound(GObject, MutableSequence):
         if x is not None and y is not None:
             gobj.location = (x, y)
 
+        # Dispatch the constructor to the appropriate backend constructor.
+        if isinstance(gobj, GRect):
+            _platform.Platform().grect_constructor(gobj)
+
+        if isinstance(gobj, GOval):
+            _platform.Platform().goval_constructor(gobj)
+
+        if isinstance(gobj, GArc):
+            _platform.Platform().garc_constructor(gobj)
+
+        if isinstance(gobj, GLine):
+            _platform.Platform().gline_constructor(gobj)
+
+        if isinstance(gobj, GLabel):
+            _platform.Platform().glabel_constructor(gobj)
+
+        if isinstance(gobj, GPolygon):
+            # TODO(sredmond): Warn against creating a polygon w/o enough vertices.
+            _platform.Platform().gpolygon_constructor(gobj)
+
         _platform.Platform().gcompound_add(self, gobj)
         self.contents.append(gobj)
         gobj._parent = self
@@ -1500,7 +1540,7 @@ class GCompound(GObject, MutableSequence):
         # Attempt to unpack the supplied point as a tuple.
         x, y = point
 
-        if self.transformed:
+        if self._transformed:
             return _platform.Platform().gobject_contains(self, x, y)
 
         return any((x, y) in obj for obj in self.contents)
