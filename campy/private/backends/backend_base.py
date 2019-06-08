@@ -101,10 +101,10 @@ class GraphicsBackendBase(abc.ABC):
     def gpolygon_add_vertex(self, gpolygon, x, y): pass
 
     # Timers
-    def gtimer_constructor(self, timer, millis): pass
+    def gtimer_constructor(self, timer): pass
     def gtimer_delete(self, timer): pass
     def gtimer_start(self, timer): pass
-    def gtimer_pause(self, millis): pass
+    def gtimer_pause(self, timer, millis): pass
     def gtimer_stop(self, timer): pass
 
     # Images
