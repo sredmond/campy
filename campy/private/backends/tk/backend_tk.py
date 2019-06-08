@@ -24,7 +24,9 @@ import atexit
 import logging
 import tkinter as tk
 import tkinter.font as tkfont
-from tkinter import filedialog
+import tkinter.filedialog as tkfiledialog
+import tkinter.messagebox as tkmessagebox
+import tkinter.simpledialog as tksimpledialog
 import threading
 import sys
 
@@ -227,13 +229,6 @@ logger = logging.getLogger(__name__)
 # # SECTION: File Choosing #
 # ##########################
 
-#     def gfilechooser_show_open_dialog(self, current_dir, file_filter):
-#         logger.info('Ignoring file_filter argument to gfilechooser_show_open_dialog.')
-#         return filedialog.askopenfilename(initialdir=current_dir, title='Select File to Open')
-
-#     def gfilechooser_show_save_dialog(self, current_dir, file_filter):
-#         logger.info('Ignoring file_filter argument to gfilechooser_show_save_dialog.')
-#         return filedialog.asksaveasfilename(initialdir=current_dir, title='Select File to Save')
 
 # ######################
 # # END: File Choosing #
@@ -537,9 +532,6 @@ class TkBackend(GraphicsBackendBase):
         win = self._windows[-1]
         garc._tkwin = win
 
-        #     def add_arc(self, arc, x0, y0, x1, y1, start, extent):
-        # self.objects[id(arc)] = win.canvas.create_arc(x0, y0, x1, y1, start=start, extent=extent)
-
         garc._tkid = win.canvas.create_arc(
             garc.x, garc.y, garc.x + garc.width, garc.y + garc.height,
             start=garc.start, extent=garc.sweep,
@@ -569,15 +561,91 @@ class TkBackend(GraphicsBackendBase):
     ##########
     # GLines #
     ##########
-    def gline_constructor(self, gline, x1, y1, x2, y2): pass
-    def gline_set_start_point(self, gline, x, y): pass
-    def gline_set_end_point(self, gline, x, y): pass
+    def gline_constructor(self, gline):
+        if hasattr(garc, '_tkwin'):
+            return
 
+        win = self._windows[-1]
+        garc._tkwin = win
+
+        garc._tkid = win.canvas.create_line(
+            gline.start.x, gline.start.y, gline.end.x, gline.end.y,
+            fill=garc.color.hex,
+            state=tk.NORMAL if garc.visible else tk.HIDDEN)
+
+        win._master.update_idletasks()
+
+    def gline_set_start_point(self, gline, x, y):
+        if not hasattr(garc, '_tkid'): return
+        tkid = garc._tkid
+        win = garc._tkwin
+
+        win.canvas.coords(tkid, x, y, gline.end.x, gline.end.y,)
+
+        win._master.update_idletasks()
+
+    def gline_set_end_point(self, gline, x, y):
+        if not hasattr(garc, '_tkid'): return
+        tkid = garc._tkid
+        win = garc._tkwin
+
+        win.canvas.coords(tkid, gline.start.x, gline.start.y, x, y)
+
+        win._master.update_idletasks()
+
+    ###########
+    # Dialogs #
+    ###########
+    # TODO(sredmond): Make these dialogs steal focus.
+    def gfilechooser_show_open_dialog(self, current_dir, file_filter):
+        logger.debug('Ignoring file_filter argument to gfilechooser_show_open_dialog.')
+        return tkfiledialog.askopenfilename(initialdir=current_dir, title='Select File to Open')
+
+    def gfilechooser_show_save_dialog(self, current_dir, file_filter):
+        logger.debug('Ignoring file_filter argument to gfilechooser_show_save_dialog.')
+        return tkfiledialog.asksaveasfilename(initialdir=current_dir, title='Select File to Save')
+
+    def goptionpane_show_confirm_dialog(self, message, title, confirm_type):
+        from campy.graphics.goptionpane import ConfirmType
+
+        if confirm_type == ConfirmType.YES_NO:
+            return tkmessagebox.askyesno(title, message)
+        elif confirm_type == ConfirmType.YES_NO_CANCEL:
+            return tkmessagebox.askyesnocancel(title, message)
+        elif confirm_type == ConfirmType.OK_CANCEL:
+            return tkmessagebox.askokcancel(title, message)
+        else:
+            logger.debug('Unrecognized confirm_type {!r}'.format(confirm_type))
+
+    def goptionpane_show_input_dialog(self, message, title):
+        return tksimpledialog.askstring(title, message, parent=self._root)
+
+    def goptionpane_show_message_dialog(self, message, title, message_type):
+        from campy.graphics.goptionpane import MessageType
+
+        # TODO(sredmond): The icons aren't appearing correctly.
+        if message_type == MessageType.ERROR:
+            tkmessagebox.showerror(title, message, icon=tkmessagebox.ERROR)
+        elif message_type == MessageType.INFORMATION:
+            tkmessagebox.showinfo(title, message, icon=tkmessagebox.INFO)
+        elif message_type == MessageType.WARNING:
+            tkmessagebox.showwarning(title, message, icon=tkmessagebox.WARNING)
+        elif message_type == MessageType.QUESTION:
+            tkmessagebox.showinfo(title, message, icon=tkmessagebox.QUESTION)
+        elif message_type == MessageType.PLAIN:
+            tkmessagebox.showinfo(title, message)
+        else:
+            logger.debug('Unrecognized message_type {!r}'.format(message_type))
+
+    def goptionpane_show_option_dialog(self, message, title, options, initially_selected): pass
+    def goptionpane_show_text_file_dialog(self, message, title, rows, cols): pass
 
 if __name__ == '__main__':
     # Quick tests.
     from campy.graphics.gwindow import GWindow
     from campy.graphics.gobjects import GRect
+    from campy.graphics.gfilechooser import show_open_dialog
+    from campy.graphics.goptionpane import *
 
     window = GWindow()
     rect = GRect(100, 200, x=50, y=60)

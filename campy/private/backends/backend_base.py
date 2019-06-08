@@ -80,7 +80,7 @@ class GraphicsBackendBase(abc.ABC):
     def garc_set_frame_rectangle(self, garc, x, y, width, height): pass
 
     # GLines
-    def gline_constructor(self, gline, x1, y1, x2, y2): pass
+    def gline_constructor(self, gline): pass
     def gline_set_start_point(self, gline, x, y): pass
     def gline_set_end_point(self, gline, x, y): pass
 
@@ -125,10 +125,10 @@ class GraphicsBackendBase(abc.ABC):
     def wait_for_event(self, mask): pass
 
     # Interactors
-    def gbutton_constructor(self, gobject, label): pass
-    def gcheckbox_constructor(self, gobject, label): pass
-    def gcheckbox_is_selected(self, gobject): pass
-    def gcheckbox_set_selected(self, gobject, state): pass
+    def gbutton_constructor(self, gbutton, label): pass
+    def gcheckbox_constructor(self, gcheckbox, label): pass
+    def gcheckbox_is_selected(self, gcheckbox): pass
+    def gcheckbox_set_selected(self, gcheckbox, state): pass
     def gslider_constructor(self, gobject, min, max, value): pass
     def gslider_get_value(self, gobject): pass
     def gslider_set_value(self, gobject, value): pass
@@ -141,7 +141,6 @@ class GraphicsBackendBase(abc.ABC):
     def gchooser_set_selected_item(self, gobject, item): pass
 
     # Dialogs
-    def file_open_file_dialog(self, title, mode, path): pass
     def gfilechooser_show_open_dialog(self, current_dir, file_filter): pass
     def gfilechooser_show_save_dialog(self, current_dir, file_filter): pass
     def goptionpane_show_confirm_dialog(self, message, title, confirm_type): pass
