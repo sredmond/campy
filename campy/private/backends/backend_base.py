@@ -73,16 +73,16 @@ class GraphicsBackendBase(abc.ABC):
     def g3drect_set_raised(self, gobject, raised): pass
 
     # Elliptical regions
-    def goval_constructor(self, gobject): pass
-    def garc_constructor(self, gobject, width, height, start, sweep): pass
-    def garc_set_start_angle(self, gobject, angle): pass
-    def garc_set_sweep_angle(self, gobject, angle): pass
-    def garc_set_frame_rectangle(self, gobject, x, y, width, height): pass
+    def goval_constructor(self, goval): pass
+    def garc_constructor(self, garc): pass
+    def garc_set_start_angle(self, garc, angle): pass
+    def garc_set_sweep_angle(self, garc, angle): pass
+    def garc_set_frame_rectangle(self, garc, x, y, width, height): pass
 
     # GLines
-    def gline_constructor(self, gobject, x1, y1, x2, y2): pass
-    def gline_set_start_point(self, gobject, x, y): pass
-    def gline_set_end_point(self, gobject, x, y): pass
+    def gline_constructor(self, gline, x1, y1, x2, y2): pass
+    def gline_set_start_point(self, gline, x, y): pass
+    def gline_set_end_point(self, gline, x, y): pass
 
     # Compounds
     def gcompound_constructor(self, gobject): pass

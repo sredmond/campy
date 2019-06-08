@@ -368,21 +368,21 @@ class TkBackend(GraphicsBackendBase):
     def gwindow_set_visible(self, gwindow, flag):
         self._update_active_window(gwindow._tkwin)
         if flag:  # Show the window.
-            gwindow._tkwin.master.deiconify()
+            gwindow._tkwin._master.deiconify()
         else:  # Show the window.
-            gwindow._tkwin.master.withdraw()
+            gwindow._tkwin._master.withdraw()
 
     def gwindow_set_window_title(self, gwindow, title):
         self._update_active_window(gwindow._tkwin)
-        gwindow._tkwin.master.title(title)
+        gwindow._tkwin._master.title(title)
 
     def gwindow_get_width(self):
         self._update_active_window(gwindow._tkwin)
-        return gwindow._tkwin.master.geometry()[0]
+        return gwindow._tkwin._master.geometry()[0]
 
     def gwindow_get_height(self):
         self._update_active_window(gwindow._tkwin)
-        return gwindow._tkwin.master.geometry()[1]
+        return gwindow._tkwin._master.geometry()[1]
 
     ######################
     # GWindow alignment. #
@@ -505,7 +505,7 @@ class TkBackend(GraphicsBackendBase):
 
         grect._tkid = win.canvas.create_rectangle(
             grect.x, grect.y, grect.x + grect.width, grect.y + grect.height,
-            outline=grect.color.hex, fill=grect.fill_color if grect.filled else '',
+            outline=grect.color.hex, fill=grect.fill_color.hex if grect.filled else '',
             state=tk.NORMAL if grect.visible else tk.HIDDEN)
         win._master.update_idletasks()
 
@@ -516,11 +516,62 @@ class TkBackend(GraphicsBackendBase):
     #######################
     # Elliptical regions. #
     #######################
-    def goval_constructor(self, gobject, width, height): pass
-    def garc_constructor(self, gobject, width, height, start, sweep): pass
-    def garc_set_start_angle(self, gobject, angle): pass
-    def garc_set_sweep_angle(self, gobject, angle): pass
-    def garc_set_frame_rectangle(self, gobject, x, y, width, height): pass
+    def goval_constructor(self, goval):
+        if hasattr(goval, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        goval._tkwin = win
+
+        goval._tkid = win.canvas.create_oval(
+            goval.x, goval.y, goval.x + goval.width, goval.y + goval.height,
+            outline=goval.color.hex, fill=goval.fill_color.hex if goval.filled else '',
+            state=tk.NORMAL if goval.visible else tk.HIDDEN)
+
+        win._master.update_idletasks()
+
+    def garc_constructor(self, garc):
+        if hasattr(garc, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        garc._tkwin = win
+
+        #     def add_arc(self, arc, x0, y0, x1, y1, start, extent):
+        # self.objects[id(arc)] = win.canvas.create_arc(x0, y0, x1, y1, start=start, extent=extent)
+
+        garc._tkid = win.canvas.create_arc(
+            garc.x, garc.y, garc.x + garc.width, garc.y + garc.height,
+            start=garc.start, extent=garc.sweep,
+            outline=garc.color.hex, fill=garc.fill_color.hex if garc.filled else '',
+            style=tk.PIESLICE if garc.filled else tk.ARC,
+            state=tk.NORMAL if garc.visible else tk.HIDDEN)
+
+        win._master.update_idletasks()
+
+    def garc_set_start_angle(self, garc, angle):
+        if not hasattr(garc, '_tkid'): return
+        tkid = garc._tkid
+        win = garc._tkwin
+
+        win.canvas.itemconfig(tkid, start=angle)
+
+    def garc_set_sweep_angle(self, garc, angle):
+        if not hasattr(garc, '_tkid'): return
+        tkid = garc._tkid
+        win = garc._tkwin
+
+        win.canvas.itemconfig(tkid, extent=angle)
+
+    def garc_set_frame_rectangle(self, garc, x, y, width, height): pass
+
+
+    ##########
+    # GLines #
+    ##########
+    def gline_constructor(self, gline, x1, y1, x2, y2): pass
+    def gline_set_start_point(self, gline, x, y): pass
+    def gline_set_end_point(self, gline, x, y): pass
 
 
 if __name__ == '__main__':
