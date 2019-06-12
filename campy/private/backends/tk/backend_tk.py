@@ -296,7 +296,7 @@ class TkBackend(GraphicsBackendBase):
         self._root.withdraw()  # Removes the window from the screen (without destroying it).
 
         atexit.register(self._root.mainloop)  # TODO(sredmond): For debugging only.
-        self._windows = []
+        self._windows = []  # TODO(sredmond): Use winfo_children().
 
     def _update_active_window(self, window):
         # Optimization: Don't mess with the windows when there's only one.
@@ -675,15 +675,37 @@ class TkBackend(GraphicsBackendBase):
         win = self._windows[-1]
         gbutton._tkwin = win
 
+        # TODO(sredmond): Wrap up a GActionEvent on the Tk side to supply.
         gbutton._tkobj = tk.Button(win._master, text=gbutton.label, command=gbutton.click,
             state=tk.NORMAL if not gbutton.disabled else tk.DISABLED)
         gbutton._tkobj.pack()
 
         win._master.update_idletasks()
 
-    def gcheckbox_constructor(self, gcheckbox, label): pass
-    def gcheckbox_is_selected(self, gcheckbox): pass
-    def gcheckbox_set_selected(self, gcheckbox, state): pass
+    def gcheckbox_constructor(self, gcheckbox):
+        if hasattr(gcheckbox, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        gcheckbox._tkwin = win
+
+        # TODO(sredmond): Wrap up a GActionEvent on the Tk side to supply.
+        var = tkinter.IntVar()
+        gcheckbox._tkobj = tk.Checkbutton(win._master, text=gcheckbox.label, command=gcheckbutton.select,
+            variable=var,
+            state=tk.NORMAL if not gcheckbox.disabled else tk.DISABLED)
+        gcheckbox._tkobj.var = var
+        gcheckbox._tkobj.pack()
+
+        win._master.update_idletasks()
+
+
+    def gcheckbox_is_selected(self, gcheckbox):
+        return bool(gcheckbox._tkobj.var.get())
+
+    def gcheckbox_set_selected(self, gcheckbox, state):
+        return gcheckbox._tkobj.var.set(1 if state else 0)
+
     def gslider_constructor(self, gslider, min, max, value): pass
     def gslider_get_value(self, gslider): pass
     def gslider_set_value(self, gslider, value): pass
@@ -701,11 +723,17 @@ class TkBackend(GraphicsBackendBase):
     # TODO(sredmond): Make these dialogs steal focus.
     def gfilechooser_show_open_dialog(self, current_dir, file_filter):
         logger.debug('Ignoring file_filter argument to gfilechooser_show_open_dialog.')
-        return tkfiledialog.askopenfilename(initialdir=current_dir, title='Select File to Open')
+        parent = None
+        if self._windows:
+            parent=self._windows[-1]
+        return tkfiledialog.askopenfilename(initialdir=current_dir, title='Select File to Open', parent=parent) or None
 
     def gfilechooser_show_save_dialog(self, current_dir, file_filter):
         logger.debug('Ignoring file_filter argument to gfilechooser_show_save_dialog.')
-        return tkfiledialog.asksaveasfilename(initialdir=current_dir, title='Select File to Save')
+        parent = None
+        if self._windows:
+            parent=self._windows[-1]
+        return tkfiledialog.asksaveasfilename(initialdir=current_dir, title='Select File to Save', parent=parent) or None
 
     def goptionpane_show_confirm_dialog(self, message, title, confirm_type):
         from campy.graphics.goptionpane import ConfirmType
@@ -746,12 +774,16 @@ if __name__ == '__main__':
     # Quick tests.
     from campy.graphics.gwindow import GWindow
     from campy.graphics.gobjects import GRect, GPolygon
-    from campy.graphics.gfilechooser import show_open_dialog
+    from campy.graphics.gfilechooser import show_open_dialog, show_save_dialog
     from campy.graphics.goptionpane import *
     from campy.graphics.gtypes import *
     from campy.gui.interactors import *
 
     import math
+
+    print('{!r}'.format(show_open_dialog()))
+    print('{!r}'.format(show_save_dialog()))
+
 
     window = GWindow()
     rect = GRect(100, 200, x=50, y=60)
