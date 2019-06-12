@@ -427,7 +427,7 @@ class TkBackend(GraphicsBackendBase):
             if isinstance(object, GArc):
                 win.canvas.itemconfig(tkid, style=tk.PIESLICE)
         else:
-            self.itemconfig(tkid, fill='')
+            win.canvas.itemconfig(tkid, fill='')
             if isinstance(object, GArc):
                 self.itemconfig(tkid, style=tkinter.ARC)
 

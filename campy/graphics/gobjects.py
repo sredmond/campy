@@ -1498,6 +1498,10 @@ class GCompound(GObject, MutableSequence):
         :returns: Whether this compound contained the object.
         """
         # TODO(sredmond): People familiar with Python lists might expect this to raise a ValueError if the gobj isn't there.
+
+        # TODO(sredmond): Don't blindly delete from the backend if it's not added.
+        _platform.Platform().gobject_remove(gobj)
+
         try:
             self.contents.remove(gobj)
         except ValueError:
