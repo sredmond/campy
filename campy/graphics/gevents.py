@@ -608,15 +608,3 @@ def get_next_event(mask=EventClassType.ANY_EVENT):
     '''
     import campy.private.platform as _platform
     return _platform.Platform().getNextEvent(mask)
-
-if __name__ == '__main__':
-    a = EventClassType.NULL_EVENT
-    print(a)
-    b = GEvent()
-    print(b.event_class)
-    print(b.event_type)
-    c = GMouseEvent(EventType.MOUSE_CLICKED, x=100, y=50)
-    print(c.event_class)
-    print(c.event_type)
-    print(c.x)
-    print(c.y)
