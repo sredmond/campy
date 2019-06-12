@@ -337,7 +337,12 @@ class TkBackend(GraphicsBackendBase):
     ######################
     def gwindow_constructor(self, gwindow, width, height, top_compound, visible=True):
         gwindow._tkwin = TkWindow(self._root, width, height, parent=self)
+        gwindow._tkwin._gwindow = gwindow  # Circular reference so a TkWindow knows its originating GWindow.
+
         self._windows.append(gwindow._tkwin)
+
+        # HACK: Get nice titles built in.
+        self.gwindow_set_window_title(gwindow, gwindow.title)
 
     def gwindow_close(self, gwindow):
         self._remove_tkwin(gwindow._tkwin)
@@ -683,7 +688,30 @@ class TkBackend(GraphicsBackendBase):
     def event_add_keypress_handler(self, event, handler): pass
     def event_generate_keypress(self, event): pass
 
-    def event_add_mouse_handler(self, event, handler): pass
+    def _wrap_mouse_event(self, event, window, event_type):
+        from campy.gui.events.mouse import GMouseEvent
+        # TODO(sredmond): As written, this joins the TkWindow, not the GWindow, to this event.
+        return GMouseEvent(event_type=event_type, gwindow=window._gwindow, x=event.x, y=event.y)
+
+    def event_add_mouse_handler(self, event, handler):
+        from campy.gui.events.mouse import MouseEventType
+        if not self._windows:
+            logger.warning('Refusing to add a mouse listener before any windows are created.')
+            return
+
+        win = self._windows[-1]
+
+        if event == MouseEventType.MOUSE_CLICKED:
+            win._master.bind('<Button-1>', lambda cb_event: handler(self._wrap_mouse_event(cb_event, win, event)))
+        elif event == MouseEventType.MOUSE_RELEASED:
+            win._master.bind('<ButtonRelease-1>', lambda cb_event: handler(self._wrap_mouse_event(cb_event, win, event)))
+        elif event == MouseEventType.MOUSE_MOVED:
+            win._master.bind('<Motion>', lambda cb_event: handler(self._wrap_mouse_event(cb_event, win, event)))
+        elif event == MouseEventType.MOUSE_DRAGGED:
+            win._master.bind('<B1-Motion>', lambda cb_event: handler(self._wrap_mouse_event(cb_event, win, event)))
+        else:
+            logger.warning('Unrecognized event type: {}. Quietly passing.'.format(event))
+
     def event_generate_mouse(self, event): pass
 
     def event_pump_one(self):
