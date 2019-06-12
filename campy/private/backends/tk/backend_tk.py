@@ -31,8 +31,16 @@ import tkinter.simpledialog as tksimpledialog
 import threading
 import sys
 
+# TODO(sredmond): What magic is this?
+try:
+    from _tkinter import DONT_WAIT
+except ImportError:
+    DONT_WAIT = 2
+
+
 # Module-level logger.
 logger = logging.getLogger(__name__)
+
 
 # class TkCanvas(tkinter.Canvas):
 #     def __init__(self, *args, **kwargs):
@@ -664,6 +672,30 @@ class TkBackend(GraphicsBackendBase):
         win.canvas.coords(tkid, x, y, gpolygon.end.x, gpolygon.end.y,)
 
         win._master.update_idletasks()
+
+    ##########
+    # Events #
+    ##########
+    def set_action_command(self, gobject, cmd): pass
+    def get_next_event(self, mask): pass
+    def wait_for_event(self, mask): pass
+
+    def event_add_keypress_handler(self, event, handler): pass
+    def event_generate_keypress(self, event): pass
+
+    def event_add_mouse_handler(self, event, handler): pass
+    def event_generate_mouse(self, event): pass
+
+    def event_pump_one(self):
+        # Forcibly process queued tasks, but don't process newly queued ones.
+        self._root.update_idletasks()
+        self._root.dooneevent(DONT_WAIT)
+
+    # TODO(sredmond): Rename these backend events for consistency.
+    def timer_pause(self, event): pass
+    def timer_schedule(self, function, delay_ms):
+        self._root.after(delay_ms, function)
+
 
     ###############
     # Interactors #

@@ -30,21 +30,22 @@ shell or for a single script::
 
 The `use()` function must be invoked before importing any other campy modules.
 Calling `use` after another `campy` module has been imported will have no
-effect. You should avoid explicitly calling `use()` unless absolutely necessary
-because your users will have to change your code if they want to use a
-different backend.
+effect. If you are building library code, you should avoid explicitly calling
+`use()` unless absolutely necessary because your users will have to change the
+code if they want to use a different backend.
 
 Note: Backend name specifications are not case-sensitive, e.g. 'Tk' and 'tk'
 are equivalent.
 """
 # TODO(sredmond): Add support for `use`.
 # TODO(sredmond): Add support for a .campyrc file.
-from campy.private.backends.tk.backend_tk import TkBackend
 from campy.private.backends.jbe.backend_jbe import JavaBackend
+from campy.private.backends.tk.backend_tk import TkBackend
 
-import os
 import logging
+import os
 
+# Module-level logger.
 logger = logging.getLogger(__name__)
 
 # The default backend to use when an environmental variable doesn't override.
@@ -56,8 +57,7 @@ logger.debug('Attempting to create backend {!r}'.format(backend_name))
 # Load a backend.
 # TODO(sredmond): This is effectively a singleton because Python only imports
 # modules once, unless forced to otherwise, such as with Jupyter's %autoreload
-# magic. To defend against forced module reimport, encapsulate this into
-# a proper singleton.
+# magic. To defend against forced module reimport, this should be encapsulated.
 if backend_name == 'tk':  # Load the Tk backend
     backend = TkBackend()
 elif backend_name == 'jbe':  # Load the JBE backend.

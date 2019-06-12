@@ -124,9 +124,21 @@ class GraphicsBackendBase(abc.ABC):
     def get_next_event(self, mask): pass
     def wait_for_event(self, mask): pass
 
+    def event_add_keypress_handler(self, event, handler): pass
+    def event_generate_keypress(self, event): pass
+
+    def event_add_mouse_handler(self, event, handler): pass
+    def event_generate_mouse(self, event): pass
+
+    def event_pump_one(self): pass
+
+    # TODO(sredmond): Rename these backend events for consistency.
+    def timer_pause(self, event): pass
+    def timer_schedule(self, function, delay_ms): pass
+
     # Interactors
     def gbutton_constructor(self, gbutton): pass
-    def gcheckbox_constructor(self, gcheckbox, label): pass
+    def gcheckbox_constructor(self, gcheckbox): pass
     def gcheckbox_is_selected(self, gcheckbox): pass
     def gcheckbox_set_selected(self, gcheckbox, state): pass
     def gslider_constructor(self, gslider, min, max, value): pass
