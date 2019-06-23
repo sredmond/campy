@@ -38,7 +38,15 @@ from .__version__ import (
 
 # Set default logging handler to avoid "No handler found" warnings.
 import logging
+
 logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
+logger.addHandler(logging.NullHandler())  # Add a default do-nothing handler to these logs.
+
+# TODO(sredmond): FOR DEVELOPMENT ONLY. Log all messages.
+import os
+level = os.environ.get('CAMPY_LOGLEVEL', 'DEBUG').upper()
+logging.basicConfig()
+logger.setLevel(level)
+# Send some initial messages.
 logger.info("Welcome to the campy libraries.")
 logger.info("If you have any questions, reach out to {me} at {email}".format(me=__maintainer__, email=__email__))
