@@ -1,19 +1,16 @@
 """A Python client for the Stanford Portable Graphics Library
 
-This file is modified from https://github.com/pypa/sampleproject/blob/master/setup.py
+Modified from:
+- https://github.com/pypa/sampleproject/blob/master/setup.py
 """
 import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 
-# To use a consistent encoding
-# from codecs import open
-# from os import path
-
-HERE = pathlib.Path(__file__).parent
-
-# The text of the README file
-README = (HERE / "README.md").read_text()
+# Load the README file.
+README = (pathlib.Path(__file__).parent / "README.md")
+with README.open() as f:
+    README_TEXT = f.read()
 
 setup(
     name='campy',
@@ -21,10 +18,10 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version="0.0.1.dev1",
+    version="0.0.1.dev4",
 
-    description="CamPy provides a Python client for the Stanford ACM Libraries for use in introductory programming classes.",
-    long_description=README,
+    description="Python graphical lib mirroring Stanford ACM libraries for use in introductory programming classes.",
+    long_description=README_TEXT,
     long_description_content_type="text/markdown",
 
     # The project's main homepage.
@@ -43,12 +40,11 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 1 - Planning',
+        'Development Status :: 3 - Alpha',
 
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
 
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
@@ -56,7 +52,6 @@ setup(
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
