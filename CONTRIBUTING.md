@@ -10,52 +10,50 @@ Fork this repository, then clone it to your local machine:
 $ git clone git@github.com:your-username/campy.git
 ```
 
-Ideally, activate a virtual environment for developing this library. Install the project source as a dependency with:
+Ideally, activate a virtual environment for developing this library.
 
 ```
-$ pip install -e path/to/campy
+$ # make a virtual environment
+$ # activate the virtual environment
+(campy-dev)$
 ```
 
-This should be the path to the folder that contains `campy`'s `setup.py` file.
-
-If you want a reasonable development environment, also run
+Install the project source as a dependency, using the path to the folder that contains `campy`'s  `setup.py` file.
 
 ```
-$ pip install "ipython[all]" pytest tox
+(campy-dev)$ pip install --editable "path/to/campy[dev,test]"
 ```
 
-If you're going to be operating as a maintainer of the project, handling documentation and distribution, you'll also need some maintenance packages:
+The `dev` and `test` extras install additional packages that help with software development.
+
+For a reasonable development environment, additionally run `pip install jupyter` in the virtual environment to have access to the fancy `ipython` interactive interpreter.
+
+Project maintainers who handle documentation and distribution should also install the following packages.
 
 ```
-$ pip install sphinx sphinx_rtd_theme twine "requests[security]"
+(campy-dev)$ pip install sphinx sphinx_rtd_theme twine "requests[security]"
 ```
 
-## What We Need Help With
+## How You Can Help
 
-We've compiled a list of tasks we need help with at `TODO.md`. Anything you can take off that list will be much appreciated.
+The file `TODO.md` very roughly contains a list of tasks with which we need help. We greatly appreciate anything you can implement from that list.
 
 ## Style
 
 Read the `STYLE.md` guide before beginning. Otherwise, we conform to PEP8.
 
-## Logging
+### Logging
 
-We use the standard library `logging` module to log useful events to the console.
+Use the `logging` standard library module for logging.
 
 ## Testing
 
-We use `pytest` for unit tests. Since many of the components of this library are interactive, each test file differentiates whether or not to run these tests by checking to see if CAMPY_TEST_PLATFORM is set.
+We use `pytest` for unit tests and `tox` for Python version compatibility testing. Many of this library's components are graphical and interactive, but the interactive tests will only run if the environmental variable `CAMPY_TEST_PLATFORM` is set.
 
-### Running Unit Tests
-
-```
-(campy-dev)$ pytest
-
-```
+To run unit tests, simply run `pytest` from any folder that contains tests, such as the project root folder. To run version compatibility tests, run `tox` from the project root folder.
 
 ---
 
 ## Credit
 
 This file is modelled on the CONTRIBUTING files from [puppet](https://github.com/puppetlabs/puppet/blob/master/CONTRIBUTING.md) and [factory_girl_rails](https://github.com/thoughtbot/factory_girl_rails/blob/master/CONTRIBUTING.md).
-
