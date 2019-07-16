@@ -1,56 +1,58 @@
-"""A Python client for the Stanford Portable Graphics Library
+"""CAMPY provides Stanford's graphical libraries in Python.
 
-Modified from:
-- https://github.com/pypa/sampleproject/blob/master/setup.py
+This setup.py file is modified from:
+- https://packaging.python.org/guides/distributing-packages-using-setuptools/
+- https://github.com/pypa/sampleproject
 """
-import pathlib
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
+from os import path
+from io import open  # Default to text mode with universal newlines.
 
-# Load the README file.
-README = (pathlib.Path(__file__).parent / "README.md")
-with README.open() as f:
+# Load the text of the README file.
+HERE = path.abspath(path.dirname(__file__))
+with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
     README_TEXT = f.read()
 
 setup(
+    # The name of this project, as registered on PyPI.
+    # You can install this package:
+    #     $ pip install campy
+    # It lives on PyPI at https://pypi.org/project/campy/
     name='campy',
 
-    # Versions should comply with PEP440.  For a discussion on single-sourcing
-    # the version across setup.py and the project code, see
-    # https://packaging.python.org/en/latest/single_source_version.html
+    # Project versions, compliant with PEP440.
+    # TODO(sredmond): Single-source the project version.
+    # https://packaging.python.org/guides/single-sourcing-package-version/
     version="0.0.1.dev4",
 
-    description="Python graphical lib mirroring Stanford ACM libraries for use in introductory programming classes.",
+    description="Stanford's introductory libraries in Python, including the ACM graphical libraries.",
     long_description=README_TEXT,
     long_description_content_type="text/markdown",
 
     # The project's main homepage.
     url='https://campy.sredmond.io',
 
-    # Author details
+    # Author details.
     author='Sam Redmond',
     author_email='sredmond@stanford.edu',
 
-    # Choose your license
+    # Project license.
     license='MIT',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
         'Development Status :: 3 - Alpha',
-
-
-        # Indicate who your project is intended for
         'Intended Audience :: Developers',
+        'Intended Audience :: Education',
 
-        # Pick your license as you wish (should match "license" above)
+        # Project License (should match the license above).
         'License :: OSI Approved :: MIT License',
 
-        # Specify the Python versions you support here. In particular, ensure
-        # that you indicate whether you support Python 2, Python 3 or both.
+        'Topic :: Education',
+        'Topic :: Software Development :: User Interfaces',
+
+        # Supported Python versions.
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
@@ -58,47 +60,47 @@ setup(
         'Programming Language :: Python :: 3.7',
     ],
 
-    # What does your project relate to?
-    keywords='Stanford Teaching ACM Graphics CS106A CS106B CS106X CS106AP Karel GObject',
+    # Publicly visible project keywords.
+    keywords='Stanford teaching education intro introductory ACM graphics CS106A CS106B CS106X CS106AP Karel GObject GOval GRect GWindow',
 
-    # You can just specify the packages manually here if your project is
-    # simple. Or you can use find_packages().
+    # Exported packages.
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
 
-    # List run-time dependencies here.  These will be installed by pip when
-    # your project is installed. For an analysis of "install_requires" vs pip's
-    # requirements files see:
-    # https://packaging.python.org/en/latest/requirements.html
-    install_requires=[],
+    # Supported Python versions. Unlike the classifiers above, `pip install`
+    # will check this and refuse to install the project if the version does not
+    # match.
+    python_requires='>=3.4, <4',
 
-    # List additional groups of dependencies here (e.g. development
-    # dependencies). You can install these using the following syntax,
-    # for example:
-    # $ pip install -e .[dev,test]
+    # Run-time dependencies, installed by pip when this project is installed.
+    install_requires=[],  # No dependencies. Woohoo!
+
+    # Additional dependency groups.
+    # Install these using the following syntax, for example:
+    #     $ pip install -e .[dev,test]
     extras_require={
-        'dev': ['check-manifest'],
-        'test': ['coverage'],
+        'dev': ['check-manifest', 'pycodestyle'],
+        'test': ['tox', 'pytest', 'pytest-cov', 'coverage'],
     },
 
-    # # If there are data files included in your packages that need to be
-    # # installed, specify them here.  If using Python 2.6 or less, then these
-    # # have to be included in MANIFEST.in as well.
+    # Include data files in the package.
+    # TODO(sredmond): Include spl.jar if SPL support is installed, somehow.
     # package_data={
     #     'sample': ['package_data.dat'],
     # },
 
-    # Although 'package_data' is the preferred approach, in some case you may
-    # need to place data files outside of your packages. See:
-    # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
-    # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    # data_files=[('my_data', ['data/data_file'])],
-
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and allow
-    # pip to create the appropriate form of executable for the target platform.
+    # Executable scripts (as entry points, preferred to scripts), providing
+    # cross-platform support with the appropriate executable for the target
+    # platform.
     # entry_points={
     #     'console_scripts': [
     #         'sample=sample:main',
     #     ],
     # },
+
+    # Additional URLs.
+    project_urls= {
+        'Source': 'https://github.com/sredmond/campy/',
+        'Bug Reports': 'https://github.com/sredmond/campy/issues',
+        'Say Thanks!': 'http://saythanks.io/to/sredmond',
+    },
 )
