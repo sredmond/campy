@@ -12,14 +12,14 @@
 # the generated html and then copies it into the top-level `docs/` folder from
 # which Github Pages serves the documentation at https://campy.sredmond.io.
 
-# Print all of the commands that are being run.
+# Print all of the commands that are being run. Helpful for debugging.
 set -x
 
 OLD_DIR="$(pwd)"
-echo $OLD_DIR
 
-# Move to the top-level of the project.
-cd $(git rev-parse --show-toplevel)
+# Move to the top-level of the project, assuming this script is run from within
+# the git tree.
+cd "$(git rev-parse --show-toplevel)"
 
 # Descend into docs-src to make the generated html.
 cd docs-src
@@ -27,6 +27,9 @@ make html
 cd ..
 
 # Copy the built html to the docs/ folder.
+# NOTE(sredmond): This won't remove old files with obsolete names from the
+# docs/ folder, so periodically manually clean the docs/ folder of
+# everything and remake.
 cp -r docs-src/_build/html/ docs/
 
 # Clean up.
@@ -37,4 +40,5 @@ cd ..
 cd "${OLD_DIR}"
 
 # Stop printing all commands.
+# NOTE(sredmond): This doesn't respect the x setting that the shell was using.
 set +x
