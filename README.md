@@ -1,35 +1,29 @@
-# Python Wrapper for Stanford Portable Graphics Library
+# `campy`: Stanford's Graphical Libraries in Python
 
-This project provides a Python client to the Stanford Portable Graphics Library.
+![GitHub Top Language](https://img.shields.io/github/languages/top/sredmond/campy.svg)
+![GitHub Issues](https://img.shields.io/github/issues/sredmond/campy.svg)
+![GitHub License](https://img.shields.io/github/license/sredmond/campy.svg)
+![PyPI](https://img.shields.io/pypi/v/campy.svg)
+![PyPI - Status](https://img.shields.io/pypi/status/campy.svg)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/campy.svg)
 
-Therefore, users of this library can write Python code to interact with `GOval`s, `GWindow`s, and most everything else.
+## Features
+
+- All your favorite `GObject`s, like `GOval`s, `GRect`s, and more.
+- Functional event-driving GUIs.
+- I/O helpers.
+- Cross-platform support.
+
+
+## Installation
+
+To install `campy`, simply use `pip`:
+
+```
+$ pip install campy
+✨ 🐍 ✨
+```
 
 ## Documentation
 
-Documentation is available at to.be.hosted.somewhere.com. Raw HTML files can be found in `docs/_build/html`.
-
-## Technical Overview
-
-Stanford publishes a JAR file that listens on stdin for text commands, such as `GWindow.create`, and runs the appropriate command from a Java backend. Thus, any program that can send the right text commands can emulate the behavior of the ACM libraries.
-
-### Package Organization
-```
-├── debug  # Tools and scripts for debugging this implementation
-├── docs  # Documentation.
-├── examples  # Example CS106 programs written using this library.
-├── campy  # The library itself.
-│   ├── datastructures  # Collections, such as `Lexicon` and `SparseGrid`
-│   ├── graphics  # `GWindow`, `GOval`, `GBufferedImage`, etc.
-│   ├── gui  # `GInteractor`
-│   ├── io  # String and File IO helpers.
-│   ├── misc  # Miscellaneous modules.
-│   ├── private  # Private, implementation specific modules.
-│   ├── system  # `error`
-│   └── util  # Utility modules.
-└── test  # One-off testing scripts for validation.
-```
-
-### Testing
-
-Very few modules have been thoroughly tested, so the internals of this library may break at any time. The API is not frozen and may change without warning.
-
+Learn more about `campy` at `https://campy.sredmond.io/`.

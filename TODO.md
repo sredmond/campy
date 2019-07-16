@@ -2,47 +2,63 @@
 
 A non-exhaustive list of tasks and modules to do.
 
+## Scratch Space
+
+- Possibly, remove the ability to set a GObject's location at creation time?
+
+Finish the rest of the interactors <-- fairly straightforward
+Adding interactors to regions <-- MWE, but needs to be woven in.
+GImage and GBufferedImage <-- easy but requires an image buffering layer
+
+Actual key events + modifiers <-- easy but tedious
+Properly treat fonts <-- super annoying
+
+- `stanford-karel`, `popup-console`, and `simpio` are spun off into their own projects.
+
 ## Administrative
-- Incorporate logging over printing.
-- Refactor tests into test modules.
-- Remove gh-pages and remote branch from repo.
 
-- Rewrite CONTIBUTING/CONTRIBUTORS.
+### PyPI
+- Update README for PyPI.
+  - Add an example to the README.
+- Reupload to PyPI.
 
-- Update README and STYLE guides.
+### Infrastructure
+- Rewrite informational print statements as logging messages.
 
-- Canonicalize backend API.
-- Check compatibility with other Python versions and environments with Tox.
+### Branding
+- Redesign logo to custom image.
 
 ## Data Structures
 
+### Tested
+- `shuffle`
+
 ### Documented
 
-### Complete
-```
-├── grid.h
-├── collections.h
-├── basicstack/queue.h
-├── lexicon.h
-```
+### Reasonably Complete
+
+- `basicqueue`
+- `basicstack`
+- `grid`
+- `lexicon`
 
 ### In Progress
-```
-├── basicgraph.c
-├── basicgraph.h
-├── graph.h
-├── linkedlist.h
-├── priorityqueue.h
-├── sparsegrid.h
-```
+
+- `basicgraph`
+- `graph`
+- `linkedlist`
+- `priorityqueue`
+- `sparsegrid`
 
 ### Untouched
-```
-├── collections.h
-```
-- Also: need to think of a good solution to deep copying of objects
+
+- `collections`
+
+### Structural
+- What is a good way to deep-copy objects?
 
 ### Removed
+
 ```
 ├── dawglexicon.cpp  # Deprecated
 ├── dawglexicon.h    # Deprecated
@@ -65,110 +81,84 @@ A non-exhaustive list of tasks and modules to do.
 └── vector.h         # Use `list`
 ```
 
-## Graphics
+## Graphics / GUI
+
+### Tested
 
 ### Documented
 
-```
-├── gwindow.cpp
-└── gwindow.h
-```
+- `gwindow`
 
-### Complete
+### Reasonably Complete
 
-```
-├── goptionpane.cpp
-├── goptionpane.h
-├── gtypes.cpp
-├── gtypes.h
-├── gtimer.cpp
-├── gtimer.h
-├── gevents.cpp
-├── gevents.h
-├── gfilechooser.cpp
-├── gfilechooser.h
-├── gobjects.cpp
-├── gobjects.h
-
-```
+- `goptionpane`
+- `gtypes`
+- `gtimer`
+- `gevents`
+- `gfilechooser`
+- `gobjects`
 
 ### In Progress
-```
-├── gbufferedimage.cpp
-├── gbufferedimage.h
-├── ginteractors.cpp
-├── ginteractors.h
-```
+
+- `gbufferedimage`
+- `ginteractors`
 
 ### Untouched
-```
-├── gtable.cpp
-├── gtable.h
-├── gtextarea.cpp
-├── gtextarea.h
-```
 
+- `gtable`
+- `gtextarea`
 
 ### Removed
 
 ## IO
 
+### Tested
+
+- `base64helper`
+- `bitstream`
+
 ### Documented
 
-### Complete
-```
-├── base64.cpp
-├── base64.h
-├── bitstream.cpp
-├── bitstream.h
-├── simpio.cpp
-├── simpio.h
-```
+### Reasonably Complete
 
 ### In Progress
-```
-├── console.cpp
-├── console.h
-├── filelib.cpp
-├── filelib.h
-├── tokenscanner.cpp
-├── tokenscanner.h
-```
+
+- `console`
+- `filelib`
+- `tokenscanner`
 
 ### Untouched
-```
-├── plainconsole.cpp
-├── plainconsole.h
-├── server.cpp (pure python?)
-├── server.h
-```
+
+- `plainconsole`
+- `server`
 
 ### Removed
-```
-├── urlstream.cpp  # Use `requests` or `urlparse`
-└── urlstream.h    # Use `requests` or `urlparse`
-```
+
+- `urlstream`  # Use `requests` or `urlparse`
 
 ## Private
 
+### Tested
+
+### Documented
+
 ### Complete
 
 ### In Progress
-```
-├── init.h
-```
+
+- tk backend
+- java backend
 
 ### Untouched
-```
-├── consolestreambuf.h
-├── echoinputstreambuf.h
-├── forwardingstreambuf.h
-├── limitoutputstreambuf.h
-├── platform.cpp
-├── platform.h
-```
+
+- `consolestreambuf`
+- `echoinputstreambuf`
+- `forwardingstreambuf`
+- `limitoutputstreambuf`
+- `platform`
 
 ### Removed
+
 ```
 ├── foreachpatch.h  # CPP-specific
 ├── randompatch.h   # Solved by `random` 
@@ -183,24 +173,20 @@ A non-exhaustive list of tasks and modules to do.
 
 ### Tested
 
-```
-├── error.cpp
-├── error.h
-```
+- `error`
 
 ### Documented
 
-### Complete
+### Reasonably Complete
 
 ### In Progress
 
 ### Untouched
-```
-├── exceptions.cpp
-├── exceptions.h
-```
+
+- `exceptions`
 
 ### Removed
+
 ```
 ├── call_stack.h            # Exceptions have stack traces
 ├── call_stack_gcc.cpp      # Exceptions have stack traces
@@ -211,70 +197,45 @@ A non-exhaustive list of tasks and modules to do.
 ## Util
 
 ### Tested
-```
-├── direction.cpp
-├── direction.h
-```
+
+- `direction`
 
 ### Documented
-```
 
-```
+### Reasonably Complete
 
-### Complete
-```
-├── gmath.cpp
-├── gmath.h
-├── note.cpp
-├── note.h
-├── observable.cpp
-├── observable.h
-├── point.cpp
-├── point.h
-├── random.cpp
-├── random.h
-├── sound.cpp
-├── sound.h
-├── timer.cpp
-└── timer.h
-```
+- `gmath`
+- `note`
+- `observable`
+- `point`
+- `random`
+- `sound`
+- `timer`
 
 ### In Progress
-```
---- decorators.py
-├── strlib.cpp
-├── strlib.h
-├── recursion.cpp
-├── recursion.h
-```
+
+- `decorators`
+- `strlib`
+- `recursion`
 
 ### Untouched
 
 ### Removed
+
 ```
 ├── foreach.h    # CPP-specific
 ├── regexpr.cpp  # Use `re`
 ├── regexpr.h    # Use `re`
 ```
 
-
 ## Other Project Ideas
-- `trace`: log all outputs from the flags?
-- `sharing`: publicize/share code
-- `debug/decorators`: debugging/development tools, dump args
-- `positivity`: positive thoughts
-- `BasicQueue/BasicStack`: list-backed opaque queue/stack
-- `timer` to execute a function every n seconds
-- `multiprocessing.Queue` for events to backend.
+- `trace`: log all outputs from the callstack
+- `sharing`: freeze/publicize/share code
+- `debug/decorators`: debugging/development tools, argument dumping.
 - `linter`: autolint code
+- `submit`: automatically allow students to submit to paperless.
 - `submission-tools`: aggregate submission tools for stanford teachers
 - `autograder-tools`: aggregate autograding tools for stanford teachers
 
-## Come Back To
-- All objects already have an ID and type, so no need to track that data.
-- Make sure project includes relevant features from the plain ole Java version.
-- Consider making `GEvent`s actually use class hierarchies instead of event type enums.
-- `WINDOW_CLOSING` v. `WINDOW_CLOSED`
-- add attribute descriptors to properties
-- setFillColor should also setFilled
-- Consider forwarding all Java method attribute lookups to snake case, with/without deprecations?
+## Prerelease Checklist
+- Merge feature set with newly-developed C++/Java features.

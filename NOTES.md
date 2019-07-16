@@ -1,6 +1,16 @@
 # Notes
 
-This file is used to keep track of weird notes and observations. These notes aren't necessarily a problem / bug, just something to write down. It could be apparent strange behavior with the C++ libraries (should be reported to Marty), an odd implementation note, or anything else.
+This file tracks weird notes and observations that have come up during development. The notes aren't necessarily a problem or bug, but just something to watch, such as an odd implementation note, a reminder, or anything else. Apparently strange behavior with the C++ libraries should be (eventually) reported to their current maintainer. 
+
+## Scratch Space
+
+- All objects already have an ID and type, so no need to track that data.
+- Make sure project includes relevant features from the plain ole Java version.
+- Consider making `GEvent`s actually use class hierarchies instead of event type enums.
+- `WINDOW_CLOSING` v. `WINDOW_CLOSED`
+- add attribute descriptors to properties
+- setFillColor should also setFilled ??
+- Consider forwarding all Java method attribute lookups to snake case, with/without deprecations?
 
 ## Apparent Problems with the C++ Library
 
@@ -16,21 +26,75 @@ When adding a note, please append your username and the date.
 - `GLabel` doesn't recompute ascent/descent in C++ after changing text (sredmond 2017-12-07)
 - `GLabel` C++ platform doesn't urlencode the font, where GInteractor `setFont` does (sredmond 2017-12-07)
 - `GCompound_Add` in C++ version for some reason gets status with a very cryptic comment (all it says is `  // JL`)
+- How can we be divorced from the 'project' entity of e.g. QTCreator?
 
-## Building Documentation
+## How to Rebuild Documentation
 
-Setting up:
-```
-(campy-dev)$ cd $(git rev-parse --show-toplevel)
-(campy-dev)$ cd docs-src/
-(campy-dev) docs-src$ sphinx-quickstart  # and enable all extensions.
-(campy-dev) docs-src$ cd ..
-(campy-dev)$ sphinx-apidoc --separate`-o docs-src/ campy/
-```
-
-Making the documentation:
+Run the following script to rebuild the documentation, and then commit the changes to Github to have them reflected to the hosted Github Pages.
 
 ```
 (campy-dev)$ cd $(git rev-parse --show-toplevel)
 (campy-dev)$ ./makedocs.sh
 ```
+
+There are a few more steps for the first time that documentation is ever built in the repository. These steps are saved as reference for other projects.
+```
+(campy-dev)$ cd $(git rev-parse --show-toplevel)
+(campy-dev)$ cd docs-src/
+(campy-dev) docs-src$ sphinx-quickstart  # Enable all extensions when prompted.
+(campy-dev) docs-src$ cd ..
+(campy-dev)$ sphinx-apidoc --separate -o docs-src/ campy/
+```
+
+## Technical Overview
+
+Stanford publishes a JAR file that listens on stdin for text commands, such as `GWindow.create`, and runs the appropriate command from a Java backend. Thus, any program that can send the right text commands can emulate the behavior of the ACM libraries.
+
+### Package Organization
+```
+├── debug  # Tools and scripts for debugging this implementation
+├── docs  # Documentation.
+├── examples  # Example CS106 programs written using this library.
+├── campy  # The library itself.
+│   ├── datastructures  # Collections, such as `Lexicon` and `SparseGrid`
+│   ├── graphics  # `GWindow`, `GOval`, `GBufferedImage`, etc.
+│   ├── gui  # `GInteractor`
+│   ├── io  # String and File IO helpers.
+│   ├── misc  # Miscellaneous modules.
+│   ├── private  # Private, implementation specific modules.
+│   ├── system  # `error`
+│   └── util  # Utility modules.
+└── test  # One-off testing scripts for validation.
+```
+
+### Testing
+
+Very few modules have been thoroughly tested, so the internals of this library may break at any time. The API is not frozen and may change without warning.
+
+
+
+## An Incomplete CHANGELOG
+
+- All `GInteractor` will now generate a :class:`GActionEvent` on interaction regardless of whether their action command is nonempty.
+
+## Pushing to PyPI
+
+First, bump the version number in `setup.py` and `campy/__version__.py`
+
+Then, ensure you have `twine` installed and are in the project's root directory.
+
+```
+$ python setup.py sdist bdist_wheel
+$ twine check dist/*
+```
+
+Then, upload to TestPyPI or real PyPI, supplying the username and password of this project's owner.
+
+```
+# Upload to TestPyPI.
+$ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+# (OR) Upload to real PyPI.
+$ twine upload dist/*
+```
+
+Check that the package has been successfully pushed by visiting [TestPyPI](https://test.pypi.org/project/campy/) or [real PyPI](https://pypi.org/project/campy/).
