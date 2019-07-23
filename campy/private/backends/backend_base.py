@@ -138,6 +138,8 @@ class GraphicsBackendBase(abc.ABC):
 
     # Interactors
     def gbutton_constructor(self, gbutton): pass
+    def gbutton_set_label(self, gbutton): pass
+    def gbutton_set_disabled(self, gbutton): pass
     def gcheckbox_constructor(self, gcheckbox): pass
     def gcheckbox_is_selected(self, gcheckbox): pass
     def gcheckbox_set_selected(self, gcheckbox, state): pass

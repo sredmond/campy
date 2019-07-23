@@ -5,6 +5,7 @@ as well as all interprocess communications.
 
 This specific backend should not be directly referenced by any client applications.
 """
+# TODO(sredmond): - `multiprocessing.Queue` for events to backend.
 from __future__ import print_function
 
 __PLATFORM_INCLUDED = True
@@ -30,6 +31,10 @@ from campy.system import error
 
 from campy.private.backends.jbe.platformat import *
 from campy.private.backends.jbe.platformatter import pformat
+
+# Constants for dialog types, taken from Java's JFileChooser
+SAVE_DIALOG = 1
+OPEN_DIALOG = 1
 
 # Whether to print all pipe communications to stdout
 DEBUG_PIPE = True
@@ -299,6 +304,7 @@ class JavaBackend:
         self.put_pipe(command)
         result = self.get_result()
 
+        # TODO(sredmond): Don't return the dimension any more.
         if (not result.startswith("GDimension(")): raise Exception(result)
         return self.scanDimension(result)
 ### END SECTION: GImage
@@ -360,6 +366,7 @@ class JavaBackend:
         self.put_pipe(command)
 
     def gtimer_pause(self, millis):
+        # TODO(sredmond): Does this method pause all active timers instead of just one? That seems wrong.
         command = pformat(GTimer_pause, millis=millis)
         self.put_pipe(command)
         self.get_status()  # TODO: wtf

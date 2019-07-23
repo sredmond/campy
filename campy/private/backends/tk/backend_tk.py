@@ -41,216 +41,8 @@ except ImportError:
 # Module-level logger.
 logger = logging.getLogger(__name__)
 
-
-# class TkCanvas(tkinter.Canvas):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.objects = {}  # Mapping from GObjects to tkids.
-#         # Who cleans this up when Python deletes and object?
-
-#     def set_location(self, obj, x, y):
-#         tkid = self.objects[id(obj)]
-#         coords = self.coords(tkid)
-#         # TODO(sredmond): pgl has an additional term here.
-#         self.move(tkid, x - coords[0], y - coords[1])
-
-#     def add_rect(self, rect, x0, y0, x1, y1):
-#         # **options??
-#         self.objects[id(rect)] = self.create_rectangle(x0, y0, x1, y1)
-
-#     def add_oval(self, oval, x0, y0, x1, y1):
-#         self.objects[id(oval)] = self.create_oval(x0, y0, x1, y1)
-
-#     def add_arc(self, arc, x0, y0, x1, y1, start, extent):
-#         self.objects[id(arc)] = self.create_arc(x0, y0, x1, y1, start=start, extent=extent)
-
-#     def add_label(self, label):
-#         # TODO(sredmond): Make GLabels get added by upper-left coordiante.
-#         print('adding label')
-#         self.objects[id(label)] = self.create_text(label._x, label._y, text=label.label, anchor=tkinter.SW)
-
-
-
-# class TkBackend(GraphicsBackendBase):
-#     def __init__(self):
-#         self.root = tkinter.Tk()
-
-#         self.root.wm_attributes("-transparent", True)
-
-#         # # TODO(sredmond): I don't think this is cross-platform.
-#         # self.root.wm_attributes("-topmost", True)
-#         self.root.lift()
-
-#         # _set_menubar(self.root)
-
-#         # TODO(sredmond): Try running mainloop in a different thread.
-#         # atexit.register(threading.Thread(target=self.root.mainloop).run)
-#         atexit.register(self.root.mainloop)
-
-#         # self.root.protocol("WM_DELETE_WINDOW", sys.exit)
-
-#         # self.root.iconbitmap('icon.ico')
-#         # self.root.withdraw()
-#          self.root.title("root.title")
-
-#     def gwindow_constructor(self, gw, width, height, top_compound, visible=True):
-#         self.canvas = TkCanvas(self.root, width=width, height=height, bd=0, highlightthickness=0)
-#         self.canvas.pack(expand=True, fill='both')
-
-#         self.root.update_idletasks()
-#         self.root.update()
-
-#         # self.root.update_idletasks()
-#         # self.root.update()
-
-#         # TODO(sredmond): Don't just use the default canvas here.
-#         top_compound.canvas = self.canvas
-
-#     def gwindow_delete(self, gw):
-#         pass
-
-#     def gwindow_draw(self, gw, gobj):
-#         import campy.graphics.gobjects as _gobjects
-#         if isinstance(gobj, _gobjects.GLine):
-#             self._draw_gline(gobj)
-#         elif isinstance(gobj, _gobjects.GOval):
-#             self._draw_goval(gobj)
-#         elif isinstance(gobj, _gobjects.GRect):
-#             self._draw_grect(gobj)
-#         else:
-#             print('Unknown object type.')
-
-# ####################
-# # SECTION: Objects #
-# ####################
-
-#     def grect_constructor(self, rect, width, height):
-#         self.canvas.add_rect(rect, rect.x, rect.y, rect.x + rect.width, rect.y + rect.height)
-
-#     def goval_constructor(self, oval, width, height):
-#         self.canvas.add_oval(oval, oval.x, oval.y, oval.x + oval.width, oval.y + oval.height)
-
-#     def garc_constructor(self, arc, width, height, start, sweep):
-#         self.canvas.add_arc(arc, arc.x, arc.y, arc.x + width, arc.y + height, start, sweep)
-
-#     # Begin: GObject
-#     def gobject_set_location(self, gobj, x, y):
-#         self.canvas.set_location(gobj, x, y)
-
-
-#     def gobject_set_filled(self, gobj, flag):
-#         if flag:
-#             self.canvas.fill(gobj, gobj.fill_color.hex)
-#         else:
-#             self.canvas.unfill(gobj)
-
-#     def gobject_set_color(self, gobj, color): pass
-
-#     def gobject_set_fill_color(self, gobj, color):
-#         if gobj.filled:
-#             self.canvas.fill(gobj, color.hex)
-
-#     def gobject_remove(self, gobj): pass
-
-#     def gobject_send_forward(self, gobj): pass
-#     def gobject_send_to_front(self, gobj): pass
-#     def gobject_send_backward(self, gobj): pass
-#     def gobject_send_to_back(self, gobj): pass
-#     def gobject_set_size(self, gobj, width, height): pass
-#     def gobject_get_bounds(self, gobj): pass
-#     def gobject_set_line_width(self, gobj, line_width): pass
-#     def gobject_contains(self, gobj, x, y): pass
-#     def gobject_scale(self, gobj, sx, sy): pass
-#     def gobject_rotate(self, gobj, theta): pass
-#     # End: GObject
-
-#     def _gobject_set_properties(self, gobj):
-#         tkid = self.CANVAS_OBJECTS[id(gobj)]
-#         self.canvas.itemconfig()
-
-#     def _draw_gline(self, line, **options):
-#         # TODO(sredmond): Once updating the line attributes, return to line.x1
-#         # TODO(sredmond): Respect the options (e.g. color) attributes of the supplied line.
-#         return self.canvas.create_line(line._x0, line._y0, line._x1, line._y1)
-
-#     def _draw_goval(self, oval, **options):
-#         x, y, width, height = oval.x, oval.y, oval.width, oval.height
-#         # TODO(sredmond): Respect the options (e.g. color, filled) attributes of the supplied line.
-#         return self.canvas.create_oval(x, y, x + width, y + height)
-
-#     def _draw_grect(self, rect, **options):
-#         x, y, width, height = rect.x, rect.y, rect.width, rect.height
-#         # TODO(sredmond): Respect the options (e.g. color, filled) attributes of the supplied line.
-#         return self.canvas.create_rectangle(x, y, x + width, y + height)
-
-#     # GLabel
-#     def glabel_constructor(self, gobj, label):
-#         # self.canvas.add_label(gobj)
-#         pass
-
-#     def glabel_set_font(self, gobj, font): pass
-
-#     def glabel_set_label(self, gobj, str): pass
-
-#     def glabel_get_font_ascent(self, gobj):
-#         return 10  # placeholder
-
-#     def glabel_get_font_descent(self, gobj):
-#         return 3  # placeholder
-
-#     def glabel_get_size(self, gobj): pass
-
-#     # GCompound
-#     def gcompound_constructor(self, gobj):
-#         """Construct a new GCompound.
-
-#         Python is handling all of our objects, so don't do anything.
-#         """
-#         pass  # Intentionally empty.
-
-
-#     def gcompound_add(self, compound, gobj):
-#         # TODO(sredmond): This is just a stopgap.
-#         from campy.graphics.gobjects import GLabel
-#         if isinstance(gobj, GLabel):
-#             self.canvas.add_label(gobj)
-
-# ########################
-# # SECTION: Interactors #
-# ########################
-#     def gbutton_constructor(self, button):
-#         label = button.label
-#         button._tkobj = tkinter.Button(self.root, text=button.label, command=lambda: self.click_button(button))
-#         button._tkobj.pack()
-
-
-#     # TODO(sredmond): This should really be a static method.
-#     # @staticmethod
-#     def click_button(self, button):
-#         if not button.disabled:
-#             button.click()
-
-# ####################
-# # END: Interactors #
-# ####################
-
-# ##########################
-# # SECTION: File Choosing #
-# ##########################
-
-
-# ######################
-# # END: File Choosing #
-# ######################
-
-
-
-# def convert_font(font_description):
-#     # TODO(sredmond): Don't write bad code anymore!
-#     pieces = font_description.split('-')
-#     return pieces
-
 class TkWindow:
+    """The Tk equivalent to a :class:`GWindow`."""
     def __init__(self, root, width, height, parent):
         self._parent = parent
 
@@ -259,44 +51,103 @@ class TkWindow:
         self._master.protocol("WM_DELETE_WINDOW", self._close)
         self._master.resizable(width=False, height=False)  # Disable resizing by default.
 
-        # TODO(sredmond): On macOS, multiple backends might race to set the process-level menu bar.
-        setup_menubar(self._master)
-
-        self._frame = tk.Frame(self._master)
-
-        self.canvas = tk.Canvas(self._frame, width=width, height=height, highlightthickness=0, bd=0)
-        self.canvas.pack()
-
         # Raise the master to be the top window.
         self._master.wm_attributes("-topmost", 1)  # TODO(sredmond): Is this really necessary?
         self._master.lift()
         self._master.focus_force()
 
-        self._frame.pack()
+        # TODO(sredmond): On macOS, multiple backends might race to set the process-level menu bar.
+        setup_menubar(self._master)
+
+        self._frame = tk.Frame(self._master, bd=2, bg='red')
+
+        self._canvas = tk.Canvas(self._frame, width=width, height=height, highlightthickness=0, bd=0)
+        self._canvas.pack(fill=tk.BOTH, expand=True)
+
+        self._frame.pack(fill=tk.BOTH, expand=True)
         self._frame.update()
+
         self._master.update()
 
+        # Empty side regions for interaction. Their ordering and layout depends
+        # on order of construction, so start them off empty.
+        self._top = None
+        self._bottom = None
+        self._left = None
+        self._right = None
+
+    @property
+    def canvas(self):
+        return self._canvas
+
+    @property
+    def top(self):
+        """Get the top bar for interactors, creating it if needed."""
+        if not self._top:
+            self._top = tk.Frame(self._master)
+            self._top.pack(fill=tk.X, side=tk.TOP)
+            self._frame.pack_forget()
+            self._frame.pack(fill=tk.BOTH, expand=True)
+        return self._top
+
+    @property
+    def bottom(self):
+        """Get the bottom bar for interactors, creating it if needed."""
+        if not self._bottom:
+            self._bottom = tk.Frame(self._master)
+            self._bottom.pack(fill=tk.X, side=tk.BOTTOM)
+            self._frame.pack_forget()
+            self._frame.pack(fill=tk.BOTH, expand=True)
+        return self._bottom
+
+    @property
+    def left(self):
+        """Get the left bar for interactors, creating it if needed."""
+        if not self._left:
+            self._left = tk.Frame(self._master)
+            self._left.pack(fill=tk.Y, side=tk.LEFT)
+            self._frame.pack_forget()
+            self._frame.pack(fill=tk.BOTH, expand=True)
+        return self._left
+
+    @property
+    def right(self):
+        """Get the right bar for interactors, creating it if needed."""
+        if not self._right:
+            self._right = tk.Frame(self._master)
+            self._right.pack(fill=tk.Y, side=tk.LEFT)
+            self._frame.pack_forget()
+            self._frame.pack(fill=tk.BOTH, expand=True)
+        return self._right
+
+    def clear(self):
+        # Delete all canvas elements and all interactors, but leave the canvas and interactor regions in place."""
+        self.clear_canvas()
+        if self._top:
+            for child in self._top.children:
+                child.destroy()
+        if self._bottom:
+            for child in self._bottom.children:
+                child.destroy()
+        if self._left:
+            for child in self._left.children:
+                child.destroy()
+        if self._right:
+            for child in self._right.children:
+                child.destroy()
+
+    def clear_canvas(self):
+        # Delete all canvas elements, but leave the canvas (and all interactor regions) in place.
+        self.canvas.delete('all')
 
     def _close(self):
         if self._closed: return
-
         self._closed = True
+
         self._master.destroy()
-        self._parent._remove_tkwin(self)  # Tell the parent that we have closed.
         # TODO(sredmond): Consider autoflushing like Zelle.
+        self._parent._remove_tkwin(self)  # Tell the parent that we have closed.
 
-    def _clear(self):
-        self._frame.destroy()
-
-        self._frame = tk.Frame(self._master)
-        self.canvas = tk.Canvas(self._frame, width=width, height=height, highlightthickness=0, bd=0)
-        self.canvas.pack()
-
-    def _clear_canvas(self):
-        self.canvas.destroy()
-
-        self.canvas = tk.Canvas(self._frame, width=width, height=height, highlightthickness=0, bd=0)
-        self.canvas.pack()
 
 class TkBackend(GraphicsBackendBase):
     def __init__(self):
@@ -317,7 +168,6 @@ class TkBackend(GraphicsBackendBase):
         self._windows.append(window)
 
     def _remove_tkwin(self, window):
-        print('in remove tkwin')
         if not window._closed:
             window._close()
 
@@ -360,13 +210,15 @@ class TkBackend(GraphicsBackendBase):
     ####################
     def gwindow_clear(self, gwindow):
         self._update_active_window(gwindow._tkwin)
-        gwindow._tkwin._clear()
+        gwindow._tkwin.clear()
 
     def gwindow_clear_canvas(self, gwindow):
         self._update_active_window(gwindow._tkwin)
-        gwindow._tkwin._clear_canvas()
+        gwindow._tkwin.clear_canvas()
 
-    def gwindow_repaint(self, gwindow): pass
+    def gwindow_repaint(self, gwindow):
+        # Update any unresolved tasks.
+        gwindow._tkwin._master.update_idletasks()
 
     def gwindow_draw(self, gwindow, gobject): pass
 
@@ -399,7 +251,12 @@ class TkBackend(GraphicsBackendBase):
     ######################
     # GWindow alignment. #
     ######################
-    def gwindow_add_to_region(self, gwindow, gobject, region): pass
+    def gwindow_add_to_region(self, gwindow, gobject, region):
+        from campy.graphics.gwindow import Region
+        if region == Region.NORTH:
+            self._ginteractor_add(gobject, gwindow._tkwin.top)
+
+
     def gwindow_remove_from_region(self, gwindow, gobject, region): pass
     def gwindow_set_region_alignment(self, gwindow, region, align): pass
 
@@ -728,6 +585,16 @@ class TkBackend(GraphicsBackendBase):
     ###############
     # Interactors #
     ###############
+    def _ginteractor_add(self, gint, frame):
+        from campy.gui.ginteractors import GButton
+        if isinstance(gint, GButton):
+            # TODO(sredmond): Wrap up a GActionEvent on the Tk side to supply.
+            gint._tkobj = tk.Button(frame, text=gint.label, command=gint.click,
+            state=tk.NORMAL if not gint.disabled else tk.DISABLED)
+        gint._tkobj.pack()
+
+        frame.update_idletasks()
+
     def gbutton_constructor(self, gbutton):
         if hasattr(gbutton, '_tkwin'):
             return
@@ -735,12 +602,13 @@ class TkBackend(GraphicsBackendBase):
         win = self._windows[-1]
         gbutton._tkwin = win
 
-        # TODO(sredmond): Wrap up a GActionEvent on the Tk side to supply.
-        gbutton._tkobj = tk.Button(win._master, text=gbutton.label, command=gbutton.click,
-            state=tk.NORMAL if not gbutton.disabled else tk.DISABLED)
-        gbutton._tkobj.pack()
+    def gbutton_set_label(self, gbutton):
+        if not hasattr(gbutton, '_tkobj'): return
+        gbutton._tkobj.config(text=gbutton.label)
 
-        win._master.update_idletasks()
+    def gbutton_set_disabled(self, gbutton):
+        if not hasattr(gbutton, '_tkobj'): return
+        gbutton._tkobj.config(state=tk.NORMAL if not gbutton.disabled else tk.DISABLED)
 
     def gcheckbox_constructor(self, gcheckbox):
         if hasattr(gcheckbox, '_tkwin'):
