@@ -98,4 +98,6 @@ $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 $ twine upload dist/*
 ```
 
+If your `~/.pypirc` is out-of-date, you may get a weird message that your connection was refused. In this case, read the information on the [updated PyPI upload endpoint](https://packaging.python.org/guides/migrating-to-pypi-org/) and modify your config files accordingly.
+
 Check that the package has been successfully pushed by visiting [TestPyPI](https://test.pypi.org/project/campy/) or [real PyPI](https://pypi.org/project/campy/).
