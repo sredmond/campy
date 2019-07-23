@@ -18,12 +18,14 @@ For more information on how to use each of these objects, see the comments on
 each class.
 """
 # TODO(sredmond): Handle lifecycles and deletion of these objects.
-import campy.graphics.gtypes as _gtypes
 import campy.graphics.gcolor as _gcolor
-import campy.private.platform as _platform
+import campy.graphics.gfont as _gfont
 import campy.graphics.gmath as _gmath
+import campy.graphics.gtypes as _gtypes
+import campy.private.platform as _platform
 
 from collections.abc import MutableSequence
+import pathlib
 import math
 
 
@@ -1118,16 +1120,19 @@ class GLine(GObject):
 class GImage(GObject):
     """Graphical representation of an image from a file.
 
-    To display a :class:`GImage` of the Stanford tree::
+    To display a centered :class:`GImage` of the Stanford tree::
 
         window = GWindow()
-        tree = GImage("StanfordTree.png")
+        tree = GImage("StanfordTree.gif")
         x = (window.width - tree.width) / 2
         y = (window.height - tree.height) / 2
-        gw.add(tree, x, y)
+        window.add(tree, x, y)
+
+    The above code assumes that you have a file named ``StanfordTree.gif`` in
+    the current directory.
 
     The search for matching image files begins in the current directory and,
-    failing that, searches an ``images/`` subdirectory.
+    failing that, searches an ``images/`` subdirectory relative to the calling script.
     """
     # TODO(sredmond): Have a environmental variable for a custom subdirectory.
     # TODO(sredmond): When would you use a GImage over a GBufferedImage?
@@ -1147,16 +1152,15 @@ class GImage(GObject):
         :param y: (optional) the y-coordinate to which to move this :class:`GImage`.
         """
         super().__init__()
-        self._filename = filename
+        self._path = _platform.Platform().image_find(filename)
+        self._image = _platform.Platform().gimage_constructor(self)
         self.location = x, y
-
         self._size = _platform.Platform().gimage_constructor(self, filename)
 
     @property
     def filename(self):
-        """Get this :class:`GImage`'s original filename."""
-        # Don't let the student easily change this filename.
-        return self._filename
+        """Get this :class:`GImage`'s filename."""
+        return self._path.name
 
     @property
     def bounds(self):
@@ -1165,7 +1169,7 @@ class GImage(GObject):
         return _gtypes.GRectangle(self.x, self.y, self._size.width, self._size.height)
 
     def __str__(self):
-        return 'GImage("{}")'.format(self.filename)
+        return 'GImage({!r})'.format(self.filename)
 
 
 class GLabel(GObject):
@@ -1186,14 +1190,15 @@ class GLabel(GObject):
 
         - The baseline is the horizontal line on which the characters rest.
         - The origin is the point on the baseline at which the label begins.
-        - The height is the distance that separate two successive lines.
-        - The ascent is the maximum distance a character in this font extends above the baseline.
-        - The descent is the maximum distance a character in this font extends below the baseline.
+        - The height is the distance (in pixels) that would separate two
+          successive lines such that characters would not overlap.
+        - The ascent is the maximum distance that any character in this font
+          extends above the baseline.
+        - The descent is the maximum distance that any character in this font
+          extends below the baseline.
     """
     # TODO(sredmond): Are ascent and descent distances for the given text, or for the font itself?
     # TODO(sredmond): What exactly do we mean in the description of height above?
-
-    DEFAULT_FONT = "Dialog-13"
 
     def __init__(self, label, x=0, y=0):
         """Initialize a :class:`GLabel` displaying a given label.
@@ -1208,32 +1213,27 @@ class GLabel(GObject):
         """
         super().__init__()
         self._text = label
-        self.font = GLabel.DEFAULT_FONT  # Also sets self._ascent, self._descent
+        self.font = _gfont.GFont.default()
         self.location = x, y
+
         # TODO(sredmond): Check that overriding bounds makes width and height work appropriately.
         # size = _platform.Platform().glabel_get_size(self)
         # self.width = size.width
         # self.height = size.height
 
-        # TODO(sredmond): Consider replacing with just a constructor.
-        # _platform.Platform().glabel_constructor(self, label)
-
 
     @property
     def font(self):
-        """Get or set this :class:`GLabel`'s font.
-
-        TODO(sredmond): Describe valid font formats."""
-        # family-style-size
-        # missing -> where both style and size are optional.
+        """Get or set this :class:`GLabel`'s font."""
         return self._font
 
     @font.setter
     def font(self, font):
+        if not isinstance(font, _gfont.GFont):
+            font = _gfont.GFont.parse(font)
+
         self._font = font
         _platform.Platform().glabel_set_font(self, font)
-        self._ascent = _platform.Platform().glabel_get_font_ascent(self)
-        self._descent = _platform.Platform().glabel_get_font_descent(self)
 
         # size = _platform.Platform().glabel_get_size(self)
         # self.width = size.width
@@ -1259,16 +1259,12 @@ class GLabel(GObject):
     @property
     def ascent(self):
         """Return the maximum distance strings in this font ascend above the baseline."""
-        # PATCH! Remove me.
-        return 10
-        # return self._ascent
+        return self.font.ascent
 
     @property
     def descent(self):
         """Return the maximum distance strings in this font descend below the baseline."""
-        # PATCH! Remove me.
-        return 0
-        # return self._descent
+        return self.font.descent
 
     @property
     def bounds(self):
@@ -1283,13 +1279,15 @@ class GLabel(GObject):
         # TODO(sredmond): How do we handle bounds when there could be descent?
 
         if self._transformed: return _platform.Platform().gobject_get_bounds(self)
-        # TODO(sredmond): This won't work until we separately store width and height from platform size calculations.
-        # return _gtypes.GRectangle(self.x, self.y - self.ascent, self._width, self._height)
-        width, height = _platform.Platform().glabel_get_size(self)
-        return _gtypes.GRectangle(self.x, self.y - self.ascent, width, height)  # Placeholder TODO
+        width = self.font.measure(self.text)
+        height = self.font.linespace
+        # TODO(sredmond): This assumes that linespace is ascent + descent, and we top-justify
+        # the bounding box so the actual box's y-coordinates go from y - ascent to y - ascent + height.
+        return _gtypes.GRectangle(self.x, self.y - self.ascent, width, height)
 
     def __str__(self):
         return 'GLabel("{}")'.format(self.label)
+
 
 class GPolygon(GFillableObject):
     """Graphical representation of a polygon.
@@ -1466,6 +1464,13 @@ class GCompound(GObject, MutableSequence):
             gobj.location = (x, y)
 
         # Dispatch the constructor to the appropriate backend constructor.
+        if isinstance(gobj, GLine):
+            _platform.Platform().gline_constructor(gobj)
+
+        if isinstance(gobj, GImage):
+            # TODO(sredmond): Warn against creating a polygon w/o enough vertices.
+            _platform.Platform().gimage_constructor(gobj)
+
         if isinstance(gobj, GRect):
             _platform.Platform().grect_constructor(gobj)
 
@@ -1474,9 +1479,6 @@ class GCompound(GObject, MutableSequence):
 
         if isinstance(gobj, GArc):
             _platform.Platform().garc_constructor(gobj)
-
-        if isinstance(gobj, GLine):
-            _platform.Platform().gline_constructor(gobj)
 
         if isinstance(gobj, GLabel):
             _platform.Platform().glabel_constructor(gobj)

@@ -522,7 +522,18 @@ class TkBackend(GraphicsBackendBase):
 
         win._master.update_idletasks()
 
-    def glabel_set_font(self, glabel, font): pass
+    def glabel_set_font(self, glabel, gfont):
+        if not hasattr(glabel, '_tkid'): return
+
+        if not hasattr(gfont, '_tkfont'):
+            gfont._tkfont = tkfont.Font(family=gfont.family, size=gfont.size,
+                            weight=tkfont.BOLD if gfont.weight else tkfont.NORMAL,
+                            slant=tkfont.ITALIC if gfont.slant else tkfont.ROMAN)
+        font = gfont._tkfont
+        tkid = glabel._tkid
+        win = glabel._tkwin
+        win.canvas.itemconfig(tkid, font=font)
+
     def glabel_set_label(self, glabel, text):
         if not hasattr(glabel, '_tkid'): return
         tkid = glabel._tkid

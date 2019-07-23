@@ -96,11 +96,8 @@ class GraphicsBackendBase(abc.ABC):
 
     # Labels
     def glabel_constructor(self, glabel): pass
-    def glabel_set_font(self, glabel, font): pass
+    def glabel_set_font(self, glabel, gfont): pass
     def glabel_set_label(self, glabel, text): pass
-    def glabel_get_font_ascent(self, glabel): pass
-    def glabel_get_font_descent(self, glabel): pass
-    def glabel_get_size(self, glabel): pass
 
     # Polygons
     def gpolygon_constructor(self, gpolygon): pass

@@ -87,7 +87,7 @@ class GFont:
         # broader set of descriptions. Notably, fonts with dashes in their
         # names are currently impossible to specify. I don't know of any fonts
         # with that property, but it's still an unnecessary restriction.
-        pieces = description.split()
+        pieces = description.split('-')
         if len(pieces) < 2 or len(pieces) > 4:
             logger.warning('Unable to parse font description {!r} into an appropriate number of pieces.'.format(description))
             return
