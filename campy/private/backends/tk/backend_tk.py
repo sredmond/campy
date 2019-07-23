@@ -471,6 +471,37 @@ class TkBackend(GraphicsBackendBase):
 
         win._master.update_idletasks()
 
+    #########
+    # Fonts #
+    #########
+    # See: https://www.astro.princeton.edu/~rhl/Tcl-Tk_docs/tk/font.n.html
+
+    def gfont_default_attributes(self):
+        # Resolves to the platform-specific default.
+        font = tkfont.nametofont('TkDefaultFont')
+        return font.config()
+
+    def gfont_attributes_from_system_name(self, font_name):
+        # Attempt to load the font with the given name.
+        font = tkfont.nametofont(font_name)
+        return font.config()
+
+    def gfont_get_font_metrics(self, gfont):
+        font = tkfont.Font(family=gfont.family, size=gfont.size,
+                           weight=tkfont.BOLD if gfont.weight else tkfont.NORMAL,
+                           slant=tkfont.ITALIC if gfont.slant else tkfont.ROMAN)
+        if not hasattr(gfont, '_tkfont'):
+            gfont._tkfont = font
+        return font.metrics()
+
+    def gfont_measure_text_width(self, gfont, text):
+        if not hasattr(gfont, '_tkfont'):
+            gfont._tkfont = tkfont.Font(family=gfont.family, size=gfont.size,
+                            weight=tkfont.BOLD if gfont.weight else tkfont.NORMAL,
+                            slant=tkfont.ITALIC if gfont.slant else tkfont.ROMAN)
+        font = gfont._tkfont
+        return font.measure(text)
+
     ##########
     # Labels #
     ##########
@@ -486,7 +517,7 @@ class TkBackend(GraphicsBackendBase):
         glabel._tkid = win.canvas.create_text(
             glabel.x, glabel.y,
             text=glabel.text,
-            fill=glabel.color.hex, anchor=tk.NW,
+            fill=glabel.color.hex, anchor=tk.SW,
             state=tk.NORMAL if glabel.visible else tk.HIDDEN)
 
         win._master.update_idletasks()

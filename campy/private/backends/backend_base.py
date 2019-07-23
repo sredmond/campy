@@ -88,6 +88,12 @@ class GraphicsBackendBase(abc.ABC):
     def gcompound_constructor(self, gobject): pass
     def gcompound_add(self, compound, gobject): pass
 
+    # Fonts
+    def gfont_default_attributes(self): pass
+    def gfont_attributes_from_system_name(self, font_name): pass
+    def gfont_get_font_metrics(self, gfont): pass
+    def gfont_measure_text_width(self, gfont, text): pass
+
     # Labels
     def glabel_constructor(self, glabel): pass
     def glabel_set_font(self, glabel, font): pass
