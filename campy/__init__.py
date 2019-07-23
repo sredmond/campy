@@ -44,7 +44,12 @@ logger.addHandler(logging.NullHandler())  # Add a default do-nothing handler to 
 
 # TODO(sredmond): FOR DEVELOPMENT ONLY. Log all messages.
 import os
-level = os.environ.get('CAMPY_LOGLEVEL', 'DEBUG').upper()
+if os.environ.get('CAMPY_DEVELOP'):
+    default_log_level = 'DEBUG'
+else:
+    default_log_level = 'WARNING'
+level = os.environ.get('CAMPY_LOGLEVEL', default_log_level).upper()
+
 logging.basicConfig()
 logger.setLevel(level)
 # Send some initial messages.
