@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>campy.graphics.gobjects &mdash; campy 0.0.2 documentation</title>
+  <title>campy.graphics.gobjects &mdash; campy 0.0.1.dev6 documentation</title>
   
 
   
@@ -182,15 +182,15 @@
 <span class="sd">each class.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># TODO(sredmond): Handle lifecycles and deletion of these objects.</span>
-<span class="kn">import</span> <span class="nn">campy.graphics.gtypes</span> <span class="k">as</span> <span class="nn">_gtypes</span>
 <span class="kn">import</span> <span class="nn">campy.graphics.gcolor</span> <span class="k">as</span> <span class="nn">_gcolor</span>
-<span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
+<span class="kn">import</span> <span class="nn">campy.graphics.gfont</span> <span class="k">as</span> <span class="nn">_gfont</span>
 <span class="kn">import</span> <span class="nn">campy.graphics.gmath</span> <span class="k">as</span> <span class="nn">_gmath</span>
+<span class="kn">import</span> <span class="nn">campy.graphics.gtypes</span> <span class="k">as</span> <span class="nn">_gtypes</span>
+<span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
 
 <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="k">import</span> <span class="n">MutableSequence</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">math</span>
-
 
 
 <div class="viewcode-block" id="GObject"><a class="viewcode-back" href="../../../campy.graphics.gobjects.html#campy.graphics.gobjects.GObject">[docs]</a><span class="k">class</span> <span class="nc">GObject</span><span class="p">:</span>
@@ -1354,14 +1354,15 @@
 
 <span class="sd">        - The baseline is the horizontal line on which the characters rest.</span>
 <span class="sd">        - The origin is the point on the baseline at which the label begins.</span>
-<span class="sd">        - The height is the distance that separate two successive lines.</span>
-<span class="sd">        - The ascent is the maximum distance a character in this font extends above the baseline.</span>
-<span class="sd">        - The descent is the maximum distance a character in this font extends below the baseline.</span>
+<span class="sd">        - The height is the distance (in pixels) that would separate two</span>
+<span class="sd">          successive lines such that characters would not overlap.</span>
+<span class="sd">        - The ascent is the maximum distance that any character in this font</span>
+<span class="sd">          extends above the baseline.</span>
+<span class="sd">        - The descent is the maximum distance that any character in this font</span>
+<span class="sd">          extends below the baseline.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># TODO(sredmond): Are ascent and descent distances for the given text, or for the font itself?</span>
     <span class="c1"># TODO(sredmond): What exactly do we mean in the description of height above?</span>
-
-    <span class="n">DEFAULT_FONT</span> <span class="o">=</span> <span class="s2">&quot;Dialog-13&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Initialize a :class:`GLabel` displaying a given label.</span>
@@ -1376,32 +1377,27 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="o">=</span> <span class="n">label</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">GLabel</span><span class="o">.</span><span class="n">DEFAULT_FONT</span>  <span class="c1"># Also sets self._ascent, self._descent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">_gfont</span><span class="o">.</span><span class="n">GFont</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
         <span class="c1"># TODO(sredmond): Check that overriding bounds makes width and height work appropriately.</span>
         <span class="c1"># size = _platform.Platform().glabel_get_size(self)</span>
         <span class="c1"># self.width = size.width</span>
         <span class="c1"># self.height = size.height</span>
 
-        <span class="c1"># TODO(sredmond): Consider replacing with just a constructor.</span>
-        <span class="c1"># _platform.Platform().glabel_constructor(self, label)</span>
-
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">font</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get or set this :class:`GLabel`&#39;s font.</span>
-
-<span class="sd">        TODO(sredmond): Describe valid font formats.&quot;&quot;&quot;</span>
-        <span class="c1"># family-style-size</span>
-        <span class="c1"># missing -&gt; where both style and size are optional.</span>
+        <span class="sd">&quot;&quot;&quot;Get or set this :class:`GLabel`&#39;s font.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_font</span>
 
     <span class="nd">@font</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">font</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">font</span><span class="p">,</span> <span class="n">_gfont</span><span class="o">.</span><span class="n">GFont</span><span class="p">):</span>
+            <span class="n">font</span> <span class="o">=</span> <span class="n">_gfont</span><span class="o">.</span><span class="n">GFont</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_font</span> <span class="o">=</span> <span class="n">font</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">glabel_set_font</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">font</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ascent</span> <span class="o">=</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">glabel_get_font_ascent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_descent</span> <span class="o">=</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">glabel_get_font_descent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1"># size = _platform.Platform().glabel_get_size(self)</span>
         <span class="c1"># self.width = size.width</span>
@@ -1427,16 +1423,12 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ascent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the maximum distance strings in this font ascend above the baseline.&quot;&quot;&quot;</span>
-        <span class="c1"># PATCH! Remove me.</span>
-        <span class="k">return</span> <span class="mi">10</span>
-        <span class="c1"># return self._ascent</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">ascent</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">descent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return the maximum distance strings in this font descend below the baseline.&quot;&quot;&quot;</span>
-        <span class="c1"># PATCH! Remove me.</span>
-        <span class="k">return</span> <span class="mi">0</span>
-        <span class="c1"># return self._descent</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">descent</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1451,13 +1443,15 @@
         <span class="c1"># TODO(sredmond): How do we handle bounds when there could be descent?</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transformed</span><span class="p">:</span> <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gobject_get_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="c1"># TODO(sredmond): This won&#39;t work until we separately store width and height from platform size calculations.</span>
-        <span class="c1"># return _gtypes.GRectangle(self.x, self.y - self.ascent, self._width, self._height)</span>
-        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">glabel_get_size</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_gtypes</span><span class="o">.</span><span class="n">GRectangle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ascent</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>  <span class="c1"># Placeholder TODO</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">linespace</span>
+        <span class="c1"># TODO(sredmond): This assumes that linespace is ascent + descent, and we top-justify</span>
+        <span class="c1"># the bounding box so the actual box&#39;s y-coordinates go from y - ascent to y - ascent + height.</span>
+        <span class="k">return</span> <span class="n">_gtypes</span><span class="o">.</span><span class="n">GRectangle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">ascent</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;GLabel(&quot;</span><span class="si">{}</span><span class="s1">&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="GPolygon"><a class="viewcode-back" href="../../../campy.graphics.gobjects.html#campy.graphics.gobjects.GPolygon">[docs]</a><span class="k">class</span> <span class="nc">GPolygon</span><span class="p">(</span><span class="n">GFillableObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Graphical representation of a polygon.</span>
@@ -1779,7 +1773,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Sam Redmond
+        &copy; Copyright 2019, Sam Redmond
 
     </p>
   </div>

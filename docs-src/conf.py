@@ -20,13 +20,13 @@
 # -- Project information -----------------------------------------------------
 
 project = 'campy'
-copyright = '2018, Sam Redmond'
+copyright = '2019, Sam Redmond'
 author = 'Sam Redmond'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '0.0.2'
+release = '0.0.1.dev6'
 
 
 # -- General configuration ---------------------------------------------------

@@ -6,19 +6,20 @@ Subpackages
 
 .. toctree::
 
-    campy.datastructures
-    campy.graphics
-    campy.gui
-    campy.io
-    campy.misc
-    campy.private
-    campy.system
-    campy.util
+   campy.datastructures
+   campy.graphics
+   campy.gui
+   campy.io
+   campy.misc
+   campy.private
+   campy.stanford
+   campy.system
+   campy.util
 
 Module contents
 ---------------
 
 .. automodule:: campy
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

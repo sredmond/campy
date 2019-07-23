@@ -1,7 +1,4 @@
-#!/usr/bin/env python3 -tt
 """
-File: filelib.py
-----------------
 This file exports a standardized set of tools for working with
 files. The library offers at least some portability across the
 file systems used in the three supported platforms: Mac OSX,
@@ -11,26 +8,26 @@ makes it possible to use the same code on different platforms.
 
 Note: Several of the functions that lived in CPP's version of this
 library are removed, to force students to learn the proper builtin
-pathlib library. The compatability is listed here
+pathlib library. The compatability is listed here::
 
-def create_directory(path):
-    _Path(path).mkdir()
+    def create_directory(path):
+        _Path(path).mkdir()
 
-def create_directory_path(path):
-    _Path(path).mkdir(path, parents=True)
+    def create_directory_path(path):
+        _Path(path).mkdir(path, parents=True)
 
-def default_extension(path, ext):
-    p = _Path(path)
-    if ext.startswith('*') or not p.suffix:
-        return p.with_suffix(ext)
+    def default_extension(path, ext):
+        p = _Path(path)
+        if ext.startswith('*') or not p.suffix:
+            return p.with_suffix(ext)
 
-def delete_file(path):
-    return os.remove(path)
+    def delete_file(path):
+        return os.remove(path)
 
 TODO more
 """
 from pathlib import Path as _Path, PurePath as _PurePath
-import campy.platform as _platform
+import campy.private.platform as _platform
 
 def expand_pathname(path):
     pass

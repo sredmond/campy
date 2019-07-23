@@ -10,6 +10,7 @@ Submodules
    campy.graphics.gcolor
    campy.graphics.gevents
    campy.graphics.gfilechooser
+   campy.graphics.gfont
    campy.graphics.gmath
    campy.graphics.gobjects
    campy.graphics.goptionpane
@@ -21,6 +22,6 @@ Module contents
 ---------------
 
 .. automodule:: campy.graphics
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

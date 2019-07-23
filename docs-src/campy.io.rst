@@ -16,6 +16,6 @@ Module contents
 ---------------
 
 .. automodule:: campy.io
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

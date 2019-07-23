@@ -22,6 +22,6 @@ Module contents
 ---------------
 
 .. automodule:: campy.datastructures
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

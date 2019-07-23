@@ -11,7 +11,7 @@ class SparseGrid(_collections.abc.MutableMapping):
             self.fill(value)
 
     @classmethod
-    def from_2d_iterable():
+    def from_2d_iterable(cls):
         pass
 
     def resize():

@@ -13,6 +13,6 @@ Module contents
 ---------------
 
 .. automodule:: campy.misc
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

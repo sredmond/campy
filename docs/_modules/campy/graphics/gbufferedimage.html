@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>campy.graphics.gbufferedimage &mdash; campy 0.0.2 documentation</title>
+  <title>campy.graphics.gbufferedimage &mdash; campy 0.0.1.dev6 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -161,10 +162,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.graphics.gbufferedimage</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;A :class:`GBufferedImage` wraps an image and buffers its pixel data.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">campy.datastructures.grid</span> <span class="k">as</span> <span class="nn">_grid</span>
-<span class="kn">import</span> <span class="nn">campy.gui.ginteractors</span> <span class="k">as</span> <span class="nn">_ginteractors</span>
 <span class="kn">import</span> <span class="nn">campy.graphics.gcolor</span> <span class="k">as</span> <span class="nn">_gcolor</span>
 <span class="kn">import</span> <span class="nn">campy.graphics.gtypes</span> <span class="k">as</span> <span class="nn">_gtypes</span>
 <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
@@ -176,7 +177,9 @@
 <span class="c1"># def _char_to_hex(ch):</span>
 <span class="c1">#      return ord(&#39;0&#39;) &lt;= ch &lt;= ord(&#39;9&#39;) ? (ch - ord(&#39;0&#39;)) : (ch - ord(&#39;a&#39;) + 10)</span>
 
-<div class="viewcode-block" id="GBufferedImage"><a class="viewcode-back" href="../../../campy.graphics.gbufferedimage.html#campy.graphics.gbufferedimage.GBufferedImage">[docs]</a><span class="k">class</span> <span class="nc">GBufferedImage</span><span class="p">(</span><span class="n">_ginteractors</span><span class="o">.</span><span class="n">GInteractor</span><span class="p">):</span>
+<span class="c1"># TODO(sredmond): Why on earth is this an interactor?</span>
+<span class="c1"># class GBufferedImage(_ginteractors.GInteractor):</span>
+<div class="viewcode-block" id="GBufferedImage"><a class="viewcode-back" href="../../../campy.graphics.gbufferedimage.html#campy.graphics.gbufferedimage.GBufferedImage">[docs]</a><span class="k">class</span> <span class="nc">GBufferedImage</span><span class="p">:</span>
     <span class="n">WIDTH_HEIGHT_MAX</span> <span class="o">=</span> <span class="mi">65535</span>
 
 <div class="viewcode-block" id="GBufferedImage.load_from_file"><a class="viewcode-back" href="../../../campy.graphics.gbufferedimage.html#campy.graphics.gbufferedimage.GBufferedImage.load_from_file">[docs]</a>    <span class="nd">@classmethod</span>
@@ -294,16 +297,6 @@
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;GBufferedImage()&#39;</span></div>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">campy.graphics.gwindow</span> <span class="k">import</span> <span class="n">GWindow</span>
-    <span class="n">gw</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
-    <span class="c1"># gbi = GBufferedImage(width=50, height=80, bg_color=0xFFFFFF)</span>
-    <span class="c1"># gbi.resize(100, 800)</span>
-    <span class="c1"># gbi.fill(0xFFFFFF)</span>
-    <span class="n">gbi</span> <span class="o">=</span> <span class="n">GBufferedImage</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s1">&#39;/Users/sredmond/Pictures/wallpapers/8to5/car.jpg&#39;</span><span class="p">)</span>
-    <span class="n">gw</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gbi</span><span class="p">)</span>
-    <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 
            </div>
@@ -316,7 +309,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Sam Redmond
+        &copy; Copyright 2019, Sam Redmond
 
     </p>
   </div>
@@ -333,26 +326,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -22,6 +22,6 @@ Module contents
 ---------------
 
 .. automodule:: campy.util
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

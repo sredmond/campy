@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>campy.graphics.gobjects module &mdash; campy 0.0.2 documentation</title>
+  <title>campy.graphics.gobjects module &mdash; campy 0.0.1.dev6 documentation</title>
   
 
   
@@ -459,16 +459,14 @@ it’s important to understand the following terms:</p>
 <div><ul class="simple">
 <li><p>The baseline is the horizontal line on which the characters rest.</p></li>
 <li><p>The origin is the point on the baseline at which the label begins.</p></li>
-<li><p>The height is the distance that separate two successive lines.</p></li>
-<li><p>The ascent is the maximum distance a character in this font extends above the baseline.</p></li>
-<li><p>The descent is the maximum distance a character in this font extends below the baseline.</p></li>
+<li><p>The height is the distance (in pixels) that would separate two
+successive lines such that characters would not overlap.</p></li>
+<li><p>The ascent is the maximum distance that any character in this font
+extends above the baseline.</p></li>
+<li><p>The descent is the maximum distance that any character in this font
+extends below the baseline.</p></li>
 </ul>
 </div></blockquote>
-<dl class="attribute">
-<dt id="campy.graphics.gobjects.GLabel.DEFAULT_FONT">
-<code class="sig-name descname">DEFAULT_FONT</code><em class="property"> = 'Dialog-13'</em><a class="headerlink" href="#campy.graphics.gobjects.GLabel.DEFAULT_FONT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="campy.graphics.gobjects.GLabel.ascent">
 <em class="property">property </em><code class="sig-name descname">ascent</code><a class="headerlink" href="#campy.graphics.gobjects.GLabel.ascent" title="Permalink to this definition">¶</a></dt>
@@ -501,7 +499,6 @@ completely covers the displayed message.</p>
 <dt id="campy.graphics.gobjects.GLabel.font">
 <em class="property">property </em><code class="sig-name descname">font</code><a class="headerlink" href="#campy.graphics.gobjects.GLabel.font" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gobjects.GLabel" title="campy.graphics.gobjects.GLabel"><code class="xref py py-class docutils literal notranslate"><span class="pre">GLabel</span></code></a>’s font.</p>
-<p>TODO(sredmond): Describe valid font formats.</p>
 </dd></dl>
 
 <dl class="method">
@@ -997,7 +994,7 @@ itself.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Sam Redmond
+        &copy; Copyright 2019, Sam Redmond
 
     </p>
   </div>

@@ -35,29 +35,29 @@ class Console:
     def console_print_exceptions(self):
         pass
 
-    @console_close_operation.setter
-    def console_close_operation(self, op):
-        if self.console_locked: return
-        self.console_close_operation = op
-        print('TODO: jbeconsole_setCloseOperation')
-        #_platform.getPlatform().jbeconsole_setCloseOperation(op)
-        self.console_exit_program_on_close = op == ConsoleCloseOperation.CONSOLE_EXIT_ON_CLOSE
+    # @console_close_operation.setter
+    # def console_close_operation(self, op):
+    #     if self.console_locked: return
+    #     self.console_close_operation = op
+    #     print('TODO: jbeconsole_setCloseOperation')
+    #     #_platform.getPlatform().jbeconsole_setCloseOperation(op)
+    #     self.console_exit_program_on_close = op == ConsoleCloseOperation.CONSOLE_EXIT_ON_CLOSE
 
-    @console_echo.setter
-    def console_echo(self, echo):
-        if self.console_locked: return
-        self.console_echo = echo
+    # @console_echo.setter
+    # def console_echo(self, echo):
+    #     if self.console_locked: return
+    #     self.console_echo = echo
 
-    @console_error_color.setter
-    def console_error_color(self, color): # TODO: annotate color w/ str
-        if self.console_locked: return
-        self.console_error_color = color
-        print('TODO: jbeconsole_setConsoleColor')
+    # @console_error_color.setter
+    # def console_error_color(self, color): # TODO: annotate color w/ str
+    #     if self.console_locked: return
+    #     self.console_error_color = color
+    #     print('TODO: jbeconsole_setConsoleColor')
 
-    @console_event_on_close.setter
-    def console_event_on_close(self, event_on_close):
-        if self.console_locked: return
-        self.console_event_on_close = event_on_close
+    # @console_event_on_close.setter
+    # def console_event_on_close(self, event_on_close):
+    #     if self.console_locked: return
+    #     self.console_event_on_close = event_on_close
 
 
 class ConsoleCloseOperation(_enum.IntEnum):

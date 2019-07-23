@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>campy.io.filelib module &mdash; campy 0.0.2 documentation</title>
+  <title>campy.io.filelib module &mdash; campy 0.0.1.dev6 documentation</title>
   
 
   
@@ -166,8 +166,170 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="campy-io-filelib-module">
-<h1>campy.io.filelib module<a class="headerlink" href="#campy-io-filelib-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-campy.io.filelib">
+<span id="campy-io-filelib-module"></span><h1>campy.io.filelib module<a class="headerlink" href="#module-campy.io.filelib" title="Permalink to this headline">¶</a></h1>
+<p>This file exports a standardized set of tools for working with
+files. The library offers at least some portability across the
+file systems used in the three supported platforms: Mac OSX,
+Windows, and Linux.  Directory and search paths are allowed to
+contain separators in any of the supported styles, which usually
+makes it possible to use the same code on different platforms.</p>
+<p>Note: Several of the functions that lived in CPP’s version of this
+library are removed, to force students to learn the proper builtin
+pathlib library. The compatability is listed here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_directory</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">_Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">create_directory_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="n">_Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">default_extension</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ext</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">_Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ext</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">suffix</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">delete_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>TODO more</p>
+<dl class="function">
+<dt id="campy.io.filelib.expand_pathname">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">expand_pathname</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#expand_pathname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.expand_pathname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.file_exists">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">file_exists</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#file_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.file_exists" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.find_on_path">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">find_on_path</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#find_on_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.find_on_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_current_directory">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_current_directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_current_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_current_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_directory_path_separator">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_directory_path_separator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_directory_path_separator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_directory_path_separator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_extension">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_extension</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_extension"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_extension" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_head">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_head</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_head"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_root">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_root</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_root"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_search_path_separator">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_search_path_separator</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_search_path_separator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_search_path_separator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_tail">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_tail</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_tail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_tail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.get_temp_directory">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">get_temp_directory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#get_temp_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.get_temp_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.is_directory">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">is_directory</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#is_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.is_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.is_file">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">is_file</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#is_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.is_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.is_symbolic_link">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">is_symbolic_link</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#is_symbolic_link"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.is_symbolic_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.list_directory">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">list_directory</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#list_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.list_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.match_filename_pattern">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">match_filename_pattern</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#match_filename_pattern"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.match_filename_pattern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.open_file">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">open_file</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#open_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.open_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.open_file_dialog">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">open_file_dialog</code><span class="sig-paren">(</span><em class="sig-param">title='Open File'</em>, <em class="sig-param">mode='load'</em>, <em class="sig-param">path=''</em>, <em class="sig-param">binary=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#open_file_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.open_file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens a dialog that allows the user to choose the file.  The
+title parameter is displayed in the dialog title.
+The path parameter is used to set the working directory;
+if path does not appear, openFileDialog
+uses the current directory.</p>
+<p>&#64;type title: string
+&#64;param title: title of dialog box
+&#64;type mode: string
+&#64;param mode: mode of dialog box
+&#64;type binary: boolean
+&#64;param binary: open file in binary mode on windows
+&#64;rtype: file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.open_on_path">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">open_on_path</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#open_on_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.open_on_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.prompt_user_for_file">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">prompt_user_for_file</code><span class="sig-paren">(</span><em class="sig-param">prompt=''</em>, <em class="sig-param">reprompt=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#prompt_user_for_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.prompt_user_for_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.read_entire_file">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">read_entire_file</code><span class="sig-paren">(</span><em class="sig-param">stream</em>, <em class="sig-param">lines</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#read_entire_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.read_entire_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.rename">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">rename</code><span class="sig-paren">(</span><em class="sig-param">old</em>, <em class="sig-param">new</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.rename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.rewindStream">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">rewindStream</code><span class="sig-paren">(</span><em class="sig-param">input</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#rewindStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.rewindStream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.set_current_directory">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">set_current_directory</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#set_current_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.set_current_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="campy.io.filelib.write_entire_file">
+<code class="sig-prename descclassname">campy.io.filelib.</code><code class="sig-name descname">write_entire_file</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/filelib.html#write_entire_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.filelib.write_entire_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
@@ -181,7 +343,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, Sam Redmond
+        &copy; Copyright 2019, Sam Redmond
 
     </p>
   </div>

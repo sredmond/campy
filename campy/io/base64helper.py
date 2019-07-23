@@ -1,10 +1,8 @@
-#!/usr/bin/env python3 -tt
-"""
-File: base64.h
---------------
-This file defines a set of functions for encoding and decoding binary data
-in the base64 format.  See:
-  http://en.wikipedia.org/wiki/Base64
+"""Functions for encoding and decoding binary data in the base64 format.
+
+For information on the base64 format, see:
+
+    http://en.wikipedia.org/wiki/Base64
 
 It is a lightweight wrapper around the builtin base64 library that ships with
 Python.
