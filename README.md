@@ -21,7 +21,6 @@ To install `campy`, simply use `pip`:
 
 ```
 $ pip install campy
-✨ 🐍 ✨
 ```
 
 ## Documentation

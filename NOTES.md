@@ -86,6 +86,7 @@ Then, ensure you have `twine` installed and are in the project's root directory.
 ```
 $ python setup.py sdist bdist_wheel
 $ twine check dist/*
+$ check-manifest
 ```
 
 Then, upload to TestPyPI or real PyPI, supplying the username and password of this project's owner.

@@ -24,7 +24,7 @@ setup(
     # Project versions, compliant with PEP440.
     # TODO(sredmond): Single-source the project version.
     # https://packaging.python.org/guides/single-sourcing-package-version/
-    version="0.0.1.dev4",
+    version="0.0.1.dev5",
 
     description="Stanford's introductory libraries in Python, including the ACM graphical libraries.",
     long_description=README_TEXT,
@@ -98,7 +98,7 @@ setup(
     # },
 
     # Additional URLs.
-    project_urls= {
+    project_urls={
         'Source': 'https://github.com/sredmond/campy/',
         'Bug Reports': 'https://github.com/sredmond/campy/issues',
         'Say Thanks!': 'http://saythanks.io/to/sredmond',
