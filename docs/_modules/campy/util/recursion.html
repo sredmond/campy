@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -172,6 +173,7 @@
     <span class="k">return</span> <span class="n">count_depth</span><span class="p">()</span> <span class="o">*</span> <span class="n">indenter</span></div>
 
 <div class="viewcode-block" id="count_depth"><a class="viewcode-back" href="../../../campy.util.recursion.html#campy.util.recursion.count_depth">[docs]</a><span class="k">def</span> <span class="nf">count_depth</span><span class="p">():</span>
+    <span class="c1"># NOTE: This doesn&#39;t work well with mutual recursion.</span>
     <span class="n">stack_frames</span> <span class="o">=</span> <span class="n">_traceback</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()</span>
     <span class="c1"># stack_frames = stack_frames[:-1-parent]  # Pop myself off the stack</span>
     <span class="n">depth_fn</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># stack_frames[-1][2]</span>
@@ -190,22 +192,6 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">break</span>
     <span class="k">return</span> <span class="n">count</span></div>
-
-<span class="k">def</span> <span class="nf">_test_recursion</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">functools</span> <span class="k">as</span> <span class="nn">_functools</span>
-
-    <span class="c1"># TODO: This doesn&#39;t work with decorators currently.</span>
-    <span class="nd">@_functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">fib(</span><span class="si">{}</span><span class="s1">):&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">get_indent</span><span class="p">(),</span> <span class="n">n</span><span class="p">))</span>
-        <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">fib</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
-
-    <span class="n">fib</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">_test_recursion</span><span class="p">()</span>
 </pre></div>
 
            </div>
@@ -235,26 +221,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

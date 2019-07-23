@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -161,29 +162,30 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.graphics.gcolor</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Utilities for working with colors and pixels in this graphical library.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Classes for manipulating colors and pixels.</span>
 
 <span class="sd">A :class:`GColor` is a heavy object representing an abstract color. It</span>
 <span class="sd">should be thought of as an opaque data type that can be initialized from any of</span>
 <span class="sd">several possible representations, and serialized to any of those representations.</span>
 
 <span class="sd">A :class:`Pixel` represents a single pixel of an image, and is stored much more</span>
-<span class="sd">efficiently.</span>
+<span class="sd">efficiently. A Pixel can represent an (R, G, B) triplet or an (R, G, B, A)</span>
+<span class="sd">quadruplet.</span>
+
+<span class="sd">The main difference between a :class:`Pixel` and a :class:`GColor` is that a</span>
+<span class="sd">:class:`Pixel` is basically an efficiently stored integer representing the alpha,</span>
+<span class="sd">red, green, and blue channels of the pixel, whereas a :class:`GColor` has no</span>
+<span class="sd">alpha channel and has many more utility methods attached.</span>
+
+<span class="sd">Additionally, a :class:`Pixel` is mutable, whereas a :class:`GColor` is immutable.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">string</span> <span class="k">as</span> <span class="nn">_string</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span> <span class="k">as</span> <span class="n">_nt</span>
-
-
+<span class="c1"># TODO(sredmond): Rethink Pixel mutability, since changes won&#39;t propagate to</span>
+<span class="c1"># Pixel containers.</span>
 <span class="kn">from</span> <span class="nn">campy.system.error</span> <span class="k">import</span> <span class="n">CampyException</span>
 
 
 <div class="viewcode-block" id="Pixel"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.Pixel">[docs]</a><span class="k">class</span> <span class="nc">Pixel</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A :class:`Pixel` represents a single, possibly-transparent pixel from an image.</span>
-
-<span class="sd">    The main difference between a Pixel and a GColor is that a :class:`Pixel` is an</span>
-<span class="sd">    efficiently stored integer representing the alpha, red, green, and blue channels</span>
-<span class="sd">    of the pixel, whereas a GColor has more utility methods attached. Additionally, a</span>
-<span class="sd">    Pixel is mutable, whereas a GColor is immutable.</span>
 
 <span class="sd">    Students will likely never have to directly instantiate Pixels, and will instead</span>
 <span class="sd">    likely just modify provided Pixels.</span>
@@ -193,7 +195,7 @@
 <span class="sd">    To change the values of channels of a pixel::</span>
 
 <span class="sd">        cardinal = Pixel(168, 0, 59)</span>
-<span class="sd">        print(cardinal.red)</span>
+<span class="sd">        print(cardinal.red)  # =&gt; 168</span>
 
 <span class="sd">        cardinal.red = 223</span>
 <span class="sd">        cardinal.green = 202</span>
@@ -210,9 +212,12 @@
 <span class="sd">    When setting values for these channels, it is required to supply an integer between</span>
 <span class="sd">    0 and 255, inclusive.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO(sredmond): Document which methods produce pixels.</span>
+    <span class="c1"># TODO(sredmond): Revisit subclassing from int.</span>
+
     <span class="c1"># Tell Python to disallow dynamic attribute creation except for self._value</span>
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;_value&#39;</span><span class="p">]</span>
-    <span class="c1"># TODO(sredmond): Say which methods might produce Pixels to modify.</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">red</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">green</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">blue</span><span class="o">=</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mh">0xFF</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create a new Pixel by channels.</span>
 
@@ -243,6 +248,7 @@
 <span class="sd">        :param blue: The value of the blue channel between 0 and 255.</span>
 <span class="sd">        :param alpha: The value of the alpha channel between 0 and 255.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># NOTE(sredmond): Since int is immutable, we can&#39;t set ourself (or can we?!)</span>
         <span class="c1"># TODO(sredmond): Check that the supplied arguments are within valid bounds.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">red</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">green</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">|</span> <span class="n">blue</span>
@@ -257,7 +263,11 @@
 <span class="sd">            pixel.alpha = 127</span>
 <span class="sd">            print(pixel.alpha)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO(sredmond): Docs for CPP say &quot;have to &amp; a second time because of sign-extension on &gt;&gt; shift&quot;, double check</span>
+        <span class="c1"># TODO(sredmond): The C++ libraries claim that you &quot;have to &amp; a second time</span>
+        <span class="c1"># because of sign-extension on &gt;&gt; shift.&quot; That&#39;s because if the value is</span>
+        <span class="c1"># stored in something like an int_32, some values of alpha might mean that</span>
+        <span class="c1"># the integer is negative, so right-shifting would carry over that negativity.</span>
+        <span class="c1"># This shift doesn&#39;t apply in Python, since ints are unbounded.</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
 
     <span class="nd">@property</span>
@@ -344,7 +354,25 @@
         <span class="k">return</span> <span class="s2">&quot;Pixel(red=</span><span class="si">{self.red}</span><span class="s2">, green=</span><span class="si">{self.green}</span><span class="s2">, blue=</span><span class="si">{self.blue}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="GColor"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor">[docs]</a><span class="k">class</span> <span class="nc">GColor</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">_ColorResolverMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Metaclass to override attribute access for :class:`GColor`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Implement ``self.attr`` if normal attribute lookup fails.</span>
+
+<span class="sd">        As a metaclass, this will modify attribute lookup on its derived class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(sredmond): Optionally also remove non-ASCII characters.</span>
+        <span class="c1"># TODO(Sredmond): &quot;Did you mean... GColor.BLUE&quot; with config flag</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="n">attr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">COLORS</span><span class="p">:</span>
+            <span class="c1"># TODO(sredmond): This constructs a new GColor each time.</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">COLORS</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s2">&quot;type object &#39;</span><span class="si">{}</span><span class="s2">&#39; has no attribute &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">attr</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="GColor"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor">[docs]</a><span class="k">class</span> <span class="nc">GColor</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">_ColorResolverMeta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A :class:`GColor` represents a color.</span>
 
 <span class="sd">    Colors can be represented in many different forms.</span>
@@ -352,292 +380,284 @@
 <span class="sd">    (1) As a three-integer tuple, such as as (168, 0, 59), with each entry in the range 0..255</span>
 <span class="sd">    (2) As a three-character hex string prefaced with &#39;#&#39;, such as &quot;#83E&quot;</span>
 <span class="sd">    (3) As a six-character hex string prefaced with &#39;#&#39;, such as &quot;#A8003B&quot;</span>
-<span class="sd">    (2) As a three-character hex string prefaced with &#39;0x&#39;, such as &quot;0x83E&quot;</span>
-<span class="sd">    (4) As a six-character hex string prefaced with &#39;0x&#39;, such as &quot;0xA8003B&quot;</span>
-<span class="sd">    (5) As a name, such as &quot;red&quot; or &quot;LiGhT sKy BlUe&quot;</span>
-<span class="sd">    (6) As a GColor constant, such as GColor.RED or GColor.LIGHT_SKY_BLUE.</span>
-<span class="sd">    (7) As a 24-bit integer, representing the red, green, and blue channels.</span>
+<span class="sd">    (4) As a three-character hex string prefaced with &#39;0x&#39;, such as &quot;0x83E&quot;</span>
+<span class="sd">    (5) As a six-character hex string prefaced with &#39;0x&#39;, such as &quot;0xA8003B&quot;</span>
+<span class="sd">    (6) As a case-insensitive name, such as &quot;red&quot; or &quot;LiGhT sKy BlUe&quot;</span>
+<span class="sd">    (7) As a GColor constant, such as GColor.RED or GColor.LIGHT_SKY_BLUE.</span>
+<span class="sd">    (8) As a 24-bit integer, representing the red, green, and blue channels.</span>
 
 <span class="sd">    The canonical (internal) form for a GColor is as three integers between 0 and 255.</span>
 
-<span class="sd">    A :class:`GColor` is immutable.</span>
+<span class="sd">    A :class:`GColor` should be thought of as immutable.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">red</span> <span class="o">=</span> <span class="n">red</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">green</span> <span class="o">=</span> <span class="n">green</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">blue</span> <span class="o">=</span> <span class="n">blue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_red</span> <span class="o">=</span> <span class="n">red</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_green</span> <span class="o">=</span> <span class="n">green</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_blue</span> <span class="o">=</span> <span class="n">blue</span>
 
 <div class="viewcode-block" id="GColor.normalize"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.normalize">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Normalize a color description provided by an end user.</span>
+        <span class="sd">&quot;&quot;&quot;Normalize a color description provided by an end user.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">GColor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">color</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># Mode (8): 24-bit integer.</span>
+            <span class="n">red</span> <span class="o">=</span> <span class="p">(</span><span class="n">color</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+            <span class="n">green</span> <span class="o">=</span> <span class="p">(</span><span class="n">color</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+            <span class="n">blue</span> <span class="o">=</span> <span class="n">color</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+            <span class="c1"># Mode (1): 3-element tuple.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">SomeException</span><span class="p">()</span>  <span class="c1"># TODO(sredmond): Test this color!</span>
+
+            <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">color</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">color</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
-                <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">),</span> <span class="mi">16</span><span class="p">))</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="mi">16</span><span class="p">)</span>
+                <span class="n">red</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="n">green</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="n">blue</span> <span class="o">=</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">color</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="mi">16</span><span class="p">)</span>
+                <span class="n">red</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="n">green</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="n">blue</span> <span class="o">=</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
+
+            <span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">COLORS</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">COLORS</span><span class="p">[</span><span class="n">color</span><span class="p">]</span>
+                <span class="n">red</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="n">green</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="n">blue</span> <span class="o">=</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
+                <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">color</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">_colortable</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">_colortable</span><span class="p">[</span><span class="n">color</span><span class="o">.</span><span class="n">lower</span><span class="p">()])</span>
-        <span class="k">return</span></div>
+                <span class="k">raise</span> <span class="n">SomeException</span>  <span class="c1"># OH NOW</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SomeException</span>  <span class="c1"># O NOW</span>
+
+        <span class="k">return</span> <span class="n">Color</span><span class="o">.</span><span class="n">BLACK</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">as_hex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO(sredmond): This is SO dumb</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixel</span><span class="o">.</span><span class="n">red</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">g</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixel</span><span class="o">.</span><span class="n">green</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixel</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">r</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_red</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_green</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_blue</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rgb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blue</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO(sredmond): This is SO dumb. Fix this code!</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_red</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_green</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_blue</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="s1">&#39;#</span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="c1"># return &quot;#{:0&gt;6}&quot;.format(hex(rgb)[2:].upper())</span>
 
-<div class="viewcode-block" id="GColor.from_name"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.from_name">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">color_name</span><span class="p">):</span>
-        <span class="k">pass</span></div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a human-readable name for this color.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;Nearly &lt;color&gt;&quot;</span>
 
-<div class="viewcode-block" id="GColor.get_name"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="GColor.get_approximate_name"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.get_approximate_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_approximate_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="GColor.darker"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.darker">[docs]</a>    <span class="k">def</span> <span class="nf">darker</span><span class="p">():</span>
         <span class="k">pass</span></div>
 
+
 <div class="viewcode-block" id="GColor.brighter"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.GColor.brighter">[docs]</a>    <span class="k">def</span> <span class="nf">brighter</span><span class="p">():</span>
         <span class="k">pass</span></div>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rgb</span><span class="p">):</span>
-         <span class="c1"># TODO(sredmond): Be more careful about implicit int constructor.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="n">argb</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">hex</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pixel</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span>
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span>
+        <span class="k">yield</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span></div>
 
 
 
 
+<span class="n">COLORS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;aliceblue&#39;</span><span class="p">:</span> <span class="mh">0xF0F8FF</span><span class="p">,</span>
+    <span class="s1">&#39;antiquewhite&#39;</span><span class="p">:</span> <span class="mh">0xFAEBD7</span><span class="p">,</span>
+    <span class="s1">&#39;aqua&#39;</span><span class="p">:</span> <span class="mh">0x00FFFF</span><span class="p">,</span>
+    <span class="s1">&#39;aquamarine&#39;</span><span class="p">:</span> <span class="mh">0x7FFFD4</span><span class="p">,</span>
+    <span class="s1">&#39;azure&#39;</span><span class="p">:</span> <span class="mh">0xF0FFFF</span><span class="p">,</span>
+    <span class="s1">&#39;beige&#39;</span><span class="p">:</span> <span class="mh">0xF5F5DC</span><span class="p">,</span>
+    <span class="s1">&#39;bisque&#39;</span><span class="p">:</span> <span class="mh">0xFFE4C4</span><span class="p">,</span>
+    <span class="s1">&#39;black&#39;</span><span class="p">:</span> <span class="mh">0x000000</span><span class="p">,</span>
+    <span class="s1">&#39;blanchedalmond&#39;</span><span class="p">:</span> <span class="mh">0xFFEBCD</span><span class="p">,</span>
+    <span class="s1">&#39;blue&#39;</span><span class="p">:</span> <span class="mh">0x0000FF</span><span class="p">,</span>
+    <span class="s1">&#39;blueviolet&#39;</span><span class="p">:</span> <span class="mh">0x8A2BE2</span><span class="p">,</span>
+    <span class="s1">&#39;brown&#39;</span><span class="p">:</span> <span class="mh">0xA52A2A</span><span class="p">,</span>
+    <span class="s1">&#39;burlywood&#39;</span><span class="p">:</span> <span class="mh">0xDEB887</span><span class="p">,</span>
+    <span class="s1">&#39;cadetblue&#39;</span><span class="p">:</span> <span class="mh">0x5F9EA0</span><span class="p">,</span>
+    <span class="s1">&#39;chartreuse&#39;</span><span class="p">:</span> <span class="mh">0x7FFF00</span><span class="p">,</span>
+    <span class="s1">&#39;chocolate&#39;</span><span class="p">:</span> <span class="mh">0xD2691E</span><span class="p">,</span>
+    <span class="s1">&#39;coral&#39;</span><span class="p">:</span> <span class="mh">0xFF7F50</span><span class="p">,</span>
+    <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">:</span> <span class="mh">0x6495ED</span><span class="p">,</span>
+    <span class="s1">&#39;cornsilk&#39;</span><span class="p">:</span> <span class="mh">0xFFF8DC</span><span class="p">,</span>
+    <span class="s1">&#39;crimson&#39;</span><span class="p">:</span> <span class="mh">0xDC143C</span><span class="p">,</span>
+    <span class="s1">&#39;cyan&#39;</span><span class="p">:</span> <span class="mh">0x00FFFF</span><span class="p">,</span>
+    <span class="s1">&#39;darkblue&#39;</span><span class="p">:</span> <span class="mh">0x00008B</span><span class="p">,</span>
+    <span class="s1">&#39;darkcyan&#39;</span><span class="p">:</span> <span class="mh">0x008B8B</span><span class="p">,</span>
+    <span class="s1">&#39;darkgoldenrod&#39;</span><span class="p">:</span> <span class="mh">0xB8860B</span><span class="p">,</span>
+    <span class="s1">&#39;darkgray&#39;</span><span class="p">:</span> <span class="mh">0xA9A9A9</span><span class="p">,</span>
+    <span class="s1">&#39;darkgreen&#39;</span><span class="p">:</span> <span class="mh">0x006400</span><span class="p">,</span>
+    <span class="s1">&#39;darkgrey&#39;</span><span class="p">:</span> <span class="mh">0xA9A9A9</span><span class="p">,</span>
+    <span class="s1">&#39;darkkhaki&#39;</span><span class="p">:</span> <span class="mh">0xBDB76B</span><span class="p">,</span>
+    <span class="s1">&#39;darkmagenta&#39;</span><span class="p">:</span> <span class="mh">0x8B008B</span><span class="p">,</span>
+    <span class="s1">&#39;darkolivegreen&#39;</span><span class="p">:</span> <span class="mh">0x556B2F</span><span class="p">,</span>
+    <span class="s1">&#39;darkorange&#39;</span><span class="p">:</span> <span class="mh">0xFF8C00</span><span class="p">,</span>
+    <span class="s1">&#39;darkorchid&#39;</span><span class="p">:</span> <span class="mh">0x9932CC</span><span class="p">,</span>
+    <span class="s1">&#39;darkred&#39;</span><span class="p">:</span> <span class="mh">0x8B0000</span><span class="p">,</span>
+    <span class="s1">&#39;darksage&#39;</span><span class="p">:</span> <span class="mh">0x598556</span><span class="p">,</span>
+    <span class="s1">&#39;darksalmon&#39;</span><span class="p">:</span> <span class="mh">0xE9967A</span><span class="p">,</span>
+    <span class="s1">&#39;darkseagreen&#39;</span><span class="p">:</span> <span class="mh">0x8FBC8F</span><span class="p">,</span>
+    <span class="s1">&#39;darkslateblue&#39;</span><span class="p">:</span> <span class="mh">0x483D8B</span><span class="p">,</span>
+    <span class="s1">&#39;darkslategray&#39;</span><span class="p">:</span> <span class="mh">0x2F4F4F</span><span class="p">,</span>
+    <span class="s1">&#39;darkslategrey&#39;</span><span class="p">:</span> <span class="mh">0x2F4F4F</span><span class="p">,</span>
+    <span class="s1">&#39;darkturquoise&#39;</span><span class="p">:</span> <span class="mh">0x00CED1</span><span class="p">,</span>
+    <span class="s1">&#39;darkviolet&#39;</span><span class="p">:</span> <span class="mh">0x9400D3</span><span class="p">,</span>
+    <span class="s1">&#39;deeppink&#39;</span><span class="p">:</span> <span class="mh">0xFF1493</span><span class="p">,</span>
+    <span class="s1">&#39;deepskyblue&#39;</span><span class="p">:</span> <span class="mh">0x00BFFF</span><span class="p">,</span>
+    <span class="s1">&#39;dimgray&#39;</span><span class="p">:</span> <span class="mh">0x696969</span><span class="p">,</span>
+    <span class="s1">&#39;dimgrey&#39;</span><span class="p">:</span> <span class="mh">0x696969</span><span class="p">,</span>
+    <span class="s1">&#39;dodgerblue&#39;</span><span class="p">:</span> <span class="mh">0x1E90FF</span><span class="p">,</span>
+    <span class="s1">&#39;firebrick&#39;</span><span class="p">:</span> <span class="mh">0xB22222</span><span class="p">,</span>
+    <span class="s1">&#39;floralwhite&#39;</span><span class="p">:</span> <span class="mh">0xFFFAF0</span><span class="p">,</span>
+    <span class="s1">&#39;forestgreen&#39;</span><span class="p">:</span> <span class="mh">0x228B22</span><span class="p">,</span>
+    <span class="s1">&#39;fuchsia&#39;</span><span class="p">:</span> <span class="mh">0xFF00FF</span><span class="p">,</span>
+    <span class="s1">&#39;gainsboro&#39;</span><span class="p">:</span> <span class="mh">0xDCDCDC</span><span class="p">,</span>
+    <span class="s1">&#39;ghostwhite&#39;</span><span class="p">:</span> <span class="mh">0xF8F8FF</span><span class="p">,</span>
+    <span class="s1">&#39;gold&#39;</span><span class="p">:</span> <span class="mh">0xFFD700</span><span class="p">,</span>
+    <span class="s1">&#39;goldenrod&#39;</span><span class="p">:</span> <span class="mh">0xDAA520</span><span class="p">,</span>
+    <span class="s1">&#39;gray&#39;</span><span class="p">:</span> <span class="mh">0x808080</span><span class="p">,</span>
+    <span class="s1">&#39;green&#39;</span><span class="p">:</span> <span class="mh">0x008000</span><span class="p">,</span>
+    <span class="s1">&#39;greenyellow&#39;</span><span class="p">:</span> <span class="mh">0xADFF2F</span><span class="p">,</span>
+    <span class="s1">&#39;grey&#39;</span><span class="p">:</span> <span class="mh">0x808080</span><span class="p">,</span>
+    <span class="s1">&#39;honeydew&#39;</span><span class="p">:</span> <span class="mh">0xF0FFF0</span><span class="p">,</span>
+    <span class="s1">&#39;hotpink&#39;</span><span class="p">:</span> <span class="mh">0xFF69B4</span><span class="p">,</span>
+    <span class="s1">&#39;indianred&#39;</span><span class="p">:</span> <span class="mh">0xCD5C5C</span><span class="p">,</span>
+    <span class="s1">&#39;indigo&#39;</span><span class="p">:</span> <span class="mh">0x4B0082</span><span class="p">,</span>
+    <span class="s1">&#39;ivory&#39;</span><span class="p">:</span> <span class="mh">0xFFFFF0</span><span class="p">,</span>
+    <span class="s1">&#39;khaki&#39;</span><span class="p">:</span> <span class="mh">0xF0E68C</span><span class="p">,</span>
+    <span class="s1">&#39;lavender&#39;</span><span class="p">:</span> <span class="mh">0xE6E6FA</span><span class="p">,</span>
+    <span class="s1">&#39;lavenderblush&#39;</span><span class="p">:</span> <span class="mh">0xFFF0F5</span><span class="p">,</span>
+    <span class="s1">&#39;lawngreen&#39;</span><span class="p">:</span> <span class="mh">0x7CFC00</span><span class="p">,</span>
+    <span class="s1">&#39;lemonchiffon&#39;</span><span class="p">:</span> <span class="mh">0xFFFACD</span><span class="p">,</span>
+    <span class="s1">&#39;lightblue&#39;</span><span class="p">:</span> <span class="mh">0xADD8E6</span><span class="p">,</span>
+    <span class="s1">&#39;lightcoral&#39;</span><span class="p">:</span> <span class="mh">0xF08080</span><span class="p">,</span>
+    <span class="s1">&#39;lightcyan&#39;</span><span class="p">:</span> <span class="mh">0xE0FFFF</span><span class="p">,</span>
+    <span class="s1">&#39;lightgoldenrodyellow&#39;</span><span class="p">:</span> <span class="mh">0xFAFAD2</span><span class="p">,</span>
+    <span class="s1">&#39;lightgray&#39;</span><span class="p">:</span> <span class="mh">0xD3D3D3</span><span class="p">,</span>
+    <span class="s1">&#39;lightgreen&#39;</span><span class="p">:</span> <span class="mh">0x90EE90</span><span class="p">,</span>
+    <span class="s1">&#39;lightgrey&#39;</span><span class="p">:</span> <span class="mh">0xD3D3D3</span><span class="p">,</span>
+    <span class="s1">&#39;lightpink&#39;</span><span class="p">:</span> <span class="mh">0xFFB6C1</span><span class="p">,</span>
+    <span class="s1">&#39;lightsage&#39;</span><span class="p">:</span> <span class="mh">0xBCECAC</span><span class="p">,</span>
+    <span class="s1">&#39;lightsalmon&#39;</span><span class="p">:</span> <span class="mh">0xFFA07A</span><span class="p">,</span>
+    <span class="s1">&#39;lightseagreen&#39;</span><span class="p">:</span> <span class="mh">0x20B2AA</span><span class="p">,</span>
+    <span class="s1">&#39;lightskyblue&#39;</span><span class="p">:</span> <span class="mh">0x87CEFA</span><span class="p">,</span>
+    <span class="s1">&#39;lightslategray&#39;</span><span class="p">:</span> <span class="mh">0x778899</span><span class="p">,</span>
+    <span class="s1">&#39;lightslategrey&#39;</span><span class="p">:</span> <span class="mh">0x778899</span><span class="p">,</span>
+    <span class="s1">&#39;lightsteelblue&#39;</span><span class="p">:</span> <span class="mh">0xB0C4DE</span><span class="p">,</span>
+    <span class="s1">&#39;lightyellow&#39;</span><span class="p">:</span> <span class="mh">0xFFFFE0</span><span class="p">,</span>
+    <span class="s1">&#39;lime&#39;</span><span class="p">:</span> <span class="mh">0x00FF00</span><span class="p">,</span>
+    <span class="s1">&#39;limegreen&#39;</span><span class="p">:</span> <span class="mh">0x32CD32</span><span class="p">,</span>
+    <span class="s1">&#39;linen&#39;</span><span class="p">:</span> <span class="mh">0xFAF0E6</span><span class="p">,</span>
+    <span class="s1">&#39;magenta&#39;</span><span class="p">:</span> <span class="mh">0xFF00FF</span><span class="p">,</span>
+    <span class="s1">&#39;maroon&#39;</span><span class="p">:</span> <span class="mh">0x800000</span><span class="p">,</span>
+    <span class="s1">&#39;mediumaquamarine&#39;</span><span class="p">:</span> <span class="mh">0x66CDAA</span><span class="p">,</span>
+    <span class="s1">&#39;mediumblue&#39;</span><span class="p">:</span> <span class="mh">0x0000CD</span><span class="p">,</span>
+    <span class="s1">&#39;mediumorchid&#39;</span><span class="p">:</span> <span class="mh">0xBA55D3</span><span class="p">,</span>
+    <span class="s1">&#39;mediumpurple&#39;</span><span class="p">:</span> <span class="mh">0x9370DB</span><span class="p">,</span>
+    <span class="s1">&#39;mediumseagreen&#39;</span><span class="p">:</span> <span class="mh">0x3CB371</span><span class="p">,</span>
+    <span class="s1">&#39;mediumslateblue&#39;</span><span class="p">:</span> <span class="mh">0x7B68EE</span><span class="p">,</span>
+    <span class="s1">&#39;mediumspringgreen&#39;</span><span class="p">:</span> <span class="mh">0x00FA9A</span><span class="p">,</span>
+    <span class="s1">&#39;mediumturquoise&#39;</span><span class="p">:</span> <span class="mh">0x48D1CC</span><span class="p">,</span>
+    <span class="s1">&#39;mediumvioletred&#39;</span><span class="p">:</span> <span class="mh">0xC71585</span><span class="p">,</span>
+    <span class="s1">&#39;midnightblue&#39;</span><span class="p">:</span> <span class="mh">0x191970</span><span class="p">,</span>
+    <span class="s1">&#39;mintcream&#39;</span><span class="p">:</span> <span class="mh">0xF5FFFA</span><span class="p">,</span>
+    <span class="s1">&#39;mistyrose&#39;</span><span class="p">:</span> <span class="mh">0xFFE4E1</span><span class="p">,</span>
+    <span class="s1">&#39;moccasin&#39;</span><span class="p">:</span> <span class="mh">0xFFE4B5</span><span class="p">,</span>
+    <span class="s1">&#39;navajowhite&#39;</span><span class="p">:</span> <span class="mh">0xFFDEAD</span><span class="p">,</span>
+    <span class="s1">&#39;navy&#39;</span><span class="p">:</span> <span class="mh">0x000080</span><span class="p">,</span>
+    <span class="s1">&#39;oldlace&#39;</span><span class="p">:</span> <span class="mh">0xFDF5E6</span><span class="p">,</span>
+    <span class="s1">&#39;olive&#39;</span><span class="p">:</span> <span class="mh">0x808000</span><span class="p">,</span>
+    <span class="s1">&#39;olivedrab&#39;</span><span class="p">:</span> <span class="mh">0x6B8E23</span><span class="p">,</span>
+    <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mh">0xFFA500</span><span class="p">,</span>
+    <span class="s1">&#39;orangered&#39;</span><span class="p">:</span> <span class="mh">0xFF4500</span><span class="p">,</span>
+    <span class="s1">&#39;orchid&#39;</span><span class="p">:</span> <span class="mh">0xDA70D6</span><span class="p">,</span>
+    <span class="s1">&#39;palegoldenrod&#39;</span><span class="p">:</span> <span class="mh">0xEEE8AA</span><span class="p">,</span>
+    <span class="s1">&#39;palegreen&#39;</span><span class="p">:</span> <span class="mh">0x98FB98</span><span class="p">,</span>
+    <span class="s1">&#39;paleturquoise&#39;</span><span class="p">:</span> <span class="mh">0xAFEEEE</span><span class="p">,</span>
+    <span class="s1">&#39;palevioletred&#39;</span><span class="p">:</span> <span class="mh">0xDB7093</span><span class="p">,</span>
+    <span class="s1">&#39;papayawhip&#39;</span><span class="p">:</span> <span class="mh">0xFFEFD5</span><span class="p">,</span>
+    <span class="s1">&#39;peachpuff&#39;</span><span class="p">:</span> <span class="mh">0xFFDAB9</span><span class="p">,</span>
+    <span class="s1">&#39;peru&#39;</span><span class="p">:</span> <span class="mh">0xCD853F</span><span class="p">,</span>
+    <span class="s1">&#39;pink&#39;</span><span class="p">:</span> <span class="mh">0xFFC0CB</span><span class="p">,</span>
+    <span class="s1">&#39;plum&#39;</span><span class="p">:</span> <span class="mh">0xDDA0DD</span><span class="p">,</span>
+    <span class="s1">&#39;powderblue&#39;</span><span class="p">:</span> <span class="mh">0xB0E0E6</span><span class="p">,</span>
+    <span class="s1">&#39;purple&#39;</span><span class="p">:</span> <span class="mh">0x800080</span><span class="p">,</span>
+    <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mh">0xFF0000</span><span class="p">,</span>
+    <span class="s1">&#39;rosybrown&#39;</span><span class="p">:</span> <span class="mh">0xBC8F8F</span><span class="p">,</span>
+    <span class="s1">&#39;royalblue&#39;</span><span class="p">:</span> <span class="mh">0x4169E1</span><span class="p">,</span>
+    <span class="s1">&#39;saddlebrown&#39;</span><span class="p">:</span> <span class="mh">0x8B4513</span><span class="p">,</span>
+    <span class="s1">&#39;sage&#39;</span><span class="p">:</span> <span class="mh">0x87AE73</span><span class="p">,</span>
+    <span class="s1">&#39;salmon&#39;</span><span class="p">:</span> <span class="mh">0xFA8072</span><span class="p">,</span>
+    <span class="s1">&#39;sandybrown&#39;</span><span class="p">:</span> <span class="mh">0xFAA460</span><span class="p">,</span>
+    <span class="s1">&#39;seagreen&#39;</span><span class="p">:</span> <span class="mh">0x2E8B57</span><span class="p">,</span>
+    <span class="s1">&#39;seashell&#39;</span><span class="p">:</span> <span class="mh">0xFFF5EE</span><span class="p">,</span>
+    <span class="s1">&#39;sienna&#39;</span><span class="p">:</span> <span class="mh">0xA0522D</span><span class="p">,</span>
+    <span class="s1">&#39;silver&#39;</span><span class="p">:</span> <span class="mh">0xC0C0C0</span><span class="p">,</span>
+    <span class="s1">&#39;skyblue&#39;</span><span class="p">:</span> <span class="mh">0x87CEEB</span><span class="p">,</span>
+    <span class="s1">&#39;slateblue&#39;</span><span class="p">:</span> <span class="mh">0x6A5ACD</span><span class="p">,</span>
+    <span class="s1">&#39;slategray&#39;</span><span class="p">:</span> <span class="mh">0x708090</span><span class="p">,</span>
+    <span class="s1">&#39;slategrey&#39;</span><span class="p">:</span> <span class="mh">0x708090</span><span class="p">,</span>
+    <span class="s1">&#39;snow&#39;</span><span class="p">:</span> <span class="mh">0xFFFAFA</span><span class="p">,</span>
+    <span class="s1">&#39;springgreen&#39;</span><span class="p">:</span> <span class="mh">0x00FF7F</span><span class="p">,</span>
+    <span class="s1">&#39;steelblue&#39;</span><span class="p">:</span> <span class="mh">0x4682B4</span><span class="p">,</span>
+    <span class="s1">&#39;tan&#39;</span><span class="p">:</span> <span class="mh">0xD2B48C</span><span class="p">,</span>
+    <span class="s1">&#39;teal&#39;</span><span class="p">:</span> <span class="mh">0x008080</span><span class="p">,</span>
+    <span class="s1">&#39;thistle&#39;</span><span class="p">:</span> <span class="mh">0xD8BFD8</span><span class="p">,</span>
+    <span class="s1">&#39;tomato&#39;</span><span class="p">:</span> <span class="mh">0xFF6347</span><span class="p">,</span>
+    <span class="s1">&#39;turquoise&#39;</span><span class="p">:</span> <span class="mh">0x40E0D0</span><span class="p">,</span>
+    <span class="s1">&#39;violet&#39;</span><span class="p">:</span> <span class="mh">0xEE82EE</span><span class="p">,</span>
+    <span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mh">0xF5DEB3</span><span class="p">,</span>
+    <span class="s1">&#39;white&#39;</span><span class="p">:</span> <span class="mh">0xFFFFFF</span><span class="p">,</span>
+    <span class="s1">&#39;whitesmoke&#39;</span><span class="p">:</span> <span class="mh">0xF5F5F5</span><span class="p">,</span>
+    <span class="s1">&#39;yellow&#39;</span><span class="p">:</span> <span class="mh">0xFFFF00</span><span class="p">,</span>
+    <span class="s1">&#39;yellowgreen&#39;</span><span class="p">:</span> <span class="mh">0x9ACD32</span>
+<span class="p">}</span>
 
-<span class="n">_colortable</span> <span class="o">=</span> <span class="p">{}</span>
-
-<div class="viewcode-block" id="IllegalColorException"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.IllegalColorException">[docs]</a><span class="k">class</span> <span class="nc">IllegalColorException</span><span class="p">(</span><span class="n">CampyException</span><span class="p">):</span>
-    <span class="k">pass</span></div>
-
-<div class="viewcode-block" id="color_to_rgb"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.color_to_rgb">[docs]</a><span class="k">def</span> <span class="nf">color_to_rgb</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Converts a color name into an integer that encodes the</span>
-<span class="sd">    red, green, and blue components of the color.</span>
-
-<span class="sd">    @type colorName: string</span>
-<span class="sd">    @rtype: int or None if</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span> <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;0x</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-
-    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-
-    <span class="c1"># Otherwise, assume we&#39;re dealing with a color name like &#39;lightblue&#39;</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">_normalize</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-
-    <span class="c1"># Lazily initialize our colors</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">_colortable</span><span class="p">:</span>
-        <span class="n">lazy_init_colors</span><span class="p">()</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_colortable</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">IllegalColorException</span><span class="p">(</span><span class="s2">&quot;color_to_rgb: illegal color - </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="rgb_to_hex"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.rgb_to_hex">[docs]</a><span class="k">def</span> <span class="nf">rgb_to_hex</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Converts an rgb value into a color name in the</span>
-<span class="sd">    form &quot;#rrggbb&quot;.  Each of the rr,</span>
-<span class="sd">    gg, and bb values are two-digit</span>
-<span class="sd">    hexadecimal numbers indicating the intensity of that component.</span>
-
-<span class="sd">    @type rgb: int</span>
-<span class="sd">    @rtype: string</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="s2">&quot;#</span><span class="si">{:0&gt;6}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">rgb</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span></div>
-
-
-<div class="viewcode-block" id="lazy_init_colors"><a class="viewcode-back" href="../../../campy.graphics.gcolor.html#campy.graphics.gcolor.lazy_init_colors">[docs]</a><span class="k">def</span> <span class="nf">lazy_init_colors</span><span class="p">():</span>
-    <span class="c1"># Credit to matplotlib for this list of colors</span>
-    <span class="k">global</span> <span class="n">_colortable</span>
-    <span class="n">_colortable</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;aliceblue&#39;</span><span class="p">:</span> <span class="mh">0xF0F8FF</span><span class="p">,</span>
-        <span class="s1">&#39;antiquewhite&#39;</span><span class="p">:</span> <span class="mh">0xFAEBD7</span><span class="p">,</span>
-        <span class="s1">&#39;aqua&#39;</span><span class="p">:</span> <span class="mh">0x00FFFF</span><span class="p">,</span>
-        <span class="s1">&#39;aquamarine&#39;</span><span class="p">:</span> <span class="mh">0x7FFFD4</span><span class="p">,</span>
-        <span class="s1">&#39;azure&#39;</span><span class="p">:</span> <span class="mh">0xF0FFFF</span><span class="p">,</span>
-        <span class="s1">&#39;beige&#39;</span><span class="p">:</span> <span class="mh">0xF5F5DC</span><span class="p">,</span>
-        <span class="s1">&#39;bisque&#39;</span><span class="p">:</span> <span class="mh">0xFFE4C4</span><span class="p">,</span>
-        <span class="s1">&#39;black&#39;</span><span class="p">:</span> <span class="mh">0x000000</span><span class="p">,</span>
-        <span class="s1">&#39;blanchedalmond&#39;</span><span class="p">:</span> <span class="mh">0xFFEBCD</span><span class="p">,</span>
-        <span class="s1">&#39;blue&#39;</span><span class="p">:</span> <span class="mh">0x0000FF</span><span class="p">,</span>
-        <span class="s1">&#39;blueviolet&#39;</span><span class="p">:</span> <span class="mh">0x8A2BE2</span><span class="p">,</span>
-        <span class="s1">&#39;brown&#39;</span><span class="p">:</span> <span class="mh">0xA52A2A</span><span class="p">,</span>
-        <span class="s1">&#39;burlywood&#39;</span><span class="p">:</span> <span class="mh">0xDEB887</span><span class="p">,</span>
-        <span class="s1">&#39;cadetblue&#39;</span><span class="p">:</span> <span class="mh">0x5F9EA0</span><span class="p">,</span>
-        <span class="s1">&#39;chartreuse&#39;</span><span class="p">:</span> <span class="mh">0x7FFF00</span><span class="p">,</span>
-        <span class="s1">&#39;chocolate&#39;</span><span class="p">:</span> <span class="mh">0xD2691E</span><span class="p">,</span>
-        <span class="s1">&#39;coral&#39;</span><span class="p">:</span> <span class="mh">0xFF7F50</span><span class="p">,</span>
-        <span class="s1">&#39;cornflowerblue&#39;</span><span class="p">:</span> <span class="mh">0x6495ED</span><span class="p">,</span>
-        <span class="s1">&#39;cornsilk&#39;</span><span class="p">:</span> <span class="mh">0xFFF8DC</span><span class="p">,</span>
-        <span class="s1">&#39;crimson&#39;</span><span class="p">:</span> <span class="mh">0xDC143C</span><span class="p">,</span>
-        <span class="s1">&#39;cyan&#39;</span><span class="p">:</span> <span class="mh">0x00FFFF</span><span class="p">,</span>
-        <span class="s1">&#39;darkblue&#39;</span><span class="p">:</span> <span class="mh">0x00008B</span><span class="p">,</span>
-        <span class="s1">&#39;darkcyan&#39;</span><span class="p">:</span> <span class="mh">0x008B8B</span><span class="p">,</span>
-        <span class="s1">&#39;darkgoldenrod&#39;</span><span class="p">:</span> <span class="mh">0xB8860B</span><span class="p">,</span>
-        <span class="s1">&#39;darkgray&#39;</span><span class="p">:</span> <span class="mh">0xA9A9A9</span><span class="p">,</span>
-        <span class="s1">&#39;darkgreen&#39;</span><span class="p">:</span> <span class="mh">0x006400</span><span class="p">,</span>
-        <span class="s1">&#39;darkgrey&#39;</span><span class="p">:</span> <span class="mh">0xA9A9A9</span><span class="p">,</span>
-        <span class="s1">&#39;darkkhaki&#39;</span><span class="p">:</span> <span class="mh">0xBDB76B</span><span class="p">,</span>
-        <span class="s1">&#39;darkmagenta&#39;</span><span class="p">:</span> <span class="mh">0x8B008B</span><span class="p">,</span>
-        <span class="s1">&#39;darkolivegreen&#39;</span><span class="p">:</span> <span class="mh">0x556B2F</span><span class="p">,</span>
-        <span class="s1">&#39;darkorange&#39;</span><span class="p">:</span> <span class="mh">0xFF8C00</span><span class="p">,</span>
-        <span class="s1">&#39;darkorchid&#39;</span><span class="p">:</span> <span class="mh">0x9932CC</span><span class="p">,</span>
-        <span class="s1">&#39;darkred&#39;</span><span class="p">:</span> <span class="mh">0x8B0000</span><span class="p">,</span>
-        <span class="s1">&#39;darksage&#39;</span><span class="p">:</span> <span class="mh">0x598556</span><span class="p">,</span>
-        <span class="s1">&#39;darksalmon&#39;</span><span class="p">:</span> <span class="mh">0xE9967A</span><span class="p">,</span>
-        <span class="s1">&#39;darkseagreen&#39;</span><span class="p">:</span> <span class="mh">0x8FBC8F</span><span class="p">,</span>
-        <span class="s1">&#39;darkslateblue&#39;</span><span class="p">:</span> <span class="mh">0x483D8B</span><span class="p">,</span>
-        <span class="s1">&#39;darkslategray&#39;</span><span class="p">:</span> <span class="mh">0x2F4F4F</span><span class="p">,</span>
-        <span class="s1">&#39;darkslategrey&#39;</span><span class="p">:</span> <span class="mh">0x2F4F4F</span><span class="p">,</span>
-        <span class="s1">&#39;darkturquoise&#39;</span><span class="p">:</span> <span class="mh">0x00CED1</span><span class="p">,</span>
-        <span class="s1">&#39;darkviolet&#39;</span><span class="p">:</span> <span class="mh">0x9400D3</span><span class="p">,</span>
-        <span class="s1">&#39;deeppink&#39;</span><span class="p">:</span> <span class="mh">0xFF1493</span><span class="p">,</span>
-        <span class="s1">&#39;deepskyblue&#39;</span><span class="p">:</span> <span class="mh">0x00BFFF</span><span class="p">,</span>
-        <span class="s1">&#39;dimgray&#39;</span><span class="p">:</span> <span class="mh">0x696969</span><span class="p">,</span>
-        <span class="s1">&#39;dimgrey&#39;</span><span class="p">:</span> <span class="mh">0x696969</span><span class="p">,</span>
-        <span class="s1">&#39;dodgerblue&#39;</span><span class="p">:</span> <span class="mh">0x1E90FF</span><span class="p">,</span>
-        <span class="s1">&#39;firebrick&#39;</span><span class="p">:</span> <span class="mh">0xB22222</span><span class="p">,</span>
-        <span class="s1">&#39;floralwhite&#39;</span><span class="p">:</span> <span class="mh">0xFFFAF0</span><span class="p">,</span>
-        <span class="s1">&#39;forestgreen&#39;</span><span class="p">:</span> <span class="mh">0x228B22</span><span class="p">,</span>
-        <span class="s1">&#39;fuchsia&#39;</span><span class="p">:</span> <span class="mh">0xFF00FF</span><span class="p">,</span>
-        <span class="s1">&#39;gainsboro&#39;</span><span class="p">:</span> <span class="mh">0xDCDCDC</span><span class="p">,</span>
-        <span class="s1">&#39;ghostwhite&#39;</span><span class="p">:</span> <span class="mh">0xF8F8FF</span><span class="p">,</span>
-        <span class="s1">&#39;gold&#39;</span><span class="p">:</span> <span class="mh">0xFFD700</span><span class="p">,</span>
-        <span class="s1">&#39;goldenrod&#39;</span><span class="p">:</span> <span class="mh">0xDAA520</span><span class="p">,</span>
-        <span class="s1">&#39;gray&#39;</span><span class="p">:</span> <span class="mh">0x808080</span><span class="p">,</span>
-        <span class="s1">&#39;green&#39;</span><span class="p">:</span> <span class="mh">0x008000</span><span class="p">,</span>
-        <span class="s1">&#39;greenyellow&#39;</span><span class="p">:</span> <span class="mh">0xADFF2F</span><span class="p">,</span>
-        <span class="s1">&#39;grey&#39;</span><span class="p">:</span> <span class="mh">0x808080</span><span class="p">,</span>
-        <span class="s1">&#39;honeydew&#39;</span><span class="p">:</span> <span class="mh">0xF0FFF0</span><span class="p">,</span>
-        <span class="s1">&#39;hotpink&#39;</span><span class="p">:</span> <span class="mh">0xFF69B4</span><span class="p">,</span>
-        <span class="s1">&#39;indianred&#39;</span><span class="p">:</span> <span class="mh">0xCD5C5C</span><span class="p">,</span>
-        <span class="s1">&#39;indigo&#39;</span><span class="p">:</span> <span class="mh">0x4B0082</span><span class="p">,</span>
-        <span class="s1">&#39;ivory&#39;</span><span class="p">:</span> <span class="mh">0xFFFFF0</span><span class="p">,</span>
-        <span class="s1">&#39;khaki&#39;</span><span class="p">:</span> <span class="mh">0xF0E68C</span><span class="p">,</span>
-        <span class="s1">&#39;lavender&#39;</span><span class="p">:</span> <span class="mh">0xE6E6FA</span><span class="p">,</span>
-        <span class="s1">&#39;lavenderblush&#39;</span><span class="p">:</span> <span class="mh">0xFFF0F5</span><span class="p">,</span>
-        <span class="s1">&#39;lawngreen&#39;</span><span class="p">:</span> <span class="mh">0x7CFC00</span><span class="p">,</span>
-        <span class="s1">&#39;lemonchiffon&#39;</span><span class="p">:</span> <span class="mh">0xFFFACD</span><span class="p">,</span>
-        <span class="s1">&#39;lightblue&#39;</span><span class="p">:</span> <span class="mh">0xADD8E6</span><span class="p">,</span>
-        <span class="s1">&#39;lightcoral&#39;</span><span class="p">:</span> <span class="mh">0xF08080</span><span class="p">,</span>
-        <span class="s1">&#39;lightcyan&#39;</span><span class="p">:</span> <span class="mh">0xE0FFFF</span><span class="p">,</span>
-        <span class="s1">&#39;lightgoldenrodyellow&#39;</span><span class="p">:</span> <span class="mh">0xFAFAD2</span><span class="p">,</span>
-        <span class="s1">&#39;lightgray&#39;</span><span class="p">:</span> <span class="mh">0xD3D3D3</span><span class="p">,</span>
-        <span class="s1">&#39;lightgreen&#39;</span><span class="p">:</span> <span class="mh">0x90EE90</span><span class="p">,</span>
-        <span class="s1">&#39;lightgrey&#39;</span><span class="p">:</span> <span class="mh">0xD3D3D3</span><span class="p">,</span>
-        <span class="s1">&#39;lightpink&#39;</span><span class="p">:</span> <span class="mh">0xFFB6C1</span><span class="p">,</span>
-        <span class="s1">&#39;lightsage&#39;</span><span class="p">:</span> <span class="mh">0xBCECAC</span><span class="p">,</span>
-        <span class="s1">&#39;lightsalmon&#39;</span><span class="p">:</span> <span class="mh">0xFFA07A</span><span class="p">,</span>
-        <span class="s1">&#39;lightseagreen&#39;</span><span class="p">:</span> <span class="mh">0x20B2AA</span><span class="p">,</span>
-        <span class="s1">&#39;lightskyblue&#39;</span><span class="p">:</span> <span class="mh">0x87CEFA</span><span class="p">,</span>
-        <span class="s1">&#39;lightslategray&#39;</span><span class="p">:</span> <span class="mh">0x778899</span><span class="p">,</span>
-        <span class="s1">&#39;lightslategrey&#39;</span><span class="p">:</span> <span class="mh">0x778899</span><span class="p">,</span>
-        <span class="s1">&#39;lightsteelblue&#39;</span><span class="p">:</span> <span class="mh">0xB0C4DE</span><span class="p">,</span>
-        <span class="s1">&#39;lightyellow&#39;</span><span class="p">:</span> <span class="mh">0xFFFFE0</span><span class="p">,</span>
-        <span class="s1">&#39;lime&#39;</span><span class="p">:</span> <span class="mh">0x00FF00</span><span class="p">,</span>
-        <span class="s1">&#39;limegreen&#39;</span><span class="p">:</span> <span class="mh">0x32CD32</span><span class="p">,</span>
-        <span class="s1">&#39;linen&#39;</span><span class="p">:</span> <span class="mh">0xFAF0E6</span><span class="p">,</span>
-        <span class="s1">&#39;magenta&#39;</span><span class="p">:</span> <span class="mh">0xFF00FF</span><span class="p">,</span>
-        <span class="s1">&#39;maroon&#39;</span><span class="p">:</span> <span class="mh">0x800000</span><span class="p">,</span>
-        <span class="s1">&#39;mediumaquamarine&#39;</span><span class="p">:</span> <span class="mh">0x66CDAA</span><span class="p">,</span>
-        <span class="s1">&#39;mediumblue&#39;</span><span class="p">:</span> <span class="mh">0x0000CD</span><span class="p">,</span>
-        <span class="s1">&#39;mediumorchid&#39;</span><span class="p">:</span> <span class="mh">0xBA55D3</span><span class="p">,</span>
-        <span class="s1">&#39;mediumpurple&#39;</span><span class="p">:</span> <span class="mh">0x9370DB</span><span class="p">,</span>
-        <span class="s1">&#39;mediumseagreen&#39;</span><span class="p">:</span> <span class="mh">0x3CB371</span><span class="p">,</span>
-        <span class="s1">&#39;mediumslateblue&#39;</span><span class="p">:</span> <span class="mh">0x7B68EE</span><span class="p">,</span>
-        <span class="s1">&#39;mediumspringgreen&#39;</span><span class="p">:</span> <span class="mh">0x00FA9A</span><span class="p">,</span>
-        <span class="s1">&#39;mediumturquoise&#39;</span><span class="p">:</span> <span class="mh">0x48D1CC</span><span class="p">,</span>
-        <span class="s1">&#39;mediumvioletred&#39;</span><span class="p">:</span> <span class="mh">0xC71585</span><span class="p">,</span>
-        <span class="s1">&#39;midnightblue&#39;</span><span class="p">:</span> <span class="mh">0x191970</span><span class="p">,</span>
-        <span class="s1">&#39;mintcream&#39;</span><span class="p">:</span> <span class="mh">0xF5FFFA</span><span class="p">,</span>
-        <span class="s1">&#39;mistyrose&#39;</span><span class="p">:</span> <span class="mh">0xFFE4E1</span><span class="p">,</span>
-        <span class="s1">&#39;moccasin&#39;</span><span class="p">:</span> <span class="mh">0xFFE4B5</span><span class="p">,</span>
-        <span class="s1">&#39;navajowhite&#39;</span><span class="p">:</span> <span class="mh">0xFFDEAD</span><span class="p">,</span>
-        <span class="s1">&#39;navy&#39;</span><span class="p">:</span> <span class="mh">0x000080</span><span class="p">,</span>
-        <span class="s1">&#39;oldlace&#39;</span><span class="p">:</span> <span class="mh">0xFDF5E6</span><span class="p">,</span>
-        <span class="s1">&#39;olive&#39;</span><span class="p">:</span> <span class="mh">0x808000</span><span class="p">,</span>
-        <span class="s1">&#39;olivedrab&#39;</span><span class="p">:</span> <span class="mh">0x6B8E23</span><span class="p">,</span>
-        <span class="s1">&#39;orange&#39;</span><span class="p">:</span> <span class="mh">0xFFA500</span><span class="p">,</span>
-        <span class="s1">&#39;orangered&#39;</span><span class="p">:</span> <span class="mh">0xFF4500</span><span class="p">,</span>
-        <span class="s1">&#39;orchid&#39;</span><span class="p">:</span> <span class="mh">0xDA70D6</span><span class="p">,</span>
-        <span class="s1">&#39;palegoldenrod&#39;</span><span class="p">:</span> <span class="mh">0xEEE8AA</span><span class="p">,</span>
-        <span class="s1">&#39;palegreen&#39;</span><span class="p">:</span> <span class="mh">0x98FB98</span><span class="p">,</span>
-        <span class="s1">&#39;paleturquoise&#39;</span><span class="p">:</span> <span class="mh">0xAFEEEE</span><span class="p">,</span>
-        <span class="s1">&#39;palevioletred&#39;</span><span class="p">:</span> <span class="mh">0xDB7093</span><span class="p">,</span>
-        <span class="s1">&#39;papayawhip&#39;</span><span class="p">:</span> <span class="mh">0xFFEFD5</span><span class="p">,</span>
-        <span class="s1">&#39;peachpuff&#39;</span><span class="p">:</span> <span class="mh">0xFFDAB9</span><span class="p">,</span>
-        <span class="s1">&#39;peru&#39;</span><span class="p">:</span> <span class="mh">0xCD853F</span><span class="p">,</span>
-        <span class="s1">&#39;pink&#39;</span><span class="p">:</span> <span class="mh">0xFFC0CB</span><span class="p">,</span>
-        <span class="s1">&#39;plum&#39;</span><span class="p">:</span> <span class="mh">0xDDA0DD</span><span class="p">,</span>
-        <span class="s1">&#39;powderblue&#39;</span><span class="p">:</span> <span class="mh">0xB0E0E6</span><span class="p">,</span>
-        <span class="s1">&#39;purple&#39;</span><span class="p">:</span> <span class="mh">0x800080</span><span class="p">,</span>
-        <span class="s1">&#39;red&#39;</span><span class="p">:</span> <span class="mh">0xFF0000</span><span class="p">,</span>
-        <span class="s1">&#39;rosybrown&#39;</span><span class="p">:</span> <span class="mh">0xBC8F8F</span><span class="p">,</span>
-        <span class="s1">&#39;royalblue&#39;</span><span class="p">:</span> <span class="mh">0x4169E1</span><span class="p">,</span>
-        <span class="s1">&#39;saddlebrown&#39;</span><span class="p">:</span> <span class="mh">0x8B4513</span><span class="p">,</span>
-        <span class="s1">&#39;sage&#39;</span><span class="p">:</span> <span class="mh">0x87AE73</span><span class="p">,</span>
-        <span class="s1">&#39;salmon&#39;</span><span class="p">:</span> <span class="mh">0xFA8072</span><span class="p">,</span>
-        <span class="s1">&#39;sandybrown&#39;</span><span class="p">:</span> <span class="mh">0xFAA460</span><span class="p">,</span>
-        <span class="s1">&#39;seagreen&#39;</span><span class="p">:</span> <span class="mh">0x2E8B57</span><span class="p">,</span>
-        <span class="s1">&#39;seashell&#39;</span><span class="p">:</span> <span class="mh">0xFFF5EE</span><span class="p">,</span>
-        <span class="s1">&#39;sienna&#39;</span><span class="p">:</span> <span class="mh">0xA0522D</span><span class="p">,</span>
-        <span class="s1">&#39;silver&#39;</span><span class="p">:</span> <span class="mh">0xC0C0C0</span><span class="p">,</span>
-        <span class="s1">&#39;skyblue&#39;</span><span class="p">:</span> <span class="mh">0x87CEEB</span><span class="p">,</span>
-        <span class="s1">&#39;slateblue&#39;</span><span class="p">:</span> <span class="mh">0x6A5ACD</span><span class="p">,</span>
-        <span class="s1">&#39;slategray&#39;</span><span class="p">:</span> <span class="mh">0x708090</span><span class="p">,</span>
-        <span class="s1">&#39;slategrey&#39;</span><span class="p">:</span> <span class="mh">0x708090</span><span class="p">,</span>
-        <span class="s1">&#39;snow&#39;</span><span class="p">:</span> <span class="mh">0xFFFAFA</span><span class="p">,</span>
-        <span class="s1">&#39;springgreen&#39;</span><span class="p">:</span> <span class="mh">0x00FF7F</span><span class="p">,</span>
-        <span class="s1">&#39;steelblue&#39;</span><span class="p">:</span> <span class="mh">0x4682B4</span><span class="p">,</span>
-        <span class="s1">&#39;tan&#39;</span><span class="p">:</span> <span class="mh">0xD2B48C</span><span class="p">,</span>
-        <span class="s1">&#39;teal&#39;</span><span class="p">:</span> <span class="mh">0x008080</span><span class="p">,</span>
-        <span class="s1">&#39;thistle&#39;</span><span class="p">:</span> <span class="mh">0xD8BFD8</span><span class="p">,</span>
-        <span class="s1">&#39;tomato&#39;</span><span class="p">:</span> <span class="mh">0xFF6347</span><span class="p">,</span>
-        <span class="s1">&#39;turquoise&#39;</span><span class="p">:</span> <span class="mh">0x40E0D0</span><span class="p">,</span>
-        <span class="s1">&#39;violet&#39;</span><span class="p">:</span> <span class="mh">0xEE82EE</span><span class="p">,</span>
-        <span class="s1">&#39;wheat&#39;</span><span class="p">:</span> <span class="mh">0xF5DEB3</span><span class="p">,</span>
-        <span class="s1">&#39;white&#39;</span><span class="p">:</span> <span class="mh">0xFFFFFF</span><span class="p">,</span>
-        <span class="s1">&#39;whitesmoke&#39;</span><span class="p">:</span> <span class="mh">0xF5F5F5</span><span class="p">,</span>
-        <span class="s1">&#39;yellow&#39;</span><span class="p">:</span> <span class="mh">0xFFFF00</span><span class="p">,</span>
-        <span class="s1">&#39;yellowgreen&#39;</span><span class="p">:</span> <span class="mh">0x9ACD32</span>
-    <span class="p">}</span>
-
-    <span class="c1"># Overrides from the Stanford ACM libraries, whose color</span>
-    <span class="c1"># definitions are slightly different</span>
-    <span class="n">_colortable</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-        <span class="s2">&quot;black&quot;</span><span class="p">:</span> <span class="mh">0x000000</span><span class="p">,</span>
-        <span class="s2">&quot;darkgray&quot;</span><span class="p">:</span> <span class="mh">0x595959</span><span class="p">,</span>
-        <span class="s2">&quot;darkgrey&quot;</span><span class="p">:</span> <span class="mh">0x595959</span><span class="p">,</span>
-        <span class="s2">&quot;gray&quot;</span><span class="p">:</span> <span class="mh">0x999999</span><span class="p">,</span>
-        <span class="s2">&quot;grey&quot;</span><span class="p">:</span> <span class="mh">0x999999</span><span class="p">,</span>
-        <span class="s2">&quot;lightgray&quot;</span><span class="p">:</span> <span class="mh">0xBFBFBF</span><span class="p">,</span>
-        <span class="s2">&quot;lightgrey&quot;</span><span class="p">:</span> <span class="mh">0xBFBFBF</span><span class="p">,</span>
-        <span class="s2">&quot;orange&quot;</span><span class="p">:</span> <span class="mh">0xFFC800</span><span class="p">,</span>
-        <span class="s2">&quot;pink&quot;</span><span class="p">:</span> <span class="mh">0xFFAFAF</span><span class="p">,</span>
-    <span class="p">})</span></div>
-
-
-<span class="k">def</span> <span class="nf">_normalize</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the canonical form of a color name.</span>
-
-<span class="sd">    Removes non-ascii letters, then lowercases the whole thing.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">isalpha</span><span class="p">,</span> <span class="n">string</span><span class="p">))</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
+<span class="c1"># Overrides from the Stanford ACM libraries, whose color</span>
+<span class="c1"># definitions may be slightly different.</span>
+<span class="n">COLORS</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s2">&quot;black&quot;</span><span class="p">:</span> <span class="mh">0x000000</span><span class="p">,</span>
+    <span class="s2">&quot;darkgray&quot;</span><span class="p">:</span> <span class="mh">0x595959</span><span class="p">,</span>
+    <span class="s2">&quot;darkgrey&quot;</span><span class="p">:</span> <span class="mh">0x595959</span><span class="p">,</span>
+    <span class="s2">&quot;gray&quot;</span><span class="p">:</span> <span class="mh">0x999999</span><span class="p">,</span>
+    <span class="s2">&quot;grey&quot;</span><span class="p">:</span> <span class="mh">0x999999</span><span class="p">,</span>
+    <span class="s2">&quot;lightgray&quot;</span><span class="p">:</span> <span class="mh">0xBFBFBF</span><span class="p">,</span>
+    <span class="s2">&quot;lightgrey&quot;</span><span class="p">:</span> <span class="mh">0xBFBFBF</span><span class="p">,</span>
+    <span class="s2">&quot;orange&quot;</span><span class="p">:</span> <span class="mh">0xFFC800</span><span class="p">,</span>
+    <span class="s2">&quot;pink&quot;</span><span class="p">:</span> <span class="mh">0xFFAFAF</span><span class="p">,</span>
+<span class="p">})</span>
 </pre></div>
 
            </div>
@@ -667,26 +687,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -167,10 +168,13 @@
             
   <div class="section" id="module-campy.datastructures.shuffle">
 <span id="campy-datastructures-shuffle-module"></span><h1>campy.datastructures.shuffle module<a class="headerlink" href="#module-campy.datastructures.shuffle" title="Permalink to this headline">¶</a></h1>
+<p>Shuffle an immutable collection and return a copy of the collection.</p>
 <dl class="function">
-<dt id="campy.datastructures.shuffle.shuffle_string">
-<code class="descclassname">campy.datastructures.shuffle.</code><code class="descname">shuffle_string</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/shuffle.html#shuffle_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.shuffle.shuffle_string" title="Permalink to this definition">¶</a></dt>
-<dd><p>Randomly reararnges the characters of the given string and returns the rearranged version.</p>
+<dt id="campy.datastructures.shuffle.shuffle">
+<code class="sig-prename descclassname">campy.datastructures.shuffle.</code><code class="sig-name descname">shuffle</code><span class="sig-paren">(</span><em class="sig-param">collection</em>, <em class="sig-param">random=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/shuffle.html#shuffle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.shuffle.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a randomly shuffled copy of a collection.</p>
+<p>Note that this function’s behavior depends on the type of its input.</p>
+<p>If collection represents an infinite iterable, this will loop indefinitely.</p>
 </dd></dl>
 
 </div>
@@ -203,26 +207,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

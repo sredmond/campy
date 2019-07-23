@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -270,9 +271,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_height</span> <span class="o">=</span> <span class="n">height</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_visible</span> <span class="o">=</span> <span class="n">visible</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="c1"># TODO(sredmond): Propagate the title to the backend constructor.</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">color</span><span class="p">:</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">_gcolor</span><span class="o">.</span><span class="n">color_to_rgb</span><span class="p">(</span><span class="s2">&quot;BLACK&quot;</span><span class="p">)</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">_gcolor</span><span class="o">.</span><span class="n">GColor</span><span class="o">.</span><span class="n">BLACK</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="n">color</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">top</span><span class="p">:</span>
@@ -431,7 +433,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Find a way to supply a GRectangle&#39;s bounds instead.</span>
         <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
-        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
         <span class="c1"># oval.color = self.color  # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">oval</span><span class="p">)</span></div>
 
@@ -462,7 +464,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Find a way to supply a GRectangle&#39;s bounds instead.</span>
         <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
-        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">oval</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GOval</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
         <span class="n">oval</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="c1"># TODO(sredmond): Possibly, fall back to a black outline when the oval is filled.</span>
         <span class="c1"># oval.fill_color = self.color # TODO(sredmond): Uncomment me! Just commented out for a brief moment of testing.</span>
@@ -490,7 +492,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): Find a way to supply a GRectangle&#39;s bounds instead.</span>
         <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
-        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span></div>
 
@@ -514,7 +516,7 @@
 <span class="sd">        :param height: The height of the rectangle in pixels.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO(sredmond): It&#39;s a little awkward to reverse the order of the arguments here.</span>
-        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">_gobjects</span><span class="o">.</span><span class="n">GRect</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">fill_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
         <span class="n">rect</span><span class="o">.</span><span class="n">filled</span> <span class="o">=</span> <span class="kc">True</span>
@@ -558,6 +560,7 @@
 <span class="sd">        :param x: The x-coordinate at which to draw the GObject.</span>
 <span class="sd">        :param y: The y-coordinate at which to draw the GObject.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(sredmond): Handle the case where location is a float.</span>
         <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">gobj</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_top</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">gobj</span><span class="p">)</span></div>
@@ -748,26 +751,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

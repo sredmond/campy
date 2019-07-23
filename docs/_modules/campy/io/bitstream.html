@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -287,7 +288,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_io</span><span class="o">.</span><span class="n">SEEK_END</span><span class="p">)</span>
         <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">_io</span><span class="o">.</span><span class="n">SEEK_SET</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">end</span></div></div>
+        <span class="k">return</span> <span class="n">end</span> <span class="o">*</span> <span class="n">NUM_BITS_IN_BYTE</span></div></div>
 
 
 <div class="viewcode-block" id="obitstream"><a class="viewcode-back" href="../../../campy.io.bitstream.html#campy.io.bitstream.obitstream">[docs]</a><span class="k">class</span> <span class="nc">obitstream</span><span class="p">(</span><span class="n">_io</span><span class="o">.</span><span class="n">BufferedWriter</span><span class="p">):</span>
@@ -330,7 +331,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">_io</span><span class="o">.</span><span class="n">SEEK_END</span><span class="p">)</span>
         <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">_io</span><span class="o">.</span><span class="n">SEEK_SET</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">end</span></div></div>
+        <span class="k">return</span> <span class="n">end</span> <span class="o">*</span> <span class="n">NUM_BITS_IN_BYTE</span></div></div>
 
 <div class="viewcode-block" id="ifbitstream"><a class="viewcode-back" href="../../../campy.io.bitstream.html#campy.io.bitstream.ifbitstream">[docs]</a><span class="k">class</span> <span class="nc">ifbitstream</span><span class="p">(</span><span class="n">ibitstream</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -362,39 +363,6 @@
 <div class="viewcode-block" id="ostringbitstream.getvalue"><a class="viewcode-back" href="../../../campy.io.bitstream.html#campy.io.bitstream.ostringbitstream.getvalue">[docs]</a>    <span class="k">def</span> <span class="nf">getvalue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span></div></div>
 
-<span class="k">def</span> <span class="nf">print_stream</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">count</span><span class="p">:</span>
-        <span class="n">count</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NUM_BITS_IN_BYTE</span><span class="p">):</span>
-            <span class="n">bit</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">readbit</span><span class="p">()</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">bit</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-            <span class="n">b</span> <span class="o">*=</span> <span class="mi">2</span>
-            <span class="n">b</span> <span class="o">+=</span> <span class="n">bit</span>
-
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">b</span><span class="p">)))</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First 6 bytes of this file, using ifbitstream&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">ifbitstream</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
-        <span class="n">print_stream</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing bits to ofbitstream around /dev/null&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">ofbitstream</span><span class="p">(</span><span class="s1">&#39;/dev/null&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
-        <span class="n">stream</span><span class="o">.</span><span class="n">writebit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">stream</span><span class="o">.</span><span class="n">writebit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reading from in-memory istringbitstream&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">istringbitstream</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
-        <span class="n">print_stream</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing `hi` into ostringbitstream&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">ostringbitstream</span><span class="p">()</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="s1">&#39;0110100001101001&#39;</span><span class="p">):</span>
-            <span class="n">stream</span><span class="o">.</span><span class="n">writebit</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;value is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stream</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()))</span>
-
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ibitstream&#39;</span><span class="p">,</span> <span class="s1">&#39;obitstream&#39;</span><span class="p">,</span> <span class="s1">&#39;ifbitstream&#39;</span><span class="p">,</span> <span class="s1">&#39;ofbitstream&#39;</span><span class="p">,</span> <span class="s1">&#39;istringbitstream&#39;</span><span class="p">,</span> <span class="s1">&#39;ostringbitstream&#39;</span><span class="p">]</span>
 </pre></div>
 
@@ -425,26 +393,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -180,13 +181,13 @@ don’t have to import the separate math module for those constants.</p>
 provided by the underlying <code class="docutils literal notranslate"><span class="pre">math</span></code> module.</p>
 <dl class="data">
 <dt id="campy.graphics.gmath.PI">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">PI</code><em class="property"> = 3.141592653589793</em><a class="headerlink" href="#campy.graphics.gmath.PI" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">PI</code><em class="property"> = 3.141592653589793</em><a class="headerlink" href="#campy.graphics.gmath.PI" title="Permalink to this definition">¶</a></dt>
 <dd><p>The mathematical constant <cite>e</cite>, equal to the base of the natural logarithm.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.to_degrees">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">to_degrees</code><span class="sig-paren">(</span><em>radians</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#to_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.to_degrees" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">to_degrees</code><span class="sig-paren">(</span><em class="sig-param">radians</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#to_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.to_degrees" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert an angle from radians to degrees.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">to_degrees</span><span class="p">(</span><span class="n">PI</span><span class="p">))</span>  <span class="c1"># =&gt; 180.0</span>
@@ -199,21 +200,19 @@ that the codomain is unrestricted. As a concrete example:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">to_degrees</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">PI</span><span class="p">))</span>  <span class="c1"># =&gt; 720.0</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>radians</strong> – An angle (in radians)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The same angle (in degrees)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>radians</strong> – An angle (in radians)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The same angle (in degrees)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.to_radians">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">to_radians</code><span class="sig-paren">(</span><em>degrees</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#to_radians"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.to_radians" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">to_radians</code><span class="sig-paren">(</span><em class="sig-param">degrees</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#to_radians"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.to_radians" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert an angle from degrees to radians.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">to_radians</span><span class="p">(</span><span class="mf">180.0</span><span class="p">))</span>  <span class="c1"># =&gt; 3.141592653589793</span>
@@ -226,21 +225,19 @@ that the codomain is unrestricted. As a concrete example:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">to_radians</span><span class="p">(</span><span class="mi">720</span><span class="p">))</span>  <span class="c1"># =&gt; 12.566370614359172</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>degrees</strong> – An angle (in degrees)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The same angle (in radians)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>degrees</strong> – An angle (in degrees)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The same angle (in radians)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.sin_degrees">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">sin_degrees</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#sin_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.sin_degrees" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">sin_degrees</code><span class="sig-paren">(</span><em class="sig-param">angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#sin_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.sin_degrees" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the trigonometric sine of an angle (in degrees).</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sin_degrees</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>  <span class="c1"># =&gt; 0.49999999999999994</span>
@@ -248,21 +245,19 @@ that the codomain is unrestricted. As a concrete example:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">sin_degrees</span><span class="p">(</span><span class="mf">45.0</span><span class="p">))</span>  <span class="c1"># =&gt; 0.7071067811865475</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – An angle (in degrees)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The sine of the given angle</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – An angle (in degrees)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The sine of the given angle</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.cos_degrees">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">cos_degrees</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#cos_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.cos_degrees" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">cos_degrees</code><span class="sig-paren">(</span><em class="sig-param">angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#cos_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.cos_degrees" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the trigonometric cosine of an angle (in degrees).</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cos_degrees</span><span class="p">(</span><span class="mi">60</span><span class="p">))</span>  <span class="c1"># =&gt; 0.5000000000000001</span>
@@ -270,21 +265,19 @@ that the codomain is unrestricted. As a concrete example:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">cos_degrees</span><span class="p">(</span><span class="mf">45.0</span><span class="p">))</span>  <span class="c1"># =&gt; 0.7071067811865476</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – An angle (in degrees)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The cosine of the given angle</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – An angle (in degrees)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The cosine of the given angle</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.tan_degrees">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">tan_degrees</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#tan_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.tan_degrees" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">tan_degrees</code><span class="sig-paren">(</span><em class="sig-param">angle</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#tan_degrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.tan_degrees" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the trigonometric tangent of an angle (in degrees).</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tan_degrees</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># =&gt; 0.0</span>
@@ -292,21 +285,19 @@ that the codomain is unrestricted. As a concrete example:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">tan_degrees</span><span class="p">(</span><span class="mf">45.0</span><span class="p">))</span>  <span class="c1"># =&gt; 0.9999999999999999</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – An angle (in degrees)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The tangent of the given angle</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>angle</strong> – An angle (in degrees)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The tangent of the given angle</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.vector_magnitude">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">vector_magnitude</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#vector_magnitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.vector_magnitude" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">vector_magnitude</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#vector_magnitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.vector_magnitude" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the magnitude of a vector given by two components.</p>
 <p>To compute the magnitude of vector with two components:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">vector_magnitude</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># =&gt; 5.0</span>
@@ -317,26 +308,22 @@ that the codomain is unrestricted. As a concrete example:</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">vector_magnitude</span><span class="p">(</span><span class="o">*</span><span class="n">pt</span><span class="p">))</span>  <span class="c1"># =&gt; 5.0</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> – x-coordinate of vector</li>
-<li><strong>y</strong> – y-coordinate of vector</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – x-coordinate of vector</p></li>
+<li><p><strong>y</strong> – y-coordinate of vector</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">magnitude of the vector (x, y)</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>magnitude of the vector (x, y)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.vector_angle">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">vector_angle</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#vector_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.vector_angle" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">vector_angle</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#vector_angle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.vector_angle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the angle (in degrees) from the origin to the given point.</p>
 <p>The angle is measured counterclockwise from the positive x-axis, as is standard.</p>
 <p>This function accounts for the fact that, in our graphical coordinate system,
@@ -351,26 +338,22 @@ as that point descends on the screen.</p>
 </div>
 <p>The returned angles in these examples are negative because the y-coordinate
 represents a point in the fourth quadrant.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> – x-coordinate of point</li>
-<li><strong>y</strong> – y-coordinate of point</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – x-coordinate of point</p></li>
+<li><p><strong>y</strong> – y-coordinate of point</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">angle (in degrees) from (0, 0) to (x, -y)</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>angle (in degrees) from (0, 0) to (x, -y)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.graphics.gmath.count_digits">
-<code class="descclassname">campy.graphics.gmath.</code><code class="descname">count_digits</code><span class="sig-paren">(</span><em>n</em>, <em>base=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#count_digits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.count_digits" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.graphics.gmath.</code><code class="sig-name descname">count_digits</code><span class="sig-paren">(</span><em class="sig-param">n</em>, <em class="sig-param">base=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gmath.html#count_digits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gmath.count_digits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Count the number of digits in a number in some base.</p>
 <p>Any non-integral part of the number is discarded: <code class="docutils literal notranslate"><span class="pre">count_digits(3.1415)</span></code>
 is the same as <code class="docutils literal notranslate"><span class="pre">count_digits(3)</span></code>.</p>
@@ -399,21 +382,17 @@ integer, otherwise an error is raised.</p>
 <span class="n">count_digits</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mf">2.2</span><span class="p">)</span>  <span class="c1"># raises error</span>
 </pre></div>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> – number whose digits to count</li>
-<li><strong>base</strong> – base system to use</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – number whose digits to count</p></li>
+<li><p><strong>base</strong> – base system to use</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the number of digits of n when written in the given base.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the number of digits of n when written in the given base.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -446,26 +425,16 @@ integer, otherwise an error is raised.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

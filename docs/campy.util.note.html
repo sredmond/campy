@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -172,118 +173,120 @@
 <p>To create a note, you can</p>
 <dl class="class">
 <dt id="campy.util.note.Note">
-<em class="property">class </em><code class="descclassname">campy.util.note.</code><code class="descname">Note</code><span class="sig-paren">(</span><em>duration</em>, <em>pitch</em>, <em>octave</em>, <em>accidental=&lt;Accidental.NATURAL: 0&gt;</em>, <em>repeat=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.util.note.</code><code class="sig-name descname">Note</code><span class="sig-paren">(</span><em class="sig-param">duration</em>, <em class="sig-param">pitch</em>, <em class="sig-param">octave</em>, <em class="sig-param">accidental=&lt;Accidental.NATURAL: 0&gt;</em>, <em class="sig-param">repeat=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="class">
 <dt id="campy.util.note.Note.Accidental">
-<em class="property">class </em><code class="descname">Accidental</code><a class="reference internal" href="_modules/campy/util/note.html#Note.Accidental"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.Accidental" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">Accidental</code><a class="reference internal" href="_modules/campy/util/note.html#Note.Accidental"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.Accidental" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
 <dl class="attribute">
 <dt id="campy.util.note.Note.Accidental.FLAT">
-<code class="descname">FLAT</code><em class="property"> = -1</em><a class="headerlink" href="#campy.util.note.Note.Accidental.FLAT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">FLAT</code><em class="property"> = -1</em><a class="headerlink" href="#campy.util.note.Note.Accidental.FLAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Accidental.NATURAL">
-<code class="descname">NATURAL</code><em class="property"> = 0</em><a class="headerlink" href="#campy.util.note.Note.Accidental.NATURAL" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">NATURAL</code><em class="property"> = 0</em><a class="headerlink" href="#campy.util.note.Note.Accidental.NATURAL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Accidental.SHARP">
-<code class="descname">SHARP</code><em class="property"> = 1</em><a class="headerlink" href="#campy.util.note.Note.Accidental.SHARP" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">SHARP</code><em class="property"> = 1</em><a class="headerlink" href="#campy.util.note.Note.Accidental.SHARP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.util.note.Note.Pitch">
-<em class="property">class </em><code class="descname">Pitch</code><a class="reference internal" href="_modules/campy/util/note.html#Note.Pitch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.Pitch" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">Pitch</code><a class="reference internal" href="_modules/campy/util/note.html#Note.Pitch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.Pitch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.A">
-<code class="descname">A</code><em class="property"> = 1</em><a class="headerlink" href="#campy.util.note.Note.Pitch.A" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">A</code><em class="property"> = 1</em><a class="headerlink" href="#campy.util.note.Note.Pitch.A" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.B">
-<code class="descname">B</code><em class="property"> = 2</em><a class="headerlink" href="#campy.util.note.Note.Pitch.B" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">B</code><em class="property"> = 2</em><a class="headerlink" href="#campy.util.note.Note.Pitch.B" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.C">
-<code class="descname">C</code><em class="property"> = 3</em><a class="headerlink" href="#campy.util.note.Note.Pitch.C" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">C</code><em class="property"> = 3</em><a class="headerlink" href="#campy.util.note.Note.Pitch.C" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.D">
-<code class="descname">D</code><em class="property"> = 4</em><a class="headerlink" href="#campy.util.note.Note.Pitch.D" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">D</code><em class="property"> = 4</em><a class="headerlink" href="#campy.util.note.Note.Pitch.D" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.E">
-<code class="descname">E</code><em class="property"> = 5</em><a class="headerlink" href="#campy.util.note.Note.Pitch.E" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">E</code><em class="property"> = 5</em><a class="headerlink" href="#campy.util.note.Note.Pitch.E" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.F">
-<code class="descname">F</code><em class="property"> = 6</em><a class="headerlink" href="#campy.util.note.Note.Pitch.F" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">F</code><em class="property"> = 6</em><a class="headerlink" href="#campy.util.note.Note.Pitch.F" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.G">
-<code class="descname">G</code><em class="property"> = 7</em><a class="headerlink" href="#campy.util.note.Note.Pitch.G" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">G</code><em class="property"> = 7</em><a class="headerlink" href="#campy.util.note.Note.Pitch.G" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.util.note.Note.Pitch.R">
-<code class="descname">R</code><em class="property"> = 0</em><a class="headerlink" href="#campy.util.note.Note.Pitch.R" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">R</code><em class="property"> = 0</em><a class="headerlink" href="#campy.util.note.Note.Pitch.R" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="campy.util.note.Note.accidental">
-<code class="descname">accidental</code><a class="headerlink" href="#campy.util.note.Note.accidental" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">accidental</code><a class="headerlink" href="#campy.util.note.Note.accidental" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="campy.util.note.Note.duration">
-<code class="descname">duration</code><a class="headerlink" href="#campy.util.note.Note.duration" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">duration</code><a class="headerlink" href="#campy.util.note.Note.duration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="campy.util.note.Note.from_line">
-<em class="property">classmethod </em><code class="descname">from_line</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.from_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.from_line" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_line</code><span class="sig-paren">(</span><em class="sig-param">line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.from_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.from_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a new note from a line definition.</p>
-<dl class="docutils">
-<dt>Usage:</dt>
-<dd>note = Note.from_line(‘1.5 G 5 NATURAL false’)</dd>
+<dl class="simple">
+<dt>Usage:</dt><dd><p>note = Note.from_line(‘1.5 G 5 NATURAL false’)</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.util.note.Note.is_rest">
-<code class="descname">is_rest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.is_rest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.is_rest" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_rest</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.is_rest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.is_rest" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="campy.util.note.Note.octave">
-<code class="descname">octave</code><a class="headerlink" href="#campy.util.note.Note.octave" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">octave</code><a class="headerlink" href="#campy.util.note.Note.octave" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="method">
 <dt id="campy.util.note.Note.pitch">
-<code class="descname">pitch</code><a class="headerlink" href="#campy.util.note.Note.pitch" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">pitch</code><a class="headerlink" href="#campy.util.note.Note.pitch" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.util.note.Note.play">
-<code class="descname">play</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.play" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">play</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.play" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="campy.util.note.Note.rest">
-<em class="property">classmethod </em><code class="descname">rest</code><span class="sig-paren">(</span><em>duration</em>, <em>repeat=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.rest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.rest" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">rest</code><span class="sig-paren">(</span><em class="sig-param">duration</em>, <em class="sig-param">repeat=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/note.html#Note.rest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.note.Note.rest" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -318,26 +321,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

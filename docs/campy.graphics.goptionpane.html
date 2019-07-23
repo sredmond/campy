@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -175,144 +176,145 @@ that class’s documentation in the Java API Specification for more
 information.</p>
 <dl class="class">
 <dt id="campy.graphics.goptionpane.ConfirmResult">
-<em class="property">class </em><code class="descclassname">campy.graphics.goptionpane.</code><code class="descname">ConfirmResult</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#ConfirmResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.goptionpane.</code><code class="sig-name descname">ConfirmResult</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#ConfirmResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>The various results that can be returned from some option dialogs.</p>
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.ConfirmResult.CANCEL">
-<code class="descname">CANCEL</code><em class="property"> = -1</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.CANCEL" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">CANCEL</code><em class="property"> = -1</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.CANCEL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.ConfirmResult.NO">
-<code class="descname">NO</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.NO" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">NO</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.NO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.ConfirmResult.OK">
-<code class="descname">OK</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.OK" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OK</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.OK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.ConfirmResult.YES">
-<code class="descname">YES</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.YES" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">YES</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmResult.YES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.graphics.goptionpane.ConfirmType">
-<em class="property">class </em><code class="descclassname">campy.graphics.goptionpane.</code><code class="descname">ConfirmType</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#ConfirmType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.goptionpane.</code><code class="sig-name descname">ConfirmType</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#ConfirmType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>The three types of confirm dialogs: Yes/No, Yes/No/Cancel, or OK/Cancel.</p>
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.ConfirmType.OK_CANCEL">
-<code class="descname">OK_CANCEL</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType.OK_CANCEL" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OK_CANCEL</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType.OK_CANCEL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.ConfirmType.YES_NO">
-<code class="descname">YES_NO</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType.YES_NO" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">YES_NO</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType.YES_NO" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.ConfirmType.YES_NO_CANCEL">
-<code class="descname">YES_NO_CANCEL</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType.YES_NO_CANCEL" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">YES_NO_CANCEL</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.ConfirmType.YES_NO_CANCEL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.graphics.goptionpane.GOptionPane">
-<em class="property">class </em><code class="descclassname">campy.graphics.goptionpane.</code><code class="descname">GOptionPane</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.goptionpane.</code><code class="sig-name descname">GOptionPane</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="class">
 <dt id="campy.graphics.goptionpane.GOptionPane.InternalResult">
-<em class="property">class </em><code class="descname">InternalResult</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.InternalResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-name descname">InternalResult</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.InternalResult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
 <p>The results that can come back from showConfirmDialog.</p>
 <p>These are converted into Result enum values.</p>
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.GOptionPane.InternalResult.CANCEL_OPTION">
-<code class="descname">CANCEL_OPTION</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.CANCEL_OPTION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">CANCEL_OPTION</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.CANCEL_OPTION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.GOptionPane.InternalResult.CLOSED_OPTION">
-<code class="descname">CLOSED_OPTION</code><em class="property"> = -1</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.CLOSED_OPTION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">CLOSED_OPTION</code><em class="property"> = -1</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.CLOSED_OPTION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.GOptionPane.InternalResult.NO_OPTION">
-<code class="descname">NO_OPTION</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.NO_OPTION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">NO_OPTION</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.NO_OPTION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.GOptionPane.InternalResult.OK_OPTION">
-<code class="descname">OK_OPTION</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.OK_OPTION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">OK_OPTION</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.OK_OPTION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.GOptionPane.InternalResult.YES_OPTION">
-<code class="descname">YES_OPTION</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.YES_OPTION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">YES_OPTION</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.InternalResult.YES_OPTION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="campy.graphics.goptionpane.GOptionPane.show_confirm_dialog">
-<em class="property">classmethod </em><code class="descname">show_confirm_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title=''</em>, <em>confirm_type=&lt;ConfirmType.YES_NO: 0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_confirm_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_confirm_dialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">show_confirm_dialog</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">title=''</em>, <em class="sig-param">confirm_type=&lt;ConfirmType.YES_NO: 0&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_confirm_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_confirm_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="campy.graphics.goptionpane.GOptionPane.show_input_dialog">
-<em class="property">classmethod </em><code class="descname">show_input_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_input_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_input_dialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">show_input_dialog</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">title=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_input_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_input_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="campy.graphics.goptionpane.GOptionPane.show_message_dialog">
-<em class="property">classmethod </em><code class="descname">show_message_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title=''</em>, <em>message_type=&lt;MessageType.PLAIN: -1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_message_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_message_dialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">show_message_dialog</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">title=''</em>, <em class="sig-param">message_type=&lt;MessageType.PLAIN: -1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_message_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_message_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="campy.graphics.goptionpane.GOptionPane.show_option_dialog">
-<em class="property">classmethod </em><code class="descname">show_option_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>options</em>, <em>title=''</em>, <em>initially_selected=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_option_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_option_dialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">show_option_dialog</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">options</em>, <em class="sig-param">title=''</em>, <em class="sig-param">initially_selected=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_option_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_option_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="classmethod">
+<dl class="method">
 <dt id="campy.graphics.goptionpane.GOptionPane.show_text_file_dialog">
-<em class="property">classmethod </em><code class="descname">show_text_file_dialog</code><span class="sig-paren">(</span><em>message</em>, <em>title=''</em>, <em>rows=-1</em>, <em>cols=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_text_file_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_text_file_dialog" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">show_text_file_dialog</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">title=''</em>, <em class="sig-param">rows=-1</em>, <em class="sig-param">cols=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#GOptionPane.show_text_file_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.GOptionPane.show_text_file_dialog" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.graphics.goptionpane.MessageType">
-<em class="property">class </em><code class="descclassname">campy.graphics.goptionpane.</code><code class="descname">MessageType</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#MessageType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.MessageType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.goptionpane.</code><code class="sig-name descname">MessageType</code><a class="reference internal" href="_modules/campy/graphics/goptionpane.html#MessageType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.goptionpane.MessageType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.MessageType.ERROR">
-<code class="descname">ERROR</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.ERROR" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ERROR</code><em class="property"> = 0</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.MessageType.INFORMATION">
-<code class="descname">INFORMATION</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.INFORMATION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">INFORMATION</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.INFORMATION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.MessageType.PLAIN">
-<code class="descname">PLAIN</code><em class="property"> = -1</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.PLAIN" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">PLAIN</code><em class="property"> = -1</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.PLAIN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.MessageType.QUESTION">
-<code class="descname">QUESTION</code><em class="property"> = 3</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.QUESTION" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">QUESTION</code><em class="property"> = 3</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.QUESTION" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="campy.graphics.goptionpane.MessageType.WARNING">
-<code class="descname">WARNING</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.WARNING" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">WARNING</code><em class="property"> = 2</em><a class="headerlink" href="#campy.graphics.goptionpane.MessageType.WARNING" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -347,26 +349,16 @@ information.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

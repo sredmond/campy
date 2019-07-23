@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -161,349 +162,336 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.gui.ginteractors</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Graphical Interactors similar to those in the Java Swing libraries.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Graphical interactors.</span>
 
-<span class="sd">Provides a common interface for constructing GInteractors.</span>
+<span class="sd">This module provides five types of interactors:</span>
 
-<span class="sd">GButton:</span>
-<span class="sd">GCheckbox:</span>
-<span class="sd">GSlider:</span>
-<span class="sd">GTextField:</span>
-<span class="sd">GChooser:</span>
-
+<span class="sd">- :class:`GButton`: A clickable button.</span>
+<span class="sd">- :class:`GCheckBox`: A checkable box.</span>
+<span class="sd">- :class:`GSlider`: A slider between numeric values.</span>
+<span class="sd">- :class:`GChooser`: A list of selectable items.</span>
+<span class="sd">- :class:`GTextField`: A single-line string entry.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">campy.graphics.gobjects</span> <span class="k">as</span> <span class="nn">_gobjects</span>
-<span class="kn">import</span> <span class="nn">campy.graphics.gtypes</span> <span class="k">as</span> <span class="nn">_gtypes</span>
+
+<span class="kn">import</span> <span class="nn">campy.graphics.gobjects</span> <span class="k">as</span> <span class="nn">gobjects</span>
 <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
 
-<div class="viewcode-block" id="GInteractor"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GInteractor">[docs]</a><span class="k">class</span> <span class="nc">GInteractor</span><span class="p">(</span><span class="n">_gobjects</span><span class="o">.</span><span class="n">GObject</span><span class="p">):</span>
-	<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	This class is the superclass for all graphical interactors.</span>
-<span class="sd">	In most applications, interactors will be added to a control strip</span>
-<span class="sd">	along one of the sides of the GWindow, but they can</span>
-<span class="sd">	also be placed in specific positions just like any other</span>
-<span class="sd">	GObject.</span>
-<span class="sd">	&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">campy.graphics.gevents</span> <span class="k">import</span> <span class="o">*</span>
 
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Initializes GObject</span>
 
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="n">_gobjects</span><span class="o">.</span><span class="n">GObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_action_command</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<div class="viewcode-block" id="GInteractor"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GInteractor">[docs]</a><span class="k">class</span> <span class="nc">GInteractor</span><span class="p">(</span><span class="n">gobjects</span><span class="o">.</span><span class="n">GObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Superclass of all graphical interactors.</span>
 
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">action_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Get or set the action command to the indicated string.</span>
+<span class="sd">    In most applications, interactors will be added to one region in a</span>
+<span class="sd">    :class:`GWindow`, but interactors can also be placed in specific positions</span>
+<span class="sd">    in a :class:`GCompound` (or the :class:`GWindow`&#39;s default top</span>
+<span class="sd">    :class:`GCompound`) just like any other :class:`GObject`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a :class:`GInteractor` with a command.</span>
 
-<span class="sd">		If the string is nonempty, activating the interactor generates a GActionEvent.</span>
+<span class="sd">        The command is accessible as part of any :class:`GActionEvents` that</span>
+<span class="sd">        this interactor generates.</span>
 
-<span class="sd">		:param str command: The action command to set or get.</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_command</span>
+<span class="sd">        :param command: The action command for this interactor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO(sredmond): Consider stripping the concept of &quot;action commands&quot;</span>
+        <span class="c1"># entirely, since it violates &quot;There should be one way to do things.&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="o">=</span> <span class="n">command</span>
 
-	<span class="nd">@action_command</span><span class="o">.</span><span class="n">setter</span>
-	<span class="k">def</span> <span class="nf">action_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">_action_command</span> <span class="o">=</span> <span class="n">cmd</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">setActionCommand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set the action command for this interactor.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_command</span>
 
-<div class="viewcode-block" id="GInteractor.setActionCommand"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GInteractor.setActionCommand">[docs]</a>	<span class="k">def</span> <span class="nf">setActionCommand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Sets the action command to the indicated string.  If the string is not</span>
-<span class="sd">		empty, activating the interactor generates a GActionEvent.</span>
+    <span class="nd">@command</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_command</span> <span class="o">=</span> <span class="n">command</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">ginteractor_set_action_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_command</span><span class="p">)</span></div>
 
-<span class="sd">		@type cmd: string</span>
-<span class="sd">		@param cmd: action command</span>
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">actionCommand</span> <span class="o">=</span> <span class="n">cmd</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">setActionCommand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="GInteractor.getActionCommand"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GInteractor.getActionCommand">[docs]</a>	<span class="k">def</span> <span class="nf">getActionCommand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Returns the action command associated with the interactor.</span>
-
-<span class="sd">		@rtype: string</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionCommand</span></div>
-
-<div class="viewcode-block" id="GInteractor.setSize"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GInteractor.setSize">[docs]</a>	<span class="k">def</span> <span class="nf">setSize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Changes the size of the interactor to the specified width and height.</span>
-
-<span class="sd">		@type width: float</span>
-<span class="sd">		@type height: float</span>
-<span class="sd">		@type size: GDimension, overrides width and height parameters</span>
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="k">if</span><span class="p">(</span><span class="n">size</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
-			<span class="n">width</span> <span class="o">=</span> <span class="n">size</span><span class="o">.</span><span class="n">width</span>
-			<span class="n">height</span> <span class="o">=</span> <span class="n">size</span><span class="o">.</span><span class="n">height</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gobject_set_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="GInteractor.setBounds"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GInteractor.setBounds">[docs]</a>	<span class="k">def</span> <span class="nf">setBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rect</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Changes the bounds of the interactor to the specified values.</span>
-
-<span class="sd">		@type x: float</span>
-<span class="sd">		@type y: float</span>
-<span class="sd">		@type width: float</span>
-<span class="sd">		@type height: float</span>
-<span class="sd">		@type rect: GRectangle</span>
-<span class="sd">		@param rect: bounding GRectangle, overrides x, y ,width and height</span>
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="k">if</span><span class="p">(</span><span class="n">rect</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
-			<span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span> <span class="o">=</span> <span class="n">rect</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">setLocation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">setSize</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="GInteractor.getBounds"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GInteractor.getBounds">[docs]</a>	<span class="k">def</span> <span class="nf">getBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Returns the bounding GRectangle of the GInteractor</span>
-
-<span class="sd">		@rtype: GRectangle</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="n">size</span> <span class="o">=</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">getSize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-		<span class="k">return</span> <span class="n">_gtypes</span><span class="o">.</span><span class="n">GRectangle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">size</span><span class="o">.</span><span class="n">getWidth</span><span class="p">(),</span> <span class="n">size</span><span class="o">.</span><span class="n">getHeight</span><span class="p">())</span></div></div>
+    <span class="c1"># TODO(sredmond): Provide a general mechanism for setting an interactor&#39;s size.</span>
+    <span class="c1"># TODO(sredmond): Provide a general mechanism to get the location and bounds</span>
+    <span class="c1"># of an interactor.</span>
 
 
 <div class="viewcode-block" id="GButton"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GButton">[docs]</a><span class="k">class</span> <span class="nc">GButton</span><span class="p">(</span><span class="n">GInteractor</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;An onscreen button.</span>
+    <span class="sd">&quot;&quot;&quot;An onscreen, clickable button.</span>
 
-<span class="sd">	The following program displays a button that, when pressed, generates the</span>
-<span class="sd">	message: &quot;Please do not press this button again!&quot; (credit Douglas Adams)::</span>
+<span class="sd">    The following program displays a button that, when pressed, generates the</span>
+<span class="sd">    message: &quot;Please do not press this button again!&quot; (credit Douglas Adams)::</span>
 
-<span class="sd">		gw = GWindow()</span>
-<span class="sd">		button = GButton(&quot;RED&quot;)</span>
-<span class="sd">		gw.add_to_region(button, &quot;SOUTH&quot;)</span>
+<span class="sd">        window = GWindow()</span>
+<span class="sd">        button = GButton(&#39;RED BUTTON&#39;)</span>
+<span class="sd">        window.add_to_region(button, Region.NORTH)</span>
 
-<span class="sd">		while True:</span>
-<span class="sd">			e = gevents.wait_for_event(ACTION_EVENT | CLICK_EVENT)</span>
-<span class="sd">			if e.event_type == MOUSE_CLICKED:</span>
-<span class="sd">				break</span>
+<span class="sd">        @button.onclick</span>
+<span class="sd">        def chastise(event):</span>
+<span class="sd">            event.button.label = &#39;Please do not press this button again!&#39;</span>
+<span class="sd">            event.button.disable()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct a GButton with the specified label.</span>
 
-<span class="sd">		print(&quot;Please do not press this button again!&quot;)</span>
-<span class="sd">	&quot;&quot;&quot;</span>
+<span class="sd">        :param str label: A label for this GButton.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span> <span class="o">=</span> <span class="kc">False</span>
 
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Construct a GButton with the specified label.</span>
+        <span class="c1"># Collection of</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_listeners</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="sd">		Also sets the action command for this button to the label.</span>
+        <span class="c1"># Tell the underlying platform to construct this object.</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gbutton_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<span class="sd">		:param str label: A label for this GButton.</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">action_command</span> <span class="o">=</span> <span class="n">label</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gbutton_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+    <span class="c1">##############</span>
+    <span class="c1"># PROPERTIES #</span>
+    <span class="c1">##############</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set this :class:`GButton`:&#39;s label.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label</span>
 
-	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="s1">&#39;GButton(&quot;</span><span class="si">{}</span><span class="s1">&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span></div>
+    <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gbutton_set_label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set whether this :class:`GButton`: is disabled.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span>
+
+    <span class="nd">@disabled</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">disabled</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_disabled</span> <span class="o">=</span> <span class="n">disabled</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gbutton_set_disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1"># TODO(sredmond): Consider removing these convenience functions.</span>
+<div class="viewcode-block" id="GButton.enable"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GButton.enable">[docs]</a>    <span class="k">def</span> <span class="nf">enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Enable this :class:`GButton`, meaning it can receive clicks.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="GButton.disable"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GButton.disable">[docs]</a>    <span class="k">def</span> <span class="nf">disable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Disable this :class:`GButton`, meaning it cannot receive clicks.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+    <span class="c1">#################</span>
+    <span class="c1"># BUTTON EVENTS #</span>
+    <span class="c1">#################</span>
+<div class="viewcode-block" id="GButton.onclick"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GButton.onclick">[docs]</a>    <span class="k">def</span> <span class="nf">onclick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_listeners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">function</span></div>
+
+<div class="viewcode-block" id="GButton.add_click_handler"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GButton.add_click_handler">[docs]</a>    <span class="k">def</span> <span class="nf">add_click_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_listeners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">function</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GButton.remove_click_handler"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GButton.remove_click_handler">[docs]</a>    <span class="k">def</span> <span class="nf">remove_click_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_listeners</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Default click implementation doesn&#39;t do anything.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">listener</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_listeners</span><span class="p">:</span>
+            <span class="n">listener</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GButton.click"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GButton.click">[docs]</a>    <span class="k">def</span> <span class="nf">click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Make an event to pass to click handler.</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">GActionEvent</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_click</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="GCheckBox"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GCheckBox">[docs]</a><span class="k">class</span> <span class="nc">GCheckBox</span><span class="p">(</span><span class="n">GInteractor</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;An onscreen check box.</span>
+    <span class="sd">&quot;&quot;&quot;An onscreen check box.</span>
 
-<span class="sd">	Clicking once on the check box selects it; clicking again removes the</span>
-<span class="sd">	selection.</span>
+<span class="sd">    Clicking once on the check box selects it; clicking again removes the</span>
+<span class="sd">    selection.</span>
 
-<span class="sd">	If a GCheckBox has an action command, clicking on the box generates a</span>
-<span class="sd">	GActionEvent.</span>
-<span class="sd">	&quot;&quot;&quot;</span>
+<span class="sd">    Clicking on the box generates a GActionEvent.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Creates a GCheckBox with the specified label.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a GCheckBox with the specified label.</span>
 
-<span class="sd">		In contrast to the GButton constructor, this constructor does not set an</span>
-<span class="sd">		action command.</span>
+<span class="sd">        In contrast to the GButton constructor, this constructor does not set an</span>
+<span class="sd">        action command.</span>
 
-<span class="sd">		:param str label: A label for this GCheckBox.</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gcheckbox_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+<span class="sd">        :param str label: A label for this GCheckBox.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gcheckbox_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
 
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Get or set whether the checkbox is selected.</span>
 
-<span class="sd">		:param bool state: Whether the state is selected.</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		<span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gcheckbox_is_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set whether the checkbox is selected.</span>
 
-	<span class="nd">@selected</span><span class="o">.</span><span class="n">setter</span>
-	<span class="k">def</span> <span class="nf">selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
-		<span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gcheckbox_set_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+<span class="sd">        :param bool state: Whether the checkbox is selected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gcheckbox_is_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="s1">&#39;GCheckBox(&quot;</span><span class="si">{}</span><span class="s1">&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span></div>
+    <span class="nd">@selected</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gcheckbox_set_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;GCheckBox(&quot;</span><span class="si">{}</span><span class="s1">&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="GSlider"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GSlider">[docs]</a><span class="k">class</span> <span class="nc">GSlider</span><span class="p">(</span><span class="n">GInteractor</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;An onscreen slider.</span>
+    <span class="sd">&quot;&quot;&quot;An onscreen slider.</span>
 
-<span class="sd">	Dragging the slider handle generates a GActionEvent if the GSlider has a</span>
-<span class="sd">	nonempty action command.</span>
-<span class="sd">	&quot;&quot;&quot;</span>
+<span class="sd">    Dragging</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">starting_value</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Create a horizontal GSlider.</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">starting_value</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a horizontal GSlider.</span>
 
-<span class="sd">		The client can specify a minimum value, maximum value, and starting</span>
-<span class="sd">		value.</span>
+<span class="sd">        The client can specify a minimum value, maximum value, and starting</span>
+<span class="sd">        value.</span>
 
-<span class="sd">		:param int min_value: The minimum value of this GSlider.</span>
-<span class="sd">		:param int max_value: The maximum value of this GSlider. Should be &gt;=</span>
-<span class="sd">			min_value, but this is not currently enforced.</span>
-<span class="sd">		:param int starting_value: The starting value of this GSlider. Should be</span>
-<span class="sd">			between min_value and max_value. If not, is set to min_value.</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="o">=</span> <span class="n">min_value</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">=</span> <span class="n">max_value</span>
-		<span class="c1"># TODO(sredmond): Error check that max_value &gt;= min_value.</span>
-		<span class="k">if</span> <span class="ow">not</span> <span class="n">min_value</span> <span class="o">&lt;=</span> <span class="n">starting_value</span> <span class="o">&lt;=</span> <span class="n">max_value</span><span class="p">:</span>
-			<span class="n">starting_value</span> <span class="o">=</span> <span class="n">min_value</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gslider_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">,</span> <span class="n">starting_value</span><span class="p">)</span>
+<span class="sd">        :param int min_value: The minimum value of this GSlider.</span>
+<span class="sd">        :param int max_value: The maximum value of this GSlider. Should be &gt;=</span>
+<span class="sd">            min_value, but this is not currently enforced.</span>
+<span class="sd">        :param int starting_value: The starting value of this GSlider. Should be</span>
+<span class="sd">            between min_value and max_value. If not, is set to min_value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span> <span class="o">=</span> <span class="n">min_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span> <span class="o">=</span> <span class="n">max_value</span>
+        <span class="c1"># TODO(sredmond): Error check that max_value &gt;= min_value.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">min_value</span> <span class="o">&lt;=</span> <span class="n">starting_value</span> <span class="o">&lt;=</span> <span class="n">max_value</span><span class="p">:</span>
+            <span class="n">starting_value</span> <span class="o">=</span> <span class="n">min_value</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gslider_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">,</span> <span class="n">starting_value</span><span class="p">)</span>
 
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Get or set the current value of the GSlider.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set the current value of the GSlider.</span>
 
-<span class="sd">		:param int value: The value of the GSlider.</span>
-<span class="sd">		&quot;&quot;&quot;</span>
-		<span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gslider_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="sd">        :param int value: The value of the GSlider.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gslider_get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-	<span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
-	<span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gslider_set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="nd">@value</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gslider_set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="s2">&quot;GSlider(value=</span><span class="si">{}</span><span class="s2">, min=</span><span class="si">{}</span><span class="s2">, max=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;GSlider(value=</span><span class="si">{}</span><span class="s2">, min=</span><span class="si">{}</span><span class="s2">, max=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_value</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="GTextField"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GTextField">[docs]</a><span class="k">class</span> <span class="nc">GTextField</span><span class="p">(</span><span class="n">GInteractor</span><span class="p">):</span>
-	<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	This interactor subclass represents a text field for entering short</span>
-<span class="sd">	text strings.  Hitting enter in a text field generates a</span>
-<span class="sd">	GActionEvent if the text field has a nonempty action command.</span>
-<span class="sd">	&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;An onscreen text field for entering short text strings.</span>
 
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nChars</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Creates a text field capable of holding nChars characters,</span>
-<span class="sd">		which defaults to 10.  Assigning an action command to the text field</span>
-<span class="sd">		causes it to generate an action event whenever the user types the</span>
-<span class="sd">		ENTER key.</span>
+<span class="sd">    Hitting RETURN in a text field generates a :class:`GActionEvent`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="sd">		@type nChars: int</span>
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="n">GInteractor</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">createGTextField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nChars</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a text field with a maximum width.</span>
 
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Get or set the contents of the text field.&quot;&quot;&quot;</span>
-		<span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">getText</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="sd">        A :class:`GActionEvent` is generated whenever the user presses the</span>
+<span class="sd">        RETURN key while this interactor has focus.</span>
 
-	<span class="nd">@text</span><span class="o">.</span><span class="n">setter</span>
-	<span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+<span class="sd">        :param width: The maximum number of characters this field can hold.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtextfield_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<div class="viewcode-block" id="GTextField.getText"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GTextField.getText">[docs]</a>	<span class="k">def</span> <span class="nf">getText</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Returns the contents of the text field.</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set the contents of this :class:`GTextField`.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtextfield_get_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-<span class="sd">		@rtype: string</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">getText</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+    <span class="nd">@text</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtextfield_set_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
 
-<div class="viewcode-block" id="GTextField.setText"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GTextField.setText">[docs]</a>	<span class="k">def</span> <span class="nf">setText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Sets the text of the field to the specified string.</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;GTextField(text=</span><span class="si">{}</span><span class="s2">, width=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span></div>
 
-<span class="sd">		@type str: string</span>
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="GTextField.getType"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GTextField.getType">[docs]</a>	<span class="k">def</span> <span class="nf">getType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Returns the type of this object</span>
-
-<span class="sd">		@rtype: string</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="k">return</span> <span class="s2">&quot;GTextField&quot;</span></div>
-
-<div class="viewcode-block" id="GTextField.toString"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GTextField.toString">[docs]</a>	<span class="k">def</span> <span class="nf">toString</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Converts this object into string form</span>
-
-<span class="sd">		@rtype: string</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="k">return</span> <span class="s2">&quot;GTextField()&quot;</span></div></div>
 
 <div class="viewcode-block" id="GChooser"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GChooser">[docs]</a><span class="k">class</span> <span class="nc">GChooser</span><span class="p">(</span><span class="n">GInteractor</span><span class="p">):</span>
-	<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	This interactor subclass represents a selectable list.  The</span>
-<span class="sd">	GChooser constructor creates an empty chooser.</span>
-<span class="sd">	Once the chooser has been created, clients can use addItem</span>
-<span class="sd">	to add the options.  For example, the following code creates a</span>
-<span class="sd">	GChooser containing the four strings</span>
-<span class="sd">	&quot;Small&quot;, &quot;Medium&quot;, &quot;Large&quot;,</span>
-<span class="sd">	and &quot;X-Large&quot;::</span>
+    <span class="sd">&quot;&quot;&quot;A list of selectable items.</span>
 
-<span class="sd">		sizeChooser = ginteractors.GChooser()</span>
-<span class="sd">		sizeChooser.addItem(&quot;Small&quot;);</span>
-<span class="sd">		sizeChooser.addItem(&quot;Medium&quot;);</span>
-<span class="sd">		sizeChooser.addItem(&quot;Large&quot;);</span>
-<span class="sd">		sizeChooser.addItem(&quot;X-Large&quot;);</span>
-<span class="sd">	&#39;&#39;&#39;</span>
+<span class="sd">    You can construct a :class:`GChooser` with an ordered collection of items,</span>
+<span class="sd">    or :meth:`add` and :meth:`remove` items after construction::</span>
 
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Creates a chooser that initially contains no items, which are added</span>
-<span class="sd">		using the addItem method.  Assigning an action command</span>
-<span class="sd">		to the chooser causes it to generate an action event whenever the</span>
-<span class="sd">		user selects an item.</span>
+<span class="sd">        size_chooser = GChooser(&#39;Small&#39;, &#39;Medium&#39;, &#39;Large&#39;)</span>
+<span class="sd">        size_chooser.add_item(&#39;X-Large&#39;)</span>
+<span class="sd">        size_chooser.remove_item(&#39;Medium&#39;)</span>
 
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="n">GInteractor</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">createGChooser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="sd">    To get the selected item::</span>
 
-<div class="viewcode-block" id="GChooser.addItem"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GChooser.addItem">[docs]</a>	<span class="k">def</span> <span class="nf">addItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-		<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Adds a new item consisting of the specified string.</span>
+<span class="sd">        size_chooser = GChooser(&#39;Small&#39;, &#39;Medium&#39;, &#39;Large&#39;)</span>
+<span class="sd">        selected = size_chooser.selected_item</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class="sd">		@type item: string</span>
-<span class="sd">		@rtype: void</span>
-<span class="sd">		&#39;&#39;&#39;</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create a :class:`GChooser`, optionally with some items.</span>
 
-	<span class="nd">@property</span>
-	<span class="k">def</span> <span class="nf">selected_item</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Return the current item selected in this GChooser.</span>
+<span class="sd">        These items are supplied as extra positional arguments::</span>
 
-<span class="sd">		@rtype: string&quot;&quot;&quot;</span>
-		<span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">getSelectedItem</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="sd">            size_chooser = GChooser(&#39;Small&#39;, &#39;Medium&#39;, &#39;Large&#39;)</span>
 
-	<span class="nd">@selected_item</span><span class="o">.</span><span class="n">setter</span>
-	<span class="k">def</span> <span class="nf">selected_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Sets the chooser so that it shows the specified item.  If the item</span>
-<span class="sd">		does not exist in the chooser, no change occurs.</span>
+<span class="sd">        To construct a :class:`GChooser` from a collection of elements, unpack</span>
+<span class="sd">        the elements into the constructor::</span>
 
-<span class="sd">		@type item: string</span>
-<span class="sd">		@rtype: void&quot;&quot;&quot;</span>
-		<span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">setSelectedItem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+<span class="sd">            options = (&#39;Small&#39;, &#39;Medium&#39;, &#39;Large&#39;)</span>
+<span class="sd">            size_chooser = GChooser(*options)</span>
 
-	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="s2">&quot;GChooser()&quot;</span></div>
+<span class="sd">        A :class:`GActionEvent` is generated each time the user selects an item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gchooser_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GChooser.add_item"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GChooser.add_item">[docs]</a>    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a new option to this :class:`GChooser`.</span>
+
+<span class="sd">        :param item: The new item to add to this :class:`GChooser`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gchooser_add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GChooser.remove_item"><a class="viewcode-back" href="../../../campy.gui.ginteractors.html#campy.gui.ginteractors.GChooser.remove_item">[docs]</a>    <span class="k">def</span> <span class="nf">remove_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove an option from this :class:`GChooser`.</span>
+
+<span class="sd">        :param item: The item to remove from this :class:`GChooser`.</span>
+<span class="sd">        :return: Whether the item was removed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gchooser_remove_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">selected_item</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get or set the currently selected item of this :class:`GChooser`.</span>
+
+<span class="sd">        Setting the selected item to something not in this :class:`GChooser`&#39;s</span>
+<span class="sd">        list of items results in no change.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gchooser_get_selected_item</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@selected_item</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">selected_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gchooser_set_selected_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;GChooser(items=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -533,26 +521,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

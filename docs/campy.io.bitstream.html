@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -220,71 +221,71 @@ and for consistency with the standard library str in obitstream has been renamed
 </div>
 <dl class="class">
 <dt id="campy.io.bitstream.ibitstream">
-<em class="property">class </em><code class="descclassname">campy.io.bitstream.</code><code class="descname">ibitstream</code><span class="sig-paren">(</span><em>raw</em>, <em>buffer_size=8192</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.io.bitstream.</code><code class="sig-name descname">ibitstream</code><span class="sig-paren">(</span><em class="sig-param">raw</em>, <em class="sig-param">buffer_size=8192</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_io.BufferedReader</span></code></p>
 <dl class="method">
 <dt id="campy.io.bitstream.ibitstream.readbit">
-<code class="descname">readbit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream.readbit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream.readbit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">readbit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream.readbit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream.readbit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.io.bitstream.ibitstream.rewind">
-<code class="descname">rewind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream.rewind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream.rewind" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rewind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream.rewind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream.rewind" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.io.bitstream.ibitstream.size">
-<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream.size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ibitstream.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ibitstream.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.io.bitstream.obitstream">
-<em class="property">class </em><code class="descclassname">campy.io.bitstream.</code><code class="descname">obitstream</code><span class="sig-paren">(</span><em>raw</em>, <em>buffer_size=8192</em>, <em>always_flush=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#obitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.obitstream" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.io.bitstream.</code><code class="sig-name descname">obitstream</code><span class="sig-paren">(</span><em class="sig-param">raw</em>, <em class="sig-param">buffer_size=8192</em>, <em class="sig-param">always_flush=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#obitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.obitstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_io.BufferedWriter</span></code></p>
 <dl class="method">
 <dt id="campy.io.bitstream.obitstream.size">
-<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#obitstream.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.obitstream.size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#obitstream.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.obitstream.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.io.bitstream.obitstream.writebit">
-<code class="descname">writebit</code><span class="sig-paren">(</span><em>bit</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#obitstream.writebit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.obitstream.writebit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">writebit</code><span class="sig-paren">(</span><em class="sig-param">bit</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#obitstream.writebit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.obitstream.writebit" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.io.bitstream.ifbitstream">
-<em class="property">class </em><code class="descclassname">campy.io.bitstream.</code><code class="descname">ifbitstream</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ifbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ifbitstream" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.io.bitstream.</code><code class="sig-name descname">ifbitstream</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ifbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ifbitstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.io.bitstream.ibitstream" title="campy.io.bitstream.ibitstream"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.io.bitstream.ibitstream</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.io.bitstream.ofbitstream">
-<em class="property">class </em><code class="descclassname">campy.io.bitstream.</code><code class="descname">ofbitstream</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ofbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ofbitstream" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.io.bitstream.</code><code class="sig-name descname">ofbitstream</code><span class="sig-paren">(</span><em class="sig-param">filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ofbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ofbitstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.io.bitstream.obitstream" title="campy.io.bitstream.obitstream"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.io.bitstream.obitstream</span></code></a></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.io.bitstream.istringbitstream">
-<em class="property">class </em><code class="descclassname">campy.io.bitstream.</code><code class="descname">istringbitstream</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#istringbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.istringbitstream" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.io.bitstream.</code><code class="sig-name descname">istringbitstream</code><span class="sig-paren">(</span><em class="sig-param">string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#istringbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.istringbitstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.io.bitstream.ibitstream" title="campy.io.bitstream.ibitstream"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.io.bitstream.ibitstream</span></code></a></p>
 <dl class="method">
 <dt id="campy.io.bitstream.istringbitstream.setvalue">
-<code class="descname">setvalue</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#istringbitstream.setvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.istringbitstream.setvalue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">setvalue</code><span class="sig-paren">(</span><em class="sig-param">string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#istringbitstream.setvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.istringbitstream.setvalue" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.io.bitstream.ostringbitstream">
-<em class="property">class </em><code class="descclassname">campy.io.bitstream.</code><code class="descname">ostringbitstream</code><a class="reference internal" href="_modules/campy/io/bitstream.html#ostringbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ostringbitstream" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.io.bitstream.</code><code class="sig-name descname">ostringbitstream</code><a class="reference internal" href="_modules/campy/io/bitstream.html#ostringbitstream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ostringbitstream" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.io.bitstream.obitstream" title="campy.io.bitstream.obitstream"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.io.bitstream.obitstream</span></code></a></p>
 <dl class="method">
 <dt id="campy.io.bitstream.ostringbitstream.getvalue">
-<code class="descname">getvalue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ostringbitstream.getvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ostringbitstream.getvalue" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">getvalue</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/io/bitstream.html#ostringbitstream.getvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.io.bitstream.ostringbitstream.getvalue" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -320,26 +321,16 @@ and for consistency with the standard library str in obitstream has been renamed
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

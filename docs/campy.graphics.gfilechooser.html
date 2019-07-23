@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -167,36 +168,39 @@
             
   <div class="section" id="module-campy.graphics.gfilechooser">
 <span id="campy-graphics-gfilechooser-module"></span><h1>campy.graphics.gfilechooser module<a class="headerlink" href="#module-campy.graphics.gfilechooser" title="Permalink to this headline">¶</a></h1>
-<p>A <a class="reference internal" href="#campy.graphics.gfilechooser.GFileChooser" title="campy.graphics.gfilechooser.GFileChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GFileChooser</span></code></a> pops up a graphical dialog boxes to select a file.</p>
+<p>Show graphical dialog boxes that ask the user to select a file.</p>
 <p>These dialog boxes come in two flavors:</p>
 <ul class="simple">
-<li>Open Dialog: Select a file to open.</li>
-<li>Save Dialog: Select a file to save.</li>
+<li><p>Open: Select a file to open.</p></li>
+<li><p>Save: Select a file to save.</p></li>
 </ul>
-<dl class="class">
-<dt id="campy.graphics.gfilechooser.GFileChooser">
-<em class="property">class </em><code class="descclassname">campy.graphics.gfilechooser.</code><code class="descname">GFileChooser</code><a class="reference internal" href="_modules/campy/graphics/gfilechooser.html#GFileChooser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfilechooser.GFileChooser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="attribute">
-<dt id="campy.graphics.gfilechooser.GFileChooser.OPEN_DIALOG">
-<code class="descname">OPEN_DIALOG</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gfilechooser.GFileChooser.OPEN_DIALOG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<p>In each case, the filename is returned, or None if the user closed the dialog.</p>
+<dl class="function">
+<dt id="campy.graphics.gfilechooser.show_open_dialog">
+<code class="sig-prename descclassname">campy.graphics.gfilechooser.</code><code class="sig-name descname">show_open_dialog</code><span class="sig-paren">(</span><em class="sig-param">directory='/Users/sredmond'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfilechooser.html#show_open_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfilechooser.show_open_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the user a dialog asking for a file to open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.7)"><em>pathlib.Path</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The initial directory displayed in the dialog.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The filename of the user-selected file, or None if the dialog was cancelled.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="campy.graphics.gfilechooser.GFileChooser.SAVE_DIALOG">
-<code class="descname">SAVE_DIALOG</code><em class="property"> = 1</em><a class="headerlink" href="#campy.graphics.gfilechooser.GFileChooser.SAVE_DIALOG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="campy.graphics.gfilechooser.GFileChooser.show_open_dialog">
-<em class="property">static </em><code class="descname">show_open_dialog</code><span class="sig-paren">(</span><em>current_dir=''</em>, <em>file_filter=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfilechooser.html#GFileChooser.show_open_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfilechooser.GFileChooser.show_open_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="campy.graphics.gfilechooser.GFileChooser.show_save_dialog">
-<em class="property">static </em><code class="descname">show_save_dialog</code><span class="sig-paren">(</span><em>current_dir=''</em>, <em>file_filter=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfilechooser.html#GFileChooser.show_save_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfilechooser.GFileChooser.show_save_dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dl class="function">
+<dt id="campy.graphics.gfilechooser.show_save_dialog">
+<code class="sig-prename descclassname">campy.graphics.gfilechooser.</code><code class="sig-name descname">show_save_dialog</code><span class="sig-paren">(</span><em class="sig-param">directory='/Users/sredmond'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfilechooser.html#show_save_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfilechooser.show_save_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the user a dialog asking for a file to save.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.7)"><em>pathlib.Path</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The initial directory displayed in the dialog.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The filename of the user-selected file, or None if the dialog was cancelled.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -229,26 +233,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

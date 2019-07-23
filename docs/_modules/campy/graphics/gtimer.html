@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -161,101 +162,72 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.graphics.gtimer</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">File: gtimer.py</span>
-<span class="sd">---------------</span>
-<span class="sd">This file defines the &lt;code&gt;GTimer&lt;/code&gt; class, which implements a</span>
-<span class="sd">general interval timer.</span>
-
-<span class="sd">A &lt;code&gt;GTimer&lt;/code&gt; fires GTimerEvents on the EventQueue.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="c1"># Implementation Note:</span>
-<span class="c1"># While Stanford&#39;s CPP lib (as of 05/17) uses a GTimerData struct to manage reference counting,</span>
-<span class="c1"># Python already handles reference counting and deletion for us.</span>
-<span class="c1"># By implementing a __del__ method, we can specify what to do when the object is truly destroyed.</span>
-<span class="c1"># TODO: Make sure that, when deletion on interpreter exit executes, that platform still exists.</span>
-
-<span class="c1"># TODO: handle copy.copy() and copy.deepcopy() by supporting pickled methods</span>
-
+<span></span><span class="sd">&quot;&quot;&quot;A general interval timer that fires :class:GTimerEvent`s.&quot;&quot;&quot;</span>
+<span class="c1"># NOTE(sredmond): Although the Stanford C++ libraries use GTimerData to manage</span>
+<span class="c1"># reference counts, Python will automatically garbage collect correctly for us.</span>
+<span class="c1"># Overriding the __del__ method allows us to offer Python some instruction for</span>
+<span class="c1"># when a GTimer is cleaned up, but __del__ isn&#39;t guaranteed to be called</span>
+<span class="c1"># immediately or at all, so we risk stranding memory.</span>
 <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
 
+
 <div class="viewcode-block" id="GTimer"><a class="viewcode-back" href="../../../campy.graphics.gtimer.html#campy.graphics.gtimer.GTimer">[docs]</a><span class="k">class</span> <span class="nc">GTimer</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Implements a simple interval timer that generates a</span>
-<span class="sd">    &lt;code&gt;GTimerEvent&lt;/code&gt; with a specified frequency.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;An interval timer that generates :class:GTimerEvent`s at a fixed rate.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">milliseconds</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates a GTimer object that generates a GTimerEvent</span>
-<span class="sd">        each time the specified number of milliseconds has elapsed.</span>
+        <span class="sd">&quot;&quot;&quot;Create a :class:`GTimer` that can generate :class:`GTimerEvent`s.</span>
 
-<span class="sd">        No events are generated until the client calls start on the timer.</span>
-<span class="sd">        For more details on using timers, see the documentation for the GTimerEvent class.</span>
+<span class="sd">        Once started, the timer will generate a :class:`GTimerEvent` each time</span>
+<span class="sd">        the given number of milliseconds has elapsed.</span>
 
-<span class="sd">        :type milliseconds: int</span>
-<span class="sd">        :param milliseconds: interval for timer event</span>
+<span class="sd">        Note that no events are generated until the client calls :meth:`start()`</span>
+<span class="sd">        on the timer.</span>
+
+<span class="sd">        For more, see the documentation for :class:`GTimerEvent`.</span>
+
+<span class="sd">        :param milliseconds: The timer interval (in milliseconds).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtimer_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">milliseconds</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">milliseconds</span> <span class="o">=</span> <span class="n">milliseconds</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtimer_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Deletes the Java resources associated with this timer.</span>
+        <span class="sd">&quot;&quot;&quot;Delete the backend resources associated with this :class:`GTimer`.</span>
 
-<span class="sd">        This method is called when there are no more references to this object</span>
-<span class="sd">        (Python keeps track), and is not guaranteed to be called if the object</span>
-<span class="sd">        exists when the interpreter exits.</span>
-
-<span class="sd">        TODO: Make sure module symbols from _platform haven&#39;t been cleaned up already.</span>
+<span class="sd">        This method is called by Python only when there are no references to</span>
+<span class="sd">        this object. However, it is not guaranteed to be called immediately or</span>
+<span class="sd">        even eventually (depending on the Python implementation). Thus, it&#39;s</span>
+<span class="sd">        best to think of this as a friendly suggestion to the Python</span>
+<span class="sd">        interpreter that cleaning up a :class:`GTimer` involves informing the</span>
+<span class="sd">        backend that it should free up any resources associated with the timer</span>
+<span class="sd">        as well.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;In del&quot;</span><span class="p">)</span>
+        <span class="c1"># TODO(sredmond): Investigate race condition when GTimer is deleted</span>
+        <span class="c1"># after the platform is deleted.</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtimer_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
 <div class="viewcode-block" id="GTimer.start"><a class="viewcode-back" href="../../../campy.graphics.gtimer.html#campy.graphics.gtimer.GTimer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Starts the timer.</span>
+        <span class="sd">&quot;&quot;&quot;Start this timer.</span>
 
-<span class="sd">        A timer continues to generate timer events until it</span>
-<span class="sd">        is stopped; to achieve the effect of a one-shot timer, the simplest</span>
-<span class="sd">        approach is to call the &lt;code&gt;stop&lt;/code&gt; method inside the event</span>
-<span class="sd">        handler.</span>
+<span class="sd">        A timer will generate :class:`GTimerEvent`s until it is stopped.</span>
+
+<span class="sd">        To achieve the effect of a one-shot timer, the best approach is to</span>
+<span class="sd">        call :meth:`stop()` on this timer after processing one event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtimer_start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GTimer.pause"><a class="viewcode-back" href="../../../campy.graphics.gtimer.html#campy.graphics.gtimer.GTimer.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">millis</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Pauses (all?) timers for &lt;code&gt;millis&lt;/code&gt; milliseconds before automatically resuming.&quot;&quot;&quot;</span>
-        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtimer_pause</span><span class="p">(</span><span class="n">millis</span><span class="p">)</span></div>
+<div class="viewcode-block" id="GTimer.pause"><a class="viewcode-back" href="../../../campy.graphics.gtimer.html#campy.graphics.gtimer.GTimer.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">milliseconds</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Pause this timer for some time before automatically resuming.</span>
+
+<span class="sd">        :param milliseconds: How long to pause this timer for (in milliseconds).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtimer_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">millis</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GTimer.stop"><a class="viewcode-back" href="../../../campy.graphics.gtimer.html#campy.graphics.gtimer.GTimer.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Stops the timer so that it stops generating events until it is restarted.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Stop this timer from generating events until it is restarted.&quot;&quot;&quot;</span>
         <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">gtimer_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Equality, inequality, and copying are all handled for us</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-<span class="k">def</span> <span class="nf">_test</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">campy.graphics.gevents</span> <span class="k">as</span> <span class="nn">gevents</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating timer...&#39;</span><span class="p">)</span>
-    <span class="n">timer</span> <span class="o">=</span> <span class="n">GTimer</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting timer...&#39;</span><span class="p">)</span>
-    <span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Started!&#39;</span><span class="p">)</span>
-    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Waiting for event&#39;</span><span class="p">)</span>
-        <span class="n">event</span> <span class="o">=</span> <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">getNextEvent</span><span class="p">(</span><span class="n">gevents</span><span class="o">.</span><span class="n">EventType</span><span class="o">.</span><span class="n">TIMER_TICKED</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">getEventType</span><span class="p">()</span> <span class="o">==</span> <span class="n">gevents</span><span class="o">.</span><span class="n">EventType</span><span class="o">.</span><span class="n">TIMER_TICKED</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Received a TICK&#39;</span><span class="p">)</span>
-            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Pausing for 5s&#39;</span><span class="p">)</span>
-                <span class="n">timer</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">4000</span><span class="p">)</span>
-    <span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-    <span class="c1"># del timer</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">_test</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;GTimer(ms=</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">milliseconds</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -285,26 +257,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

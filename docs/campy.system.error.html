@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -174,7 +175,7 @@ raised in this library inherit from <a class="reference internal" href="#campy.s
 exceptions in this library.</p>
 <dl class="exception">
 <dt id="campy.system.error.CampyException">
-<em class="property">exception </em><code class="descclassname">campy.system.error.</code><code class="descname">CampyException</code><a class="reference internal" href="_modules/campy/system/error.html#CampyException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.CampyException" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">campy.system.error.</code><code class="sig-name descname">CampyException</code><a class="reference internal" href="_modules/campy/system/error.html#CampyException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.CampyException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 <p>Root of all exceptions in the <a class="reference internal" href="campy.html#module-campy" title="campy"><code class="xref py py-mod docutils literal notranslate"><span class="pre">campy</span></code></a> module.</p>
 <p>This allows for consistent exception reporting in the module.</p>
@@ -182,27 +183,25 @@ exceptions in this library.</p>
 
 <dl class="exception">
 <dt id="campy.system.error.InterruptedIOError">
-<em class="property">exception </em><code class="descclassname">campy.system.error.</code><code class="descname">InterruptedIOError</code><a class="reference internal" href="_modules/campy/system/error.html#InterruptedIOError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.InterruptedIOError" title="Permalink to this definition">¶</a></dt>
+<em class="property">exception </em><code class="sig-prename descclassname">campy.system.error.</code><code class="sig-name descname">InterruptedIOError</code><a class="reference internal" href="_modules/campy/system/error.html#InterruptedIOError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.InterruptedIOError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.system.error.CampyException</span></code></a></p>
 <p>A blocking I/O call is interrupted by closing the program.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.system.error.error">
-<code class="descclassname">campy.system.error.</code><code class="descname">error</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/system/error.html#error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.error" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">campy.system.error.</code><code class="sig-name descname">error</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/system/error.html#error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.system.error.error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generic function to raise an error.</p>
 <p>Signals an error condition in a program by throwing an
 <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a>: with the specified message.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – error message</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body">An <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a> with the supplied error message.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – error message</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>An <a class="reference internal" href="#campy.system.error.CampyException" title="campy.system.error.CampyException"><code class="xref py py-class docutils literal notranslate"><span class="pre">CampyException</span></code></a> with the supplied error message.</p>
+</dd>
+</dl>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="s1">&#39;Red Leicester&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cheeses</span><span class="p">:</span>
     <span class="n">error</span><span class="p">(</span><span class="s2">&quot;I&#39;m afraid we&#39;re fresh out of Red Leicester, sir.&quot;</span><span class="p">)</span>
@@ -250,26 +249,16 @@ traceback information is maintained.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

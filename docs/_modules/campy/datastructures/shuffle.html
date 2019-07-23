@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -161,33 +162,23 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.datastructures.shuffle</h1><div class="highlight"><pre>
-<span></span><span class="c1"># /*</span>
-<span class="c1">#  * File: shuffle.cpp</span>
-<span class="c1">#  * -----------------</span>
-<span class="c1">#  * Implementation of the functions in shuffle.h.</span>
-<span class="c1">#  * See shuffle.h for documentation of each function.</span>
-<span class="c1">#  *</span>
-<span class="c1">#  * @author Marty Stepp</span>
-<span class="c1">#  * @version 2014/10/08</span>
-<span class="c1">#  * - removed &#39;using namespace&#39; statement</span>
-<span class="c1">#  * @since 2014/02/01</span>
-<span class="c1">#  */</span>
+<span></span><span class="sd">&quot;&quot;&quot;Shuffle an immutable collection and return a copy of the collection.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-<span class="c1">#include &quot;shuffle.h&quot;</span>
+<div class="viewcode-block" id="shuffle"><a class="viewcode-back" href="../../../campy.datastructures.shuffle.html#campy.datastructures.shuffle.shuffle">[docs]</a><span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a randomly shuffled copy of a collection.</span>
 
-<div class="viewcode-block" id="shuffle_string"><a class="viewcode-back" href="../../../campy.datastructures.shuffle.html#campy.datastructures.shuffle.shuffle_string">[docs]</a><span class="k">def</span> <span class="nf">shuffle_string</span><span class="p">(</span><span class="nb">str</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Randomly reararnges the characters of the given string and returns the rearranged version.&quot;&quot;&quot;</span>
-    <span class="k">pass</span></div>
-    <span class="c1"># for (int i = 0, length = s.length(); i &lt; length; i++) {</span>
-    <span class="c1">#     int j = randomInteger(i, length - 1);</span>
-    <span class="c1">#     if (i != j) {</span>
-    <span class="c1">#         std::string::value_type temp = s[i];</span>
-    <span class="c1">#         s[i] = s[j];</span>
-    <span class="c1">#         s[j] = temp;</span>
-    <span class="c1">#     }</span>
-    <span class="c1"># }</span>
-    <span class="c1"># return s;</span>
-<span class="c1"># }</span>
+<span class="sd">    Note that this function&#39;s behavior depends on the type of its input.</span>
+
+<span class="sd">    If collection represents an infinite iterable, this will loop indefinitely.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">collection</span><span class="p">)</span>  <span class="c1"># Consume all elements.</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">random</span><span class="o">=</span><span class="n">random</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">collection</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">collection</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span></div>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;shuffle&#39;</span><span class="p">]</span>
 </pre></div>
 
            </div>
@@ -217,26 +208,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

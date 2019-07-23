@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -161,96 +162,144 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.graphics.gtypes</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module defines classes for representing points, dimensions, and rectangles.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Exported types for representing points, dimensions, and rectangles.</span>
+
+<span class="sd">A :class:`GPoint` represents an (x, y) pair and defaults to (0, 0).</span>
+
+<span class="sd">A :class:`GDimension` represents a (width, height) pair and defaults to (0, 0).</span>
+
+<span class="sd">A :class:`GRectangle` represents an (x, y, width, height) quadruplet and</span>
+<span class="sd">defaults to (0, 0, 0, 0).</span>
+
+<span class="sd">Named attributes are accessible for each of these types::</span>
+
+<span class="sd">    point = GPoint(4, 1)</span>
+<span class="sd">    print(point.x, point.y)  # =&gt; 4, 1</span>
+
+<span class="sd">    size = GDimension(41, 574)</span>
+<span class="sd">    print(size.width, size.height)  # =&gt; 41, 574</span>
+
+<span class="sd">    rect = GRectangle(4, 1, 41, 574)</span>
+<span class="sd">    print(rect.x, rect.y, rect.width, rect.height)  # =&gt; 4, 1, 41, 574</span>
+
+<span class="sd">Each of these types can also be unpacked like a tuple.</span>
+
+<span class="sd">    point = GPoint(4, 1)</span>
+<span class="sd">    x, y = point</span>
+
+<span class="sd">    size = GDimension(41, 574)</span>
+<span class="sd">    width, height = size</span>
+
+<span class="sd">    rect = GRectangle(4, 1, 41, 574)</span>
+<span class="sd">    x, y, width, height = rect</span>
+
+<span class="sd">Lastly, each of these types is immutable.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span> <span class="k">as</span> <span class="n">_nt</span>
+<span class="c1"># NOTE: There&#39;s a lot of hacking around with the internals of namedtuple in</span>
+<span class="c1"># this module. This level of hacking is not encouraged, and might be removed</span>
+<span class="c1"># in the future, replacing these types with custom-style namedtuples.</span>
+<span class="c1"># Here be dragons.</span>
+<span class="c1"># TODO(sredmond): Redocument these types so that Sphinx&#39;s autodoc sees them.</span>
+<span class="c1"># TODO(sredmond): Reconsider defaulting all arguments to 0.0 instead of 0.</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">operator</span>
 
-<span class="n">GPoint</span> <span class="o">=</span> <span class="n">_nt</span><span class="p">(</span><span class="s1">&#39;GPoint&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
-<span class="n">GPoint</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-<span class="n">GDimension</span> <span class="o">=</span> <span class="n">_nt</span><span class="p">(</span><span class="s1">&#39;GDimension&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">])</span>
-<span class="n">GDimension</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="c1"># An (x, y) pair defaulting to (0, 0).</span>
+<span class="n">GPoint</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;GPoint&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">))</span>
+<span class="n">GPoint</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-<div class="viewcode-block" id="GRectangle"><a class="viewcode-back" href="../../../campy.graphics.gtypes.html#campy.graphics.gtypes.GRectangle">[docs]</a><span class="k">class</span> <span class="nc">GRectangle</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    This type contains real-valued x, y, width, and height fields. It is used to</span>
-<span class="sd">    represent the bounding box of a graphical object</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Initializes a GRectangle object with the specified fields. If these</span>
-<span class="sd">        parameters are not supplied hte default values are set to 0.0</span>
 
-<span class="sd">        @type x: float</span>
-<span class="sd">        @param x: x coordinate of upper left corner</span>
-<span class="sd">        @type y: float</span>
-<span class="sd">        @param y: y coordinate of upper left corner</span>
-<span class="sd">        @type width: float</span>
-<span class="sd">        @param width: width of rectangle</span>
-<span class="sd">        @type height: float</span>
-<span class="sd">        @param height: height of rectangle</span>
-<span class="sd">        @rtype: void</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+<span class="c1"># A (width, height) pair defaulting to (0, 0).</span>
+<span class="n">GDimension</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;GDimension&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">))</span>
+<span class="n">GDimension</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">GDimension</span><span class="o">.</span><span class="n">empty</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">dim</span><span class="p">:</span> <span class="n">dim</span><span class="o">.</span><span class="n">width</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">dim</span><span class="o">.</span><span class="n">height</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+<span class="n">GDimension</span><span class="o">.</span><span class="n">empty</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;empty&#39;</span>
 
-<div class="viewcode-block" id="GRectangle.is_empty"><a class="viewcode-back" href="../../../campy.graphics.gtypes.html#campy.graphics.gtypes.GRectangle.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns if the rectangle is empty.</span>
 
-<span class="sd">        @rtype: boolean</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">&lt;=</span> <span class="mi">0</span></div>
+<span class="c1"># An (x, y, width, height) quadruplet defaulting to (0, 0, 0, 0)</span>
+<span class="n">GRectangle</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;GRectangle&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">))</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__defaults__</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="n">empty</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">rect</span><span class="p">:</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="n">empty</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;empty&#39;</span>
+<span class="c1"># NOTE(sredmond): Since we consider the edge to be contained, &quot;empty&quot; GRectangles can still contain points.</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="fm">__contains__</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">rect</span><span class="p">,</span> <span class="n">point</span><span class="p">:</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">rect</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">rect</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="fm">__contains__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;__contains__&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Returns true if the rectangle contains the given point, which may be</span>
-<span class="sd">        specified either as a GPoint or distinct coordinates</span>
 
-<span class="sd">        @type pt: GPoint</span>
-<span class="sd">        @param pt: GPoint to check, will override x and y</span>
-<span class="sd">        @type x: float</span>
-<span class="sd">        @param x: x coordinate of point to check</span>
-<span class="sd">        @type y: float</span>
-<span class="sd">        @param y: y coordinate of point to check</span>
-<span class="sd">        @rtype: boolean</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">point</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">and</span> \
-               <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span></div>
+<span class="c1"># Override docstrings. This is perhaps the messiest part of this file.</span>
+<span class="n">GPoint</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s1">&#39;Graphical representation of an (x, y) point defaulting to (0, 0).&#39;</span>
+<span class="n">GPoint</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Create a :class:`GPoint`.</span>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing gtypes.py&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------------------------------------&quot;</span><span class="p">)</span>
+<span class="s2">If parameters are not supplied, all arguments default to 0.</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Create GPoint default values&quot;</span><span class="p">)</span>
-    <span class="n">gp1</span> <span class="o">=</span> <span class="n">GPoint</span><span class="p">()</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">gp1</span><span class="o">.</span><span class="n">x</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">gp1</span><span class="o">.</span><span class="n">y</span>
-    <span class="n">tostring</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">gp1</span><span class="p">)</span>
-    <span class="n">gp2</span> <span class="o">=</span> <span class="n">GPoint</span><span class="p">()</span>
-    <span class="n">eq</span> <span class="o">=</span> <span class="p">(</span><span class="n">gp1</span> <span class="o">==</span> <span class="n">gp2</span><span class="p">)</span>
-    <span class="n">ne</span> <span class="o">=</span> <span class="p">(</span><span class="n">gp1</span> <span class="o">!=</span> <span class="n">gp2</span><span class="p">)</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">y</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">tostring</span> <span class="o">!=</span> <span class="s2">&quot;GPoint(x=0.0, y=0.0)&quot;</span> <span class="ow">or</span> <span class="n">eq</span> <span class="o">!=</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">ne</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FAILED&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PASSED&quot;</span><span class="p">)</span>
+<span class="s2">All arguments have units of pixels.</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Create GPoint non-default values&quot;</span><span class="p">)</span>
-    <span class="n">gp1</span> <span class="o">=</span> <span class="n">GPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">gp1</span><span class="o">.</span><span class="n">x</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">gp1</span><span class="o">.</span><span class="n">y</span>
-    <span class="n">tostring</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">gp1</span><span class="p">)</span>
-    <span class="n">gp2</span> <span class="o">=</span> <span class="n">GPoint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.5</span><span class="p">)</span>
-    <span class="n">eq</span> <span class="o">=</span> <span class="p">(</span><span class="n">gp1</span> <span class="o">==</span> <span class="n">gp2</span><span class="p">)</span>
-    <span class="n">ne</span> <span class="o">=</span> <span class="p">(</span><span class="n">gp1</span> <span class="o">!=</span> <span class="n">gp2</span><span class="p">)</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mf">5.0</span> <span class="ow">or</span> <span class="n">y</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">2.5</span> <span class="ow">or</span> <span class="n">tostring</span> <span class="o">!=</span> <span class="s2">&quot;GPoint(x=5, y=-2.5)&quot;</span> <span class="ow">or</span> <span class="n">eq</span> <span class="o">!=</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">ne</span> <span class="o">!=</span> <span class="kc">False</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FAILED&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PASSED&quot;</span><span class="p">)</span>
-    <span class="nb">print</span>
+<span class="s2">:param x: The x-coordinate (in pixels).</span>
+<span class="s2">:param y: The y-coordinate (in pixels).</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">GPoint</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The x-coordinate (in pixels).&#39;</span><span class="p">)</span>
+<span class="n">GPoint</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The y-coordinate (in pixels).&#39;</span><span class="p">)</span>
 
+
+<span class="n">GDimension</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s1">&#39;Graphical representation of a size (width, height) defaulting to (0, 0).&#39;</span>
+<span class="n">GDimension</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Create a :class:`GDimension`.</span>
+
+<span class="s2">If parameters are not supplied, all arguments default to 0.</span>
+
+<span class="s2">All arguments have units of pixels.</span>
+
+<span class="s2">:param width: The width (in pixels).</span>
+<span class="s2">:param height: The height (in pixels).</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">GDimension</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The width (in pixels).&#39;</span><span class="p">)</span>
+<span class="n">GDimension</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The height (in pixels).&#39;</span><span class="p">)</span>
+<span class="n">GDimension</span><span class="o">.</span><span class="n">empty</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s1">&#39;Return whether this rectangle is empty.&#39;</span>
+
+
+<span class="n">GRectangle</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Graphical rectangle with upper-left corner (x, y) and size (width, height).</span>
+
+<span class="s2">A :class:`GRectangle` is often used to represent the bounding box of a graphical object.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="fm">__new__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Create a :class:`GRectangle`.</span>
+
+<span class="s2">The x- and y-coordinates refer to the upper-left corner of this</span>
+<span class="s2">:class:`GRectangle`.</span>
+
+<span class="s2">If parameters are not supplied, all arguments default to 0.</span>
+
+<span class="s2">All arguments have units of pixels.</span>
+
+<span class="s2">:param x: The x-coordinate of the upper left corner (in pixels).</span>
+<span class="s2">:param y: The y-coordinate of the upper left corner (in pixels).</span>
+<span class="s2">:param width: The width of this rectangle (in pixels).</span>
+<span class="s2">:param height: The height of this rectangle (in pixels).</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The x-coordinate of the upper left corner (in pixels).&#39;</span><span class="p">)</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The y-coordinate of the upper left corner (in pixels).&#39;</span><span class="p">)</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The width of this rectangle (in pixels).&#39;</span><span class="p">)</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;The height of this rectangle (in pixels).&#39;</span><span class="p">)</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="n">empty</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s1">&#39;Return whether this rectangle is empty.&#39;</span>
+<span class="n">GRectangle</span><span class="o">.</span><span class="fm">__contains__</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Return whether this rectangle contains a point.</span>
+
+<span class="s2">The edges of the rectangle are considered to be contained by the rectangle.</span>
+<span class="s2">For example, the point (4, 1) is contained in the rectangle (4, 1, 41, 574).</span>
+
+<span class="s2">The point must be unpackable into two elements, which means that you can use a</span>
+<span class="s2">:class:`GPoint` or a two-element tuple::</span>
+
+<span class="s2">    rect = GRectangle(4, 1, 41, 574)</span>
+<span class="s2">    point = GPoint(4, 1)</span>
+<span class="s2">    if point in rect:  # Using a GPoint.</span>
+<span class="s2">        print(&#39;GPoint is contained.&#39;)</span>
+<span class="s2">    if (5, 3) in rect:  # Using a tuple.</span>
+<span class="s2">        print(&#39;tuple is contained&#39;)</span>
+
+<span class="s2">:param point: An (x, y) point to check for containment.</span>
+<span class="s2">:return: Whether this rectangle contains the given point.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;GPoint&#39;</span><span class="p">,</span> <span class="s1">&#39;GDimension&#39;</span><span class="p">,</span> <span class="s1">&#39;GRectangle&#39;</span><span class="p">)</span>
 </pre></div>
 
            </div>
@@ -280,26 +329,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

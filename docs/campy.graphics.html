@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -188,10 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="campy.graphics.gmath.html">campy.graphics.gmath module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="campy.graphics.gobjects.html">campy.graphics.gobjects module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="campy.graphics.goptionpane.html">campy.graphics.goptionpane module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="campy.graphics.gtimer.html">campy.graphics.gtimer module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="campy.graphics.gtimer.html#file-gtimer-py">File: gtimer.py</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="campy.graphics.gtimer.html">campy.graphics.gtimer module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="campy.graphics.gtypes.html">campy.graphics.gtypes module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="campy.graphics.gwindow.html">campy.graphics.gwindow module</a></li>
 </ul>
@@ -199,6 +197,18 @@
 </div>
 <div class="section" id="module-campy.graphics">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-campy.graphics" title="Permalink to this headline">¶</a></h2>
+<p>Provide convenient top-level imports for the <a class="reference internal" href="#module-campy.graphics" title="campy.graphics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">campy.graphics</span></code></a> subpackage.</p>
+<p>Library code should still use absolute imports where possible. That is, prefer:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">campy.graphics.gcolor</span> <span class="k">import</span> <span class="n">GColor</span>
+</pre></div>
+</div>
+<p>more than:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">campy.graphics</span> <span class="k">import</span> <span class="n">GColor</span>
+</pre></div>
+</div>
+<p>These overrides are provided for student (and debugging!) convenience. They are
+subject to be removed at any time in the future and should not be considered
+part of the API.</p>
 </div>
 </div>
 
@@ -230,26 +240,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

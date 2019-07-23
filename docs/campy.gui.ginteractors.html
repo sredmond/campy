@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -47,12 +54,7 @@
 
   gtag('config', 'UA-54146031-4');
 </script>
-
 <!-- End extrahead block. -->
-
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -60,11 +62,10 @@
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -167,230 +168,197 @@
             
   <div class="section" id="module-campy.gui.ginteractors">
 <span id="campy-gui-ginteractors-module"></span><h1>campy.gui.ginteractors module<a class="headerlink" href="#module-campy.gui.ginteractors" title="Permalink to this headline">¶</a></h1>
-<p>Graphical Interactors similar to those in the Java Swing libraries.</p>
-<p>Provides a common interface for constructing GInteractors.</p>
-<p>GButton:
-GCheckbox:
-GSlider:
-GTextField:
-GChooser:</p>
+<p>Graphical interactors.</p>
+<p>This module provides five types of interactors:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#campy.gui.ginteractors.GButton" title="campy.gui.ginteractors.GButton"><code class="xref py py-class docutils literal notranslate"><span class="pre">GButton</span></code></a>: A clickable button.</p></li>
+<li><p><a class="reference internal" href="#campy.gui.ginteractors.GCheckBox" title="campy.gui.ginteractors.GCheckBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">GCheckBox</span></code></a>: A checkable box.</p></li>
+<li><p><a class="reference internal" href="#campy.gui.ginteractors.GSlider" title="campy.gui.ginteractors.GSlider"><code class="xref py py-class docutils literal notranslate"><span class="pre">GSlider</span></code></a>: A slider between numeric values.</p></li>
+<li><p><a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a>: A list of selectable items.</p></li>
+<li><p><a class="reference internal" href="#campy.gui.ginteractors.GTextField" title="campy.gui.ginteractors.GTextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">GTextField</span></code></a>: A single-line string entry.</p></li>
+</ul>
 <dl class="class">
 <dt id="campy.gui.ginteractors.GButton">
-<em class="property">class </em><code class="descclassname">campy.gui.ginteractors.</code><code class="descname">GButton</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.gui.ginteractors.</code><code class="sig-name descname">GButton</code><span class="sig-paren">(</span><em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.gui.ginteractors.GInteractor" title="campy.gui.ginteractors.GInteractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.gui.ginteractors.GInteractor</span></code></a></p>
-<p>An onscreen button.</p>
+<p>An onscreen, clickable button.</p>
 <p>The following program displays a button that, when pressed, generates the
 message: “Please do not press this button again!” (credit Douglas Adams):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gw</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
-<span class="n">button</span> <span class="o">=</span> <span class="n">GButton</span><span class="p">(</span><span class="s2">&quot;RED&quot;</span><span class="p">)</span>
-<span class="n">gw</span><span class="o">.</span><span class="n">add_to_region</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="s2">&quot;SOUTH&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">button</span> <span class="o">=</span> <span class="n">GButton</span><span class="p">(</span><span class="s1">&#39;RED BUTTON&#39;</span><span class="p">)</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add_to_region</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="n">Region</span><span class="o">.</span><span class="n">NORTH</span><span class="p">)</span>
 
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="n">gevents</span><span class="o">.</span><span class="n">wait_for_event</span><span class="p">(</span><span class="n">ACTION_EVENT</span> <span class="o">|</span> <span class="n">CLICK_EVENT</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">event_type</span> <span class="o">==</span> <span class="n">MOUSE_CLICKED</span><span class="p">:</span>
-                <span class="k">break</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please do not press this button again!&quot;</span><span class="p">)</span>
+<span class="nd">@button</span><span class="o">.</span><span class="n">onclick</span>
+<span class="k">def</span> <span class="nf">chastise</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Please do not press this button again!&#39;</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="o">.</span><span class="n">disable</span><span class="p">()</span>
 </pre></div>
 </div>
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.add_click_handler">
+<code class="sig-name descname">add_click_handler</code><span class="sig-paren">(</span><em class="sig-param">function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton.add_click_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton.add_click_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.click">
+<code class="sig-name descname">click</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton.click"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton.click" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.disable">
+<code class="sig-name descname">disable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton.disable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton.disable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable this <a class="reference internal" href="#campy.gui.ginteractors.GButton" title="campy.gui.ginteractors.GButton"><code class="xref py py-class docutils literal notranslate"><span class="pre">GButton</span></code></a>, meaning it cannot receive clicks.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.disabled">
+<em class="property">property </em><code class="sig-name descname">disabled</code><a class="headerlink" href="#campy.gui.ginteractors.GButton.disabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set whether this <a class="reference internal" href="#campy.gui.ginteractors.GButton" title="campy.gui.ginteractors.GButton"><code class="xref py py-class docutils literal notranslate"><span class="pre">GButton</span></code></a>: is disabled.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.enable">
+<code class="sig-name descname">enable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton.enable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton.enable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable this <a class="reference internal" href="#campy.gui.ginteractors.GButton" title="campy.gui.ginteractors.GButton"><code class="xref py py-class docutils literal notranslate"><span class="pre">GButton</span></code></a>, meaning it can receive clicks.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.label">
+<em class="property">property </em><code class="sig-name descname">label</code><a class="headerlink" href="#campy.gui.ginteractors.GButton.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set this <a class="reference internal" href="#campy.gui.ginteractors.GButton" title="campy.gui.ginteractors.GButton"><code class="xref py py-class docutils literal notranslate"><span class="pre">GButton</span></code></a>:’s label.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.onclick">
+<code class="sig-name descname">onclick</code><span class="sig-paren">(</span><em class="sig-param">function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton.onclick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton.onclick" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="campy.gui.ginteractors.GButton.remove_click_handler">
+<code class="sig-name descname">remove_click_handler</code><span class="sig-paren">(</span><em class="sig-param">function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GButton.remove_click_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GButton.remove_click_handler" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.gui.ginteractors.GCheckBox">
-<em class="property">class </em><code class="descclassname">campy.gui.ginteractors.</code><code class="descname">GCheckBox</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GCheckBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GCheckBox" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.gui.ginteractors.</code><code class="sig-name descname">GCheckBox</code><span class="sig-paren">(</span><em class="sig-param">label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GCheckBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GCheckBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.gui.ginteractors.GInteractor" title="campy.gui.ginteractors.GInteractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.gui.ginteractors.GInteractor</span></code></a></p>
 <p>An onscreen check box.</p>
 <p>Clicking once on the check box selects it; clicking again removes the
 selection.</p>
-<p>If a GCheckBox has an action command, clicking on the box generates a
-GActionEvent.</p>
-<dl class="attribute">
+<p>Clicking on the box generates a GActionEvent.</p>
+<dl class="method">
 <dt id="campy.gui.ginteractors.GCheckBox.selected">
-<code class="descname">selected</code><a class="headerlink" href="#campy.gui.ginteractors.GCheckBox.selected" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">selected</code><a class="headerlink" href="#campy.gui.ginteractors.GCheckBox.selected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set whether the checkbox is selected.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether the state is selected.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether the checkbox is selected.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.gui.ginteractors.GChooser">
-<em class="property">class </em><code class="descclassname">campy.gui.ginteractors.</code><code class="descname">GChooser</code><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GChooser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GChooser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.gui.ginteractors.</code><code class="sig-name descname">GChooser</code><span class="sig-paren">(</span><em class="sig-param">*items</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GChooser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GChooser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.gui.ginteractors.GInteractor" title="campy.gui.ginteractors.GInteractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.gui.ginteractors.GInteractor</span></code></a></p>
-<p>This interactor subclass represents a selectable list.  The
-GChooser constructor creates an empty chooser.
-Once the chooser has been created, clients can use addItem
-to add the options.  For example, the following code creates a
-GChooser containing the four strings
-“Small”, “Medium”, “Large”,
-and “X-Large”:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sizeChooser</span> <span class="o">=</span> <span class="n">ginteractors</span><span class="o">.</span><span class="n">GChooser</span><span class="p">()</span>
-<span class="n">sizeChooser</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Small&quot;</span><span class="p">);</span>
-<span class="n">sizeChooser</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Medium&quot;</span><span class="p">);</span>
-<span class="n">sizeChooser</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Large&quot;</span><span class="p">);</span>
-<span class="n">sizeChooser</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;X-Large&quot;</span><span class="p">);</span>
+<p>A list of selectable items.</p>
+<p>You can construct a <a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a> with an ordered collection of items,
+or <code class="xref py py-meth docutils literal notranslate"><span class="pre">add()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">remove()</span></code> items after construction:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">size_chooser</span> <span class="o">=</span> <span class="n">GChooser</span><span class="p">(</span><span class="s1">&#39;Small&#39;</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">,</span> <span class="s1">&#39;Large&#39;</span><span class="p">)</span>
+<span class="n">size_chooser</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="s1">&#39;X-Large&#39;</span><span class="p">)</span>
+<span class="n">size_chooser</span><span class="o">.</span><span class="n">remove_item</span><span class="p">(</span><span class="s1">&#39;Medium&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To get the selected item:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">size_chooser</span> <span class="o">=</span> <span class="n">GChooser</span><span class="p">(</span><span class="s1">&#39;Small&#39;</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">,</span> <span class="s1">&#39;Large&#39;</span><span class="p">)</span>
+<span class="n">selected</span> <span class="o">=</span> <span class="n">size_chooser</span><span class="o">.</span><span class="n">selected_item</span>
 </pre></div>
 </div>
 <dl class="method">
-<dt id="campy.gui.ginteractors.GChooser.addItem">
-<code class="descname">addItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GChooser.addItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GChooser.addItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a new item consisting of the specified string.</p>
-<p>&#64;type item: string
-&#64;rtype: void</p>
+<dt id="campy.gui.ginteractors.GChooser.add_item">
+<code class="sig-name descname">add_item</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GChooser.add_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GChooser.add_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new option to this <a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> – The new item to add to this <a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a>.</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
+<dl class="method">
+<dt id="campy.gui.ginteractors.GChooser.remove_item">
+<code class="sig-name descname">remove_item</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GChooser.remove_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GChooser.remove_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an option from this <a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>item</strong> – The item to remove from this <a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether the item was removed.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="campy.gui.ginteractors.GChooser.selected_item">
-<code class="descname">selected_item</code><a class="headerlink" href="#campy.gui.ginteractors.GChooser.selected_item" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the current item selected in this GChooser.</p>
-<p>&#64;rtype: string</p>
+<em class="property">property </em><code class="sig-name descname">selected_item</code><a class="headerlink" href="#campy.gui.ginteractors.GChooser.selected_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the currently selected item of this <a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a>.</p>
+<p>Setting the selected item to something not in this <a class="reference internal" href="#campy.gui.ginteractors.GChooser" title="campy.gui.ginteractors.GChooser"><code class="xref py py-class docutils literal notranslate"><span class="pre">GChooser</span></code></a>’s
+list of items results in no change.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.gui.ginteractors.GInteractor">
-<em class="property">class </em><code class="descclassname">campy.gui.ginteractors.</code><code class="descname">GInteractor</code><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GInteractor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GInteractor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.gui.ginteractors.</code><code class="sig-name descname">GInteractor</code><span class="sig-paren">(</span><em class="sig-param">command=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GInteractor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GInteractor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="campy.graphics.gobjects.html#campy.graphics.gobjects.GObject" title="campy.graphics.gobjects.GObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.graphics.gobjects.GObject</span></code></a></p>
-<p>This class is the superclass for all graphical interactors.
-In most applications, interactors will be added to a control strip
-along one of the sides of the GWindow, but they can
-also be placed in specific positions just like any other
-GObject.</p>
-<dl class="attribute">
-<dt id="campy.gui.ginteractors.GInteractor.action_command">
-<code class="descname">action_command</code><a class="headerlink" href="#campy.gui.ginteractors.GInteractor.action_command" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get or set the action command to the indicated string.</p>
-<p>If the string is nonempty, activating the interactor generates a GActionEvent.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The action command to set or get.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
+<p>Superclass of all graphical interactors.</p>
+<p>In most applications, interactors will be added to one region in a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code>, but interactors can also be placed in specific positions
+in a <code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code> (or the <code class="xref py py-class docutils literal notranslate"><span class="pre">GWindow</span></code>’s default top
+<code class="xref py py-class docutils literal notranslate"><span class="pre">GCompound</span></code>) just like any other <code class="xref py py-class docutils literal notranslate"><span class="pre">GObject</span></code>.</p>
 <dl class="method">
-<dt id="campy.gui.ginteractors.GInteractor.getActionCommand">
-<code class="descname">getActionCommand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GInteractor.getActionCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GInteractor.getActionCommand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the action command associated with the interactor.</p>
-<p>&#64;rtype: string</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.gui.ginteractors.GInteractor.getBounds">
-<code class="descname">getBounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GInteractor.getBounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GInteractor.getBounds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the bounding GRectangle of the GInteractor</p>
-<p>&#64;rtype: GRectangle</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.gui.ginteractors.GInteractor.setActionCommand">
-<code class="descname">setActionCommand</code><span class="sig-paren">(</span><em>cmd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GInteractor.setActionCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GInteractor.setActionCommand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the action command to the indicated string.  If the string is not
-empty, activating the interactor generates a GActionEvent.</p>
-<p>&#64;type cmd: string
-&#64;param cmd: action command
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.gui.ginteractors.GInteractor.setBounds">
-<code class="descname">setBounds</code><span class="sig-paren">(</span><em>x=0.0</em>, <em>y=0.0</em>, <em>width=0.0</em>, <em>height=0.0</em>, <em>rect=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GInteractor.setBounds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GInteractor.setBounds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes the bounds of the interactor to the specified values.</p>
-<p>&#64;type x: float
-&#64;type y: float
-&#64;type width: float
-&#64;type height: float
-&#64;type rect: GRectangle
-&#64;param rect: bounding GRectangle, overrides x, y ,width and height
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.gui.ginteractors.GInteractor.setSize">
-<code class="descname">setSize</code><span class="sig-paren">(</span><em>width=0.0</em>, <em>height=0.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GInteractor.setSize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GInteractor.setSize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes the size of the interactor to the specified width and height.</p>
-<p>&#64;type width: float
-&#64;type height: float
-&#64;type size: GDimension, overrides width and height parameters
-&#64;rtype: void</p>
+<dt id="campy.gui.ginteractors.GInteractor.command">
+<em class="property">property </em><code class="sig-name descname">command</code><a class="headerlink" href="#campy.gui.ginteractors.GInteractor.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the action command for this interactor.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.gui.ginteractors.GSlider">
-<em class="property">class </em><code class="descclassname">campy.gui.ginteractors.</code><code class="descname">GSlider</code><span class="sig-paren">(</span><em>min_value=0</em>, <em>max_value=100</em>, <em>starting_value=50</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GSlider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GSlider" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.gui.ginteractors.</code><code class="sig-name descname">GSlider</code><span class="sig-paren">(</span><em class="sig-param">min_value=0</em>, <em class="sig-param">max_value=100</em>, <em class="sig-param">starting_value=50</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GSlider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GSlider" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.gui.ginteractors.GInteractor" title="campy.gui.ginteractors.GInteractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.gui.ginteractors.GInteractor</span></code></a></p>
 <p>An onscreen slider.</p>
-<p>Dragging the slider handle generates a GActionEvent if the GSlider has a
-nonempty action command.</p>
-<dl class="attribute">
+<p>Dragging</p>
+<dl class="method">
 <dt id="campy.gui.ginteractors.GSlider.value">
-<code class="descname">value</code><a class="headerlink" href="#campy.gui.ginteractors.GSlider.value" title="Permalink to this definition">¶</a></dt>
+<em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#campy.gui.ginteractors.GSlider.value" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set the current value of the GSlider.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The value of the GSlider.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The value of the GSlider.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.gui.ginteractors.GTextField">
-<em class="property">class </em><code class="descclassname">campy.gui.ginteractors.</code><code class="descname">GTextField</code><span class="sig-paren">(</span><em>nChars=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GTextField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GTextField" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">campy.gui.ginteractors.</code><code class="sig-name descname">GTextField</code><span class="sig-paren">(</span><em class="sig-param">width=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GTextField"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GTextField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#campy.gui.ginteractors.GInteractor" title="campy.gui.ginteractors.GInteractor"><code class="xref py py-class docutils literal notranslate"><span class="pre">campy.gui.ginteractors.GInteractor</span></code></a></p>
-<p>This interactor subclass represents a text field for entering short
-text strings.  Hitting enter in a text field generates a
-GActionEvent if the text field has a nonempty action command.</p>
+<p>An onscreen text field for entering short text strings.</p>
+<p>Hitting RETURN in a text field generates a <code class="xref py py-class docutils literal notranslate"><span class="pre">GActionEvent</span></code>.</p>
 <dl class="method">
-<dt id="campy.gui.ginteractors.GTextField.getText">
-<code class="descname">getText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GTextField.getText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GTextField.getText" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the contents of the text field.</p>
-<p>&#64;rtype: string</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.gui.ginteractors.GTextField.getType">
-<code class="descname">getType</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GTextField.getType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GTextField.getType" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the type of this object</p>
-<p>&#64;rtype: string</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.gui.ginteractors.GTextField.setText">
-<code class="descname">setText</code><span class="sig-paren">(</span><em>str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GTextField.setText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GTextField.setText" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the text of the field to the specified string.</p>
-<p>&#64;type str: string
-&#64;rtype: void</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="campy.gui.ginteractors.GTextField.text">
-<code class="descname">text</code><a class="headerlink" href="#campy.gui.ginteractors.GTextField.text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get or set the contents of the text field.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="campy.gui.ginteractors.GTextField.toString">
-<code class="descname">toString</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/ginteractors.html#GTextField.toString"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.ginteractors.GTextField.toString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts this object into string form</p>
-<p>&#64;rtype: string</p>
+<em class="property">property </em><code class="sig-name descname">text</code><a class="headerlink" href="#campy.gui.ginteractors.GTextField.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or set the contents of this <a class="reference internal" href="#campy.gui.ginteractors.GTextField" title="campy.gui.ginteractors.GTextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">GTextField</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -425,26 +393,16 @@ GActionEvent if the text field has a nonempty action command.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
