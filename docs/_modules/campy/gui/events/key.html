@@ -162,12 +162,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.gui.events.key</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Interact with the graphics libraries via key events.</span>
+
+<span class="sd">NOTE(sredmond): This module is still heavily under development, and should be</span>
+<span class="sd">considered incomplete by all users.</span>
 
 <span class="sd">Usage::</span>
 
 <span class="sd">    @campy.onkeypress(&#39;a&#39;, modifier=SHIFT | CTRL)</span>
-
 <span class="sd">    campy.keypress(&#39;a&#39;)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="c1"># See: https://effbot.org/tkinterbook/tkinter-events-and-bindings.htm</span>
@@ -227,7 +229,8 @@
 
 
 <div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../campy.gui.events.key.html#campy.gui.events.key.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_window</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Key&gt;&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__callback_key_pressed</span><span class="p">(</span><span class="n">event</span><span class="p">))</span></div>
+    <span class="c1"># self._window.bind(&quot;&lt;Key&gt;&quot;, lambda event: self.__callback_key_pressed(event))</span>
+    <span class="k">pass</span></div>
 
 
 <span class="c1"># def onkeypress(letter):</span>

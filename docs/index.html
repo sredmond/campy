@@ -101,7 +101,12 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Welcome to campy’s documentation!</a></li>
+<li><a class="reference internal" href="#">Welcome to campy’s documentation!</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#using-this-documentation">Using this documentation</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 </div>
@@ -169,8 +174,34 @@
             
   <div class="section" id="welcome-to-campy-s-documentation">
 <h1>Welcome to campy’s documentation!<a class="headerlink" href="#welcome-to-campy-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Hello! Campy is a partial rewrite of Stanford’s ACM libraries for introductory programming.</p>
+<p>Hello, world! Welcome to the <cite>campy</cite> libraries.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>campy</cite> library can be installed via <cite>pip</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">campy</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Let’s write our first program using <cite>campy</cite>. We’ll draw an empty rectangle and a filled oval on a graphical window:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">campy.graphics.gwindow</span> <span class="k">import</span> <span class="n">GWindow</span>
+<span class="kn">from</span> <span class="nn">campy.graphics.gobjects</span> <span class="k">import</span> <span class="n">GRect</span><span class="p">,</span> <span class="n">GOval</span>
+
+<span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">GRect</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># A rectangle 200 pixels wide and 100 pixels tall.</span>
+<span class="n">oval</span> <span class="o">=</span> <span class="n">GOval</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>  <span class="c1"># An oval whose bounding box is 100 pixels wide and 50 pixels tall.</span>
+<span class="n">oval</span><span class="o">.</span><span class="n">filled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rect</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>  <span class="c1"># Add the rectangle to the graphical window 20 pixels from the left and 40 pixels from the top.</span>
+<span class="n">window</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">oval</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># Add the oval to the graphical window 20 pixels from the left and 40 pixels from the top.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-this-documentation">
+<h2>Using this documentation<a class="headerlink" href="#using-this-documentation" title="Permalink to this headline">¶</a></h2>
+<p>If you’re looking for more information about a particular module, use the Module Index link below. For a list of all exported symbols, see the general index. Otherwise, use the search bar in the upper-left to search for particular symbols, such as <cite>GWindow</cite> or <cite>GOval</cite>.</p>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">

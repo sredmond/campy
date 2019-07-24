@@ -13,7 +13,6 @@ Submodules
 
 .. toctree::
 
-   campy.gui.gevents
    campy.gui.ginteractors
 
 Module contents

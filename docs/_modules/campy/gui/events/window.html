@@ -162,22 +162,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for campy.gui.events.window</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Wrapper around events that relate to window lifecycle.</span>
+<span></span><span class="sd">&quot;&quot;&quot;Interact with the graphics libraries via window events.</span>
 
-<span class="sd">There are two main types of window events that a caller can subscribe to:</span>
+<span class="sd">There are only two types of window events to which a caller can subscribe:</span>
 
 <span class="sd">- WindowClosed: The graphical window was closed.</span>
 <span class="sd">- WindowResized: The graphical window was resized.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
 
-<span class="c1"># class WindowEvent:</span>
-
-<div class="viewcode-block" id="register_on_window_resize"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.register_on_window_resize">[docs]</a><span class="k">def</span> <span class="nf">register_on_window_resize</span><span class="p">():</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s2">&quot;&lt;Configure&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_resize</span><span class="p">)</span></div>
-
-
-<span class="sd">&quot;&quot;&quot;Define decorators for all of the common types of events.&quot;&quot;&quot;</span>
+<span class="c1"># Define decorators for all of the common types of events.</span>
 <div class="viewcode-block" id="onwindowclosed"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.onwindowclosed">[docs]</a><span class="k">def</span> <span class="nf">onwindowclosed</span><span class="p">():</span>
     <span class="k">pass</span></div>
 
