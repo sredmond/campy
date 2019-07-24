@@ -4,105 +4,123 @@
 Partial Python implementation of a game of Breakout, a brick-breaking game
 popularized by Eric Roberts' CS106A course at Stanford.
 """
-# TODO(sredmond): Avoid import-star.
-from campy.graphics.gwindow import *
-from campy.graphics.gobjects import *
-from campy.graphics.gevents import *
-from campy.graphics.gtimer import *
-from campy.util.randomgenerator import *
+from campy.graphics.gwindow import GWindow
+from campy.graphics.gobjects import GOval, GRect
 
-import time
+from campy.gui.events.mouse import onmousemoved
+from campy.gui.events.timer import pause
 
-window = GWindow()
-window.title = 'Breakout'
+# Radius of the ball (in pixels).
+BALL_RADIUS = 10
 
-ball = GOval(20, 20, x=window.width / 2, y=window.height / 2, )
+# Width of the paddle (in pixels).
+PADDLE_WIDTH = 125
+
+# Height of the paddle (in pixels).
+PADDLE_HEIGHT = 15
+
+# Vertical offset of the paddle from the window bottom (in pixels).
+PADDLE_OFFSET = 50
+
+# Color names to cycle through for brick rows.
+COLORS = ('RED', 'ORANGE', 'YELLOW', 'GREEN', 'BLUE')
+
+# Space between bricks (in pixels).
+# This space is used for horizontal and vertical spacing.
+BRICK_SPACING = 5
+
+# Height of a brick (in pixels).
+BRICK_WIDTH = 40
+
+# Height of a brick (in pixels).
+BRICK_HEIGHT = 15
+
+# Number of rows of bricks.
+BRICK_ROWS = 10
+
+# Number of columns of bricks.
+BRICK_COLS = 10
+
+# Vertical offset of the topmost brick from the window top (in pixels).
+BRICK_OFFSET = 50
+
+
+# Create a graphical window, with some extra space.
+window_width = BRICK_COLS * (BRICK_WIDTH + BRICK_SPACING) - BRICK_SPACING
+window_height = BRICK_OFFSET + 3 * (BRICK_ROWS * (BRICK_HEIGHT + BRICK_SPACING) - BRICK_SPACING)
+window = GWindow(width=window_width, height=window_height, title='Breakout')
+
+
+# Center a filled ball in the graphical window.
+ball = GOval(2 * BALL_RADIUS, 2 * BALL_RADIUS, x=window.width/2, y=window.height/2)
 ball.filled = True
 window.add(ball)
+
+
+# Default initial velocity for the ball.
 vx = 2.7
 vy = 3.0
 
-paddle = GRect(125, 15, x=window.width / 2, y=window.height - 50)
+
+# Create a paddle.
+paddle = GRect(PADDLE_WIDTH, PADDLE_HEIGHT, x=window.width/2, y=window.height-PADDLE_OFFSET)
 paddle.filled = True
 window.add(paddle)
 
-spacer = 5
-brick_width = (window.width -  9 * spacer) / 10
+# TODO(sredmond): Add a hotkey to reset the game.
 
-for i in range(10):
-	for j in range(10):
-		brick = GRect(brick_width, 15, x=j * (brick_width + spacer), y=50 + i * (15 + spacer))
-		brick.filled = True
-		if i < 2:
-			brick.fill_color = "RED"
-		elif i < 4:
-			brick.fill_color = "ORANGE"
-		elif i < 6:
-			brick.fill_color = "YELLOW"
-		elif i < 8:
-			brick.fill_color = "GREEN"
-		elif i<10:
-			brick.fill_color = "BLUE"
-		window.add(brick)
-
-timer = GTimer(milliseconds=15)
-
-import sys
-timer.start()
-while True:
-	e = get_next_event ()
-	if(e.getEventType() == EventType.MOUSE_MOVED):
-		newX = e.getX()
-		if(newX - paddle.getWidth()/2 > 0 and \
-			newX + paddle.getWidth()/2 < window.getWidth()):
-			paddle.setLocation(x = newX - paddle.getWidth()/2, y = paddle.getY())
-		elif(newX - paddle.getWidth()/2 < 0):
-			paddle.setLocation(x = 0, y = paddle.getY())
-		elif(newX + paddle.getWidth()/2 > window.getWidth()):
-			paddle.setLocation(x = window.getWidth() - paddle.getWidth(), \
-								y = paddle.getY())
-	elif(e.getEventType() == EventType.TIMER_TICKED):
-		ball.move(vx, vy)
-
-		# check for wall collisions
-		if(ball.getX() + ball.getWidth() > window.getWidth() or \
-			ball.getX() < 0):
-			vx = -vx
-		if(ball.getY() + ball.getHeight() > window.getHeight() or \
-			ball.getY() < 0):
-			vy = -vy
-
-		obj1 = window.getObjectAt(ball.getX()-1, ball.getY()-1)
-		obj2 = window.getObjectAt(ball.getX() + ball.getWidth() + 1, ball.getY()-1)
-		obj3 = window.getObjectAt(ball.getX()-1, ball.getY() + ball.getHeight()+1)
-		obj4 = window.getObjectAt(ball.getX() + ball.getWidth() + 1,  ball.getY() + ball.getHeight()+1)
-		# check for paddle collisions
-		if(window.getObjectAt(ball.getX(), ball.getY()) == paddle or \
-			window.getObjectAt(ball.getX() + ball.getWidth(), ball.getY()) == paddle or \
-			window.getObjectAt(ball.getX(), ball.getY() + ball.getHeight()) == paddle or \
-			window.getObjectAt(ball.getX() + ball.getWidth(), ball.getY() + ball.getHeight()) == paddle):
-			if(vy > 0):
-				vy = -vy
-		elif(obj1 != None and obj1 != paddle):
-			vy = -vy
-			window.remove(obj1)
-		elif(obj2 != None and obj2 != paddle):
-			vy = -vy
-			window.remove(obj2)
-		elif(obj3 != None and obj3 != paddle):
-			vy = -vy
-			window.remove(obj3)
-		elif(obj4 != None and obj4 != paddle):
-			vy = -vy
-			window.remove(obj4)
-	elif(e.getEventType() == EventType.KEY_TYPED):
-		initRandomSeed()
-		window.remove(ball)
-		ball = GOval(20,20, window.getWidth()/2, window.getHeight()/2)
-		ball.setFilled(True)
-		window.add(ball)
-		vx = randomReal(2,4)
-		if(randomChance(.5)): vx = -vx
-		vy = 3.0
+def make_bricks(window):
+    for row in range(BRICK_ROWS):
+        row_color = COLORS[(row // 2) % len(COLORS)]
+        for col in range(BRICK_COLS):
+            brick = GRect(BRICK_WIDTH, BRICK_HEIGHT,
+                          x=col * (BRICK_WIDTH + BRICK_SPACING), y=BRICK_OFFSET + row * (BRICK_HEIGHT + BRICK_SPACING))
+            brick.filled = True
+            brick.fill_color = row_color
+            window.add(brick)
 
 
+def get_colliding_object(window, ball):
+    upper_left  = window.get_object_at(ball.x,              ball.y)
+    upper_right = window.get_object_at(ball.x + ball.width, ball.y)
+    lower_left  = window.get_object_at(ball.x,              ball.y + ball.height)
+    lower_right = window.get_object_at(ball.x + ball.width, ball.y + ball.height)
+    # TODO(sredmond): Be careful about not returning the paddle here.
+    return upper_left or upper_right or lower_left or lower_right
+
+
+@onmousemoved
+def move_paddle(event):
+    if event.x - paddle.width / 2 < 0:  # Flush left.
+        paddle.x = 0
+    elif event.x + paddle.width / 2 > window.width:  # Flush right.
+        paddle.x = window.width - paddle.width
+    else:  # Center paddle on mouse.
+        paddle.x = event.x - paddle.width / 2
+
+
+if __name__ == '__main__':
+    make_bricks(window)
+
+    while True:
+        ball.move(vx, vy)
+        pause(1000 / 30)  # 30 frames per second.
+
+        # Check for wall collisions.
+        if ball.x < 0 or ball.x + ball.width > window.width:
+            vx = -vx  # Bounce horizontally.
+        if ball.y < 0:
+            vy = -vy  # Bounce vertically off of top of screen.
+        if ball.y + ball.height > window.height:  # Passed the bottom of the screen. Game over!
+            print('Game over!')
+            break
+
+        # Check for object collisions.
+        colliding_object = get_colliding_object(window, ball)
+        # Bounce off of the paddle.
+        if colliding_object == paddle and vy > 0:
+            vy = -vy
+        # Bounce off of a brick.
+        elif colliding_object != paddle and colliding_object is not None:
+            vy = -vy
+            window.remove(colliding_object)
