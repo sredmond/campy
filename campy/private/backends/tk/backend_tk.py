@@ -59,7 +59,7 @@ class TkWindow:
         # TODO(sredmond): On macOS, multiple backends might race to set the process-level menu bar.
         setup_menubar(self._master)
 
-        self._frame = tk.Frame(self._master, bd=2, bg='red')
+        self._frame = tk.Frame(self._master)  #, bd=2, bg='red'
 
         self._canvas = tk.Canvas(self._frame, width=width, height=height, highlightthickness=0, bd=0)
         self._canvas.pack(fill=tk.BOTH, expand=True)
