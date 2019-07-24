@@ -960,7 +960,7 @@ class GLine(GObject):
         self._y1 = y1
 
         # TODO(sredmond): Don't bother sending along the values when we also send the built object.
-        _platform.Platform().gline_constructor(self)
+        # _platform.Platform().gline_constructor(self)
 
     @property
     def start(self):
