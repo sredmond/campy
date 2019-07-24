@@ -1,0 +1,9 @@
+# CHANGELOG
+
+An unofficial, rough approximation to changes between development version.
+
+## `0.0.1.dev7`
+
+- Strips local breakout test files from built package.
+- Fixes a bug where clearing a `GWindow` raised an AttributeError.
+- Unsets the red border around TkWindow frames (which was used for debugging.)
