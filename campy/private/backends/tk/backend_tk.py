@@ -296,6 +296,8 @@ class TkBackend(GraphicsBackendBase):
         win = gobject._tkwin
 
         win.canvas.delete(tkid)
+        delattr(gobject, '_tkid')
+        delattr(gobject, '_tkwin')
 
         win._master.update_idletasks()
 
@@ -561,7 +563,6 @@ class TkBackend(GraphicsBackendBase):
         gpolygon._tkwin = win
 
         coords = sum(((v.x + gpolygon.x, v.y + gpolygon.y) for v in gpolygon.vertices), ())
-        print(coords)
         gpolygon._tkid = win.canvas.create_polygon(coords,  # Not the fastest, but it'll do
             outline=gpolygon.color.hex, fill=gpolygon.fill_color.hex if gpolygon.filled else '',
             state=tk.NORMAL if gpolygon.visible else tk.HIDDEN)

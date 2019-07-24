@@ -1439,7 +1439,7 @@ class GCompound(GObject, MutableSequence):
     def __delitem__(self, index):
         gobj = self.contents.pop(index)
         _platform.Platform().gobject_remove(gobj)
-        gobj.parent = None
+        gobj._parent = None
 
     def __len__(self):  # Definitely keep this one!
         """Return the number of graphical objects stored in this :class:`GCompound`."""
