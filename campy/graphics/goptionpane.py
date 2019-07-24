@@ -36,7 +36,7 @@ class MessageType(_enum.Enum):
     QUESTION = 3
     WARNING = 2
 
-class GOptionPane():
+class GOptionPane:
 
     class InternalResult(_enum.Enum):
         """The results that can come back from showConfirmDialog.

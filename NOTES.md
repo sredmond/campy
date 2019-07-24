@@ -89,6 +89,8 @@ $ twine check dist/*
 $ check-manifest
 ```
 
+If there are lingering build files, you might have to run `python setup.py clean --all` first.
+
 Then, upload to TestPyPI or real PyPI, supplying the username and password of this project's owner.
 
 ```
