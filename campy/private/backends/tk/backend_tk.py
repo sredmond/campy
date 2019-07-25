@@ -306,7 +306,13 @@ class TkBackend(GraphicsBackendBase):
         tkid = gobject._tkid
         win = gobject._tkwin
 
-        win.canvas.itemconfig(tkid, outline=color.hex)
+        # Awkward import.
+        from campy.graphics.gobjects import GLabel
+        if not isinstance(gobject, GLabel):
+            win.canvas.itemconfig(tkid, outline=color.hex)
+        else:
+            # GLabels are special because their "color" is actually a fill color.
+            win.canvas.itemconfig(tkid, fill=color.hex)
 
         win._master.update_idletasks()
 
