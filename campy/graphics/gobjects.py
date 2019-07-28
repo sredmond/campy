@@ -1447,7 +1447,7 @@ class GCompound(GObject, MutableSequence):
 
     def insert(self, index, value):
         self.contents.insert(index, value)
-    # End abstract methods.
+        # TODO(sredmond): Also construct the object if it needs to be drawn.
 
     def add(self, gobj, x=None, y=None):
         """Add a new :class:`GObject` to this :class:`GCompound`.
@@ -1594,6 +1594,20 @@ class GCompound(GObject, MutableSequence):
                 self.contents.pop(index)
                 self.contents.insert(0, gobj)
                 _platform.Platform().gobject_send_to_back(gobj)
+
+
+    # TODO(sredmond): Search for a way to not explicitly load this class setter.
+    @GObject.location.setter # Overload the superclass location setter
+    def location(self, point):
+        x, y = point
+        dx = x - self.x
+        dy = y - self.y
+        # TODO(sredmond): Python magic!
+        GObject.location.fset(self, point)  # Move the compound to the requested location.
+        # Move each component by the same amount.
+        # TODO(sredmond): Does the Java backend already move contained elements?
+        for element in self.contents:
+            element.move(dx, dy)
 
     def __iter__(self):
         return iter(self.contents)
