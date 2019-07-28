@@ -24,7 +24,7 @@ setup(
     # Project versions, compliant with PEP440.
     # TODO(sredmond): Single-source the project version.
     # https://packaging.python.org/guides/single-sourcing-package-version/
-    version="0.0.1.dev10",
+    version="0.0.1.dev11",
 
     description="Stanford's introductory libraries in Python, including the ACM graphical libraries.",
     long_description=README_TEXT,
