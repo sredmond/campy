@@ -307,11 +307,11 @@ class TkBackend(GraphicsBackendBase):
         win = gobject._tkwin
 
         # Awkward import.
-        from campy.graphics.gobjects import GLabel
-        if not isinstance(gobject, GLabel):
+        from campy.graphics.gobjects import GLabel, GLine
+        if not isinstance(gobject, GLabel) and not isinstance(gobject, GLine):
             win.canvas.itemconfig(tkid, outline=color.hex)
         else:
-            # GLabels are special because their "color" is actually a fill color.
+            # GLabels and GLines are special because their "color" is actually a fill color.
             win.canvas.itemconfig(tkid, fill=color.hex)
 
         win._master.update_idletasks()
