@@ -479,6 +479,12 @@ class TkBackend(GraphicsBackendBase):
 
         win._master.update_idletasks()
 
+    ##############
+    # GCompounds #
+    ##############
+    def gcompound_constructor(self, gobject): pass
+    def gcompound_add(self, compound, gobject): pass
+
     #########
     # Fonts #
     #########
@@ -527,6 +533,8 @@ class TkBackend(GraphicsBackendBase):
             text=glabel.text,
             fill=glabel.color.hex, anchor=tk.SW,
             state=tk.NORMAL if glabel.visible else tk.HIDDEN)
+
+        self.glabel_set_font(glabel, glabel.font)
 
         win._master.update_idletasks()
 
