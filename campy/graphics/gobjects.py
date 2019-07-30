@@ -1039,10 +1039,10 @@ class GLine(GObject):
     def end(self, end_point):
         # Attempt to unpack the supplied start point as a tuple. This supports
         # both GPoints and 2-element tuples.
-        end_x, end_y = start_point
+        end_x, end_y = end_point
         self._x1 = end_x
         self._y1 = end_y
-        _platform.Platform().gline_set_start_point(self, self._x1, self._y1)
+        _platform.Platform().gline_set_end_point(self, self._x1, self._y1)
 
     # TODO(sredmond): Add methods to get/set dx/dy?
     # TODO(sredmond): Add methods to get/set just x0/y0/x1/y1?
