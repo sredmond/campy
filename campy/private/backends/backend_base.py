@@ -137,6 +137,10 @@ class GraphicsBackendBase(abc.ABC):
 
     def event_pump_one(self): pass
 
+    def event_add_window_changed_handler(self, handler): pass
+
+    def event_set_window_closed_handler(self, handler): pass
+
     # TODO(sredmond): Rename these backend events for consistency.
     def timer_pause(self, event): pass
     def timer_schedule(self, function, delay_ms): pass

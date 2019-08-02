@@ -17,11 +17,14 @@ Each GWindow is associated to a single Canvas. GWindows beyond the first will op
 (A) At program termination, Tk object is not destroyed, and "program" isn't done until Tk window is closed.
 (B) At program termination, Tk object is destroyed and program is finished.
 """
+# TODO(sredmond): For all methods that implicitly operate on the most recent
+# GWindow, allow the client to pass an optional GWindow on which to operate.
 # It is discouraged to instantiate multiple instances of Tk graphics
 from campy.private.backends.backend_base import GraphicsBackendBase
 from campy.private.backends.tk.menu import setup_menubar
 
 import atexit
+import functools
 import logging
 import pathlib
 import tkinter as tk
@@ -661,7 +664,8 @@ class TkBackend(GraphicsBackendBase):
     def event_add_keypress_handler(self, event, handler): pass
     def event_generate_keypress(self, event): pass
 
-    def _wrap_mouse_event(self, event, window, event_type):
+    @staticmethod
+    def _wrap_mouse_event(event, window, event_type):
         from campy.gui.events.mouse import GMouseEvent
         # TODO(sredmond): As written, this joins the TkWindow, not the GWindow, to this event.
         return GMouseEvent(event_type=event_type, gwindow=window._gwindow, x=event.x, y=event.y)
@@ -686,6 +690,38 @@ class TkBackend(GraphicsBackendBase):
             logger.warning('Unrecognized event type: {}. Quietly passing.'.format(event))
 
     def event_generate_mouse(self, event): pass
+
+    @staticmethod
+    def _wrap_window_event(event, window):
+        from campy.gui.events.window import GWindowEvent
+        return GWindowEvent(window._gwindow, x=event.x, y=event.y, width=event.width, height=event.height)
+
+    def event_add_window_changed_handler(self, handler):
+        if not self._windows:
+            logger.warning('Refusing to add a window listener before any windows are created.')
+            return
+
+        win = self._windows[-1]
+        win._master.bind('<Configure>', lambda cb_event: handler(self._wrap_window_event(cb_event, win)))
+
+    def event_set_window_closed_handler(self, handler):
+        # TODO(sredmond): Don't allow this method to set a handler multiple times, or warn about replacing the old one.
+        if not self._windows:
+            logger.warning('Refusing to add a window listener before any windows are created.')
+            return
+
+        win = self._windows[-1]
+        @functools.wraps(handler)
+        def wrapper():
+            result = handler()
+
+            # Perform the default action when the handler returns a False value.
+            if not result:
+                win._close()
+
+        # Unlike some of the other event methods, this callback is bound via protocol.
+        win._master.protocol("WM_DELETE_WINDOW", wrapper)
+
 
     def event_pump_one(self):
         # Forcibly process queued tasks, but don't process newly queued ones.
