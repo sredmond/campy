@@ -155,6 +155,7 @@ setup(
     extras_require={
         'dev': ['check-manifest', 'pycodestyle'],
         'test': ['tox', 'pytest', 'pytest-cov', 'coverage'],
+        'with-pillow': ['Pillow'],
     },
 
     # Include data files in the package.
