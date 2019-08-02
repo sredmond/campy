@@ -255,7 +255,12 @@ class TkBackend(GraphicsBackendBase):
         from campy.graphics.gwindow import Region
         if region == Region.NORTH:
             self._ginteractor_add(gobject, gwindow._tkwin.top)
-
+        if region == Region.EAST:
+            self._ginteractor_add(gobject, gwindow._tkwin.right)
+        if region == Region.SOUTH:
+            self._ginteractor_add(gobject, gwindow._tkwin.bottom)
+        if region == Region.WEST:
+            self._ginteractor_add(gobject, gwindow._tkwin.left)
 
     def gwindow_remove_from_region(self, gwindow, gobject, region): pass
     def gwindow_set_region_alignment(self, gwindow, region, align): pass
