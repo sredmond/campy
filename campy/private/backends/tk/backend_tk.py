@@ -23,6 +23,7 @@ from campy.private.backends.tk.menu import setup_menubar
 
 import atexit
 import logging
+import pathlib
 import tkinter as tk
 import tkinter.font as tkfont
 import tkinter.filedialog as tkfiledialog
@@ -36,6 +37,12 @@ try:
     from _tkinter import DONT_WAIT
 except ImportError:
     DONT_WAIT = 2
+
+# Load the PIL PhotoImage class if possible, otherwise use tkinter's.
+try:
+    from PIL.ImageTk import PhotoImage
+except ImportError:
+    from tkinter import PhotoImage
 
 
 # Module-level logger.
@@ -596,6 +603,53 @@ class TkBackend(GraphicsBackendBase):
         win.canvas.coords(tkid, x, y, gpolygon.end.x, gpolygon.end.y,)
 
         win._master.update_idletasks()
+
+    ##########
+    # Images #
+    ##########
+    def image_find(self, filename):
+        path = pathlib.Path(filename)
+        if path.is_absolute():
+            return path
+
+        # For relative paths, search for images in the following places.
+        # (1) The actual relative path to the scripts current directory.
+        # (1) An `images/` subfolder in the scripts current directory.
+        # TODO(sredmond): Read in a path environmental variable for searching.
+        if path.is_file():
+            return path  # We found it, even though it's relative!
+        if (path.parent / 'images' / path.name).is_file():
+            return (path.parent / 'images' / path.name)
+        return None
+
+    def image_load(self, filename): pass
+
+    def gimage_constructor(self, gimage):
+        """Try to create some sort of Tk Photo Image."""
+        if hasattr(gimage, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        gimage._tkwin = win
+
+        image = PhotoImage(file=gimage._path)
+
+        gimage._tkid = win.canvas.create_image(
+            gimage.x, gimage.y, anchor=tk.NW, image=image)
+
+        # Keep a reference to the PhotoImage object so that the Python GC
+        # doesn't destroy the data.
+        if not hasattr(win.canvas, '_stored_images'):
+            win.canvas._stored_images = set()
+
+        win.canvas._stored_images.add(img)
+
+
+
+        win._master.update_idletasks()
+
+
+
 
     ##########
     # Events #

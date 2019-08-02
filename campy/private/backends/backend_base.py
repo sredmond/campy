@@ -111,6 +111,8 @@ class GraphicsBackendBase(abc.ABC):
     def gtimer_stop(self, timer): pass
 
     # Images
+    def image_find(self, filename): pass
+    def image_load(self, filename): pass
     def gimage_constructor(self, gobject,  filename): pass
 
     def gbufferedimage_constructor(self, gobject, x, y, width, height): pass
