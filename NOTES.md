@@ -84,6 +84,14 @@ First, bump the version number in `setup.py` and `campy/__version__.py`
 Then, ensure you have `twine` installed and are in the project's root directory.
 
 ```
+$ python setup.py publish
+```
+
+To publish to TestPyPI instead, use `python setup.py publish --test`.
+
+If you want to check the validity of the built package, use the following steps:
+
+```
 $ python setup.py sdist bdist_wheel
 $ twine check dist/*
 $ check-manifest
@@ -99,6 +107,8 @@ $ twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 # (OR) Upload to real PyPI.
 $ twine upload dist/*
 ```
+
+Distribution files (`.tar.gz` or `.whl`) which have been uploaded to PyPI are stored there indefinitely. Distribution files uploaded to TestPyPI are periodically cleared. So, it's fine to clear `dist/*` whenever you like.
 
 If your `~/.pypirc` is out-of-date, you may get a weird message that your connection was refused. In this case, read the information on the [updated PyPI upload endpoint](https://packaging.python.org/guides/migrating-to-pypi-org/) and modify your config files accordingly.
 

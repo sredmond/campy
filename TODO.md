@@ -6,12 +6,18 @@ A non-exhaustive list of tasks and modules to do.
 
 - Possibly, remove the ability to set a GObject's location at creation time?
 
-Finish the rest of the interactors <-- fairly straightforward
-Adding interactors to regions <-- MWE, but needs to be woven in.
-GImage and GBufferedImage <-- easy but requires an image buffering layer
+In (rough) priority:
 
-Actual key events + modifiers <-- easy but tedious
-Properly treat fonts <-- super annoying
+- Colors/Pixels, GImage/GBufferedImage <-- easy but needs image buffering layer.
+- Key events and modifiers <-- easy but tedious to do Right™.
+- Other mouse events <-- easy
+- Finish the rest of the interactors <-- should be straightforward?
+- Add interactors to regions <-- MWE exists, needs to be fully woven in.
+- Pass through everything for obvious poor structures
+- Pass through everything for obvious bugs
+- Pass through everything for comments
+- Pass through everything for tests
+	- Figure out how to test graphics/GUI behavior.
 
 - `stanford-karel`, `popup-console`, and `simpio` are spun off into their own projects.
 
