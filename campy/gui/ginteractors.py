@@ -1,144 +1,144 @@
-"""Graphical Interactors similar to those in the Java Swing libraries.
+"""Graphical interactors.
 
-Provides a common interface for constructing GInteractors.
+This module provides five types of interactors:
 
-GButton:
-GCheckbox:
-GSlider:
-GTextField:
-GChooser:
-
+- :class:`GButton`: A clickable button.
+- :class:`GCheckBox`: A checkable box.
+- :class:`GSlider`: A slider between numeric values.
+- :class:`GChooser`: A list of selectable items.
+- :class:`GTextField`: A single-line string entry.
 """
-import campy.graphics.gobjects as _gobjects
-import campy.graphics.gtypes as _gtypes
+
+import campy.graphics.gobjects as gobjects
 import campy.private.platform as _platform
 
-class GInteractor(_gobjects.GObject):
-    '''
-    This class is the superclass for all graphical interactors.
-    In most applications, interactors will be added to a control strip
-    along one of the sides of the GWindow, but they can
-    also be placed in specific positions just like any other
-    GObject.
-    '''
+from campy.graphics.gevents import *
 
-    def __init__(self):
-        '''
-        Initializes GObject
 
-        @rtype: void
-        '''
-        _gobjects.GObject.__init__(self)
-        self._action_command = ""
+class GInteractor(gobjects.GObject):
+    """Superclass of all graphical interactors.
+
+    In most applications, interactors will be added to one region in a
+    :class:`GWindow`, but interactors can also be placed in specific positions
+    in a :class:`GCompound` (or the :class:`GWindow`'s default top
+    :class:`GCompound`) just like any other :class:`GObject`.
+    """
+    def __init__(self, command=''):
+        """Initialize a :class:`GInteractor` with a command.
+
+        The command is accessible as part of any :class:`GActionEvents` that
+        this interactor generates.
+
+        :param command: The action command for this interactor.
+        """
+        # TODO(sredmond): Consider stripping the concept of "action commands"
+        # entirely, since it violates "There should be one way to do things."
+        super().__init__()
+        self._command = command
 
     @property
-    def action_command(self):
-        """Get or set the action command to the indicated string.
+    def command(self):
+        """Get or set the action command for this interactor."""
+        return self._command
 
-        If the string is nonempty, activating the interactor generates a GActionEvent.
+    @command.setter
+    def command(self, command):
+        self._command = command
+        _platform.Platform().ginteractor_set_action_command(self, action_command)
 
-        :param str command: The action command to set or get.
-        """
-        return self._action_command
-
-    @action_command.setter
-    def action_command(self, cmd):
-        self._action_command = cmd
-        _platform.Platform().setActionCommand(self, cmd)
-
-    def setActionCommand(self, cmd):
-        '''
-        Sets the action command to the indicated string.  If the string is not
-        empty, activating the interactor generates a GActionEvent.
-
-        @type cmd: string
-        @param cmd: action command
-        @rtype: void
-        '''
-        self.actionCommand = cmd
-        _platform.Platform().setActionCommand(self, cmd)
-
-    def getActionCommand(self):
-        '''
-        Returns the action command associated with the interactor.
-
-        @rtype: string
-        '''
-        return self.actionCommand
-
-    def setSize(self, width=0.0, height=0.0, size = None):
-        '''
-        Changes the size of the interactor to the specified width and height.
-
-        @type width: float
-        @type height: float
-        @type size: GDimension, overrides width and height parameters
-        @rtype: void
-        '''
-        if(size != None):
-            width = size.width
-            height = size.height
-        _platform.Platform().gobject_set_size(self, width, height)
-
-    def setBounds(self, x=0.0, y=0.0, width=0.0, height=0.0, rect = None):
-        '''
-        Changes the bounds of the interactor to the specified values.
-
-        @type x: float
-        @type y: float
-        @type width: float
-        @type height: float
-        @type rect: GRectangle
-        @param rect: bounding GRectangle, overrides x, y ,width and height
-        @rtype: void
-        '''
-        if(rect != None):
-            x,y,width,height = rect
-        self.setLocation(x, y)
-        self.setSize(width, height)
-
-    def getBounds(self):
-        '''
-        Returns the bounding GRectangle of the GInteractor
-
-        @rtype: GRectangle
-        '''
-        size = _platform.Platform().getSize(self)
-        return _gtypes.GRectangle(self.x, self.y, size.getWidth(), size.getHeight())
+    # TODO(sredmond): Provide a general mechanism for setting an interactor's size.
+    # TODO(sredmond): Provide a general mechanism to get the location and bounds
+    # of an interactor.
 
 
 class GButton(GInteractor):
-    """An onscreen button.
+    """An onscreen, clickable button.
 
     The following program displays a button that, when pressed, generates the
     message: "Please do not press this button again!" (credit Douglas Adams)::
 
-        gw = GWindow()
-        button = GButton("RED")
-        gw.add_to_region(button, "SOUTH")
+        window = GWindow()
+        button = GButton('RED BUTTON')
+        window.add_to_region(button, Region.NORTH)
 
-        while True:
-            e = gevents.wait_for_event(ACTION_EVENT | CLICK_EVENT)
-            if e.event_type == MOUSE_CLICKED:
-                break
-
-        print("Please do not press this button again!")
+        @button.onclick
+        def chastise(event):
+            event.button.label = 'Please do not press this button again!'
+            event.button.disable()
     """
-
     def __init__(self, label):
         """Construct a GButton with the specified label.
-
-        Also sets the action command for this button to the label.
 
         :param str label: A label for this GButton.
         """
         super().__init__()
-        self.label = label
-        self.action_command = label
-        _platform.Platform().gbutton_constructor(self, label)
+        self._label = label
+        self._disabled = False
 
-    def __str__(self):
-        return 'GButton("{}")'.format(self.label)
+        # Collection of
+        self._listeners = []
+
+        # Tell the underlying platform to construct this object.
+        _platform.Platform().gbutton_constructor(self)
+
+    ##############
+    # PROPERTIES #
+    ##############
+    @property
+    def label(self):
+        """Get or set this :class:`GButton`:'s label."""
+        return self._label
+
+    @label.setter
+    def label(self, label):
+        self._label = label
+        _platform.Platform().gbutton_set_label(self)
+
+    @property
+    def disabled(self):
+        """Get or set whether this :class:`GButton`: is disabled."""
+        return self._disabled
+
+    @disabled.setter
+    def disabled(self, disabled):
+        self._disabled = disabled
+        _platform.Platform().gbutton_set_disabled(self)
+
+    # TODO(sredmond): Consider removing these convenience functions.
+    def enable(self):
+        """Enable this :class:`GButton`, meaning it can receive clicks."""
+        self.disabled = False
+
+    def disable(self):
+        """Disable this :class:`GButton`, meaning it cannot receive clicks."""
+        self.disabled = True
+
+    #################
+    # BUTTON EVENTS #
+    #################
+    def onclick(self, function):
+        self._listeners.append(function)
+        return function
+
+    def add_click_handler(self, function):
+        self._listeners.append(function)
+
+    def remove_click_handler(self, function):
+        try:
+            self._listeners.remove(function)
+            return True
+        except ValueError:
+            return False
+
+    def _click(self, event):
+        """Default click implementation doesn't do anything."""
+        for listener in self._listeners:
+            listener(event)
+
+    def click(self):
+        # Make an event to pass to click handler.
+        event = GActionEvent(None, None, None)
+        self._click(event)
 
 
 class GCheckBox(GInteractor):
@@ -147,8 +147,7 @@ class GCheckBox(GInteractor):
     Clicking once on the check box selects it; clicking again removes the
     selection.
 
-    If a GCheckBox has an action command, clicking on the box generates a
-    GActionEvent.
+    Clicking on the box generates a GActionEvent.
     """
 
     def __init__(self, label):
@@ -164,11 +163,12 @@ class GCheckBox(GInteractor):
         self.label = label
         _platform.Platform().gcheckbox_constructor(self, label)
 
+
     @property
     def selected(self):
         """Get or set whether the checkbox is selected.
 
-        :param bool state: Whether the state is selected.
+        :param bool state: Whether the checkbox is selected.
         """
         return _platform.Platform().gcheckbox_is_selected(self)
 
@@ -183,8 +183,7 @@ class GCheckBox(GInteractor):
 class GSlider(GInteractor):
     """An onscreen slider.
 
-    Dragging the slider handle generates a GActionEvent if the GSlider has a
-    nonempty action command.
+    Dragging
     """
 
     def __init__(self, min_value=0, max_value=100, starting_value=50):
@@ -224,120 +223,108 @@ class GSlider(GInteractor):
 
 
 class GTextField(GInteractor):
-    '''
-    This interactor subclass represents a text field for entering short
-    text strings.  Hitting enter in a text field generates a
-    GActionEvent if the text field has a nonempty action command.
-    '''
+    """An onscreen text field for entering short text strings.
 
-    def __init__(self, nChars=10):
-        '''
-        Creates a text field capable of holding nChars characters,
-        which defaults to 10.  Assigning an action command to the text field
-        causes it to generate an action event whenever the user types the
-        ENTER key.
+    Hitting RETURN in a text field generates a :class:`GActionEvent`.
+    """
 
-        @type nChars: int
-        @rtype: void
-        '''
-        GInteractor.__init__(self)
-        _platform.Platform().createGTextField(self, nChars)
+    def __init__(self, width=10):
+        """Create a text field with a maximum width.
+
+        A :class:`GActionEvent` is generated whenever the user presses the
+        RETURN key while this interactor has focus.
+
+        :param width: The maximum number of characters this field can hold.
+        """
+        super().__init__(self)
+        self._width = width
+        _platform.Platform().gtextfield_constructor(self)
 
     @property
     def text(self):
-        """Get or set the contents of the text field."""
-        return _platform.Platform().getText(self)
+        """Get or set the contents of this :class:`GTextField`."""
+        return _platform.Platform().gtextfield_get_text(self)
 
     @text.setter
     def text(self, content):
-        _platform.Platform().setText(self, content)
+        _platform.Platform().gtextfield_set_text(self, content)
 
-    def getText(self):
-        '''
-        Returns the contents of the text field.
+    def __str__(self):
+        return "GTextField(text={}, width={})".format(self.text, self.width)
 
-        @rtype: string
-        '''
-        return _platform.Platform().getText(self)
-
-    def setText(self, str):
-        '''
-        Sets the text of the field to the specified string.
-
-        @type str: string
-        @rtype: void
-        '''
-        _platform.Platform().setText(self, str)
-
-    def getType(self):
-        '''
-        Returns the type of this object
-
-        @rtype: string
-        '''
-        return "GTextField"
-
-    def toString(self):
-        '''
-        Converts this object into string form
-
-        @rtype: string
-        '''
-        return "GTextField()"
 
 class GChooser(GInteractor):
-    '''
-    This interactor subclass represents a selectable list.  The
-    GChooser constructor creates an empty chooser.
-    Once the chooser has been created, clients can use addItem
-    to add the options.  For example, the following code creates a
-    GChooser containing the four strings
-    "Small", "Medium", "Large",
-    and "X-Large"::
+    """A list of selectable items.
 
-        sizeChooser = ginteractors.GChooser()
-        sizeChooser.addItem("Small");
-        sizeChooser.addItem("Medium");
-        sizeChooser.addItem("Large");
-        sizeChooser.addItem("X-Large");
-    '''
+    You can construct a :class:`GChooser` with an ordered collection of items,
+    or :meth:`add` and :meth:`remove` items after construction::
 
-    def __init__(self):
-        '''
-        Creates a chooser that initially contains no items, which are added
-        using the addItem method.  Assigning an action command
-        to the chooser causes it to generate an action event whenever the
-        user selects an item.
+        size_chooser = GChooser('Small', 'Medium', 'Large')
+        size_chooser.add_item('X-Large')
+        size_chooser.remove_item('Medium')
 
-        @rtype: void
-        '''
-        GInteractor.__init__(self)
-        _platform.Platform().createGChooser(self)
+    To get the selected item::
 
-    def addItem(self, item):
-        '''
-        Adds a new item consisting of the specified string.
+        size_chooser = GChooser('Small', 'Medium', 'Large')
+        selected = size_chooser.selected_item
+    """
 
-        @type item: string
-        @rtype: void
-        '''
-        _platform.Platform().addItem(self, item)
+    def __init__(self, *items):
+        """Create a :class:`GChooser`, optionally with some items.
+
+        These items are supplied as extra positional arguments::
+
+            size_chooser = GChooser('Small', 'Medium', 'Large')
+
+        To construct a :class:`GChooser` from a collection of elements, unpack
+        the elements into the constructor::
+
+            options = ('Small', 'Medium', 'Large')
+            size_chooser = GChooser(*options)
+
+        A :class:`GActionEvent` is generated each time the user selects an item.
+        """
+        super().__init__(self)
+        self._items = list(items)
+
+        _platform.Platform().gchooser_constructor(self)
+
+    def add_item(self, item):
+        """Add a new option to this :class:`GChooser`.
+
+        :param item: The new item to add to this :class:`GChooser`.
+        """
+        self._items.append(item)
+        _platform.Platform().gchooser_add_item(self, item)
+
+    def remove_item(self, item):
+        """Remove an option from this :class:`GChooser`.
+
+        :param item: The item to remove from this :class:`GChooser`.
+        :return: Whether the item was removed.
+        """
+        try:
+            self._items.remove(item)
+            _platform.Platform().gchooser_remove_item(self, item)
+            return True
+        except ValueError:
+            return False
 
     @property
     def selected_item(self):
-        """Return the current item selected in this GChooser.
+        """Get or set the currently selected item of this :class:`GChooser`.
 
-        @rtype: string"""
-        return _platform.Platform().getSelectedItem(self)
+        Setting the selected item to something not in this :class:`GChooser`'s
+        list of items results in no change.
+        """
+        return _platform.Platform().gchooser_get_selected_item(self)
 
     @selected_item.setter
     def selected_item(self, item):
-        """Sets the chooser so that it shows the specified item.  If the item
-        does not exist in the chooser, no change occurs.
+        if item not in self._items:
+            return
 
-        @type item: string
-        @rtype: void"""
-        _platform.Platform().setSelectedItem(self, item)
+        _platform.Platform().gchooser_set_selected_item(self, item)
 
     def __str__(self):
-        return "GChooser()"
+        return "GChooser(items={})".format(self._items)
