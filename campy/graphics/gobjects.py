@@ -1119,7 +1119,7 @@ class GLine(GObject):
 
 
 # TODO(sredmond):Un-hotfix me
-from campy.graphics.gimage import GImage  # Make the "new" GImage accessible from this namespace.
+# from campy.graphics.gimage import GImage  # Make the "new" GImage accessible from this namespace.
 
 # class GImage(GObject):
 #     """Graphical representation of an image from a file.
