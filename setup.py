@@ -79,10 +79,11 @@ class PublishCommand(Command):
             self.status('Uploading the package to TestPyPI via Twine...')
             subprocess.check_call(['twine', 'upload', '--repository-url=https://test.pypi.org/legacy/', 'dist/*'])
 
-        # TODO(sredmond): Tag earlier versions of the library.
-        self.status('Pushing git tags...')
-        subprocess.check_call(['git', 'tag', 'v{}'.format(VERSION)])
-        subprocess.check_call(['git', 'push', '--tags'])
+        if not self.test:
+            # TODO(sredmond): Tag earlier versions of the library.
+            self.status('Pushing git tags...')
+            subprocess.check_call(['git', 'tag', 'v{}'.format(VERSION)])
+            subprocess.check_call(['git', 'push', '--tags'])
 
     # Capture the command option --test in a boolean.
     def initialize_options(self):
