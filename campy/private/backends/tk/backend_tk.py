@@ -611,21 +611,35 @@ class TkBackend(GraphicsBackendBase):
     # Images #
     ##########
     def image_find(self, filename):
+        # TODO(sredmond): Couple image file searching and image file loading.
         path = pathlib.Path(filename)
         if path.is_absolute():
-            return path
+            if path.is_file():
+                return path
+            return None
+
 
         # For relative paths, search for images in the following places.
         # (1) The actual relative path to the scripts current directory.
         # (1) An `images/` subfolder in the scripts current directory.
         # TODO(sredmond): Read in a path environmental variable for searching.
         if path.is_file():
-            return path  # We found it, even though it's relative!
+            return path.resolve()  # We found it, even though it's relative!
         if (path.parent / 'images' / path.name).is_file():
-            return (path.parent / 'images' / path.name)
+            return (path.parent / 'images' / path.name).resolve()
+        # TODO(sredmond): Also search through library-specific images.
         return None
 
-    def image_load(self, filename): pass
+    def image_load(self, filename):
+        try:
+            from PIL import Image
+            logger.info('Loading image using PIL.')
+            im = Image.open(filename)
+            im = im.convert('RGB')  # This is an unfortunate conversion, in that it kills transparent images.
+            return im, im.width, im.height
+        except ImportError:
+            im = tk.PhotoImage(file=gimage._path)
+            return im, im.width(), im.height()
 
     def gimage_constructor(self, gimage):
         """Try to create some sort of Tk Photo Image."""
@@ -635,22 +649,46 @@ class TkBackend(GraphicsBackendBase):
         win = self._windows[-1]
         gimage._tkwin = win
 
-        image = PhotoImage(file=gimage._path)
+        image = gimage._data  # Either a tk.PhotoImage or a PIL.Image
+        # This is an awkward state, since ImageTk.PhotoImage isn't a subclass.
+        if not isinstance(image, tk.PhotoImage):
+            image = PhotoImage(image=image)
 
         gimage._tkid = win.canvas.create_image(
             gimage.x, gimage.y, anchor=tk.NW, image=image)
 
         # Keep a reference to the PhotoImage object so that the Python GC
         # doesn't destroy the data.
-        if not hasattr(win.canvas, '_stored_images'):
-            win.canvas._stored_images = set()
-
-        win.canvas._stored_images.add(img)
-
-
+        gimage._tkim = image
 
         win._master.update_idletasks()
 
+    def gimage_blank(self, gimage, width, height): pass
+    def gimage_get_pixel(self, gimage, row, col):
+        from campy.graphics.gcolor import Pixel
+        try:
+            # Using Tk.PhotoImage.
+            value = gimage._data.get(col, row)
+            return Pixel(*value.split(' '))  # TODO(sredmond): Make sure Tk always returns 'r g b' and not 'a' or a single channel.
+        except AttributeError:  # No get method on ImageTk.PhotoImage.
+            value = gimage._data.getpixel((col, row))  # Should be an (r, g, b) tuple
+            return Pixel(*value)
+
+
+    def gimage_set_pixel(self, gimage, row, col, rgb):
+        try: # Default to using PIL
+            gimage._data.putpixel((col, row), rgb)
+            # Oh no... Look at this abuse of Python. This is the type of thing they warn you about in school.
+            # TODO(sredmond): Move this into the hex method of colors.
+            r, g, b = rgb
+            hexcolor = '#{:02x}{:02x}{:02x}'.format(r, g, b)
+            gimage._tkim._PhotoImage__photo.put(hexcolor, (col, row))
+        except AttributeError:  # No putpixel in Tk, so try to fall back.
+            r, g, b = rgb
+            hexcolor = '#{:02x}{:02x}{:02x}'.format(r, g, b)
+            gimage._tkim.put(hexcolor, (col, row))
+
+    def gimage_preview(self, gimage): pass
 
 
 

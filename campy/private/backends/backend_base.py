@@ -113,7 +113,11 @@ class GraphicsBackendBase(abc.ABC):
     # Images
     def image_find(self, filename): pass
     def image_load(self, filename): pass
-    def gimage_constructor(self, gobject,  filename): pass
+    def gimage_constructor(self, gimage, filename): pass
+    def gimage_blank(self, gimage, width, height): pass
+    def gimage_get_pixel(self, gimage, row, col): pass
+    def gimage_set_pixel(self, gimage, row, col, rgb): pass
+    def gimage_preview(self, gimage): pass
 
     def gbufferedimage_constructor(self, gobject, x, y, width, height): pass
     def gbufferedimage_fill(self, gobject, rgb): pass

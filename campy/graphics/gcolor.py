@@ -223,6 +223,7 @@ class GColor(metaclass=_ColorResolverMeta):
     (6) As a case-insensitive name, such as "red" or "LiGhT sKy BlUe"
     (7) As a GColor constant, such as GColor.RED or GColor.LIGHT_SKY_BLUE.
     (8) As a 24-bit integer, representing the red, green, and blue channels.
+    (9) As a Pixel object, such as Pixel(168, 0, 59).
 
     The canonical (internal) form for a GColor is as three integers between 0 and 255.
 
@@ -279,6 +280,8 @@ class GColor(metaclass=_ColorResolverMeta):
                 return cls(red, green, blue)
             else:
                 raise CampyException  # OH NO
+        elif isinstance(color, Pixel):  # Discard the alpha information from a pixel.
+            return cls(color.red, color.green, color.blue)
         else:
             raise CampyException  # OH NO
 
@@ -298,7 +301,7 @@ class GColor(metaclass=_ColorResolverMeta):
 
     @property
     def rgb(self):
-        return self.red, self.green, self.blue
+        return self.r, self.g, self.b
 
     @property
     def hex(self):
@@ -306,6 +309,7 @@ class GColor(metaclass=_ColorResolverMeta):
         r = hex(self._red).replace('0x', '').zfill(2)
         g = hex(self._green).replace('0x', '').zfill(2)
         b = hex(self._blue).replace('0x', '').zfill(2)
+        # Probably something like: #{:02x}{:02x}{:02x}
         return '#{}{}{}'.format(r,g,b).upper()
 
     @property

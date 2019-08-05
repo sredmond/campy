@@ -1117,59 +1117,63 @@ class GLine(GObject):
     def __str__(self):
         return "GLine({self.x0}, {self.y0}, {self.x1}, {self.y1}".format(self=self)
 
-class GImage(GObject):
-    """Graphical representation of an image from a file.
 
-    To display a centered :class:`GImage` of the Stanford tree::
+# TODO(sredmond):Un-hotfix me
+from campy.graphics.gimage import GImage  # Make the "new" GImage accessible from this namespace.
 
-        window = GWindow()
-        tree = GImage("StanfordTree.gif")
-        x = (window.width - tree.width) / 2
-        y = (window.height - tree.height) / 2
-        window.add(tree, x, y)
+# class GImage(GObject):
+#     """Graphical representation of an image from a file.
 
-    The above code assumes that you have a file named ``StanfordTree.gif`` in
-    the current directory.
+#     To display a centered :class:`GImage` of the Stanford tree::
 
-    The search for matching image files begins in the current directory and,
-    failing that, searches an ``images/`` subdirectory relative to the calling script.
-    """
-    # TODO(sredmond): Have a environmental variable for a custom subdirectory.
-    # TODO(sredmond): When would you use a GImage over a GBufferedImage?
+#         window = GWindow()
+#         tree = GImage("StanfordTree.gif")
+#         x = (window.width - tree.width) / 2
+#         y = (window.height - tree.height) / 2
+#         window.add(tree, x, y)
 
-    def __init__(self, filename, x=0, y=0):
-        """Initialize a new image from the given file.
+#     The above code assumes that you have a file named ``StanfordTree.gif`` in
+#     the current directory.
 
-        The image file should either exist in the current directory or in a
-        subdirectory named ``images/``.
+#     The search for matching image files begins in the current directory and,
+#     failing that, searches an ``images/`` subdirectory relative to the calling script.
+#     """
+#     # TODO(sredmond): Have a environmental variable for a custom subdirectory.
+#     # TODO(sredmond): When would you use a GImage over a GBufferedImage?
 
-        By default, the upper left corner of the image appears at the origin.
-        By supplying x- and y- coordinates, the caller can set the location
-        to the point (x, y).
+#     def __init__(self, filename, x=0, y=0):
+#         """Initialize a new image from the given file.
 
-        :param filename: the name of the image file to load.
-        :param x: (optional) the x-coordinate to which to move this :class:`GImage`.
-        :param y: (optional) the y-coordinate to which to move this :class:`GImage`.
-        """
-        super().__init__()
-        self._path = _platform.Platform().image_find(filename)
-        self._image = _platform.Platform().gimage_constructor(self)
-        self.location = x, y
-        self._size = _platform.Platform().gimage_constructor(self, filename)
+#         The image file should either exist in the current directory or in a
+#         subdirectory named ``images/``.
 
-    @property
-    def filename(self):
-        """Get this :class:`GImage`'s filename."""
-        return self._path.name
+#         By default, the upper left corner of the image appears at the origin.
+#         By supplying x- and y- coordinates, the caller can set the location
+#         to the point (x, y).
 
-    @property
-    def bounds(self):
-        """Get the bounding box for this :class:`GImage`."""
-        if self._transformed: return _platform.Platform().gobject_get_bounds(self)
-        return _gtypes.GRectangle(self.x, self.y, self._size.width, self._size.height)
+#         :param filename: the name of the image file to load.
+#         :param x: (optional) the x-coordinate to which to move this :class:`GImage`.
+#         :param y: (optional) the y-coordinate to which to move this :class:`GImage`.
+#         """
+#         super().__init__()
+#         self._path = _platform.Platform().image_find(filename)
+#         self._image = _platform.Platform().gimage_constructor(self)
+#         self.location = x, y
+#         self._size = _platform.Platform().gimage_constructor(self, filename)
 
-    def __str__(self):
-        return 'GImage({!r})'.format(self.filename)
+#     @property
+#     def filename(self):
+#         """Get this :class:`GImage`'s filename."""
+#         return self._path.name
+
+#     @property
+#     def bounds(self):
+#         """Get the bounding box for this :class:`GImage`."""
+#         if self._transformed: return _platform.Platform().gobject_get_bounds(self)
+#         return _gtypes.GRectangle(self.x, self.y, self._size.width, self._size.height)
+
+#     def __str__(self):
+#         return 'GImage({!r})'.format(self.filename)
 
 
 class GLabel(GObject):
@@ -1463,12 +1467,14 @@ class GCompound(GObject, MutableSequence):
         if x is not None and y is not None:
             gobj.location = (x, y)
 
+        # TODO(sredmond): Temporary override while resolving multiple image types.
+        from campy.graphics.gimage import GImage
+
         # Dispatch the constructor to the appropriate backend constructor.
         if isinstance(gobj, GLine):
             _platform.Platform().gline_constructor(gobj)
 
         if isinstance(gobj, GImage):
-            # TODO(sredmond): Warn against creating a polygon w/o enough vertices.
             _platform.Platform().gimage_constructor(gobj)
 
         if isinstance(gobj, GRect):
