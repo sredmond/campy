@@ -638,7 +638,7 @@ class TkBackend(GraphicsBackendBase):
             im = im.convert('RGB')  # This is an unfortunate conversion, in that it kills transparent images.
             return im, im.width, im.height
         except ImportError:
-            im = tk.PhotoImage(file=gimage._path)
+            im = tk.PhotoImage(file=filename)
             return im, im.width(), im.height()
 
     def gimage_constructor(self, gimage):
@@ -669,7 +669,7 @@ class TkBackend(GraphicsBackendBase):
         try:
             # Using Tk.PhotoImage.
             value = gimage._data.get(col, row)
-            return Pixel(*value.split(' '))  # TODO(sredmond): Make sure Tk always returns 'r g b' and not 'a' or a single channel.
+            return Pixel(*map(int, value.split(' ')))  # TODO(sredmond): Make sure Tk always returns 'r g b' and not 'a' or a single channel.
         except AttributeError:  # No get method on ImageTk.PhotoImage.
             value = gimage._data.getpixel((col, row))  # Should be an (r, g, b) tuple
             return Pixel(*value)
