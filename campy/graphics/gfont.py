@@ -111,7 +111,7 @@ class GFont:
     def default(cls):
         attributes = _platform.Platform().gfont_default_attributes()
         return cls(family=attributes['family'], size=attributes['size'],
-                   weight=bool(attributes['weight']), slant=bool(attributes['slant']))
+                   weight=attributes['weight'] != 'normal', slant=attributes['slant']  != 'roman')
     @property
     def family(self):
         return self._family
