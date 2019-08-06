@@ -176,7 +176,7 @@ used by the backend.</p>
 <p>For more details, see: <a class="reference external" href="https://docs.python.org/3/library/time.html">https://docs.python.org/3/library/time.html</a></p>
 <dl class="function">
 <dt id="campy.gui.events.timer.pause">
-<code class="sig-prename descclassname">campy.gui.events.timer.</code><code class="sig-name descname">pause</code><span class="sig-paren">(</span><em class="sig-param">milliseconds</em>, <em class="sig-param">step=None</em>, <em class="sig-param">time_fn=&lt;built-in function time&gt;</em>, <em class="sig-param">sleep_fn=&lt;built-in function sleep&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/timer.html#pause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.timer.pause" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">campy.gui.events.timer.</code><code class="descname">pause</code><span class="sig-paren">(</span><em>milliseconds</em>, <em>step=None</em>, <em>time_fn=&lt;built-in function time&gt;</em>, <em>sleep_fn=&lt;built-in function sleep&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/timer.html#pause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.timer.pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pause the current thread while pumping queued events.</p>
 <p>This method pauses for at least at long as the requested number of
 milliseconds.</p>
@@ -193,21 +193,25 @@ milliseconds.</p>
 backend until the desired time has passed. This rate can be controlled with
 the step argument, which forces true thread sleep between event queue
 flushes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>milliseconds</strong> – The number of milliseconds to pause for.</p></li>
-<li><p><strong>step</strong> – The number of milliseconds to step between events.</p></li>
-<li><p><strong>time_fn</strong> – The time function to use, measured in seconds.</p></li>
-<li><p><strong>sleep_fn</strong> – The sleep function to use, measured in seconds.</p></li>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>milliseconds</strong> – The number of milliseconds to pause for.</li>
+<li><strong>step</strong> – The number of milliseconds to step between events.</li>
+<li><strong>time_fn</strong> – The time function to use, measured in seconds.</li>
+<li><strong>sleep_fn</strong> – The sleep function to use, measured in seconds.</li>
 </ul>
-</dd>
-</dl>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.gui.events.timer.repeat_every">
-<code class="sig-prename descclassname">campy.gui.events.timer.</code><code class="sig-name descname">repeat_every</code><span class="sig-paren">(</span><em class="sig-param">delay_ms</em>, <em class="sig-param">function=None</em>, <em class="sig-param">fargs=()</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/timer.html#repeat_every"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.timer.repeat_every" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">campy.gui.events.timer.</code><code class="descname">repeat_every</code><span class="sig-paren">(</span><em>delay_ms</em>, <em>function=None</em>, <em>fargs=()</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/timer.html#repeat_every"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.timer.repeat_every" title="Permalink to this definition">¶</a></dt>
 <dd><p>Repeat a function periodically and infinitely.</p>
 <p>This will schedule a delay between function calls, so if the function itself
 takes a long time, the gap between function calls may be larger than the
@@ -229,22 +233,25 @@ used directly, the looping function will be started immediately.)</p>
 <p>Note that the new function is explicitly invoked to start the loop.</p>
 <p>Invoked directly:</p>
 <blockquote>
-<div><dl class="simple">
-<dt>def update_time_elapsed(label):</dt><dd><p>label.text = ‘Current Time: {}’.format(time.ctime())</p>
-</dd>
+<div><dl class="docutils">
+<dt>def update_time_elapsed(label):</dt>
+<dd>label.text = ‘Current Time: {}’.format(time.ctime())</dd>
 </dl>
 <p>repeat_every(1000, update_time_elapsed, fargs=(label,))  # No additional invoking.</p>
 </div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>delay_ms</strong> – The number of milliseconds to delay between invocations.</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>delay_ms</strong> – The number of milliseconds to delay between invocations.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.gui.events.timer.schedule">
-<code class="sig-prename descclassname">campy.gui.events.timer.</code><code class="sig-name descname">schedule</code><span class="sig-paren">(</span><em class="sig-param">function</em>, <em class="sig-param">delay_ms</em>, <em class="sig-param">fargs=()</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/timer.html#schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.timer.schedule" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">campy.gui.events.timer.</code><code class="descname">schedule</code><span class="sig-paren">(</span><em>function</em>, <em>delay_ms</em>, <em>fargs=()</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/timer.html#schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.timer.schedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Schedule a function to execute in the future.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">GWindow</span><span class="p">()</span>

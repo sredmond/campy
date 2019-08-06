@@ -171,12 +171,58 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">campy.private.platform</span> <span class="k">as</span> <span class="nn">_platform</span>
 
-<span class="c1"># Define decorators for all of the common types of events.</span>
-<div class="viewcode-block" id="onwindowclosed"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.onwindowclosed">[docs]</a><span class="k">def</span> <span class="nf">onwindowclosed</span><span class="p">():</span>
+<div class="viewcode-block" id="GWindowEvent"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.GWindowEvent">[docs]</a><span class="k">class</span> <span class="nc">GWindowEvent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gwindow</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Construct a&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span> <span class="o">=</span> <span class="n">gwindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_height</span> <span class="o">=</span> <span class="n">height</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gwindow</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_y</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_width</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_height</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;GWindowEvent(x=</span><span class="si">{}</span><span class="s2">, y=</span><span class="si">{}</span><span class="s2">, width=</span><span class="si">{}</span><span class="s2">, height=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="onwindowresized"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.onwindowresized">[docs]</a><span class="k">def</span> <span class="nf">onwindowresized</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">event_add_window_changed_handler</span><span class="p">(</span><span class="n">function</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="onwindowmoved"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.onwindowmoved">[docs]</a><span class="k">def</span> <span class="nf">onwindowmoved</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="onwindowresized"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.onwindowresized">[docs]</a><span class="k">def</span> <span class="nf">onwindowresized</span><span class="p">():</span>
-    <span class="k">pass</span></div>
+<span class="c1"># Define decorators for all of the common types of events.</span>
+<div class="viewcode-block" id="onwindowclosed"><a class="viewcode-back" href="../../../../campy.gui.events.window.html#campy.gui.events.window.onwindowclosed">[docs]</a><span class="k">def</span> <span class="nf">onwindowclosed</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    If it returns a False-y value, the default action is taken.</span>
+<span class="sd">    If it returns a Truth-y value, the default action is skipped.</span>
+
+<span class="sd">    Note that this is OPPOSITE how Javascript does things.</span>
+
+<span class="sd">    There can be only one window closed handler per window.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_platform</span><span class="o">.</span><span class="n">Platform</span><span class="p">()</span><span class="o">.</span><span class="n">event_set_window_closed_handler</span><span class="p">(</span><span class="n">function</span><span class="p">)</span></div>
+
 </pre></div>
 
            </div>

@@ -211,6 +211,8 @@
 <span class="sd">        opaque.alpha //= 2</span>
 <span class="sd">        alpha, red, green, blue = opaque.argb()</span>
 
+<span class="sd">    The alpha channel of a pixel defaults to 255 if not otherwise set.</span>
+
 <span class="sd">    When setting values for these channels, it is required to supply an integer between</span>
 <span class="sd">    0 and 255, inclusive.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -357,9 +359,7 @@
 
 
 <span class="k">class</span> <span class="nc">_ColorResolverMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Metaclass to override attribute access for :class:`GColor`.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Metaclass to override attribute access for :class:`GColor`.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Implement ``self.attr`` if normal attribute lookup fails.</span>
 
@@ -387,6 +387,7 @@
 <span class="sd">    (6) As a case-insensitive name, such as &quot;red&quot; or &quot;LiGhT sKy BlUe&quot;</span>
 <span class="sd">    (7) As a GColor constant, such as GColor.RED or GColor.LIGHT_SKY_BLUE.</span>
 <span class="sd">    (8) As a 24-bit integer, representing the red, green, and blue channels.</span>
+<span class="sd">    (9) As a Pixel object, such as Pixel(168, 0, 59).</span>
 
 <span class="sd">    The canonical (internal) form for a GColor is as three integers between 0 and 255.</span>
 
@@ -414,7 +415,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
             <span class="c1"># Mode (1): 3-element tuple.</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">SomeException</span><span class="p">()</span>  <span class="c1"># TODO(sredmond): Test this color!</span>
+                <span class="k">raise</span> <span class="n">CampyException</span>  <span class="c1"># TODO(sredmond): Test this color!</span>
 
             <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">color</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
@@ -442,9 +443,11 @@
                 <span class="n">blue</span> <span class="o">=</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFF</span>
                 <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">SomeException</span>  <span class="c1"># OH NOW</span>
+                <span class="k">raise</span> <span class="n">CampyException</span>  <span class="c1"># OH NO</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">Pixel</span><span class="p">):</span>  <span class="c1"># Discard the alpha information from a pixel.</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">SomeException</span>  <span class="c1"># O NOW</span>
+            <span class="k">raise</span> <span class="n">CampyException</span>  <span class="c1"># OH NO</span>
 
         <span class="k">return</span> <span class="n">Color</span><span class="o">.</span><span class="n">BLACK</span></div>
 
@@ -462,7 +465,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rgb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">red</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">green</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blue</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">g</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">hex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -470,8 +473,8 @@
         <span class="n">r</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_red</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">g</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_green</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">b</span> <span class="o">=</span> <span class="nb">hex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_blue</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;0x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Probably something like: #{:02x}{:02x}{:02x}</span>
         <span class="k">return</span> <span class="s1">&#39;#</span><span class="si">{}{}{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-        <span class="c1"># return &quot;#{:0&gt;6}&quot;.format(hex(rgb)[2:].upper())</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

@@ -179,32 +179,32 @@ notified when some part of the state of the observable object changes.
 This is an example of the classic Observer/Observable design pattern.</p>
 <dl class="class">
 <dt id="campy.util.observable.Observable">
-<em class="property">class </em><code class="sig-prename descclassname">campy.util.observable.</code><code class="sig-name descname">Observable</code><a class="reference internal" href="_modules/campy/util/observable.html#Observable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.util.observable.</code><code class="descname">Observable</code><a class="reference internal" href="_modules/campy/util/observable.html#Observable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="campy.util.observable.Observable.add_observer">
-<code class="sig-name descname">add_observer</code><span class="sig-paren">(</span><em class="sig-param">observer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observable.add_observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable.add_observer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add_observer</code><span class="sig-paren">(</span><em>observer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observable.add_observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable.add_observer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.util.observable.Observable.notify_observers">
-<code class="sig-name descname">notify_observers</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observable.notify_observers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable.notify_observers" title="Permalink to this definition">¶</a></dt>
+<code class="descname">notify_observers</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observable.notify_observers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable.notify_observers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.util.observable.Observable.remove_observer">
-<code class="sig-name descname">remove_observer</code><span class="sig-paren">(</span><em class="sig-param">observer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observable.remove_observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable.remove_observer" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_observer</code><span class="sig-paren">(</span><em>observer</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observable.remove_observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observable.remove_observer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.util.observable.Observer">
-<em class="property">class </em><code class="sig-prename descclassname">campy.util.observable.</code><code class="sig-name descname">Observer</code><a class="reference internal" href="_modules/campy/util/observable.html#Observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.util.observable.</code><code class="descname">Observer</code><a class="reference internal" href="_modules/campy/util/observable.html#Observer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="campy.util.observable.Observer.update">
-<em class="property">abstract </em><code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">observed</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observer.update" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>observed</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/util/observable.html#Observer.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.util.observable.Observer.update" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

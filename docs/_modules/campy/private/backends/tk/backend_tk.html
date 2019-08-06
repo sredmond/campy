@@ -181,12 +181,16 @@
 <span class="sd">(A) At program termination, Tk object is not destroyed, and &quot;program&quot; isn&#39;t done until Tk window is closed.</span>
 <span class="sd">(B) At program termination, Tk object is destroyed and program is finished.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># TODO(sredmond): For all methods that implicitly operate on the most recent</span>
+<span class="c1"># GWindow, allow the client to pass an optional GWindow on which to operate.</span>
 <span class="c1"># It is discouraged to instantiate multiple instances of Tk graphics</span>
 <span class="kn">from</span> <span class="nn">campy.private.backends.backend_base</span> <span class="k">import</span> <span class="n">GraphicsBackendBase</span>
 <span class="kn">from</span> <span class="nn">campy.private.backends.tk.menu</span> <span class="k">import</span> <span class="n">setup_menubar</span>
 
 <span class="kn">import</span> <span class="nn">atexit</span>
+<span class="kn">import</span> <span class="nn">functools</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
 <span class="kn">import</span> <span class="nn">tkinter.font</span> <span class="k">as</span> <span class="nn">tkfont</span>
 <span class="kn">import</span> <span class="nn">tkinter.filedialog</span> <span class="k">as</span> <span class="nn">tkfiledialog</span>
@@ -200,6 +204,12 @@
     <span class="kn">from</span> <span class="nn">_tkinter</span> <span class="k">import</span> <span class="n">DONT_WAIT</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">DONT_WAIT</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Load the PIL PhotoImage class if possible, otherwise use tkinter&#39;s.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">PIL.ImageTk</span> <span class="k">import</span> <span class="n">PhotoImage</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">tkinter</span> <span class="k">import</span> <span class="n">PhotoImage</span>
 
 
 <span class="c1"># Module-level logger.</span>
@@ -418,8 +428,13 @@
 <div class="viewcode-block" id="TkBackend.gwindow_add_to_region"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gwindow_add_to_region">[docs]</a>    <span class="k">def</span> <span class="nf">gwindow_add_to_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gwindow</span><span class="p">,</span> <span class="n">gobject</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">campy.graphics.gwindow</span> <span class="k">import</span> <span class="n">Region</span>
         <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="n">Region</span><span class="o">.</span><span class="n">NORTH</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_ginteractor_add</span><span class="p">(</span><span class="n">gobject</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">.</span><span class="n">_tkwin</span><span class="o">.</span><span class="n">top</span><span class="p">)</span></div>
-
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ginteractor_add</span><span class="p">(</span><span class="n">gobject</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">.</span><span class="n">_tkwin</span><span class="o">.</span><span class="n">top</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="n">Region</span><span class="o">.</span><span class="n">EAST</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ginteractor_add</span><span class="p">(</span><span class="n">gobject</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">.</span><span class="n">_tkwin</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="n">Region</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ginteractor_add</span><span class="p">(</span><span class="n">gobject</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">.</span><span class="n">_tkwin</span><span class="o">.</span><span class="n">bottom</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="o">==</span> <span class="n">Region</span><span class="o">.</span><span class="n">WEST</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ginteractor_add</span><span class="p">(</span><span class="n">gobject</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">.</span><span class="n">_tkwin</span><span class="o">.</span><span class="n">left</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TkBackend.gwindow_remove_from_region"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gwindow_remove_from_region">[docs]</a>    <span class="k">def</span> <span class="nf">gwindow_remove_from_region</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gwindow</span><span class="p">,</span> <span class="n">gobject</span><span class="p">,</span> <span class="n">region</span><span class="p">):</span> <span class="k">pass</span></div>
 <div class="viewcode-block" id="TkBackend.gwindow_set_region_alignment"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gwindow_set_region_alignment">[docs]</a>    <span class="k">def</span> <span class="nf">gwindow_set_region_alignment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gwindow</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">align</span><span class="p">):</span> <span class="k">pass</span></div>
@@ -470,7 +485,13 @@
         <span class="n">tkid</span> <span class="o">=</span> <span class="n">gobject</span><span class="o">.</span><span class="n">_tkid</span>
         <span class="n">win</span> <span class="o">=</span> <span class="n">gobject</span><span class="o">.</span><span class="n">_tkwin</span>
 
-        <span class="n">win</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="n">tkid</span><span class="p">,</span> <span class="n">outline</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">hex</span><span class="p">)</span>
+        <span class="c1"># Awkward import.</span>
+        <span class="kn">from</span> <span class="nn">campy.graphics.gobjects</span> <span class="k">import</span> <span class="n">GLabel</span><span class="p">,</span> <span class="n">GLine</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gobject</span><span class="p">,</span> <span class="n">GLabel</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gobject</span><span class="p">,</span> <span class="n">GLine</span><span class="p">):</span>
+            <span class="n">win</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="n">tkid</span><span class="p">,</span> <span class="n">outline</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">hex</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># GLabels and GLines are special because their &quot;color&quot; is actually a fill color.</span>
+            <span class="n">win</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">itemconfig</span><span class="p">(</span><span class="n">tkid</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">color</span><span class="o">.</span><span class="n">hex</span><span class="p">)</span>
 
         <span class="n">win</span><span class="o">.</span><span class="n">_master</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span></div>
 
@@ -637,6 +658,12 @@
 
         <span class="n">win</span><span class="o">.</span><span class="n">_master</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span></div>
 
+    <span class="c1">##############</span>
+    <span class="c1"># GCompounds #</span>
+    <span class="c1">##############</span>
+<div class="viewcode-block" id="TkBackend.gcompound_constructor"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gcompound_constructor">[docs]</a>    <span class="k">def</span> <span class="nf">gcompound_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobject</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="TkBackend.gcompound_add"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gcompound_add">[docs]</a>    <span class="k">def</span> <span class="nf">gcompound_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compound</span><span class="p">,</span> <span class="n">gobject</span><span class="p">):</span> <span class="k">pass</span></div>
+
     <span class="c1">#########</span>
     <span class="c1"># Fonts #</span>
     <span class="c1">#########</span>
@@ -685,6 +712,8 @@
             <span class="n">text</span><span class="o">=</span><span class="n">glabel</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
             <span class="n">fill</span><span class="o">=</span><span class="n">glabel</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">SW</span><span class="p">,</span>
             <span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span> <span class="k">if</span> <span class="n">glabel</span><span class="o">.</span><span class="n">visible</span> <span class="k">else</span> <span class="n">tk</span><span class="o">.</span><span class="n">HIDDEN</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">glabel_set_font</span><span class="p">(</span><span class="n">glabel</span><span class="p">,</span> <span class="n">glabel</span><span class="o">.</span><span class="n">font</span><span class="p">)</span>
 
         <span class="n">win</span><span class="o">.</span><span class="n">_master</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span></div>
 
@@ -743,6 +772,91 @@
         <span class="n">win</span><span class="o">.</span><span class="n">_master</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span></div>
 
     <span class="c1">##########</span>
+    <span class="c1"># Images #</span>
+    <span class="c1">##########</span>
+<div class="viewcode-block" id="TkBackend.image_find"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.image_find">[docs]</a>    <span class="k">def</span> <span class="nf">image_find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="c1"># TODO(sredmond): Couple image file searching and image file loading.</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">path</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+
+        <span class="c1"># For relative paths, search for images in the following places.</span>
+        <span class="c1"># (1) The actual relative path to the scripts current directory.</span>
+        <span class="c1"># (1) An `images/` subfolder in the scripts current directory.</span>
+        <span class="c1"># TODO(sredmond): Read in a path environmental variable for searching.</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>  <span class="c1"># We found it, even though it&#39;s relative!</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;images&#39;</span> <span class="o">/</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">&#39;images&#39;</span> <span class="o">/</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+        <span class="c1"># TODO(sredmond): Also search through library-specific images.</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="TkBackend.image_load"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.image_load">[docs]</a>    <span class="k">def</span> <span class="nf">image_load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">PIL</span> <span class="k">import</span> <span class="n">Image</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loading image using PIL.&#39;</span><span class="p">)</span>
+            <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">im</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;RGB&#39;</span><span class="p">)</span>  <span class="c1"># This is an unfortunate conversion, in that it kills transparent images.</span>
+            <span class="k">return</span> <span class="n">im</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="n">im</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">im</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">im</span><span class="o">.</span><span class="n">height</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TkBackend.gimage_constructor"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gimage_constructor">[docs]</a>    <span class="k">def</span> <span class="nf">gimage_constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gimage</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Try to create some sort of Tk Photo Image.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">gimage</span><span class="p">,</span> <span class="s1">&#39;_tkwin&#39;</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">win</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">gimage</span><span class="o">.</span><span class="n">_tkwin</span> <span class="o">=</span> <span class="n">win</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="n">gimage</span><span class="o">.</span><span class="n">_data</span>  <span class="c1"># Either a tk.PhotoImage or a PIL.Image</span>
+        <span class="c1"># This is an awkward state, since ImageTk.PhotoImage isn&#39;t a subclass.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">):</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">PhotoImage</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
+
+        <span class="n">gimage</span><span class="o">.</span><span class="n">_tkid</span> <span class="o">=</span> <span class="n">win</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">create_image</span><span class="p">(</span>
+            <span class="n">gimage</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">gimage</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NW</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
+
+        <span class="c1"># Keep a reference to the PhotoImage object so that the Python GC</span>
+        <span class="c1"># doesn&#39;t destroy the data.</span>
+        <span class="n">gimage</span><span class="o">.</span><span class="n">_tkim</span> <span class="o">=</span> <span class="n">image</span>
+
+        <span class="n">win</span><span class="o">.</span><span class="n">_master</span><span class="o">.</span><span class="n">update_idletasks</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TkBackend.gimage_blank"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gimage_blank">[docs]</a>    <span class="k">def</span> <span class="nf">gimage_blank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gimage</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="TkBackend.gimage_get_pixel"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gimage_get_pixel">[docs]</a>    <span class="k">def</span> <span class="nf">gimage_get_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gimage</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">campy.graphics.gcolor</span> <span class="k">import</span> <span class="n">Pixel</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Using Tk.PhotoImage.</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">gimage</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Pixel</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)))</span>  <span class="c1"># TODO(sredmond): Make sure Tk always returns &#39;r g b&#39; and not &#39;a&#39; or a single channel.</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># No get method on ImageTk.PhotoImage.</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">gimage</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span>  <span class="c1"># Should be an (r, g, b) tuple</span>
+            <span class="k">return</span> <span class="n">Pixel</span><span class="p">(</span><span class="o">*</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TkBackend.gimage_set_pixel"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gimage_set_pixel">[docs]</a>    <span class="k">def</span> <span class="nf">gimage_set_pixel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gimage</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">rgb</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span> <span class="c1"># Default to using PIL</span>
+            <span class="n">gimage</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">),</span> <span class="n">rgb</span><span class="p">)</span>
+            <span class="c1"># Oh no... Look at this abuse of Python. This is the type of thing they warn you about in school.</span>
+            <span class="c1"># TODO(sredmond): Move this into the hex method of colors.</span>
+            <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">rgb</span>
+            <span class="n">hexcolor</span> <span class="o">=</span> <span class="s1">&#39;#</span><span class="si">{:02x}{:02x}{:02x}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">gimage</span><span class="o">.</span><span class="n">_tkim</span><span class="o">.</span><span class="n">_PhotoImage__photo</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">hexcolor</span><span class="p">,</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c1"># No putpixel in Tk, so try to fall back.</span>
+            <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">rgb</span>
+            <span class="n">hexcolor</span> <span class="o">=</span> <span class="s1">&#39;#</span><span class="si">{:02x}{:02x}{:02x}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="n">gimage</span><span class="o">.</span><span class="n">_tkim</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">hexcolor</span><span class="p">,</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TkBackend.gimage_preview"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.gimage_preview">[docs]</a>    <span class="k">def</span> <span class="nf">gimage_preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gimage</span><span class="p">):</span> <span class="k">pass</span></div>
+
+
+
+    <span class="c1">##########</span>
     <span class="c1"># Events #</span>
     <span class="c1">##########</span>
 <div class="viewcode-block" id="TkBackend.set_action_command"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.set_action_command">[docs]</a>    <span class="k">def</span> <span class="nf">set_action_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gobject</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span> <span class="k">pass</span></div>
@@ -752,7 +866,8 @@
 <div class="viewcode-block" id="TkBackend.event_add_keypress_handler"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.event_add_keypress_handler">[docs]</a>    <span class="k">def</span> <span class="nf">event_add_keypress_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span> <span class="k">pass</span></div>
 <div class="viewcode-block" id="TkBackend.event_generate_keypress"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.event_generate_keypress">[docs]</a>    <span class="k">def</span> <span class="nf">event_generate_keypress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span> <span class="k">pass</span></div>
 
-    <span class="k">def</span> <span class="nf">_wrap_mouse_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">event_type</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_wrap_mouse_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">event_type</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">campy.gui.events.mouse</span> <span class="k">import</span> <span class="n">GMouseEvent</span>
         <span class="c1"># TODO(sredmond): As written, this joins the TkWindow, not the GWindow, to this event.</span>
         <span class="k">return</span> <span class="n">GMouseEvent</span><span class="p">(</span><span class="n">event_type</span><span class="o">=</span><span class="n">event_type</span><span class="p">,</span> <span class="n">gwindow</span><span class="o">=</span><span class="n">window</span><span class="o">.</span><span class="n">_gwindow</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
@@ -777,6 +892,38 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Unrecognized event type: </span><span class="si">{}</span><span class="s1">. Quietly passing.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">event</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="TkBackend.event_generate_mouse"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.event_generate_mouse">[docs]</a>    <span class="k">def</span> <span class="nf">event_generate_mouse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span> <span class="k">pass</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_wrap_window_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">campy.gui.events.window</span> <span class="k">import</span> <span class="n">GWindowEvent</span>
+        <span class="k">return</span> <span class="n">GWindowEvent</span><span class="p">(</span><span class="n">window</span><span class="o">.</span><span class="n">_gwindow</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TkBackend.event_add_window_changed_handler"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.event_add_window_changed_handler">[docs]</a>    <span class="k">def</span> <span class="nf">event_add_window_changed_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Refusing to add a window listener before any windows are created.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">win</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">win</span><span class="o">.</span><span class="n">_master</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Configure&gt;&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">cb_event</span><span class="p">:</span> <span class="n">handler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_wrap_window_event</span><span class="p">(</span><span class="n">cb_event</span><span class="p">,</span> <span class="n">win</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="TkBackend.event_set_window_closed_handler"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.event_set_window_closed_handler">[docs]</a>    <span class="k">def</span> <span class="nf">event_set_window_closed_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="c1"># TODO(sredmond): Don&#39;t allow this method to set a handler multiple times, or warn about replacing the old one.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Refusing to add a window listener before any windows are created.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">win</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_windows</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">handler</span><span class="p">()</span>
+
+            <span class="c1"># Perform the default action when the handler returns a False value.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+                <span class="n">win</span><span class="o">.</span><span class="n">_close</span><span class="p">()</span>
+
+        <span class="c1"># Unlike some of the other event methods, this callback is bound via protocol.</span>
+        <span class="n">win</span><span class="o">.</span><span class="n">_master</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span><span class="s2">&quot;WM_DELETE_WINDOW&quot;</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="TkBackend.event_pump_one"><a class="viewcode-back" href="../../../../../campy.private.backends.tk.backend_tk.html#campy.private.backends.tk.backend_tk.TkBackend.event_pump_one">[docs]</a>    <span class="k">def</span> <span class="nf">event_pump_one</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Forcibly process queued tasks, but don&#39;t process newly queued ones.</span>

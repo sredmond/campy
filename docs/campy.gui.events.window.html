@@ -171,17 +171,57 @@
 <p>Interact with the graphics libraries via window events.</p>
 <p>There are only two types of window events to which a caller can subscribe:</p>
 <ul class="simple">
-<li><p>WindowClosed: The graphical window was closed.</p></li>
-<li><p>WindowResized: The graphical window was resized.</p></li>
+<li>WindowClosed: The graphical window was closed.</li>
+<li>WindowResized: The graphical window was resized.</li>
 </ul>
+<dl class="class">
+<dt id="campy.gui.events.window.GWindowEvent">
+<em class="property">class </em><code class="descclassname">campy.gui.events.window.</code><code class="descname">GWindowEvent</code><span class="sig-paren">(</span><em>gwindow</em>, <em>x</em>, <em>y</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/window.html#GWindowEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.window.GWindowEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="campy.gui.events.window.GWindowEvent.height">
+<code class="descname">height</code><a class="headerlink" href="#campy.gui.events.window.GWindowEvent.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.gui.events.window.GWindowEvent.width">
+<code class="descname">width</code><a class="headerlink" href="#campy.gui.events.window.GWindowEvent.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.gui.events.window.GWindowEvent.window">
+<code class="descname">window</code><a class="headerlink" href="#campy.gui.events.window.GWindowEvent.window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.gui.events.window.GWindowEvent.x">
+<code class="descname">x</code><a class="headerlink" href="#campy.gui.events.window.GWindowEvent.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="campy.gui.events.window.GWindowEvent.y">
+<code class="descname">y</code><a class="headerlink" href="#campy.gui.events.window.GWindowEvent.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="campy.gui.events.window.onwindowclosed">
-<code class="sig-prename descclassname">campy.gui.events.window.</code><code class="sig-name descname">onwindowclosed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/window.html#onwindowclosed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.window.onwindowclosed" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">campy.gui.events.window.</code><code class="descname">onwindowclosed</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/window.html#onwindowclosed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.window.onwindowclosed" title="Permalink to this definition">¶</a></dt>
+<dd><p>If it returns a False-y value, the default action is taken.
+If it returns a Truth-y value, the default action is skipped.</p>
+<p>Note that this is OPPOSITE how Javascript does things.</p>
+<p>There can be only one window closed handler per window.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="campy.gui.events.window.onwindowmoved">
+<code class="descclassname">campy.gui.events.window.</code><code class="descname">onwindowmoved</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/window.html#onwindowmoved"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.window.onwindowmoved" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="campy.gui.events.window.onwindowresized">
-<code class="sig-prename descclassname">campy.gui.events.window.</code><code class="sig-name descname">onwindowresized</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/window.html#onwindowresized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.window.onwindowresized" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">campy.gui.events.window.</code><code class="descname">onwindowresized</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/gui/events/window.html#onwindowresized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.gui.events.window.onwindowresized" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

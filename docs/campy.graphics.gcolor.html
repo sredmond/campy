@@ -182,75 +182,76 @@ alpha channel and has many more utility methods attached.</p>
 <p>Additionally, a <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a> is mutable, whereas a <a class="reference internal" href="#campy.graphics.gcolor.GColor" title="campy.graphics.gcolor.GColor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code></a> is immutable.</p>
 <dl class="class">
 <dt id="campy.graphics.gcolor.GColor">
-<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.gcolor.</code><code class="sig-name descname">GColor</code><span class="sig-paren">(</span><em class="sig-param">red</em>, <em class="sig-param">green</em>, <em class="sig-param">blue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">GColor</code><span class="sig-paren">(</span><em>red</em>, <em>green</em>, <em>blue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A <a class="reference internal" href="#campy.graphics.gcolor.GColor" title="campy.graphics.gcolor.GColor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code></a> represents a color.</p>
 <p>Colors can be represented in many different forms.</p>
 <ol class="arabic simple">
-<li><p>As a three-integer tuple, such as as (168, 0, 59), with each entry in the range 0..255</p></li>
-<li><p>As a three-character hex string prefaced with ‘#’, such as “#83E”</p></li>
-<li><p>As a six-character hex string prefaced with ‘#’, such as “#A8003B”</p></li>
-<li><p>As a three-character hex string prefaced with ‘0x’, such as “0x83E”</p></li>
-<li><p>As a six-character hex string prefaced with ‘0x’, such as “0xA8003B”</p></li>
-<li><p>As a case-insensitive name, such as “red” or “LiGhT sKy BlUe”</p></li>
-<li><p>As a GColor constant, such as GColor.RED or GColor.LIGHT_SKY_BLUE.</p></li>
-<li><p>As a 24-bit integer, representing the red, green, and blue channels.</p></li>
+<li>As a three-integer tuple, such as as (168, 0, 59), with each entry in the range 0..255</li>
+<li>As a three-character hex string prefaced with ‘#’, such as “#83E”</li>
+<li>As a six-character hex string prefaced with ‘#’, such as “#A8003B”</li>
+<li>As a three-character hex string prefaced with ‘0x’, such as “0x83E”</li>
+<li>As a six-character hex string prefaced with ‘0x’, such as “0xA8003B”</li>
+<li>As a case-insensitive name, such as “red” or “LiGhT sKy BlUe”</li>
+<li>As a GColor constant, such as GColor.RED or GColor.LIGHT_SKY_BLUE.</li>
+<li>As a 24-bit integer, representing the red, green, and blue channels.</li>
+<li>As a Pixel object, such as Pixel(168, 0, 59).</li>
 </ol>
 <p>The canonical (internal) form for a GColor is as three integers between 0 and 255.</p>
 <p>A <a class="reference internal" href="#campy.graphics.gcolor.GColor" title="campy.graphics.gcolor.GColor"><code class="xref py py-class docutils literal notranslate"><span class="pre">GColor</span></code></a> should be thought of as immutable.</p>
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.b">
-<em class="property">property </em><code class="sig-name descname">b</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.b" title="Permalink to this definition">¶</a></dt>
+<code class="descname">b</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.b" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="campy.graphics.gcolor.GColor.brighten">
-<em class="property">classmethod </em><code class="sig-name descname">brighten</code><span class="sig-paren">(</span><em class="sig-param">color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.brighten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.brighten" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">brighten</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.brighten"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.brighten" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="campy.graphics.gcolor.GColor.darken">
-<em class="property">classmethod </em><code class="sig-name descname">darken</code><span class="sig-paren">(</span><em class="sig-param">color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.darken"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.darken" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">darken</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.darken"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.darken" title="Permalink to this definition">¶</a></dt>
 <dd><p>Construct a new color at 2/3 of the current color’s red, green, and blue values, rounded down.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.g">
-<em class="property">property </em><code class="sig-name descname">g</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.g" title="Permalink to this definition">¶</a></dt>
+<code class="descname">g</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.g" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.hex">
-<em class="property">property </em><code class="sig-name descname">hex</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.hex" title="Permalink to this definition">¶</a></dt>
+<code class="descname">hex</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.hex" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.name">
-<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">name</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a human-readable name for this color.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="campy.graphics.gcolor.GColor.normalize">
-<em class="property">classmethod </em><code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.normalize" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">normalize</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#GColor.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.GColor.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalize a color description provided by an end user.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.r">
-<em class="property">property </em><code class="sig-name descname">r</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.r" title="Permalink to this definition">¶</a></dt>
+<code class="descname">r</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.r" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.GColor.rgb">
-<em class="property">property </em><code class="sig-name descname">rgb</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.rgb" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rgb</code><a class="headerlink" href="#campy.graphics.gcolor.GColor.rgb" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="campy.graphics.gcolor.Pixel">
-<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.gcolor.</code><code class="sig-name descname">Pixel</code><span class="sig-paren">(</span><em class="sig-param">red=0</em>, <em class="sig-param">green=0</em>, <em class="sig-param">blue=0</em>, <em class="sig-param">alpha=255</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.graphics.gcolor.</code><code class="descname">Pixel</code><span class="sig-paren">(</span><em>red=0</em>, <em>green=0</em>, <em>blue=0</em>, <em>alpha=255</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a> represents a single, possibly-transparent pixel from an image.</p>
 <p>Students will likely never have to directly instantiate Pixels, and will instead
@@ -273,11 +274,12 @@ likely just modify provided Pixels.</p>
 <span class="n">alpha</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span> <span class="o">=</span> <span class="n">opaque</span><span class="o">.</span><span class="n">argb</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>The alpha channel of a pixel defaults to 255 if not otherwise set.</p>
 <p>When setting values for these channels, it is required to supply an integer between
 0 and 255, inclusive.</p>
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.alpha">
-<em class="property">property </em><code class="sig-name descname">alpha</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.alpha" title="Permalink to this definition">¶</a></dt>
+<code class="descname">alpha</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.alpha" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s alpha channel.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
@@ -289,7 +291,7 @@ likely just modify provided Pixels.</p>
 
 <dl class="method">
 <dt id="campy.graphics.gcolor.Pixel.argb">
-<code class="sig-name descname">argb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.argb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.argb" title="Permalink to this definition">¶</a></dt>
+<code class="descname">argb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.argb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.argb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a 4-tuple of this Pixel’s channels, including alpha transparency.</p>
 <p>The elements of the tuple correspond to alpha, red, green, and blue.</p>
 <p>To extract all channels at once:</p>
@@ -299,9 +301,9 @@ likely just modify provided Pixels.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.blue">
-<em class="property">property </em><code class="sig-name descname">blue</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.blue" title="Permalink to this definition">¶</a></dt>
+<code class="descname">blue</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.blue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s blue channel.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
@@ -311,9 +313,9 @@ likely just modify provided Pixels.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.green">
-<em class="property">property </em><code class="sig-name descname">green</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.green" title="Permalink to this definition">¶</a></dt>
+<code class="descname">green</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.green" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s green channel.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
@@ -323,9 +325,9 @@ likely just modify provided Pixels.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gcolor.Pixel.red">
-<em class="property">property </em><code class="sig-name descname">red</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.red" title="Permalink to this definition">¶</a></dt>
+<code class="descname">red</code><a class="headerlink" href="#campy.graphics.gcolor.Pixel.red" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get or set this <a class="reference internal" href="#campy.graphics.gcolor.Pixel" title="campy.graphics.gcolor.Pixel"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pixel</span></code></a>’s red channel.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pixel</span> <span class="o">=</span> <span class="n">Pixel</span><span class="p">(</span><span class="mi">168</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
@@ -337,7 +339,7 @@ likely just modify provided Pixels.</p>
 
 <dl class="method">
 <dt id="campy.graphics.gcolor.Pixel.rgb">
-<code class="sig-name descname">rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.rgb" title="Permalink to this definition">¶</a></dt>
+<code class="descname">rgb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gcolor.html#Pixel.rgb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gcolor.Pixel.rgb" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a 3-tuple of this Pixel’s channels, not including alpha transparency.</p>
 <p>The elements of the tuple correspond to red, green, and blue.</p>
 <p>To extract all color channels at once:</p>

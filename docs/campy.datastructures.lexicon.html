@@ -172,7 +172,7 @@
 <p>This <a class="reference internal" href="#campy.datastructures.lexicon.Lexicon" title="campy.datastructures.lexicon.Lexicon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lexicon</span></code></a> implementation is backed by a data structure called a prefix tree or trie (“try”).</p>
 <dl class="class">
 <dt id="campy.datastructures.lexicon.Lexicon">
-<em class="property">class </em><code class="sig-prename descclassname">campy.datastructures.lexicon.</code><code class="sig-name descname">Lexicon</code><span class="sig-paren">(</span><em class="sig-param">file=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.datastructures.lexicon.</code><code class="descname">Lexicon</code><span class="sig-paren">(</span><em>file=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.MutableSet" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.MutableSet</span></code></a></p>
 <p>Representation of a <a class="reference internal" href="#campy.datastructures.lexicon.Lexicon" title="campy.datastructures.lexicon.Lexicon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lexicon</span></code></a>, or word list.</p>
 <p>The main difference between a lexicon and a dictionary is that
@@ -191,36 +191,36 @@ in the lexicon stored at <cite>english.lex</cite>:</p>
 </div>
 <dl class="method">
 <dt id="campy.datastructures.lexicon.Lexicon.add">
-<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.add" title="Permalink to this definition">¶</a></dt>
+<code class="descname">add</code><span class="sig-paren">(</span><em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an element.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.datastructures.lexicon.Lexicon.clear">
-<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.clear" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is slow (creates N new iterators!) but effective.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.datastructures.lexicon.Lexicon.contains_prefix">
-<code class="sig-name descname">contains_prefix</code><span class="sig-paren">(</span><em class="sig-param">word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.contains_prefix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.contains_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">contains_prefix</code><span class="sig-paren">(</span><em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.contains_prefix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.contains_prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.datastructures.lexicon.Lexicon.discard">
-<code class="sig-name descname">discard</code><span class="sig-paren">(</span><em class="sig-param">word</em><span class="sig-paren">)</span><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.discard" title="Permalink to this definition">¶</a></dt>
+<code class="descname">discard</code><span class="sig-paren">(</span><em>word</em><span class="sig-paren">)</span><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.discard" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove an element. If not a member, raise a KeyError.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.datastructures.lexicon.Lexicon.remove">
-<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param">word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.remove" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove</code><span class="sig-paren">(</span><em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove an element. If not a member, raise a KeyError.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.datastructures.lexicon.Lexicon.remove_prefix">
-<code class="sig-name descname">remove_prefix</code><span class="sig-paren">(</span><em class="sig-param">word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.remove_prefix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.remove_prefix" title="Permalink to this definition">¶</a></dt>
+<code class="descname">remove_prefix</code><span class="sig-paren">(</span><em>word</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/datastructures/lexicon.html#Lexicon.remove_prefix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.datastructures.lexicon.Lexicon.remove_prefix" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

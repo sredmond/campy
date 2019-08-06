@@ -183,10 +183,9 @@ FAMILY-STYLE-MODIFIERS:</p>
 </div>
 <p>For finer grained control, use the constructor directly.</p>
 <blockquote>
-<div><p>font1 = GFont.parse(‘Helvetica’, 12)
+<div>font1 = GFont.parse(‘Helvetica’, 12)
 font2 = GFont.parse(‘Times New Roman’, 24, weight=True)
-font3 = GFont.parse(‘Verdana’, 11, weight=True, slant=True)</p>
-</div></blockquote>
+font3 = GFont.parse(‘Verdana’, 11, weight=True, slant=True)</div></blockquote>
 <p>To access a system font by name, such as the macOS alert header:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">font</span> <span class="o">=</span> <span class="n">GFont</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;systemAlertHeaderFont&#39;</span><span class="p">)</span>
 </pre></div>
@@ -205,46 +204,46 @@ to any particular text rendered in this font.</p>
 </div>
 <dl class="class">
 <dt id="campy.graphics.gfont.GFont">
-<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.gfont.</code><code class="sig-name descname">GFont</code><span class="sig-paren">(</span><em class="sig-param">family</em>, <em class="sig-param">size</em>, <em class="sig-param">weight=False</em>, <em class="sig-param">slant=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.graphics.gfont.</code><code class="descname">GFont</code><span class="sig-paren">(</span><em>family</em>, <em>size</em>, <em>weight=False</em>, <em>slant=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.ascent">
-<em class="property">property </em><code class="sig-name descname">ascent</code><a class="headerlink" href="#campy.graphics.gfont.GFont.ascent" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ascent</code><a class="headerlink" href="#campy.graphics.gfont.GFont.ascent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="campy.graphics.gfont.GFont.default">
-<em class="property">classmethod </em><code class="sig-name descname">default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.default" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.default" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.descent">
-<em class="property">property </em><code class="sig-name descname">descent</code><a class="headerlink" href="#campy.graphics.gfont.GFont.descent" title="Permalink to this definition">¶</a></dt>
+<code class="descname">descent</code><a class="headerlink" href="#campy.graphics.gfont.GFont.descent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.family">
-<em class="property">property </em><code class="sig-name descname">family</code><a class="headerlink" href="#campy.graphics.gfont.GFont.family" title="Permalink to this definition">¶</a></dt>
+<code class="descname">family</code><a class="headerlink" href="#campy.graphics.gfont.GFont.family" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.fixed">
-<em class="property">property </em><code class="sig-name descname">fixed</code><a class="headerlink" href="#campy.graphics.gfont.GFont.fixed" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fixed</code><a class="headerlink" href="#campy.graphics.gfont.GFont.fixed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.linespace">
-<em class="property">property </em><code class="sig-name descname">linespace</code><a class="headerlink" href="#campy.graphics.gfont.GFont.linespace" title="Permalink to this definition">¶</a></dt>
+<code class="descname">linespace</code><a class="headerlink" href="#campy.graphics.gfont.GFont.linespace" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gfont.GFont.measure">
-<code class="sig-name descname">measure</code><span class="sig-paren">(</span><em class="sig-param">text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.measure" title="Permalink to this definition">¶</a></dt>
+<code class="descname">measure</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.measure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.measure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="campy.graphics.gfont.GFont.parse">
-<em class="property">classmethod </em><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param">description</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.parse" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">parse</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse a description into a font.</p>
 <p>A description can be either FAMILY-SIZE or FAMILY-SIZE-MODIFIERS, where
 FAMILY is the name of a font family available on the current system,
@@ -262,24 +261,24 @@ or “italic”. Examples of valid font descriptions include:</p>
 <p>This method returns None if no font could be parsed.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.size">
-<em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#campy.graphics.gfont.GFont.size" title="Permalink to this definition">¶</a></dt>
+<code class="descname">size</code><a class="headerlink" href="#campy.graphics.gfont.GFont.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.slant">
-<em class="property">property </em><code class="sig-name descname">slant</code><a class="headerlink" href="#campy.graphics.gfont.GFont.slant" title="Permalink to this definition">¶</a></dt>
+<code class="descname">slant</code><a class="headerlink" href="#campy.graphics.gfont.GFont.slant" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="classmethod">
 <dt id="campy.graphics.gfont.GFont.system">
-<em class="property">classmethod </em><code class="sig-name descname">system</code><span class="sig-paren">(</span><em class="sig-param">font_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.system" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">system</code><span class="sig-paren">(</span><em>font_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gfont.html#GFont.system"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gfont.GFont.system" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.graphics.gfont.GFont.weight">
-<em class="property">property </em><code class="sig-name descname">weight</code><a class="headerlink" href="#campy.graphics.gfont.GFont.weight" title="Permalink to this definition">¶</a></dt>
+<code class="descname">weight</code><a class="headerlink" href="#campy.graphics.gfont.GFont.weight" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

@@ -171,23 +171,26 @@
 <p>A general interval timer that fires :class:GTimerEvent`s.</p>
 <dl class="class">
 <dt id="campy.graphics.gtimer.GTimer">
-<em class="property">class </em><code class="sig-prename descclassname">campy.graphics.gtimer.</code><code class="sig-name descname">GTimer</code><span class="sig-paren">(</span><em class="sig-param">milliseconds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.graphics.gtimer.</code><code class="descname">GTimer</code><span class="sig-paren">(</span><em>milliseconds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An interval timer that generates :class:GTimerEvent`s at a fixed rate.</p>
 <dl class="method">
 <dt id="campy.graphics.gtimer.GTimer.pause">
-<code class="sig-name descname">pause</code><span class="sig-paren">(</span><em class="sig-param">milliseconds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer.pause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer.pause" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pause</code><span class="sig-paren">(</span><em>milliseconds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer.pause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer.pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pause this timer for some time before automatically resuming.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>milliseconds</strong> – How long to pause this timer for (in milliseconds).</p>
-</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>milliseconds</strong> – How long to pause this timer for (in milliseconds).</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="campy.graphics.gtimer.GTimer.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer.start" title="Permalink to this definition">¶</a></dt>
+<code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start this timer.</p>
 <p>A timer will generate :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>GTimerEvent`s until it is stopped.</p>
 <p>To achieve the effect of a one-shot timer, the best approach is to
@@ -196,7 +199,7 @@ call <a class="reference internal" href="#campy.graphics.gtimer.GTimer.stop" tit
 
 <dl class="method">
 <dt id="campy.graphics.gtimer.GTimer.stop">
-<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer.stop" title="Permalink to this definition">¶</a></dt>
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/graphics/gtimer.html#GTimer.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.graphics.gtimer.GTimer.stop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stop this timer from generating events until it is restarted.</p>
 </dd></dl>
 

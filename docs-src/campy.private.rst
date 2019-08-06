@@ -16,7 +16,6 @@ Submodules
    campy.private.consolestreambuffer
    campy.private.main
    campy.private.platform
-   campy.private.version
 
 Module contents
 ---------------

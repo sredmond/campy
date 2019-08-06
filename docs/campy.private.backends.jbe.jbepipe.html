@@ -175,7 +175,7 @@ to or read from the pipe. This means that the first call to the pipe will be
 slow, as it must take time to spawn the Java process.</p>
 <dl class="class">
 <dt id="campy.private.backends.jbe.jbepipe.JavaBackendPipe">
-<em class="property">class </em><code class="sig-prename descclassname">campy.private.backends.jbe.jbepipe.</code><code class="sig-name descname">JavaBackendPipe</code><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">campy.private.backends.jbe.jbepipe.</code><code class="descname">JavaBackendPipe</code><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A JavaBackendPipe connects to a single instance of a running JAR file.</p>
 <p>A JavaBackendPipe knows how to write strings to the backend and how to read
@@ -187,39 +187,39 @@ from the Java backend, so that the internal OS pipe is unlikely to fill up.
 When the JavaBackendPipe is deleted, the thread is joined as well.</p>
 <dl class="method">
 <dt id="campy.private.backends.jbe.jbepipe.JavaBackendPipe.get_result">
-<code class="sig-name descname">get_result</code><span class="sig-paren">(</span><em class="sig-param">consume_acks=True</em>, <em class="sig-param">stop_on_event=False</em>, <em class="sig-param">caller=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.get_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.get_result" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_result</code><span class="sig-paren">(</span><em>consume_acks=True</em>, <em>stop_on_event=False</em>, <em>caller=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.get_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.get_result" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.private.backends.jbe.jbepipe.JavaBackendPipe.get_status">
-<code class="sig-name descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.get_status" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.get_status" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="attribute">
 <dt id="campy.private.backends.jbe.jbepipe.JavaBackendPipe.pipe">
-<em class="property">property </em><code class="sig-name descname">pipe</code><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.pipe" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pipe</code><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.pipe" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.private.backends.jbe.jbepipe.JavaBackendPipe.read">
-<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="campy.private.backends.jbe.jbepipe.JavaBackendPipe.write">
-<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#JavaBackendPipe.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.JavaBackendPipe.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="campy.private.backends.jbe.jbepipe.append_output_to_queue">
-<code class="sig-prename descclassname">campy.private.backends.jbe.jbepipe.</code><code class="sig-name descname">append_output_to_queue</code><span class="sig-paren">(</span><em class="sig-param">out</em>, <em class="sig-param">queue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#append_output_to_queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.append_output_to_queue" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">campy.private.backends.jbe.jbepipe.</code><code class="descname">append_output_to_queue</code><span class="sig-paren">(</span><em>out</em>, <em>queue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#append_output_to_queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.append_output_to_queue" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="campy.private.backends.jbe.jbepipe.debug_print">
-<code class="sig-prename descclassname">campy.private.backends.jbe.jbepipe.</code><code class="sig-name descname">debug_print</code><span class="sig-paren">(</span><em class="sig-param">line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#debug_print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.debug_print" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">campy.private.backends.jbe.jbepipe.</code><code class="descname">debug_print</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/campy/private/backends/jbe/jbepipe.html#debug_print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#campy.private.backends.jbe.jbepipe.debug_print" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

@@ -101,9 +101,25 @@ class GImage(_gobjects.GObject):
     def __setitem__(self, row):
         return GImage.ImageRow(self, row, self._width)
 
+    # def __iter__(self):
+    #     for r in range(self._height):
+    #         yield GImage.ImageRow(self, r, self._width)
+
+    # TEMPORARY FIXES for parity with SimpleImage
+
     def __iter__(self):
+        """Loop over the pixels of an image in row-major order."""
+        # TODO(sredmond): This is a weird way to define image iteration, compared to row-based loops.
         for r in range(self._height):
-            yield GImage.ImageRow(self, r, self._width)
+            yield from GImage.ImageRow(self, r, self._width)
+
+    def get_pixel(self, x, y):
+        """Get the pixel at (x, y)."""
+        return self[y][x]
+
+    def set_pixel(self, x, y, pixel):
+        """Set the pixel at (x, y)."""
+        self[y][x] = pixel
 
     def preview(self):
         _platform.Platform().gimage_preview(self)

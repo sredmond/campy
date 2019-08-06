@@ -11,6 +11,7 @@ Submodules
    campy.graphics.gevents
    campy.graphics.gfilechooser
    campy.graphics.gfont
+   campy.graphics.gimage
    campy.graphics.gmath
    campy.graphics.gobjects
    campy.graphics.goptionpane
