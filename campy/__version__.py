@@ -3,7 +3,7 @@ __description__ = "Stanford's Graphical Libraries in Python"
 __url__ = 'https://campy.sredmond.io/'
 __license__ = 'MIT'
 
-__version__ = '0.0.1.dev18'
+__version__ = '0.0.1.dev19'
 __build__ = 0x000001
 __status__ = 'Alpha'
 
