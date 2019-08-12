@@ -6,7 +6,13 @@
 - MOUSE_MOVED
 - MOUSE_DRAGGED
 """
+# TODO(sredmond): Clarify the difference between MOUSE_PRESSED and MOUSE_CLICKED.
+# TODO(sredmond): Add support for mouse entry and exits.
+# TODO(sredmond): Add support for double- and triple-clicking.
+# TODO(sredmond): Add support for alternate mouse buttons (right click, middle-click, etc).
+
 import campy.private.platform as _platform
+from campy.util.decorators import curryable
 
 import enum
 
@@ -92,6 +98,7 @@ class GMouseEvent:
 
 @enum.unique
 class MouseEventType(enum.Enum):
+    MOUSE_PRESSED = 0
     MOUSE_CLICKED = 1  # TODO(sredmond): This is really a MOUSE_PRESSED. Note that somewhere.
     MOUSE_RELEASED = 2
     MOUSE_MOVED = 3
@@ -174,13 +181,11 @@ def onmousedragged(function):
     _platform.Platform().event_add_mouse_handler(MouseEventType.MOUSE_DRAGGED, function)
 
 
+
 # TODO(sredmond): Add code to generate mouse events (for mocking) too.
-
-# Convenient testing code.
+# # Convenient testing code.
 # from campy.graphics.gwindow import GWindow
-
 # from campy.graphics.gobjects import GOval, GRect
-
 # from campy.gui.events.mouse import *
 
 # window = GWindow(title='Mouse Event Test')
@@ -200,4 +205,26 @@ def onmousedragged(function):
 # @onmousedragged
 # def add_rect_on_drag(event):
 #         event.window.add(GRect(50, 50, x=event.x - 25, y=event.y - 25))
+
+# @onmouseentered
+# def print_on_entry(event):
+#     print('Entered!')
+
+# @onmouseexited
+# def print_on_exit(event):
+#     print('Exited!')
+
+# @onmousedoubleclicked
+# def print_on_double_click(event):
+#     print('Double clicked!')
+
+# @onmousetripleclicked
+# def print_on_triple_click(event):
+#     print('Triple Clicked!')
+
+# mousepress(100, 100)
+# mouseclick(200, 200)
+# mouserelease(300, 300)
+# mousemove(100, 300)
+# mousedrag(300, 100)
 
