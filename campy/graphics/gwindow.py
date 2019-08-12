@@ -500,7 +500,9 @@ class GWindow:
         """
         # TODO(sredmond): This is currently implemented as an inefficient linear scan.
         # Consider optimizing the data structure of a GCompound to speed up these queries.
-        for gobj in self._top:
+        # TODO(sredmond): If we ever reverse the iteration order of a GCompound
+        # itself to go top->bottom, remove this reversed() wrapper.
+        for gobj in reversed(self._top):
             if (x, y) in gobj:
                 return gobj
         return None
