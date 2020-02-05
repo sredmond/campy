@@ -817,7 +817,6 @@ class TkBackend(GraphicsBackendBase):
 
         win._master.update_idletasks()
 
-
     def gcheckbox_is_selected(self, gcheckbox):
         return bool(gcheckbox._tkobj.var.get())
 
@@ -828,7 +827,7 @@ class TkBackend(GraphicsBackendBase):
     def gslider_get_value(self, gslider): pass
     def gslider_set_value(self, gslider, value): pass
 
-    def gtextfield_constructor(self, gtextfield):  # FIXME
+    def gtextfield_constructor(self, gtextfield):
         if hasattr(gtextfield, '_tkwin'):
             return
 
@@ -839,7 +838,6 @@ class TkBackend(GraphicsBackendBase):
         gtextfield._tkobj.pack()
 
         win._master.update_idletasks()
-
 
     def gtextfield_get_text(self, gtextfield): 
         return gtextfield._tkobj.get()
