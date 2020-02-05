@@ -228,7 +228,7 @@ class GTextField(GInteractor):
     Hitting RETURN in a text field generates a :class:`GActionEvent`.
     """
 
-    def __init__(self, width=10):
+    def __init__(self, label, width=10):
         """Create a text field with a maximum width.
 
         A :class:`GActionEvent` is generated whenever the user presses the
@@ -238,6 +238,8 @@ class GTextField(GInteractor):
         """
         super().__init__(self)
         self._width = width
+        self.label = label
+
         _platform.Platform().gtextfield_constructor(self)
 
     @property
@@ -249,8 +251,12 @@ class GTextField(GInteractor):
     def text(self, content):
         _platform.Platform().gtextfield_set_text(self, content)
 
+    def onenter(self, fn):
+        """Set event handler for return key"""
+        _platform.Platform().gtextfield_set_enter_event(self, fn)
+
     def __str__(self):
-        return "GTextField(text={}, width={})".format(self.text, self.width)
+        return "GTextField(text={}, label={}, width={})".format(self.text, self.label, self.width)
 
 
 class GChooser(GInteractor):

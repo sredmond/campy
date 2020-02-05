@@ -827,8 +827,26 @@ class TkBackend(GraphicsBackendBase):
     def gslider_constructor(self, gslider, min, max, value): pass
     def gslider_get_value(self, gslider): pass
     def gslider_set_value(self, gslider, value): pass
-    def gtextfield_constructor(self, gtextfield, num_chars): pass
-    def gtextfield_get_text(self, gtextfield): pass
+
+    def gtextfield_constructor(self, gtextfield):  # FIXME
+        if hasattr(gtextfield, '_tkwin'):
+            return
+
+        win = self._windows[-1]
+        gtextfield._tkin = win
+
+        gtextfield._tkobj = tk.Entry(win._master, width=40, name=gtextfield.label, borderwidth=2)
+        gtextfield._tkobj.pack()
+
+        win._master.update_idletasks()
+
+
+    def gtextfield_get_text(self, gtextfield): 
+        return gtextfield._tkobj.get()
+
+    def gtextfield_set_enter_event(self, gtextfield, fn):
+        gtextfield._tkobj.bind("<Return>", lambda event: fn(event))
+
     def gtextfield_set_text(self, gtextfield, str): pass
     def gchooser_constructor(self, gchooser): pass
     def gchooser_add_item(self, gchooser, item): pass
