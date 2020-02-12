@@ -62,9 +62,9 @@ class TkWindow:
         self._master.resizable(width=False, height=False)  # Disable resizing by default.
 
         # Raise the master to be the top window.
-        self._master.wm_attributes("-topmost", 1)  # TODO(sredmond): Is this really necessary?
-        self._master.lift()
-        self._master.focus_force()
+        #self._master.wm_attributes("-topmost", 1)  # TODO(sredmond): Is this really necessary?
+        #self._master.lift()
+        #self._master.focus_force()
 
         # TODO(sredmond): On macOS, multiple backends might race to set the process-level menu bar.
         setup_menubar(self._master)
@@ -834,7 +834,7 @@ class TkBackend(GraphicsBackendBase):
         win = self._windows[-1]
         gtextfield._tkin = win
 
-        gtextfield._tkobj = tk.Entry(win._master, width=40, name=gtextfield.label, borderwidth=2)
+        gtextfield._tkobj = tk.Entry(win._master, width=40, borderwidth=2)
         gtextfield._tkobj.pack()
 
         win._master.update_idletasks()
