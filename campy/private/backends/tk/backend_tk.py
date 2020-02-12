@@ -61,7 +61,7 @@ class TkWindow:
         self._master.protocol("WM_DELETE_WINDOW", self._close)
         self._master.resizable(width=False, height=False)  # Disable resizing by default.
 
-        # Raise the master to be the top window.
+        # For testing: Raise the master to be the top window.
         #self._master.wm_attributes("-topmost", 1)  # TODO(sredmond): Is this really necessary?
         #self._master.lift()
         #self._master.focus_force()
@@ -833,11 +833,10 @@ class TkBackend(GraphicsBackendBase):
 
         win = self._windows[-1]
         gtextfield._tkin = win
-
-        gtextfield._tkobj = tk.Entry(win._master, width=40, borderwidth=2)
-        gtextfield._tkobj.pack()
-
-        win._master.update_idletasks()
+        
+        gtextfield._tkobj = tk.Entry(win._master, width=40, borderwidth=2)#, 
+                                     #state=tk.NORMAL if not gtextfield._disabled else tk.DISABLED)
+        #win._master.update_idletasks() # Doesn't seem necessary
 
     def gtextfield_get_text(self, gtextfield): 
         return gtextfield._tkobj.get()

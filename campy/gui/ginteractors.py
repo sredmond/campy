@@ -238,7 +238,7 @@ class GTextField(GInteractor):
         """
         super().__init__(self)
         self._width = width
-        self.label = label
+        self._label = label
 
         _platform.Platform().gtextfield_constructor(self)
 
