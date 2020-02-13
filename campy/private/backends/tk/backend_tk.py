@@ -840,7 +840,7 @@ class TkBackend(GraphicsBackendBase):
             return
 
         win = self._windows[-1]
-        gtextfield._tkin = win
+        gtextfield._tkwin = win
 
         # If we want to be able to call functions on the interactor before it renders
         # (e.g. add_enter_handler), the below line is necessary. Otherwise, just 

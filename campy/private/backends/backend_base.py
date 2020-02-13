@@ -162,6 +162,7 @@ class GraphicsBackendBase(abc.ABC):
     def gtextfield_constructor(self, gtextfield, num_chars): pass
     def gtextfield_get_text(self, gtextfield): pass
     def gtextfield_set_text(self, gtextfield, text): pass
+    def gtextfield_set_enter_event(self, gtextfield, fn): pass
     def gchooser_constructor(self, gchooser): pass
     def gchooser_add_item(self, gchooser, item): pass
     def gchooser_get_selected_item(self, gchooser): pass

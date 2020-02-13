@@ -256,7 +256,7 @@ class GTextField(GInteractor):
         _platform.Platform().gtextfield_set_enter_event(self, function)
 
     def __str__(self):
-        return "GTextField(text={}, label={}, width={})".format(self.text, self.label, self.width)
+        return "GTextField(text={}, width={})".format(self.text, self.width)
 
 
 class GChooser(GInteractor):
