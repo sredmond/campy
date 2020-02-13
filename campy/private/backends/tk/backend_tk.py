@@ -786,8 +786,9 @@ class TkBackend(GraphicsBackendBase):
             gint._tkobj = tk.Button(frame, text=gint.label, command=gint.click,
             state=tk.NORMAL if not gint.disabled else tk.DISABLED)
 
-        if is_north_south: # Use grid manager to add widgets left to right in north/south
-            gint._tkobj.grid(row=0, column=frame.grid_size()[1]) 
+        if is_north_south:
+            gint._tkobj.pack(side=tk.LEFT)
+            #gint._tkobj.grid(row=0, column=frame.grid_size()[1]) # How it would work with grid
         else:
             gint._tkobj.pack()
 
