@@ -777,16 +777,20 @@ class TkBackend(GraphicsBackendBase):
     ###############
     def _ginteractor_add(self, gint, frame, is_north_south):
         from campy.gui.ginteractors import GButton, GTextField
+            
+        if isinstance(gint, GTextField):
+            gint._tkobj = tk.Entry(frame, width=40, borderwidth=2) 
+            print("I am text field")
+
         if isinstance(gint, GButton):
             # TODO(sredmond): Wrap up a GActionEvent on the Tk side to supply.
             gint._tkobj = tk.Button(frame, text=gint.label, command=gint.click,
             state=tk.NORMAL if not gint.disabled else tk.DISABLED)
-        
-        if isinstance(gint, GTextField):
-            gint._tkobj = tk.Entry(frame, width=40, borderwidth=2) 
+            print("I am button")
 
         if is_north_south:
-            gint._tkobj.pack(side=tk.RIGHT) # FIXME
+            print(frame.grid_size()[1])
+            gint._tkobj.grid(row=0, column=frame.grid_size()[1])#side=tk.RIGHT) # FIXME
         else:
             gint._tkobj.pack()
 
@@ -841,9 +845,10 @@ class TkBackend(GraphicsBackendBase):
         win = self._windows[-1]
         gtextfield._tkin = win
 
-        gtextfield._tkobj = tk.Entry(win._master, width=40, borderwidth=2)#, 
-                                     #state=tk.NORMAL if not gtextfield._disabled else tk.DISABLED)
-        #win._master.update_idletasks() # Doesn't seem necessary
+        # If we want to be able to call functions on the interactor before it renders
+        # (e.g. add_enter_handler), the below line is necessary. Otherwise, just 
+        # tell students they have to add_to_region before calling methods on the interactor.
+        #gtextfield._tkobj = tk.Entry(win._master, width=40, borderwidth=2)
 
     def gtextfield_get_text(self, gtextfield): 
         return gtextfield._tkobj.get()
