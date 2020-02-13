@@ -780,17 +780,14 @@ class TkBackend(GraphicsBackendBase):
             
         if isinstance(gint, GTextField):
             gint._tkobj = tk.Entry(frame, width=40, borderwidth=2) 
-            print("I am text field")
 
         if isinstance(gint, GButton):
             # TODO(sredmond): Wrap up a GActionEvent on the Tk side to supply.
             gint._tkobj = tk.Button(frame, text=gint.label, command=gint.click,
             state=tk.NORMAL if not gint.disabled else tk.DISABLED)
-            print("I am button")
 
-        if is_north_south:
-            print(frame.grid_size()[1])
-            gint._tkobj.grid(row=0, column=frame.grid_size()[1])#side=tk.RIGHT) # FIXME
+        if is_north_south: # Use grid manager to add widgets left to right in north/south
+            gint._tkobj.grid(row=0, column=frame.grid_size()[1]) 
         else:
             gint._tkobj.pack()
 
