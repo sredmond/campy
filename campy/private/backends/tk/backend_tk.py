@@ -786,10 +786,10 @@ class TkBackend(GraphicsBackendBase):
             gint._tkobj = tk.Button(frame, text=gint.label, command=gint.click,
             state=tk.NORMAL if not gint.disabled else tk.DISABLED)
 
-        if is_north_south:
+        if is_north_south: # Pack things left to right in north and south
             gint._tkobj.pack(side=tk.LEFT)
             #gint._tkobj.grid(row=0, column=frame.grid_size()[1]) # How it would work with grid
-        else:
+        else: # Pack things top to bottom in west and east
             gint._tkobj.pack()
 
         frame.update_idletasks()
