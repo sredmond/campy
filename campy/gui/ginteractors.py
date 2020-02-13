@@ -251,9 +251,9 @@ class GTextField(GInteractor):
     def text(self, content):
         _platform.Platform().gtextfield_set_text(self, content)
 
-    def onenter(self, fn):
+    def add_enter_handler(self, function):
         """Set event handler for return key"""
-        _platform.Platform().gtextfield_set_enter_event(self, fn)
+        _platform.Platform().gtextfield_set_enter_event(self, function)
 
     def __str__(self):
         return "GTextField(text={}, label={}, width={})".format(self.text, self.label, self.width)

@@ -264,13 +264,13 @@ class TkBackend(GraphicsBackendBase):
     def gwindow_add_to_region(self, gwindow, gobject, region):
         from campy.graphics.gwindow import Region
         if region == Region.NORTH:
-            self._ginteractor_add(gobject, gwindow._tkwin.top)
+            self._ginteractor_add(gobject, gwindow._tkwin.top, True)
         if region == Region.EAST:
-            self._ginteractor_add(gobject, gwindow._tkwin.right)
+            self._ginteractor_add(gobject, gwindow._tkwin.right, False)
         if region == Region.SOUTH:
-            self._ginteractor_add(gobject, gwindow._tkwin.bottom)
+            self._ginteractor_add(gobject, gwindow._tkwin.bottom, True)
         if region == Region.WEST:
-            self._ginteractor_add(gobject, gwindow._tkwin.left)
+            self._ginteractor_add(gobject, gwindow._tkwin.left, False)
 
     def gwindow_remove_from_region(self, gwindow, gobject, region): pass
     def gwindow_set_region_alignment(self, gwindow, region, align): pass
@@ -775,13 +775,20 @@ class TkBackend(GraphicsBackendBase):
     ###############
     # Interactors #
     ###############
-    def _ginteractor_add(self, gint, frame):
-        from campy.gui.ginteractors import GButton
+    def _ginteractor_add(self, gint, frame, is_north_south):
+        from campy.gui.ginteractors import GButton, GTextField
         if isinstance(gint, GButton):
             # TODO(sredmond): Wrap up a GActionEvent on the Tk side to supply.
             gint._tkobj = tk.Button(frame, text=gint.label, command=gint.click,
             state=tk.NORMAL if not gint.disabled else tk.DISABLED)
-        gint._tkobj.pack()
+        
+        if isinstance(gint, GTextField):
+            gint._tkobj = tk.Entry(frame, width=40, borderwidth=2) 
+
+        if is_north_south:
+            gint._tkobj.pack(side=tk.RIGHT) # FIXME
+        else:
+            gint._tkobj.pack()
 
         frame.update_idletasks()
 
@@ -833,7 +840,7 @@ class TkBackend(GraphicsBackendBase):
 
         win = self._windows[-1]
         gtextfield._tkin = win
-        
+
         gtextfield._tkobj = tk.Entry(win._master, width=40, borderwidth=2)#, 
                                      #state=tk.NORMAL if not gtextfield._disabled else tk.DISABLED)
         #win._master.update_idletasks() # Doesn't seem necessary
