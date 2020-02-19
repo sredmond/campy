@@ -133,18 +133,26 @@ class TkWindow:
     def clear(self):
         # Delete all canvas elements and all interactors, but leave the canvas and interactor regions in place."""
         self.clear_canvas()
+
+        # Since each interactor_area.children is a dictionary, must move to a list first before
+        # clearing dictionary destroying the individual items
+        interactors_to_remove = []
         if self._top:
-            for child in self._top.children:
-                child.destroy()
+            interactors_to_remove += [child[1] for child in self._top.children.items()]
+            self._top.children.clear()
         if self._bottom:
-            for child in self._bottom.children:
-                child.destroy()
+            interactors_to_remove += [child[1] for child in self._bottom.children.items()]
+            self._bottom.children.clear()
         if self._left:
-            for child in self._left.children:
-                child.destroy()
+            interactors_to_remove += [child[1] for child in self._left.children.items()]
+            self._left.children.clear()
         if self._right:
-            for child in self._right.children:
-                child.destroy()
+            interactors_to_remove += [child[1] for child in self._right.children.items()]
+            self._right.children.clear()
+
+        while (len(interactors_to_remove) > 0):
+            interactors_to_remove[0].destroy()
+            interactors_to_remove.pop(0)
 
     def clear_canvas(self):
         # Delete all canvas elements, but leave the canvas (and all interactor regions) in place.
