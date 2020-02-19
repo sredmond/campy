@@ -381,6 +381,9 @@ class GWindow:
         _platform.Platform().gwindow_clear(self)  # Remove from background layer.
         self._top.clear()  # Remove from foreground layer.
 
+    def clear_canvas(self):
+        _platform.Platform().gwindow_clear_canvas(self)
+
     def add(self, gobj, x=None, y=None):
         """Add a :class:`GObject` to the foreground layer of this :class:`GWindow`.
 
