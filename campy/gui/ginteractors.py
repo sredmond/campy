@@ -130,15 +130,14 @@ class GButton(GInteractor):
         except ValueError:
             return False
 
-    def _click(self, event):
+    def _click(self):
         """Default click implementation doesn't do anything."""
         for listener in self._listeners:
-            listener(event)
+            listener()
 
     def click(self):
         # Make an event to pass to click handler.
-        event = GActionEvent(None, None, None)
-        self._click(event)
+        self._click()
 
 
 class GCheckBox(GInteractor):

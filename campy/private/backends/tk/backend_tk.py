@@ -860,7 +860,8 @@ class TkBackend(GraphicsBackendBase):
         return gtextfield._tkobj.get()
 
     def gtextfield_set_enter_event(self, gtextfield, fn):
-        gtextfield._tkobj.bind("<Return>", lambda event: fn(event))
+        gtextfield._tkobj.bind("<Return>", lambda event: fn())
+        # Removed requirement for fn to take event since it's not really necessary
 
     def gtextfield_set_text(self, gtextfield, str): pass
     def gchooser_constructor(self, gchooser): pass
